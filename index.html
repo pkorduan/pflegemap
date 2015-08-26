@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pflegeportal LWL-PCH</title>
+  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="http://openlayers.org/en/v3.8.2/css/ol.css" type="text/css">
+  <link rel="stylesheet" href="styles/css/map.css" type="text/css">
+  <script src="http://openlayers.org/en/v3.8.2/build/ol.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+<div class="row-fluid">
+  <div class="span12">
+    <div id="map" class="map"></div>
+  </div>
+</div>
+
+</div>
+<script>
+var layers = [
+  new ol.layer.Tile({
+    source: new ol.source.OSM({
+      url: 'http://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      crossOrigin: null
+    })
+  }),
+  new ol.layer.Image({
+    source: new ol.source.ImageWMS({
+      attributions: [new ol.Attribution({
+        html: '&copy; <a href="http://www.orka-mv.de/">'
+      })],
+      crossOrigin: 'anonymous',
+      params: { 'LAYERS': 'stadtplan' },
+      serverType: 'mapserver',
+      url: 'http://geo.sv.rostock.de/geodienste/stadtplan/wms/'
+    })
+  })
+];
+
+// A minimal projection object is configured with only the SRS code and the map
+// units. No client-side coordinate transforms are possible with such a
+// projection object. Requesting tiles only needs the code together with a
+// tile grid of Cartesian coordinates; it does not matter how those
+// coordinates relate to latitude or longitude.
+var projection = new ol.proj.Projection({
+  code: 'EPSG:25833',
+  units: 'm'
+});
+
+var map = new ol.Map({
+  layers: layers,
+  target: 'map',
+  view: new ol.View({
+    center: [1400000, 7100000],
+    zoom: 8
+  })
+});
+
+</script>
+</body>
+</html>
