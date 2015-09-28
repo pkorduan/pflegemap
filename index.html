@@ -2,34 +2,39 @@
 <html>
 <head>
   <title>Pflegeportal LWL-PCH</title>
-  <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"-->
+  <link rel="stylesheet" href="3rdparty/Skeleton/css/skeleton.css">
   <link rel="stylesheet" href="3rdparty/OpenLayers/v3.8.2/css/ol.css" type="text/css">
   <link rel="stylesheet" href="styles/css/map.css" type="text/css">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-  <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script-->
   <script src="datastore.js"></script>
   <script src="3rdparty/OpenLayers/v3.8.2/build/ol-debug.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.6/proj4.js"></script>
   <script src="http://epsg.io/25833.js"></script>
 </head>
 <body>
-  <div class="container-1">
-    <div class="container-left">
-      <div class="box">
+  <div class="container">
+    <div class="row">
+      <div class="twelve columns">
         <div class="container-4">
-          <input type="search" id="search" placeholder="Search..." />
-          <button class="icon"><i class="fa fa-search"></i></button>
-        </div>
-      </div>
-      <div id="map" class="map"></div>
-      <div id="coordinates">
-        <div>Projektion ETRS89 / UTM zone 33N</div>
-      </div>
-    </div>
-    <div class="container-right">
-    </div>
-  </div>
+          <input class="u-full-width" type="search" id="search" placeholder="Search..." />
+          <!--button class="icon"><i class="fa fa-search"></i></button-->
+        </div class="container-4">
+      </div class="twelve columns">
+    </div class="row">
+    <div class="row">
+      <div class="twelve columns">
+        <div id="map" class="map"></div>
+      </div class="twelve columns">
+    </div class="row">
+    <div class="row">
+      <div class="twelve columns">
+        <div id="coordinates">
+          <div>Projektion ETRS89 / UTM zone 33N</div>
+        </div class="coordinates">
+      </div class="twelve columns">
+    </div class="row">
+  </div class="container">
   <script type="text/javascript">
   /**
    * Define a namespace for the application.
