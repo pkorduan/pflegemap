@@ -5,12 +5,12 @@
   <link rel="stylesheet" href="3rdparty/Skeleton/css/skeleton.css">
   <link rel="stylesheet" href="3rdparty/OpenLayers/v3.8.2/css/ol.css" type="text/css">
   <link rel="stylesheet" href="styles/css/map.css" type="text/css">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <link href="3rdparty/FontAwesome/font-awesome.min.css" rel="stylesheet">
+  <script src="3rdparty/jQuery/jquery-1.11.2.min.js"></script>
   <script src="datastore.js"></script>
   <script src="3rdparty/OpenLayers/v3.8.2/build/ol-debug.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.6/proj4.js"></script>
-  <script src="http://epsg.io/25833.js"></script>
+  <script src="3rdparty/proj4js/proj4.js"></script>
+  <script src="3rdparty/proj4js/25833.js"></script>
 </head>
 <body>
   <div class="container">
@@ -23,9 +23,34 @@
       </div class="twelve columns">
     </div class="row">
     <div class="row">
-      <div class="twelve columns">
+      <div class="three columns">
+        <div id="list" class="mylist">
+          List
+          <label>
+            <input id="cb-all-kat" type="checkbox" checked/>
+            <span class="label-body">alle Kategorien</span>
+          </label>
+          <label>
+            <input kategorie="ph" class="cb-kat" type="checkbox" checked/>
+            <span class="label-body">Pflegeheime</span>
+          </label>
+          <label>
+            <input kategorie="tp" class="cb-kat" type="checkbox" checked/>
+            <span class="label-body">Tagespflegeeinrichtungen</span>
+          </label>
+          <label>
+            <input kategorie="bw" class="cb-kat" type="checkbox" checked/>
+            <span class="label-body">Betreutes Wohnen</span>
+          </label>
+          <label>
+            <input kategorie="ap" class="cb-kat" type="checkbox" checked/>
+            <span class="label-body">Ambulante Pflegedienste</span>
+          </label>
+       </div>
+      </div class="three columns">
+      <div class="nine columns">
         <div id="map" class="map"></div>
-      </div class="twelve columns">
+      </div class="nine columns">
     </div class="row">
     <div class="row">
       <div class="twelve columns">
@@ -164,6 +189,62 @@
     
     // Vektorlayer zur Karte hinzufügen
     vektorLayer.setMap(map);
+    
+    function zeigeEinrichtungen(store, katStyles, layer){
+      var features = [];
+      for (var i = 0; i < store.length; i++){
+        var inst = store[i];
+        var feature = new ol.Feature(new ol.geom.Point(ol.proj.transform([inst.lon,inst.lat], 'EPSG:4326', PflegeMap.viewProjection)));
+        feature.setStyle(katStyles[inst.kategorie]);
+        features.push(feature);
+      }
+      layer.setSource(new ol.source.Vector({
+        features: features
+      }));
+      
+      // Vektorlayer zur Karte hinzufügen
+      vektorLayer.setMap(map);
+    };
+    
+//    zeigeEinrichtungen(store, katStyles, map);
+    
+    // Handler für Kategorie-Checkboxen
+    $(".cb-kat").change(function(event){
+      if (event.target.checked){
+        // alle Kategorien gewählt?
+        var allChecked = true;
+        $(".cb-kat").each(function(){if (!this.checked) allChecked = false;});
+        if (allChecked) $("#cb-all-kat")[0].checked = true;
+      }
+      else {
+        // un-check alle Kategorien
+        if ($("#cb-all-kat").val() == 'on') {
+          $("#cb-all-kat")[0].checked = false;
+        }
+      }
+      // refresh display
+      var einrichtungen = [];
+      $(".cb-kat").each(function(){
+        if (this.checked) {
+          var cb = this;
+          var filterAntwort = store.filter(function(elem){
+            return elem.kategorie == cb.getAttribute('kategorie');
+          }, cb);
+          einrichtungen = einrichtungen.concat(filterAntwort);
+        }
+      });
+      zeigeEinrichtungen(einrichtungen, katStyles, vektorLayer);
+    });
+    // Handler für "alle Kategorien"
+    $("#cb-all-kat").change(function(event){
+      if (event.target.checked){
+        $(".cb-kat").each(function(){this.checked = true;});
+        zeigeEinrichtungen(store, katStyles, vektorLayer);
+      } else {
+        $(".cb-kat").each(function(){this.checked = false;});
+        zeigeEinrichtungen([], katStyles, vektorLayer);
+      }
+    })
     
   </script>
 </body>
