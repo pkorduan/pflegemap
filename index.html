@@ -19,6 +19,11 @@
         <div class="container-4">
           <input class="u-full-width" type="search" id="search" placeholder="Search..." />
           <!--button class="icon"><i class="fa fa-search"></i></button-->
+          <!--select class="u-full-width" id="nominatimResponseList" style_="display:none;">
+            <option value="Option 1">Questions</option>
+            <option value="Option 2">Admiration</option>
+            <option value="Option 3">Can I get your number?</option>
+          </select-->
         </div class="container-4">
       </div class="twelve columns">
     </div class="row">
@@ -244,7 +249,94 @@
         $(".cb-kat").each(function(){this.checked = false;});
         zeigeEinrichtungen([], katStyles, vektorLayer);
       }
-    })
+    });
+    
+    function showNominatimResults(jsonResultArray){
+      var displayNamesArray = jsonResultArray.map(function(item){
+        return item.display_name;
+      });
+      console.log(displayNamesArray);
+    };
+    function lookupPhoton(queryStr, successFn, errorFn, scope){
+      successFn = successFn || function() {};
+      errorFn   = errorFn   || function() {};
+      scope     = scope     || this;
+      
+      var jqxhr = $.ajax( "http://photon.komoot.de/api",{
+        data: {
+          q              : queryStr,
+          lat            : 53.326342,
+          lon            : 11.5,
+          limit          : 5,
+          lang           : 'de',
+        }
+      })
+      .done(function(response) {
+        successFn.apply(scope,["success", response]);
+      })
+      .fail(function() {
+        errorFn.apply(scope, ["error"] );
+      });
+    };
+    
+    
+    function lookupNominatim(queryStr, successFn, errorFn, scope){
+      successFn = successFn || function() {};
+      errorFn   = errorFn   || function() {};
+      scope     = scope     || this;
+      
+      var jqxhr = $.ajax( "http://nominatim.openstreetmap.org/search",{
+        data: {
+          q              : queryStr,
+          format         : 'json',
+          addressdetails : 1
+        }
+      })
+      .done(function(response) {
+        successFn.apply(scope,["success", response]);
+      })
+      .fail(function() {
+        errorFn.apply(scope, ["error"] );
+      });
+    };
+    
+    // Handler für search Feld
+    // Mit jeder Tasteneingabe wird ein Timer gestartet,
+    // der nach <delay> Millisekunden die Verarbeitung der
+    // Eingaben startet. Sobald innerhalb des Delays eine
+    // weitere Eingabe erfolgt, wird der Timer von neuem
+    // gestartet.
+    var delay = 1200;
+    var timeOutHandle;
+    
+    $("#search").on('input_', function(event){
+      window.clearTimeout(timeOutHandle);
+      var queryStr = event.target.value;
+      
+      // erst ab einer Eingabelänge von 3 Zeichen
+      if (queryStr.length < 3) return;
+      
+      timeOutHandle = window.setTimeout(function(){
+//        lookupPhoton(queryStr, function success(arg,response){
+        lookupNominatim(queryStr, function success(arg,response){
+          showNominatimResults(response);
+        }, function error(arg){
+          console.log(arg);
+        });
+      }, delay);
+    });
+    
+    $("#search").on('change', function(event){
+      window.clearTimeout(timeOutHandle);
+      var queryStr = event.target.value;
+//        lookupPhoton(queryStr, function success(arg,response){
+        lookupNominatim(queryStr, function success(arg,response){
+        showNominatimResults(response);
+      }, function error(arg){
+        console.log(arg);
+      });
+      
+    });
     
   </script>
 </body>
