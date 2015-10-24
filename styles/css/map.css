@@ -1,4 +1,4 @@
-#Pflegemap.map {
+#PflegeMap.map {
   display: block;
 #  width: 70%;
   height: 500px;
@@ -11,7 +11,7 @@
   border: 1px solid #dddddd;
   position: relative;  
 }
-#coordinates {
+#PflegeMap.coordinates {
   display: block;
 #  width: 70%;
   margin-top: 2px;
