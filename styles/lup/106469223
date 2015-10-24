@@ -1,0 +1,21 @@
+document.write("<script type=\"text/javascript\" src=\"http://include-mv.zfinder.de:80/infoservices-public/js/log.js\"></script>");var url = document.URL;
+var startindex = 0;
+var endindex = (url.lastIndexOf("?") != -1) ? url.lastIndexOf("?") : url.length;
+var scriptname = url.substring(startindex,endindex);
+var callStart=url.lastIndexOf("tsaid_calling_page=");
+if( callStart!=-1){
+  var callEnd=url.indexOf("&",callStart);
+  if(callEnd<0) url=url.substring(0,callStart);
+  else url=url.substring(0,callStart)+url.substring(callEnd+1,url.length);
+}
+var callStart=url.lastIndexOf("tsaid_mode=");
+if( callStart!=-1){
+  var callEnd=url.indexOf("&",callStart);
+  if(callEnd<0) url=url.substring(0,callStart);
+  else url=url.substring(0,callStart)+url.substring(callEnd+1,url.length);
+}
+var queryurl = "http://include-mv.zfinder.de:80/106469223?tsaid_mode=outputjs&tsaid_calling_page="+scriptname;
+if (url.lastIndexOf("?") != -1)
+queryurl += "&"+url.substring(url.lastIndexOf("?")+1,url.length);
+document.write('<script language="Javascript" src="'+queryurl+'"></script>');
+document.close();

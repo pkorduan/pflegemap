@@ -1,0 +1,495 @@
+/* Google Custom Search */
+
+.gsc-selected-option-container {
+	max-width: 100% !important;
+	min-width: 95px !important;
+}
+
+/* TSA */
+
+.tsabox,
+.tsaid_tsabox {
+	/*padding-bottom: 0 !important;*/
+	font-size: 13px;
+	line-height: 17px;	
+}
+
+.tsaid_tsabox {
+	font-family: 'Droid Sans', sans-serif !important;
+    background-color: #edeae5;
+    padding: 14px 10px !important; 
+    margin-bottom: 15px !important;
+    color: #64645a !important;
+}
+
+.tsaid_tsabox h2 {
+	font-weight: 700;
+	font-size: 18px !important;
+	line-height: 21px;
+	color: #1e398f;
+}
+
+.ytsa_page {
+	padding: 0 !important;
+}
+
+.tsaid_LayoutZeile_01,
+.tsaid_LayoutZeile_02 {
+	width: 890px !important;	
+}
+
+#tsaid_contenttab .tsaid_QueryElementSearchFieldOrganisationalUnitWrapper input[type="text"],
+.tsaid_tsabox input[type="text"] {
+	width: 190px !important;
+}
+
+.tsaid_tsabox .tsaid_searchButton {
+	margin: 0 0 0 84px !important;
+}
+
+.tsaid_searchButton {
+	margin: 0 0 0 120px !important;
+}
+
+.tsaid_toggle,
+.tsaid_resetButton {
+	display: none;
+}
+.ytsa_page form div label {
+	vertical-align: middle !important;
+	width: 120px !important;
+}
+
+.tsaid_LayoutZeile_01 h1 {
+	font-size: 32px !important;
+	line-height: 38px !important;
+}
+
+#tsaid_ListeLeistung_01 {
+	padding-top: 20px;
+}
+
+#tsaid_ListeLeistung_01 h2 {
+	font-size: 20px;
+	line-height: 28px;
+	margin: 0;
+	padding: 7px 0 6px;	
+	color: #64645a;
+}
+
+#tsaid_ListeLeistung_01 table {
+	margin-left: 20px;
+}
+
+#tsaid_ListeLeistung_01 table tr {
+	border-color: white;
+	background-color: white !important;
+}
+
+.ytsa_datalist table tr td {
+	border: 0;
+	padding-bottom: 5px;
+}
+
+
+#tsaid_ListeLeistung_01 table tr td a:before {
+	content: "\2022";
+	padding-right: 5px;
+}
+
+.ytsa_datalist table thead,
+.tsaid_searchInfos,
+.tsaid_pageDescription {
+	display: none;
+}
+
+/* neu - Leistungsdetails */
+
+#tsaid_AnsichtLeistung_01 > .tsaid_DESCRIPTION > .tsaid_label {
+	display: none;
+}
+
+#tsaid_AnsichtLeistung_01 > .tsaid_DESCRIPTION > .tsaid_data {
+	width: 100%;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_DESCRIPTION .tsaid_data > div {
+	border-bottom: 4px solid #edeae5;
+	padding: 12px 0;	
+} 
+
+#tsaid_AnsichtLeistung_01 .tsaid_contentNameHeader {
+	border: 0;
+	background: transparent;
+	padding: 0;	
+	margin-bottom: 0;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_contentNameHeader:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_contentNameHeader .tsaid_contentNameImage {
+	border: 0;
+	padding: 0 0 0 30px;	
+	margin: 1px 0 0 0;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_contentNameHeader .tsaid_contentNameImage.tsaid_expanded {
+	/*opacity: 0.6;*/
+    background: url("../images/accord2.png") no-repeat scroll 10px center transparent;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_contentNameHeader .tsaid_contentNameImage.tsaid_collapsed {
+	background: url("../images/accord1.png") no-repeat scroll 12px center transparent;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_contentNameHeader h4 {
+	color: #3498db;
+	font-size: 18px;
+	line-height: 20px;
+	margin: 0;
+	font-family: "Montserrat",sans-serif;
+	font-weight: 700;
+	cursor: pointer;	
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_MAIN,
+#tsaid_AnsichtLeistung_01 .tsaid_ADDITION,
+#tsaid_AnsichtLeistung_01 .tsaid_AREA {
+	color: #64645a;
+	margin: 0;
+	font-size: 13px;
+	line-height: 19px;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_MAIN {
+	padding: 12px 0 6px 30px;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_ADDITION,
+#tsaid_AnsichtLeistung_01 .tsaid_AREA {
+	padding: 0 0 6px 30px;
+}
+
+#tsaid_AnsichtLeistung_01 ul {
+	/*margin: 1.6em 0 0;*/
+	margin: 0 0 0 1em;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_AREA h5 {
+	color: #64645a;
+	margin-top: 5px;
+	font-style: normal;
+	font-weight: bold;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_AREA strong {
+	font-weight: normal;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_AREA h5:after {
+	content: ":";
+}
+
+/* neu - Leistungsdetails # Ende */
+
+.tsabox a:before,
+.tsaid_tsabox a:before {
+	color: #64645A;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_TITLE .tsaid_label {
+	display: none;
+}
+
+#tsaid_AnsichtLeistung_01 .tsaid_TITLE .tsaid_data {
+	font-size: 25px;
+	line-height: 30px;
+	color: #64645a;	
+}
+
+#tsaid_AnsichtLeistung_01 a:after,
+#tsaid_ListeLeistung_01 a:after,
+.tsabox a:after,
+.tsaid_tsabox a:after,
+.tsaid_FULLNAME .tsaid_data:after {
+	background: url("../images/arrow.png") no-repeat scroll right 5px transparent;
+	content: "";
+	height: 8px;
+	padding-left: 9px;
+	width: 5px;
+}
+
+#suche_tsaid_SuchgruppeGebiet_01 {
+	margin: 20px 0;
+}
+
+#suche_tsaid_SuchgruppeGebiet_01 input[type="text"]{
+	padding: 7px 5px;
+	width: 270px;
+}
+#suche_tsaid_SuchgruppeGebiet_01 input[type="submit"]{
+	vertical-align: bottom;
+}
+
+#suche_tsaid_SuchgruppeGebiet_01 .tsaid_currentSelection {
+	margin-left: 120px !important;
+	width: 280px !important;
+}
+
+#suche_tsaid_SuchgruppeGebiet_01 .tsaid_validationMessage {
+	margin-left: 120px !important;
+}
+
+.tsaid_OrganisationalUnitData > div {
+	display: block;
+}
+
+.tsaid_POSTADRESSE, .tsaid_OPENINGHOURS,  .tsaid_ELEVATOR, .tsaid_OrganisationalUnitData .tsaid_PHONE, .tsaid_OrganisationalUnitData, .tsaid_OrganisationalUnitData .tsaid_EMAIL,
+.tsaid_OrganisationalUnitData .tsaid_MAPLINK {
+	padding-top: 10px !important;
+}
+
+.tsaid_QueryElementSingleViewOrganisationalUnit {
+	padding-bottom: 10px;
+}
+
+.tsaid_QueryElementSingleViewListPerson, .tsaid_QueryElementSingleViewListForm {
+	padding-top: 15px !important;
+}
+
+.tsaid_QueryElementSingleViewPerson {
+	padding-top: 10px;
+}
+
+.tsaid_OrganisationalUnitData .tsaid_NAME {
+	font-weight: bold;
+}
+
+.tsaid_POSTADRESSE .tsaid_label {
+	display: block;
+}
+
+.tsaid_OPENINGHOURS .tsaid_label {
+	display: block;
+	font-weight: bold;
+}
+
+.tsaid_ELEVATOR .tsaid_label,
+.tsaid_WHEELCHAIRACCESSIBLE .tsaid_label {
+	font-weight: bold;
+}
+
+/* Ansprechpartner-Akkordeon */
+.tsaid_QueryElementSingleViewPerson .tsaid_FULLNAME {
+	cursor: pointer;
+	color: #27ae61;
+}
+
+.tsaid_EMAIL .tsaid_data,
+.tsaid_EMAIL .tsaid_label,
+.tsaid_ELEVATOR .tsaid_data,
+.tsaid_ELEVATOR .tsaid_label,
+.tsaid_WHEELCHAIRACCESSIBLE .tsaid_data,
+.tsaid_WHEELCHAIRACCESSIBLE .tsaid_label,
+.tsaid_PHONE .tsaid_data,
+.tsaid_PHONE .tsaid_label,
+.tsaid_ROOM .tsaid_data,
+.tsaid_ROOM .tsaid_label,
+.tsaid_FAX .tsaid_data,
+.tsaid_FAX .tsaid_label {
+	display: inline !important;
+}
+
+.tsaid_value {
+	font-weight: bold;
+}
+
+.tsabox a,
+.tsaid_tsabox a,
+#tsaid_ListeLeistung_01 a {
+	display: inline !important;
+	color: #27ae61 !important;
+}
+
+#tsaid_NavLeistungAZ_01 ul {
+	margin: 0;
+	padding: 0;
+}
+
+#tsaid_NavLeistungAZ_01 ul li {
+	display: inline-block;
+}
+
+#tsaid_NavLeistungAZ_01 ul li a,
+#tsaid_NavLeistungAZ_01 .tsaid_selected {
+	margin-bottom: 4px;
+	width: 40px;
+	color: #3c3c32;
+	font-weight: bold;
+	line-height: 40px;
+	text-align: center;
+	border: 1px solid #63635a;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	font-size: 13px;
+}
+
+#tsaid_NavLeistungAZ_01 ul li a {
+	display: block;
+}
+
+#tsaid_NavLeistungAZ_01 .tsaid_selected {
+	padding-right: 0px;
+	margin-right: 6px;
+	font-weight: normal;
+}
+
+#tsaid_NavLeistungAZ_01 ul li a.active {
+	opacity: 0.6;
+}
+
+.tsaid_QueryElementSingleViewForm .tsaid_NAME .tsaid_data,
+.tsaid_QueryElementSingleViewForm .tsaid_DOWNLOAD .tsaid_data {
+	width: 100%;
+}
+
+.tsaid_QueryElementSingleViewForm .tsaid_NAME .tsaid_label,
+.tsaid_QueryElementSingleViewForm .tsaid_DOWNLOAD .tsaid_label {
+	display: none;
+}
+
+.tsaid_MAPLINK .tsaid_label,
+.tsaid_POSITION .tsaid_label {
+	display: none !important;
+}
+
+.tsaid_QueryElementSingleViewListPerson .tsaid_FULLNAME ~ div {
+	display: none;
+}
+
+.tsaid_OrganisationalUnitData .tsaid_NAME .tsaid_label,
+.tsaid_QueryElementSingleViewListPerson .tsaid_FULLNAME .tsaid_label,
+.tsaid_QueryElementSingleViewListPerson .tsaid_EMAILCONTACTFORM .tsaid_label {
+	display: none !important;
+}
+
+.tsaboxtrenner {
+	background: white;
+	height: 15px;
+	width: 210px;
+	margin-left: -10px !important;
+	margin-top: 10px !important;
+}
+
+/* TSA ENDE */
+
+.navcolumn .linklist {
+	list-style-type: none;
+}
+
+.org-opencms-gwt-client-ui-css-I_CmsDirectEditCss-optionBar {
+  right: 0px !important;
+}
+div.org-opencms-ade-galleries-client-ui-CmsImageInfo_I_CmsImageInfoUiBinderImpl_GenCss_style-imageInfo table.org-opencms-ade-galleries-client-ui-CmsImageInfo_I_CmsImageInfoUiBinderImpl_GenCss_style-infos tr td {
+  /*white-space: nowrap !important; wird scheinbar vom ie ignoriert*/
+ padding: 0px !important;
+
+}
+
+.editInfo {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: red;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  padding-left: 5px;
+  background-color: lightgrey;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Montserrat-Regular'), url(http://fonts.gstatic.com/s/montserrat/v6/zhcz-_WihjSQC0oHJ9TCYC3USBnSvpkopQaUR-2r7iU.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Montserrat-Bold'), url(http://fonts.gstatic.com/s/montserrat/v6/IQHow_FEYlDC4Gzy_m8fcvEr6Hm6RMS0v1dtXsGir4g.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Droid Sans'), local('DroidSans'), url(http://fonts.gstatic.com/s/droidsans/v6/s-BiyweUPV0v-yRb-cjciC3USBnSvpkopQaUR-2r7iU.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Droid Sans Bold'), local('DroidSans-Bold'), url(http://fonts.gstatic.com/s/droidsans/v6/EFpQQyG9GqCrobXxL-KRMfEr6Hm6RMS0v1dtXsGir4g.ttf) format('truetype');
+}
+
+.hide {
+	display: none;
+}
+/*
+#centercontainerleft {
+	float: left; 
+	width: 438px;
+}
+
+#centercontainerright {
+	width: 438px;	
+	float: right;
+	display: block;
+}
+*/
+/*
+#centercontainerbottom {
+	float: left; 
+	width: 890px;
+}*/
+
+#centercontainerleft article{
+	/*padding-right: 7px;*/
+}
+
+#centercontainerright article{
+	/*padding-left: 7px;*/
+}
+
+.dualcols {
+	padding-top: 10px;
+}
+
+.ka-content p img {
+	padding: 0 8px 5px 0;
+}
+
+.fullWidth {
+	width: 100%;
+}
+
+.pmtextohnebild ol, .pmtextohnebild ul {
+	padding-left: 15px;
+}
+
+.fourthumblink {
+	padding-bottom: 10px;
+}
+
+/* Suche -> Solr Bootstrap */
+div.col-md-4 {
+	padding-left: 0px !important;
+}
+div.col-md-8 {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}

@@ -1,0 +1,731 @@
+.ytsa_page
+{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 10pt; 
+	color: #000000;
+}
+
+.ytsa_page p,
+.ytsa_page td,
+.ytsa_page a,
+.ytsa_page div,
+.ytsa_page li
+{
+	font-family: inherit;
+	font-size: inherit; 
+	color: inherit;
+}
+
+.ytsa_page td, .ytsa_page th
+{
+	padding: 4px;
+	margin:  4px;
+}
+
+
+.ytsa_page ul
+{
+	margin: 0 0 1em 1em;
+}
+
+div.tsaid_serviceportal_backlink
+{
+	font-size: 0.8em;
+}
+
+/* Titel/Label f�r Queryelemente */
+h2.tsaid_qeLabel
+{
+	font-size: 1em;
+	margin-bottom: 0.5em;
+}
+
+/* Textelemente */
+.tsaid_QueryElementTextH1
+{
+	font-size: 1.2em;
+}
+
+.tsaid_QueryElementTextH2
+{
+	font-size: 1.15em;
+}
+
+.tsaid_QueryElementTextH3
+{
+	font-size: 1.1em;
+}
+
+.tsaid_QueryElementTextH4
+{
+	font-size: 1.05em;
+}
+
+.tsaid_QueryElementTextH5
+{
+	font-size: 1em;
+}
+
+.tsaid_QueryElementTextH6
+{
+	font-size: 0.95em;
+}
+
+.tsaid_QueryElementTextP,
+.tsaid_QueryElementTextH1,
+.tsaid_QueryElementTextH2,
+.tsaid_QueryElementTextH3,
+.tsaid_QueryElementTextH4,
+.tsaid_QueryElementTextH5,
+.tsaid_QueryElementTextH6
+{
+	margin-bottom: 0.5em;	
+}
+
+/* TreeNavigation */
+.tsaid_QueryElementNavigationPublicServiceTypeCategory ul ul,
+.tsaid_QueryElementNavigationOrganisationalUnitStructure ul ul,
+.tsaid_QueryElementNavigationArea ul ul
+{
+	margin: 0 0 0 0;
+	margin-left: 1em;
+}
+
+.tsaid_QueryElementNavigationPublicServiceTypeCategory ul li,
+.tsaid_QueryElementNavigationOrganisationalUnitStructure ul li,
+.tsaid_QueryElementNavigationArea ul li
+{
+	list-style-type: none;
+}
+
+.tsaid_QueryElementNavigationPublicServiceTypeCategory .tsaid_toggle,
+.tsaid_QueryElementNavigationOrganisationalUnitStructure .tsaid_toggle,
+.tsaid_QueryElementNavigationArea .tsaid_toggle
+{
+	text-decoration: none;
+	width: 1.5em;
+	display: inline-block;
+}
+
+
+/* Suchformulare */
+.tsaid_QueryElementSearchGroupArea,
+.tsaid_QueryElementSearchGroup,
+.tsaid_QueryElementSearchFormEvent,
+.ytsa_page form
+{
+	margin-bottom: 1em;
+}
+
+.tsaid_QueryElementSearchGroupArea div,
+.tsaid_QueryElementSearchGroup div,
+.tsaid_QueryElementSearchFormEvent div,
+.ytsa_page form div
+{
+	margin-bottom: 0.5em;
+}
+
+.tsaid_QueryElementSearchGroupArea div label,
+.tsaid_QueryElementSearchGroup div label,
+.tsaid_QueryElementSearchFormEvent div label,
+.ytsa_page form div label
+{
+	width: 150px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.ytsa_page form div div.tsaid_checkboxgrid
+{
+	display: inline-block;
+}
+
+.ytsa_page form div div.tsaid_checkboxgrid div label
+{
+	display: inline-block;
+	text-align: left;
+}
+
+.tsaid_QueryElementSearchGroupArea div input,
+.tsaid_QueryElementSearchGroupArea div select,
+.tsaid_QueryElementSearchGroup div input,
+.tsaid_QueryElementSearchGroup div select,
+.tsaid_QueryElementSearchFormEvent div input,
+.tsaid_QueryElementSearchFormEvent div select,
+.ytsa_page form div input,
+.ytsa_page form div select,
+.ytsa_page form div div
+{
+	width: 250px;
+}
+
+.ytsa_page form div div.tsaid_checkboxgrid div input
+{
+	width: 20px;
+}
+
+.tsaid_QueryElementSearchGroupArea input[type='submit'],
+.tsaid_QueryElementSearchGroup input[type='submit'],
+.tsaid_QueryElementSearchFormEvent input[type='submit'],
+.ytsa_page form input[type='submit']
+{
+	width:8em;
+}
+
+.tsaid_QueryElementSearchGroupArea .tsaid_searchButton,
+.tsaid_QueryElementSearchGroup .tsaid_searchButton,
+.tsaid_QueryElementSearchFormEvent .tsaid_searchButton,
+.ytsa_page form .tsaid_searchButton
+{
+	margin-left: 150px;
+	margin-right: 5px;
+}
+
+.tsaid_QueryElementSearchGroupArea #reset,
+.tsaid_QueryElementSearchGroup #reset,
+.tsaid_QueryElementSearchFormEvent #reset,
+.ytsa_page form #reset
+{
+	margin-left: 1em;
+}
+
+
+.tsaid_QueryElementSearchGroupArea .tsaid_validationMessage,
+.tsaid_QueryElementSearchGroup .tsaid_validationMessage,
+.tsaid_QueryElementSearchFormEvent .tsaid_validationMessage,
+.ytsa_page form .tsaid_validationMessage
+{
+	font-size: 0.8em;
+	color: red;
+	margin-left: 150px;
+}
+
+.tsaid_QueryElementSearchGroupArea .tsaid_currentSelection,
+.tsaid_QueryElementSearchGroup .tsaid_currentSelection,
+.tsaid_QueryElementSearchFormEvent .tsaid_currentSelection,
+.ytsa_page form .tsaid_currentSelection
+{
+	font-size: 0.8em;
+	margin-left: 150px;
+}
+
+/* AZ Liste */
+.tsaid_QueryElementNavigationAZPublicServiceType ul li
+{
+	display: inline;
+	list-style-type: none;
+	padding: 0;
+	padding-right: 6px;
+	margin: 0;
+}
+
+/* Listen */
+.tsaid_searchInfos
+{
+	width: 100%;
+}
+
+.tsaid_searchInfo
+{
+	margin-bottom: 0.5em;
+	width: 100%;
+}
+
+.tsaid_searchInfo .tsaid_label
+{
+	width: 30%;
+	display: inline-block;	
+	vertical-align: top;
+	white-space: normal;
+}
+
+.tsaid_searchInfo .tsaid_value
+{
+	width: 65%;
+	display: inline-block;	
+	vertical-align: top;
+	white-space: normal;
+}
+
+.tsaid_pageDescription
+{
+	margin-bottom: 0.5em;
+	font-size: 0.8em;
+}
+
+.tsaid_pager
+{
+	margin-top: 0.5em;
+	margin-bottom: 1em;
+}
+
+.tsaid_nomatchDescription
+{
+	margin-bottom: 1em;
+}
+
+.tsaid_QueryElementListPublicServiceType table tbody tr.tsaid_odd,
+.tsaid_QueryElementListPublicServiceTypeCategory table tbody tr.tsaid_odd,
+.tsaid_QueryElementListOrganisationalUnit table tbody tr.tsaid_odd,
+.tsaid_QueryElementListArea table tbody tr.tsaid_odd,
+.tsaid_QueryElementListPerson table tbody tr.tsaid_odd,
+.tsaid_QueryElementListForm table tbody tr.tsaid_odd,
+.tsaid_QueryElementListEvent table tbody tr.tsaid_odd,
+.tsaid_QueryElementListEvTender table tbody tr.tsaid_odd,
+.tsaid_QueryElementEvTenderTopList table tbody tr.tsaid_odd,
+.tsaid_QueryElementListPublicMessage table tbody tr.tsaid_odd
+{
+	background-color: #EBEBEB;
+}
+
+.tsaid_QueryElementListPublicServiceType table tbody tr.tsaid_even,
+.tsaid_QueryElementListPublicServiceTypeCategory table tbody tr.tsaid_even,
+.tsaid_QueryElementListOrganisationalUnit table tbody tr.tsaid_even,
+.tsaid_QueryElementListArea table tbody tr.tsaid_even,
+.tsaid_QueryElementListPerson table tbody tr.tsaid_even,
+.tsaid_QueryElementListForm table tbody tr.tsaid_even,
+.tsaid_QueryElementListEvent table tbody tr.tsaid_even,
+.tsaid_QueryElementListEvTender table tbody tr.tsaid_even,
+.tsaid_QueryElementEvTenderTopList table tbody tr.tsaid_even,
+.tsaid_QueryElementListPublicMessage table tbody tr.tsaid_even
+{
+	background-color: #D4D4D4;	
+}
+
+.tsaid_QueryElementListPublicServiceType table thead tr,
+.tsaid_QueryElementListPublicServiceTypeCategory table thead tr,
+.tsaid_QueryElementListOrganisationalUnit table thead tr,
+.tsaid_QueryElementListArea table thead tr,
+.tsaid_QueryElementListPerson table thead tr,
+.tsaid_QueryElementListForm table thead tr,
+.tsaid_QueryElementListEvent table thead tr,
+.tsaid_QueryElementListEvTender table thead tr,
+.tsaid_QueryElementEvTenderTopListtable thead tr,
+.tsaid_QueryElementListPublicMessage table thead tr
+{
+	background-color: #404040;
+	color: #ffffff;	
+}
+
+.tsaid_QueryElementListPublicServiceType table,
+.tsaid_QueryElementListPublicServiceTypeCategory table,
+.tsaid_QueryElementListOrganisationalUnit table,
+.tsaid_QueryElementListArea table,
+.tsaid_QueryElementListPerson table,
+.tsaid_QueryElementListForm table,
+.tsaid_QueryElementListEvent table,
+.tsaid_QueryElementListEvTender table,
+.tsaid_QueryElementEvTenderTopList table,
+.tsaid_QueryElementListPublicMessage table
+{
+	border-style: none;
+	width: 100%;
+}
+
+.tsaid_QueryElementListPublicServiceType td,
+.tsaid_QueryElementListPublicServiceType th,
+.tsaid_QueryElementListPublicServiceTypeCategory td,
+.tsaid_QueryElementListPublicServiceTypeCategory th,
+.tsaid_QueryElementListOrganisationalUnit td,
+.tsaid_QueryElementListOrganisationalUnit th,
+.tsaid_QueryElementListArea td,
+.tsaid_QueryElementListArea th,
+.tsaid_QueryElementListPerson td,
+.tsaid_QueryElementListPerson th,
+.tsaid_QueryElementListForm td,
+.tsaid_QueryElementListForm th,
+.tsaid_QueryElementListEvent td,
+.tsaid_QueryElementListEvent th,
+.tsaid_QueryElementListEvTender td,
+.tsaid_QueryElementListEvTender th,
+.tsaid_QueryElementEvTenderTopList td,
+.tsaid_QueryElementEvTenderTopList th,
+.tsaid_QueryElementListPublicMessage td,
+.tsaid_QueryElementListPublicMessage th
+{
+	padding: 2px;
+	vertical-align: top;
+}
+
+
+/* Formularliste (SingleView) */
+.tsaid_QueryElementSingleViewListForm
+{
+	margin-bottom: 0.5em;
+}
+
+.tsaid_QueryElementSingleViewListForm ul
+{
+	margin-left: 1em;
+}
+
+.tsaid_QueryElementSingleViewListForm ul li
+{
+	display: inline;
+	list-style-type: none;
+	padding: 0;
+	padding-right: 6px;
+	margin: 0;
+}
+
+/* Detailansichten */
+.tsaid_QueryElementSingleViewOrganisationalUnit,
+.tsaid_QueryElementSingleViewPerson,
+.tsaid_QueryElementSingleViewForm,
+.tsaid_QueryElementSingleViewEvent,
+.tsaid_QueryElementSingleViewArea,
+.tsaid_QueryElementSingleViewPublicServiceType,
+.tsaid_QueryElementSingleViewEvTender,
+.tsaid_QueryElementSingleViewPublicMessage
+{
+	margin-bottom: 1em;
+}
+
+.tsaid_QueryElementSingleViewOrganisationalUnit div,
+.tsaid_QueryElementSingleViewPerson div,
+.tsaid_QueryElementSingleViewForm div,
+.tsaid_QueryElementSingleViewEvent div,
+.tsaid_QueryElementSingleViewArea div,
+.tsaid_QueryElementSingleViewEvTender div,
+.tsaid_QueryElementSingleViewPublicMessage div
+{
+	margin-bottom: 0.2em;
+}
+
+.tsaid_QueryElementSingleViewOrganisationalUnit .tsaid_label,
+.tsaid_QueryElementSingleViewPerson .tsaid_label,
+.tsaid_QueryElementSingleViewForm .tsaid_label,
+.tsaid_QueryElementSingleViewEvent .tsaid_label,
+.tsaid_QueryElementSingleViewArea .tsaid_label,
+.tsaid_QueryElementSingleViewPublicServiceType .tsaid_label,
+.tsaid_QueryElementSingleViewEvTender .tsaid_label,
+.tsaid_QueryElementSingleViewPublicMessage .tsaid_label
+{
+	width: 30%;
+	display: inline-block;	
+	vertical-align: top;
+	white-space: normal;
+	position: relative;
+}
+
+.tsaid_QueryElementSingleViewOrganisationalUnit .tsaid_data,
+.tsaid_QueryElementSingleViewPerson .tsaid_data,
+.tsaid_QueryElementSingleViewForm .tsaid_data,
+.tsaid_QueryElementSingleViewEvent .tsaid_data,
+.tsaid_QueryElementSingleViewArea .tsaid_data,
+.tsaid_QueryElementSingleViewPublicServiceType .tsaid_data,
+.tsaid_QueryElementSingleViewEvTender .tsaid_data,
+.tsaid_QueryElementSingleViewPublicMessage .tsaid_data
+{
+	width: 69%;
+	display: inline-block;
+	vertical-align: top;
+	white-space: normal;
+	position: relative;
+}
+
+.tsaid_QueryElementSingleViewOrganisationalUnit .tsaid_comment,
+.tsaid_QueryElementSingleViewPerson .tsaid_comment,
+.tsaid_QueryElementSingleViewForm .tsaid_comment,
+.tsaid_QueryElementSingleViewEvent .tsaid_comment,
+.tsaid_QueryElementSingleViewArea .tsaid_comment,
+.tsaid_QueryElementSingleViewPublicServiceType .tsaid_comment,
+.tsaid_QueryElementSingleViewEvTender .tsaid_comment,
+.tsaid_QueryElementSingleViewPublicMessage .tsaid_comment
+{
+	width: 70%;
+	display: inline-block;
+	vertical-align: top;
+	white-space: normal;
+	position: relative;
+}
+
+/* IE-7-Hack f�r inline-block */
+
+:first-child + html .tsaid_QueryElementSingleViewOrganisationalUnit .tsaid_label,
+:first-child + html .tsaid_QueryElementSingleViewPerson .tsaid_label,
+:first-child + html .tsaid_QueryElementSingleViewForm .tsaid_label,
+:first-child + html .tsaid_QueryElementSingleViewEvent .tsaid_label,
+:first-child + html .tsaid_QueryElementSingleViewArea .tsaid_label,
+:first-child + html .tsaid_QueryElementSingleViewPublicServiceType .tsaid_label,
+:first-child + html .tsaid_QueryElementSingleViewPublicMessage .tsaid_label,
+:first-child + html .tsaid_QueryElementSingleViewOrganisationalUnit .tsaid_data,
+:first-child + html .tsaid_QueryElementSingleViewPerson .tsaid_data,
+:first-child + html .tsaid_QueryElementSingleViewForm .tsaid_data,
+:first-child + html .tsaid_QueryElementSingleViewEvent .tsaid_data,
+:first-child + html .tsaid_QueryElementSingleViewArea .tsaid_data,
+:first-child + html .tsaid_QueryElementSingleViewPublicServiceType .tsaid_data,
+:first-child + html .tsaid_QueryElementSingleViewPublicMessage .tsaid_data,
+:first-child + html .tsaid_QueryElementSingleViewOrganisationalUnit .tsaid_comment,
+:first-child + html .tsaid_QueryElementSingleViewPerson .tsaid_comment,
+:first-child + html .tsaid_QueryElementSingleViewForm .tsaid_comment,
+:first-child + html .tsaid_QueryElementSingleViewEvent .tsaid_comment,
+:first-child + html .tsaid_QueryElementSingleViewArea .tsaid_comment,
+:first-child + html .tsaid_QueryElementSingleViewPublicServiceType .tsaid_comment,
+:first-child + html .tsaid_QueryElementSingleViewEvTender .tsaid_comment,
+:first-child + html .tsaid_QueryElementSingleViewPublicMessage .tsaid_comment
+{
+	zoom:1;
+	display:inline;	
+}
+
+
+/* SingleView-Listen */
+.tsaid_QueryElementSingleViewListOrganisationalUnit,
+.tsaid_QueryElementSingleViewListPerson,
+.tsaid_QueryElementSingleViewListForm,
+.tsaid_QueryElementSingleViewListEvent,
+.tsaid_QueryElementSingleViewListArea,
+.tsaid_QueryElementSingleViewListPublicServiceType,
+.tsaid_QueryElementSingleViewListEvTender,
+.tsaid_QueryElementSingleViewListPublicMessage
+{
+ 	margin-bottom: 1em;
+}
+
+.tsaid_QueryElementSingleViewListOrganisationalUnit .tsaid_listtitle,
+.tsaid_QueryElementSingleViewListPerson .tsaid_listtitle,
+.tsaid_QueryElementSingleViewListForm .tsaid_listtitle,
+.tsaid_QueryElementSingleViewListEvent .tsaid_listtitle,
+.tsaid_QueryElementSingleViewListArea .tsaid_listtitle,
+.tsaid_QueryElementSingleViewListPublicServiceType .tsaid_listtitle,
+.tsaid_QueryElementSingleViewListEvTender .tsaid_listtitle,
+.tsaid_QueryElementSingleViewListPublicMessage .tsaid_listtitle
+{
+	font-weight: bold;
+	margin-bottom: 0.5em;
+}
+
+/* Leistung Detailansicht */
+.tsaid_QueryElementSingleViewPublicServiceType
+{
+}
+
+.tsaid_QueryElementSingleViewPublicServiceType h3,
+.tsaid_QueryElementSingleViewPublicServiceType h4,
+.tsaid_QueryElementSingleViewPublicServiceType h5,
+.tsaid_QueryElementSingleViewPublicServiceType h6
+{
+	margin-bottom: 0.25em;
+}
+
+.tsaid_QueryElementSingleViewPublicServiceType h3
+{
+	font-size: 1.1em;
+}
+
+.tsaid_QueryElementSingleViewPublicServiceType h4
+{
+	font-size: 1em;
+}
+
+.tsaid_QueryElementSingleViewPublicServiceType h5
+{
+	font-size: 0.95em;
+	font-style: italic;
+}
+
+.tsaid_QueryElementSingleViewPublicServiceType h6
+{
+	font-size: 0.95em;
+	font-style: italic;
+	font-weight: normal;
+}
+
+.tsaid_QueryElementSingleViewPublicServiceType div
+{
+	margin-bottom: 0.5em;
+}
+
+.tsaid_QueryElementSingleViewPublicServiceType .tsaid_TITLE .tsaid_data
+{
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+/* Abstand zwischen Textabschnitten */
+.tsaid_QueryElementSingleViewPublicServiceType .tsaid_data p
+{
+	margin-bottom: 0em;
+}
+
+/* Navigation */
+.tsaid_QueryElementCommonNavigation
+{
+	margin-bottom: 0.5em;
+}
+.tsaid_QueryElementCommonNavigation a
+{
+	display: inline-block;
+	font-size: 0.9em;
+	margin-right: 0.5em;
+	border: 1px solid #000;
+	/*text-decoration: none;*/
+	padding: 2px;
+	width: 6em;
+	text-align: center;
+}
+
+.tsaid_QueryElementPublicMessageReportForm form
+{
+	margin-bottom: 1em;
+}
+
+.tsaid_QueryElementPublicMessageReportForm form div.ab
+{
+	margin-bottom: 0.5em;
+}
+
+.tsaid_QueryElementPublicMessageReportForm form .label
+{
+	width: 200px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.tsaid_QueryElementPublicMessageReportForm form div.ab .input label
+{
+	margin-left: 0.5em;
+}
+
+.tsaid_QueryElementPublicMessageReportForm form div input[type='text'],
+.tsaid_QueryElementPublicMessageReportForm form div select,
+.tsaid_QueryElementPublicMessageReportForm form div textarea,
+.tsaid_QueryElementPublicMessageReportForm form div div.checkboxgrid
+{
+	width: 300px;
+}
+
+.tsaid_QueryElementPublicMessageReportForm form div input[type='checkbox']
+{
+	padding: 5px;
+}
+
+.tsaid_QueryElementPublicMessageReportForm form input[type='submit']
+{
+	width:8em;
+	margin-left: 200px;
+}
+
+.tsaid_QueryElementPublicMessageReportForm form div input[name='hausnummer'],
+.tsaid_QueryElementPublicMessageReportForm form div input[name='plz']
+{
+	width:5em !important;
+}
+
+
+.tsaid_QueryElementPublicMessageReportForm .validationMessage
+{
+	font-size: 0.8em;
+	color: red;
+	margin-bottom: 5px;
+	text-align: center;
+	width: 500px;
+}
+
+/* Formularliste (SingleView) */
+.tsaid_QueryElementSingleViewPublicMessage ul li
+{
+	display: block;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.tsaid_QueryElementSearchFieldEventDate .ui-datepicker
+{
+	background-color: #fc0;
+}
+
+.tsaid_QueryElementPublicMessageStatistic label
+{
+	display: inline-block;
+	width: 310px;	
+}
+
+.tsaid_QueryElementSingleViewPublicServiceType .tsaid_contentNameHeader{
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid #D4D4D4;
+	padding:0.6em;
+	padding-left:0em;
+	background-color: #EBEBEB;
+	
+	
+}
+
+.tsaid_QueryElementSingleViewPublicServiceType .tsaid_contentNameImage{
+	margin-left: 1em;
+	margin-right: 1em;
+	border-radius: 16px;
+	-moz-border-radius: 16px;
+	-webkit-border-radius: 16px;
+	border: 1px solid #D4D4D4;
+	width: 16px;
+	height: 16px;
+	float:left;
+	
+}
+.tsaid_QueryElementSingleViewPublicServiceType .tsaid_collapsed{
+	background-image: url("/infoservices-public/images/expand.png");
+}
+.tsaid_QueryElementSingleViewPublicServiceType .tsaid_expanded{
+	background-image: url("/infoservices-public/images/collapse.png");
+}
+.tsaid_QueryElementSingleViewPublicServiceType h4{
+	
+}
+
+/**
+ * Karte für Positionsauswahl im Melder
+ */
+.tsaid_geomappopup {
+  position: relative;
+  background: #FFF;
+  padding: 10px;
+  margin: 20px auto;
+  max-width:800px;
+}
+
+.tsaid_geomappopup .smallmap {
+	min-height:400px;
+}
+
+.tsaid_geomappopup .smallmap > div {
+	min-height:inherit;
+}
+
+.tsaid_geomappopup .ytsa_subcr
+{
+	margin: 0 30px 0 0;
+	padding: 0;
+}
+
+.tsaid_geomappopup #searchText
+{
+	width: 100%;
+	display: block;
+	margin: 2px 0px 5px 0px;
+}
+
+.mfp-wrap.ytsa_page
+{
+	background-color: rgba(0,0,0,0.5);
+}
+
+.ab.geo #geoinfo
+{
+	margin-left: 205px;
+}
+
+.tsaid_QueryElementSingleViewLegalNorm a.tsaid_Link {
+    border: 1px solid #000;
+    display: inline-block;
+    font-size: 0.9em;
+    margin-right: 0.5em;
+    padding: 2px;
+    text-align: center;
+    min-width: 6em;
+}
+

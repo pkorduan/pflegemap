@@ -1,0 +1,146 @@
+.tsaid_organigramm
+{
+	text-align: center;
+	width: 100%;
+	margin-bottom: 1em !important;
+}
+.tsaid_current, .tsaid_parent
+{
+	border: solid 2px #000000;
+	padding: 3px;
+	text-align: center;
+	display: inline-block;
+	min-height: 25px;
+	line-height: 1em;
+	white-space: normal !important;
+}
+
+/* IE-7-Hack f�r inline-block */
+:first-child + html .tsaid_current,
+:first-child + html .tsaid_parent
+
+{
+	zoom:1;
+	display:inline;	
+	line-height: 1em !important;
+}
+
+
+.tsaid_parent
+{
+	background-color: #d8d8d8;
+	border-width: 1px;
+}
+.tsaid_parent a
+{
+	text-decoration: none;
+}
+.tsaid_connector
+{
+	width: inherit;
+	text-align: center;
+	margin-top: 0.2em !important;
+	margin-bottom: 0.2em !important;
+}
+.tsaid_connector > div
+{
+	border-left: solid 1px #000000;
+	display: inline;
+	font-size: 2em;
+	width: 1px;
+	height: 25px;
+	line-height: 25px;
+}
+.tsaid_children
+{
+	border: solid 2px #000000;
+	padding: 2px;	
+	white-space: normal !important;
+}
+.tsaid_children > div
+{
+	border: solid 1px #000000;
+	background-color: #d8d8d8;
+	display: inline-block;
+	padding: 3px;
+	line-height: 2.5em;
+	margin-right: 5px;
+	position: relative;
+	white-space: normal !important;
+}
+
+/* IE-7-Hack f�r inline-block */
+:first-child + html .tsaid_children > div
+{
+	zoom:1;
+	display:inline;	
+	line-height: 1em !important;
+}
+
+.tsaid_children > div > a
+{
+	white-space: wrap;
+	text-decoration: none;
+	line-height: 1em !important;
+}
+
+.tsaid_QueryElementNavigationOrganisationalUnit.organigram 
+{
+	text-align:center;
+}
+
+.tsaid_QueryElementNavigationOrganisationalUnit > div 
+{
+	padding-bottom:10px;
+}
+
+.tsaid_QueryElementNavigationOrganisationalUnit .tsaid_children > .tsaid_organigram 
+{
+	vertical-align:top; 
+	background-color: rgba(0,0,0,0.05);
+}
+
+.tsaid_QueryElementNavigationOrganisationalUnit .tsaid_organigram > .tsaid_current 
+{
+	border: solid black 1px;
+}
+
+.tsaid_QueryElementNavigationOrganisationalUnit .tsaid_children > .tsaid_organigram > .tsaid_current 
+{ 
+	border: none;
+}
+
+.tsaid_QueryElementNavigationOrganisationalUnit .tsaid_organigram > .tsaid_children 
+{
+	border: solid black 1px;
+	white-space: nowrap !important; 
+	overflow-x:auto;
+}
+
+.tsaid_QueryElementNavigationOrganisationalUnit .tsaid_organigram 
+{
+	white-space: nowrap !important; 
+	overflow-x:auto;
+}		 
+
+.tsaid_QueryElementNavigationOrganisationalUnit.tree ul 
+{  
+	list-style-type:none;
+}
+
+.tsaid_QueryElementNavigationOrganisationalUnit.tree li.tsaid_collapsed > ul
+{
+	display:none;
+} 
+
+.tsaid_QueryElementNavigationOrganisationalUnit.tree li > span
+{
+	min-width: 20px;
+	display: inline-block;
+	text-align: center;
+}
+
+.tsaid_QueryElementNavigationOrganisationalUnit.tree span.tsaid_toggle
+{
+	cursor:pointer;
+}
