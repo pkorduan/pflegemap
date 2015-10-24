@@ -142,7 +142,7 @@
       })
     });
     
-    // die styles für die verschiedenen Kategorien
+    // die styles fÃ¼r die verschiedenen Kategorien
     var katStyles = {
       ph: new ol.style.Style({
         image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
@@ -187,7 +187,7 @@
       })
     });
     
-    // Vektorlayer zur Karte hinzufügen
+    // Vektorlayer zur Karte hinzufÃ¼gen
     vektorLayer.setMap(map);
     
     function zeigeEinrichtungen(store, katStyles, layer){
@@ -202,16 +202,16 @@
         features: features
       }));
       
-      // Vektorlayer zur Karte hinzufügen
+      // Vektorlayer zur Karte hinzufÃ¼gen
       vektorLayer.setMap(map);
     };
     
 //    zeigeEinrichtungen(store, katStyles, map);
     
-    // Handler für Kategorie-Checkboxen
+    // Handler fÃ¼r Kategorie-Checkboxen
     $(".cb-kat").change(function(event){
       if (event.target.checked){
-        // alle Kategorien gewählt?
+        // alle Kategorien gewÃ¤hlt?
         var allChecked = true;
         $(".cb-kat").each(function(){if (!this.checked) allChecked = false;});
         if (allChecked) $("#cb-all-kat")[0].checked = true;
@@ -235,7 +235,7 @@
       });
       zeigeEinrichtungen(einrichtungen, katStyles, vektorLayer);
     });
-    // Handler für "alle Kategorien"
+    // Handler fÃ¼r "alle Kategorien"
     $("#cb-all-kat").change(function(event){
       if (event.target.checked){
         $(".cb-kat").each(function(){this.checked = true;});
