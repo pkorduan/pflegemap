@@ -275,8 +275,6 @@ $('.gallery-big').on('mouseleave', function () {
     }, 500);
 });
 
-
-
 initGallery = function() {
 	/* Picture gallery */
 
@@ -708,7 +706,7 @@ $(document).ready(function() {
         return false;
     });
 */
-
+/*
     if (!navigator.userAgent.match(/mobile/i)) {
         $('a.lightbox, .fancybox').fancybox();
     }	
@@ -716,7 +714,7 @@ $(document).ready(function() {
 	$('a.iframe').fancybox({
         type: "iframe"
     });	
-
+*/
     if(bodyWidth > 480) {
         //Check to see if the window is top if not then display button
         $(window).scroll(function(){
