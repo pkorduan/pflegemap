@@ -16,17 +16,18 @@ $('#PflegeMap.map').ready(function() {
 PflegeMap.initMap = function() {
 
    // central setting for the projection of the map view
-   PflegeMap.viewProjection = 'EPSG:25833';
+  PflegeMap.viewProjection = 'EPSG:25833';
 
-   var mousePositionControl = new ol.control.MousePosition({
+  var mousePositionControl = new ol.control.MousePosition({
     coordinateFormat: ol.coordinate.createStringXY(4),
-//      projection: 'EPSG:3875',
+    // projection: 'EPSG:3875',
     // comment the following two lines to have the mouse position
     // be placed within the map.
     //className: 'mouse-position',
-    target: document.getElementById('coordinates'),
+    target: document.getElementById('PflegeMap.coordinates'),
     undefinedHTML: '&nbsp;'
   });
+
   var map = new ol.Map({
     target: 'PflegeMap.map',
     controls: ol.control.defaults().extend([
@@ -85,7 +86,7 @@ PflegeMap.initMap = function() {
       maxExtent: [205000, 5880000, 325000, 5968000],
       maxResolution: 176.388888889,
       minResolution: 0.1763888889,
-      center: ol.proj.transform([11.5, 53.4], 'EPSG:4326', PflegeMap.viewProjection),
+      center: ol.proj.transform([11.7, 53.4], 'EPSG:4326', PflegeMap.viewProjection),
       zoom: 0
     })
   });
@@ -192,5 +193,137 @@ PflegeMap.initMap = function() {
       $(".cb-kat").each(function(){this.checked = false;});
       zeigeEinrichtungen([], katStyles, vektorLayer);
     }
-  })
+  });
+
+  function lookupPhoton(queryStr, successFn, errorFn, scope){
+    successFn = successFn || function() {};
+    errorFn   = errorFn   || function() {};
+    scope     = scope     || this;
+    
+    var jqxhr = $.ajax( "http://photon.komoot.de/api",{
+      data: {
+        q              : queryStr,
+        lat            : 53.326342,
+        lon            : 11.5,
+        limit          : 5,
+        lang           : 'de',
+      }
+    })
+    .done(function(response) {
+      successFn.apply(scope,["success", response]);
+    })
+    .fail(function() {
+      errorFn.apply(scope, ["error"] );
+    });
+  };
+  
+  
+  function lookupNominatim(queryStr, successFn, errorFn, scope){
+    successFn = successFn || function() {};
+    errorFn   = errorFn   || function() {};
+    scope     = scope     || this;
+    
+    var jqxhr = $.ajax( "http://nominatim.openstreetmap.org/search",{
+      data: {
+        q              : queryStr,
+        format         : 'json',
+        addressdetails : 1
+      }
+    })
+    .done(function(response) {
+      successFn.apply(scope,["success", response]);
+    })
+    .fail(function() {
+      errorFn.apply(scope, ["error"] );
+    });
+  };
+  
+  // Handler für search Feld
+  // Mit jeder Tasteneingabe wird ein Timer gestartet,
+  // der nach <delay> Millisekunden die Verarbeitung der
+  // Eingaben startet. Sobald innerhalb des Delays eine
+  // weitere Eingabe erfolgt, wird der Timer von neuem
+  // gestartet.
+  var delay = 1200;
+  var timeOutHandle;
+  
+  $("#search").on('input_', function(event){
+    window.clearTimeout(timeOutHandle);
+    var queryStr = event.target.value;
+    
+    // erst ab einer Eingabelänge von 3 Zeichen
+    if (queryStr.length < 3) return;
+    
+    timeOutHandle = window.setTimeout(function(){
+//        lookupPhoton(queryStr, function success(arg,response){
+      lookupNominatim(queryStr, function success(arg,response){
+        PflegeMap.showNominatimResults(response);
+      }, function error(arg){
+        console.log(arg);
+      });
+    }, delay);
+  });
+  
+  $("#search").on('change', function(event){
+    window.clearTimeout(timeOutHandle);
+    var queryStr = event.target.value;
+//        lookupPhoton(queryStr, function success(arg,response){
+    lookupNominatim(
+      queryStr,
+      function success(arg, response) {
+        PflegeMap.showNominatimResults(response);
+      },
+      function error(arg){
+        console.log(arg);
+      }
+    );
+  });
+};
+
+PflegeMap.showNominatimResults = function(results) {
+  var displayNamesArray = results.map(function(item){
+    return item.display_name;
+  });
+  console.log(displayNamesArray);
+  $('#search_result').html(PflegeMap.searchResultsFormatter(results));
+};
+
+
+PflegeMap.searchResultsFormatter = function(results) {
+  return results.map(function(item) {
+    return "<a href=\"#\" onclick=\"PflegeMap.addFeature(new PflegeMap.searchResult('" + item.display_name + "', " + item.lat + ", " + item.lon + "));\">" + item.display_name + '</a><br>';
+  });
+};
+
+PflegeMap.addFeature = function(feature) {
+  alert('Add feature with name: ' + feature.get('name'));
+/*  
+  var iconFeature = new ol.Feature({
+    geometry: new ol.geom.Point([0, 0]),
+    name: 'Null Island',
+    population: 4000,
+    rainfall: 500
+  });
+
+  var iconStyle = new ol.style.Style({
+    image: new ol.style.Icon(({
+      anchor: [0.5, 46],
+      anchorXUnits: 'fraction',
+      anchorYUnits: 'pixels',
+      opacity: 0.75,
+      src: 'data/icon.png'
+    }))
+  });
+
+  iconFeature.setStyle(iconStyle);
+
+  var vectorSource = new ol.source.Vector({
+    features: [iconFeature]
+  });
+
+  var vectorLayer = new ol.layer.Vector({
+    source: vectorSource
+  });
+  */
+  
 }

@@ -19,7 +19,23 @@
     <link rel="stylesheet" href="./styles/lup/add.css">
     <link rel="stylesheet" href="./styles/lup/css" type="text/css">
     <link rel="stylesheet" href="./styles/lup/css(1)" type="text/css">
-    <style type="text/css">.fancybox-margin{margin-right:0px;}</style>
+    <style type="text/css">
+      .fancybox-margin{margin-right:0px;}
+      .u-full-width {
+        width: 95%;
+        box-sizing: border-box;
+      }
+      .u-max-full-width {
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+      .u-pull-right {
+        float: right;
+      }
+      .u-pull-left {
+        float: left; 
+      }
+    </style>
     
     <script id="twitter-wjs" src="./styles/lup/widgets.js"></script><script src="./styles/lup/jquery.min.js"></script>
     <script src="./styles/lup/modernizr.js"></script>  
@@ -39,6 +55,7 @@
     <script src="3rdparty/proj4js/25833.js"></script>
     <script src="datastore.js"></script>
     <script src="javascripts/pflegemap.js"></script>
+    <script src="javascripts/models/SearchResult.js"></script>
 
   </head>
   <body class="purple" style="background: url(http://kreis-lup.de/export/sites/LUP/.galleries/LUP-Allgemein-Aktuelles-und-Presse/Service-Verwaltung/DSC_0474.JPG_1979318820.jpg) no-repeat center center fixed; -webkit-background-size: cover; background-size: cover;">
@@ -135,54 +152,45 @@
               <div><h3 class="">Pflegeangebote</h3></div>
               <div></div>
             </article>
-            <article class="clear ">
-              <div class="container">
-                <div class="row">
-                  <div class="twelve columns">
-                    <div class="container-4">
-                      <input class="u-full-width" type="search" id="search" placeholder="Search..." />
-                      <!--button class="icon"><i class="fa fa-search"></i></button-->
-                    </div class="container-4">
-                  </div class="twelve columns">
-                </div class="row">
-                <div class="row">
-                  <div class="three columns">
-                    <div id="list" class="mylist">
-                      List
-                      <label>
-                        <input id="cb-all-kat" type="checkbox" checked/>
-                        <span class="label-body">alle Kategorien</span>
-                      </label>
-                      <label>
-                        <input kategorie="ph" class="cb-kat" type="checkbox" checked/>
-                        <span class="label-body">Pflegeheime</span>
-                      </label>
-                      <label>
-                        <input kategorie="tp" class="cb-kat" type="checkbox" checked/>
-                        <span class="label-body">Tagespflegeeinrichtungen</span>
-                      </label>
-                      <label>
-                        <input kategorie="bw" class="cb-kat" type="checkbox" checked/>
-                        <span class="label-body">Betreutes Wohnen</span>
-                      </label>
-                      <label>
-                        <input kategorie="ap" class="cb-kat" type="checkbox" checked/>
-                        <span class="label-body">Ambulante Pflegedienste</span>
-                      </label>
-                   </div>
-                  </div>
-                  <div class="nine columns">
-                    <div id="PflegeMap.map" class="Pflegemap.map"></div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="twelve columns">
-                    <div id="PflegeMap.coordinates">
-                      <div>Projektion ETRS89 / UTM zone 33N</div>
-                    </div>
-                  </div>
-                </div>
+            <article class="clear row">
+              <input class="u-full-width" type="search" id="search" placeholder="Search..." />
+              <!--button class="icon"><i class="fa fa-search"></i></button-->
+              <!--select class="u-full-width" id="nominatimResponseList" style_="display:none;">
+                <option value="Option 1">Questions</option>
+                <option value="Option 2">Admiration</option>
+                <option value="Option 3">Can I get your number?</option>
+              </select-->
+              <div id="search_result"></div>
+            </article>
+            <article class="clear row">
+              <div id="list" class="mylist">
+                <label>
+                  <input id="cb-all-kat" type="checkbox" checked/>
+                  <span class="label-body">alle Kategorien</span>
+                </label>
+                <label>
+                  <input kategorie="ph" class="cb-kat" type="checkbox" checked/>
+                  <span class="label-body">Pflegeheime</span>
+                </label>
+                <label>
+                  <input kategorie="tp" class="cb-kat" type="checkbox" checked/>
+                  <span class="label-body">Tagespflegeeinrichtungen</span>
+                </label>
+                <label>
+                  <input kategorie="bw" class="cb-kat" type="checkbox" checked/>
+                  <span class="label-body">Betreutes Wohnen</span>
+                </label>
+                <label>
+                  <input kategorie="ap" class="cb-kat" type="checkbox" checked/>
+                  <span class="label-body">Ambulante Pflegedienste</span>
+                </label>
               </div>
+            </article>
+            <article class="clear row">
+              <div class="container">
+                <div id="PflegeMap.map" class="Pflegemap.map"></div>
+              </div>
+              <div id="PflegeMap.coordinates">Projektion ETRS89 / UTM zone 33N</div>
             </article>
           </div>
         </div>
