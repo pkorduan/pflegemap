@@ -1,7 +1,7 @@
 PflegeMap.searchResult = function(name, lat, lon) {
   var feature = new ol.Feature({
     type: 'SearchResult',
-    geometry: new ol.geom.Point([lon, lat]),
+    geometry: new ol.geom.Point(ol.proj.transform([lon, lat], 'EPSG:4326', PflegeMap.viewProjection)),
     name: name
   }),
   
@@ -11,7 +11,7 @@ PflegeMap.searchResult = function(name, lat, lon) {
       anchorXUnits: 'fraction',
       anchorYUnits: 'pixels',
       opacity: 0.75,
-      src: 'data/icon.png'
+      src: 'images/search_result.png'
     }))
   });
   

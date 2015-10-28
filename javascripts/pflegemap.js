@@ -95,7 +95,7 @@ PflegeMap.initMap = function(store) {
             var url = 'http://geo.sv.rostock.de/geodienste/stadtplan/tms/1.0.0/stadtplan/EPSG25833/'
                       + z + '/' + x + '/' + y + '.png';
 
-            console.log(url);
+            //console.log(url);
             return url;
           }
         })
@@ -209,9 +209,11 @@ PflegeMap.initMap = function(store) {
     
     var jqxhr = $.ajax( "http://nominatim.openstreetmap.org/search",{
       data: {
+        viewboxlbrt    : '10.57,53.10,12.40,53.82',
+        bounded        : 1,
         q              : queryStr,
         format         : 'json',
-        addressdetails : 1
+        addressdetails : 1,
       }
     })
     .done(function(response) {
@@ -281,13 +283,12 @@ PflegeMap.searchResultsFormatter = function(results) {
 };
 
 PflegeMap.addFeature = function(feature) {
-  alert('Add feature with name: ' + feature.get('name'));
-
-  var vectorSource = new ol.source.Vector({
-    features: [feature]
-  }),
-  vectorLayer = new ol.layer.Vector({
-    source: vectorSource
-  });
-  vektorLayer.setMap(PflegeMap.map);
+  var vectorLayer = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          features: [feature]
+        })
+      }),
+      extent = feature.getGeometry().getExtent();
+  vectorLayer.setMap(PflegeMap.map);
+  PflegeMap.map.getView().fit(ol.extent.buffer(extent, 300), PflegeMap.map.getSize());
 }
