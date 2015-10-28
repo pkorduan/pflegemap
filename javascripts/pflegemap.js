@@ -6,7 +6,7 @@ var PflegeMap = window.PflegeMap;
 
 // load the map after loading the map div
 $('#PflegeMap.map').ready(function() {
-  PflegeMap.initMap();
+  PflegeMap.map = PflegeMap.initMap();
 });
 
 /**
@@ -278,6 +278,7 @@ PflegeMap.initMap = function() {
       }
     );
   });
+  return map;
 };
 
 PflegeMap.showNominatimResults = function(results) {
@@ -297,33 +298,12 @@ PflegeMap.searchResultsFormatter = function(results) {
 
 PflegeMap.addFeature = function(feature) {
   alert('Add feature with name: ' + feature.get('name'));
-/*  
-  var iconFeature = new ol.Feature({
-    geometry: new ol.geom.Point([0, 0]),
-    name: 'Null Island',
-    population: 4000,
-    rainfall: 500
-  });
-
-  var iconStyle = new ol.style.Style({
-    image: new ol.style.Icon(({
-      anchor: [0.5, 46],
-      anchorXUnits: 'fraction',
-      anchorYUnits: 'pixels',
-      opacity: 0.75,
-      src: 'data/icon.png'
-    }))
-  });
-
-  iconFeature.setStyle(iconStyle);
 
   var vectorSource = new ol.source.Vector({
-    features: [iconFeature]
-  });
-
-  var vectorLayer = new ol.layer.Vector({
+    features: [feature]
+  }),
+  vectorLayer = new ol.layer.Vector({
     source: vectorSource
   });
-  */
-  
+  vektorLayer.setMap(PflegeMap.map);
 }
