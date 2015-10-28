@@ -1,3 +1,6 @@
+<?php
+  $config = parse_ini_file('constant.ini', true);
+?>
 <!DOCTYPE html>
 <html lang="de" class="js svg">
   <head>
@@ -53,9 +56,9 @@
     <script src="3rdparty/OpenLayers/v3.8.2/build/ol-debug.js"></script>
     <script src="3rdparty/proj4js/proj4.js"></script>
     <script src="3rdparty/proj4js/25833.js"></script>
-    <script src="datastore.js"></script>
     <script src="javascripts/pflegemap.js"></script>
     <script src="javascripts/models/SearchResult.js"></script>
+    <script src="javascripts/models/Angebot.js"></script>    
 
   </head>
   <body class="purple" style="background: url(http://kreis-lup.de/export/sites/LUP/.galleries/LUP-Allgemein-Aktuelles-und-Presse/Service-Verwaltung/DSC_0474.JPG_1979318820.jpg) no-repeat center center fixed; -webkit-background-size: cover; background-size: cover;">
@@ -167,23 +170,11 @@
                 <label>
                   <input id="cb-all-kat" type="checkbox" checked/>
                   <span class="label-body">alle Kategorien</span>
-                </label>
+                </label><?php foreach($config['sozialpflege']['kategorie'] AS $key => $value) { ?>
                 <label>
-                  <input kategorie="ph" class="cb-kat" type="checkbox" checked/>
-                  <span class="label-body">Pflegeheime</span>
-                </label>
-                <label>
-                  <input kategorie="tp" class="cb-kat" type="checkbox" checked/>
-                  <span class="label-body">Tagespflegeeinrichtungen</span>
-                </label>
-                <label>
-                  <input kategorie="bw" class="cb-kat" type="checkbox" checked/>
-                  <span class="label-body">Betreutes Wohnen</span>
-                </label>
-                <label>
-                  <input kategorie="ap" class="cb-kat" type="checkbox" checked/>
-                  <span class="label-body">Ambulante Pflegedienste</span>
-                </label>
+                  <input kategorie="<?php echo $value; ?>" class="cb-kat" type="checkbox" checked/>
+                  <span class="label-body"><?php echo $key; ?></span>
+                </label><?php } ?>
               </div>
             </article>
             <article class="clear row">

@@ -4,16 +4,35 @@
 window.PflegeMap = {};
 var PflegeMap = window.PflegeMap;
 
-// load the map after loading the map div
+// load the data and the map after loading the map div
 $('#PflegeMap.map').ready(function() {
-  PflegeMap.map = PflegeMap.initMap();
+  loadJSON(function(response) {
+    PflegeMap.store = JSON.parse(response);
+  });
+  PflegeMap.map = PflegeMap.initMap(PflegeMap.store);
 });
+
+/**
+ * Function read the json data
+ */
+function loadJSON(callback) {
+  var xobj = new XMLHttpRequest();
+  xobj.overrideMimeType("application/json");
+  xobj.open('GET', 'http://localhost/wfs2json/json/data.json', false); // true would load asynchronous
+  xobj.onreadystatechange = function () {
+    if (xobj.readyState == 4 && xobj.status == "200") {
+      // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+      callback(xobj.responseText);
+    }
+  };
+  xobj.send(null);
+}
 
 /**
  * Function initialise the map
  *
  */
-PflegeMap.initMap = function() {
+PflegeMap.initMap = function(store) {
 
    // central setting for the projection of the map view
   PflegeMap.viewProjection = 'EPSG:25833';
@@ -91,43 +110,10 @@ PflegeMap.initMap = function() {
     })
   });
   
-  // die styles für die verschiedenen Kategorien
-  var katStyles = {
-    ph: new ol.style.Style({
-      image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
-        anchor: [0.5, 46],
-        anchorXUnits: 'fraction',
-        anchorYUnits: 'pixels',
-        opacity: 0.95,
-        src: 'images/PH.png'
-      }))
-    }),
-    bw: new ol.style.Style({
-      image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
-        anchor: [0.5, 46],
-        anchorXUnits: 'fraction',
-        anchorYUnits: 'pixels',
-        opacity: 0.95,
-        src: 'images/BW.png'
-      }))
-    }),
-    tp: new ol.style.Style({
-      image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
-        anchor: [0.5, 46],
-        anchorXUnits: 'fraction',
-        anchorYUnits: 'pixels',
-        opacity: 0.95,
-        src: 'images/TP.png'
-      })),
-    })
-  };
-  
   // Pflegeeinrichtungen vom store lesen und in einen Vektorlayer projizieren
   var features = [];
   for (var i = 0; i < store.length; i++){
-    var inst = store[i];
-    var feature = new ol.Feature(new ol.geom.Point(ol.proj.transform([inst.lon,inst.lat], 'EPSG:4326', PflegeMap.viewProjection)));
-    feature.setStyle(katStyles[inst.kategorie]);
+    var feature = new PflegeMap.angebot(store[i]);
     features.push(feature);
   }
   var vektorLayer = new ol.layer.Vector({
@@ -139,12 +125,10 @@ PflegeMap.initMap = function() {
   // Vektorlayer zur Karte hinzufügen
   vektorLayer.setMap(map);
   
-  function zeigeEinrichtungen(store, katStyles, layer){
+  function zeigeEinrichtungen(store, layer){    
     var features = [];
     for (var i = 0; i < store.length; i++){
-      var inst = store[i];
-      var feature = new ol.Feature(new ol.geom.Point(ol.proj.transform([inst.lon,inst.lat], 'EPSG:4326', PflegeMap.viewProjection)));
-      feature.setStyle(katStyles[inst.kategorie]);
+      var feature = new PflegeMap.angebot(store[i]);
       features.push(feature);
     }
     layer.setSource(new ol.source.Vector({
@@ -155,7 +139,7 @@ PflegeMap.initMap = function() {
     vektorLayer.setMap(map);
   };
   
-//    zeigeEinrichtungen(store, katStyles, map);
+//    zeigeEinrichtungen(store, map);
   
   // Handler für Kategorie-Checkboxen
   $(".cb-kat").change(function(event){
@@ -182,16 +166,16 @@ PflegeMap.initMap = function() {
         einrichtungen = einrichtungen.concat(filterAntwort);
       }
     });
-    zeigeEinrichtungen(einrichtungen, katStyles, vektorLayer);
+    zeigeEinrichtungen(einrichtungen, vektorLayer);
   });
   // Handler für "alle Kategorien"
   $("#cb-all-kat").change(function(event){
     if (event.target.checked){
       $(".cb-kat").each(function(){this.checked = true;});
-      zeigeEinrichtungen(store, katStyles, vektorLayer);
+      zeigeEinrichtungen(store, vektorLayer);
     } else {
       $(".cb-kat").each(function(){this.checked = false;});
-      zeigeEinrichtungen([], katStyles, vektorLayer);
+      zeigeEinrichtungen([], vektorLayer);
     }
   });
 
