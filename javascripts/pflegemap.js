@@ -12,6 +12,35 @@ $('#PflegeMap.map').ready(function() {
   PflegeMap.map = PflegeMap.initMap(PflegeMap.store);
 });
 
+// instanciate the popup overlay
+var element = document.getElementById('popup');
+
+PflegeMap.popup = new ol.Overlay({
+  element: element,
+  positioning: 'bottom-center',
+  stopEvent: false
+});
+PflegeMap.map.addOverlay(PflegeMap.popup);
+
+//display popup on click
+PflegeMap.map.on('click', function(evt) {
+  var feature = PflegeMap.map.forEachFeatureAtPixel(evt.pixel,
+      function(feature, layer) {
+        return feature;
+      });
+  if (feature) {
+    PflegeMap.popup.setPosition(evt.coordinate);
+    $(element).popover({
+      'placement': 'top',
+      'html': true,
+      'content': 'Hallo'
+    });
+    $(element).popover('show');
+  } else {
+    $(element).popover('destroy');
+  }
+});
+
 /**
  * Function read the json data
  */
