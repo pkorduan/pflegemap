@@ -154,8 +154,6 @@
             <article class="clear row">
               <div><h3 class="">Pflegeangebote</h3></div>
               <div></div>
-            </article>
-            <article class="clear row">
               <input class="u-full-width" type="search" id="search" placeholder="Search..." />
               <!--button class="icon"><i class="fa fa-search"></i></button-->
               <!--select class="u-full-width" id="nominatimResponseList" style_="display:none;">
@@ -164,8 +162,6 @@
                 <option value="Option 3">Can I get your number?</option>
               </select-->
               <div id="search_result"></div>
-            </article>
-            <article class="clear row">
               <div id="list" class="mylist">
                 <label>
                   <input id="cb-all-kat" type="checkbox" checked/>
@@ -176,8 +172,6 @@
                   <span class="label-body"><?php echo $key; ?></span>
                 </label><?php } ?>
               </div>
-            </article>
-            <article class="clear row">
               <div class="container">
                 <div id="PflegeMap.map" class="Pflegemap.map"></div>
               </div>
