@@ -5,11 +5,12 @@ window.PflegeMap = {};
 var PflegeMap = window.PflegeMap;
 
 // load the data and the map after loading the map div
-$('#PflegeMap.map').ready(function() {
+$('#PflegeMap').ready(function() {
   loadJSON(function(response) {
     PflegeMap.store = JSON.parse(response);
   });
   PflegeMap.map = PflegeMap.initMap(PflegeMap.store);
+  PflegeMap.router = PflegeMap.initRouter();
 });
 
 /**
@@ -266,6 +267,13 @@ PflegeMap.initMap = function(store) {
   });
   return map;
 };
+
+PflegeMap.initRouter = function() {
+  var router = PflegeMap.routerController;
+  router.setEventHandler();
+  router.initLayer();
+  return router;
+}
 
 PflegeMap.showNominatimResults = function(results) {
   var displayNamesArray = results.map(function(item){
