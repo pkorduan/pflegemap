@@ -58,7 +58,10 @@
     <script src="3rdparty/proj4js/25833.js"></script>
     <script src="javascripts/pflegemap.js"></script>
     <script src="javascripts/models/SearchResult.js"></script>
-    <script src="javascripts/models/Angebot.js"></script>    
+    <script src="javascripts/models/Angebot.js"></script>
+    <script src="javascripts/models/Route.js"></script>
+    <script src="javascripts/models/RoutePoint.js"></script>
+    <script src="javascripts/controllers/router.js"></script>
 
   </head>
   <body class="purple" style="background: url(http://kreis-lup.de/export/sites/LUP/.galleries/LUP-Allgemein-Aktuelles-und-Presse/Service-Verwaltung/DSC_0474.JPG_1979318820.jpg) no-repeat center center fixed; -webkit-background-size: cover; background-size: cover;">
@@ -152,50 +155,51 @@
         <div class="wrapper mobile-full" style="width:880px;">
           <div id="centercontainer">
             <article class="clear row">
-              <div><h3 class="">Pflegeangebote</h3></div>
-              <div></div>
-            </article>
-            <article class="clear row">
-              <input class="u-full-width" type="search" id="search" placeholder="Search..." />
-              <!--button class="icon"><i class="fa fa-search"></i></button-->
-              <!--select class="u-full-width" id="nominatimResponseList" style_="display:none;">
-                <option value="Option 1">Questions</option>
-                <option value="Option 2">Admiration</option>
-                <option value="Option 3">Can I get your number?</option>
-              </select-->
-              <div id="search_result"></div>
-            </article>
-            <article class="clear row">
-              <div id="list" class="mylist">
-                <label>
-                  <input id="cb-all-kat" type="checkbox" checked/>
-                  <span class="label-body">alle Kategorien</span>
-                </label><?php foreach($config['sozialpflege']['kategorie'] AS $key => $value) { ?>
-                <label>
-                  <input kategorie="<?php echo $value; ?>" class="cb-kat" type="checkbox" checked/>
-                  <span class="label-body"><?php echo $key; ?></span>
-                </label><?php } ?>
-              </div>
-            </article>
-            <article class="clear row">
-              <div class="container">
-                <div id="PflegeMap.map" class="Pflegemap.map">
-                  <div id="PflegeMap.popup" class="pm-popup">
-                    <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
-                    <div id="PflegeMap.popup-content">
-                      <div id="PflegeMap.popup-title">Title</div>
-                      <div id="PflegeMap.popup-data"></div>
-                      <div id="PflegeMap.popup-functions"class="pm-popup-functions pm-suchergebnis">
-                        <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-fw"></i>&nbsp; Start</div>
-                        <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-fw"></i>&nbsp; Ziel</div>
-                        <div class="pm-popup-function-nearby"><i class="fa fa-search fa-fw"></i>&nbsp; in der N&auml;he</div>
-                        <div class="pm-popup-function-clear"><i class="fa fa-stack"><i class="fa fa-map-marker fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x"></i></i>&nbsp; L&ouml;schen</div>
+              <div id="PflegeMap">
+                <div><h3 class="">Pflegeangebote</h3></div>
+                <div></div>
+                <input class="u-full-width" type="search" id="search" placeholder="Search..." />
+                <!--button class="icon"><i class="fa fa-search"></i></button-->
+                <!--select class="u-full-width" id="nominatimResponseList" style_="display:none;">
+                  <option value="Option 1">Questions</option>
+                  <option value="Option 2">Admiration</option>
+                  <option value="Option 3">Can I get your number?</option>
+                </select-->
+                <div id="search_result"></div>
+                <div id="list" class="mylist">
+                  <label>
+                    <input id="cb-all-kat" type="checkbox" checked/>
+                    <span class="label-body">alle Kategorien</span>
+                  </label><?php foreach($config['sozialpflege']['kategorie'] AS $key => $value) { ?>
+                  <label>
+                    <input kategorie="<?php echo $value; ?>" class="cb-kat" type="checkbox" checked/>
+                    <span class="label-body"><?php echo $key; ?></span>
+                  </label><?php } ?>
+                </div>
+                <div id="routing_1">
+                  <input id="PflegeMap.sourceField" type="text" value="53.53,11.34"/>
+                  <input id="PflegeMap.targetField" type="text" value="53.42,11.84"/>
+                  <input id="PflegeMap.calcRouteButton" type="button" value="Route berechnen"/>
+                </div>
+                <div class="container">
+                  <div id="PflegeMap.map" class="Pflegemap.map">
+                    <div id="PflegeMap.popup" class="pm-popup">
+                      <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
+                      <div id="PflegeMap.popup-content">
+                        <div id="PflegeMap.popup-title">Title</div>
+                        <div id="PflegeMap.popup-data"></div>
+                        <div id="PflegeMap.popup-functions"class="pm-popup-functions pm-suchergebnis">
+                          <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-fw"></i>&nbsp; Start</div>
+                          <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-fw"></i>&nbsp; Ziel</div>
+                          <div class="pm-popup-function-nearby"><i class="fa fa-search fa-fw"></i>&nbsp; in der N&auml;he</div>
+                          <div class="pm-popup-function-clear"><i class="fa fa-stack"><i class="fa fa-map-marker fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x"></i></i>&nbsp; L&ouml;schen</div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div id="PflegeMap.coordinates">Projektion ETRS89 / UTM zone 33N</div>
               </div>
-              <div id="PflegeMap.coordinates">Projektion ETRS89 / UTM zone 33N</div>
             </article>
           </div>
         </div>

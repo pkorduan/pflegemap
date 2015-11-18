@@ -11,7 +11,7 @@ PflegeMap.searchResult = function(name, lat, lon) {
       anchorXUnits: 'fraction',
       anchorYUnits: 'pixels',
       opacity: 0.75,
-      src: 'images/search_result.png'
+      src: 'images/SearchPoint.png'
     }))
   });
   
