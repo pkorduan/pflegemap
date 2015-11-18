@@ -11,6 +11,7 @@ $('#PflegeMap').ready(function() {
   });
   PflegeMap.map = PflegeMap.initMap(PflegeMap.store);
   PflegeMap.router = PflegeMap.initRouter();
+  PflegeMap.geocoder = PflegeMap.initGeocoder();
 });
 
 /**
@@ -201,70 +202,7 @@ PflegeMap.initMap = function(store) {
       errorFn.apply(scope, ["error"] );
     });
   };
-  
-  
-  function lookupNominatim(queryStr, successFn, errorFn, scope){
-    successFn = successFn || function() {};
-    errorFn   = errorFn   || function() {};
-    scope     = scope     || this;
-    
-    var jqxhr = $.ajax( "http://nominatim.openstreetmap.org/search",{
-      data: {
-        viewboxlbrt    : '10.57,53.10,12.40,53.82',
-        bounded        : 1,
-        q              : queryStr,
-        format         : 'json',
-        addressdetails : 1,
-      }
-    })
-    .done(function(response) {
-      successFn.apply(scope,["success", response]);
-    })
-    .fail(function() {
-      errorFn.apply(scope, ["error"] );
-    });
-  };
-  
-  // Handler für search Feld
-  // Mit jeder Tasteneingabe wird ein Timer gestartet,
-  // der nach <delay> Millisekunden die Verarbeitung der
-  // Eingaben startet. Sobald innerhalb des Delays eine
-  // weitere Eingabe erfolgt, wird der Timer von neuem
-  // gestartet.
-  var delay = 1200;
-  var timeOutHandle;
-  
-  $("#search").on('input_', function(event){
-    window.clearTimeout(timeOutHandle);
-    var queryStr = event.target.value;
-    
-    // erst ab einer Eingabelänge von 3 Zeichen
-    if (queryStr.length < 3) return;
-    
-    timeOutHandle = window.setTimeout(function(){
-//        lookupPhoton(queryStr, function success(arg,response){
-      lookupNominatim(queryStr, function success(arg,response){
-        PflegeMap.showNominatimResults(response);
-      }, function error(arg){
-        console.log(arg);
-      });
-    }, delay);
-  });
-  
-  $("#search").on('change', function(event){
-    window.clearTimeout(timeOutHandle);
-    var queryStr = event.target.value;
-//        lookupPhoton(queryStr, function success(arg,response){
-    lookupNominatim(
-      queryStr,
-      function success(arg, response) {
-        PflegeMap.showNominatimResults(response);
-      },
-      function error(arg){
-        console.log(arg);
-      }
-    );
-  });
+
   return map;
 };
 
@@ -275,28 +213,9 @@ PflegeMap.initRouter = function() {
   return router;
 }
 
-PflegeMap.showNominatimResults = function(results) {
-  var displayNamesArray = results.map(function(item){
-    return item.display_name;
-  });
-  console.log(displayNamesArray);
-  $('#search_result').html(PflegeMap.searchResultsFormatter(results));
-};
-
-
-PflegeMap.searchResultsFormatter = function(results) {
-  return results.map(function(item) {
-    return "<a href=\"#\" onclick=\"PflegeMap.addFeature(new PflegeMap.searchResult('" + item.display_name + "', " + item.lat + ", " + item.lon + "));\">" + item.display_name + '</a><br>';
-  });
-};
-
-PflegeMap.addFeature = function(feature) {
-  var vectorLayer = new ol.layer.Vector({
-        source: new ol.source.Vector({
-          features: [feature]
-        })
-      }),
-      extent = feature.getGeometry().getExtent();
-  vectorLayer.setMap(PflegeMap.map);
-  PflegeMap.map.getView().fit(ol.extent.buffer(extent, 300), PflegeMap.map.getSize());
+PflegeMap.initGeocoder = function() {
+  var geocoder = PflegeMap.geocoderController;
+  geocoder.setEventHandler();
+  geocoder.initLayer();
+  return geocoder;
 }
