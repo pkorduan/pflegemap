@@ -50,12 +50,10 @@
     <!-- header for map //-->
     <!--link rel="stylesheet" href="3rdparty/Skeleton/css/skeleton.css"//-->
     <link rel="stylesheet" href="3rdparty/OpenLayers/v3.8.2/css/ol.css" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" type="text/css">
-	<link rel="stylesheet" href="styles/css/map.css" type="text/css">
-	<link href="3rdparty/FontAwesome/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/css/map.css" type="text/css">
+    <link href="3rdparty/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
     <script src="3rdparty/jQuery/jquery-1.11.2.min.js"></script>
     <script src="3rdparty/OpenLayers/v3.8.2/build/ol-debug.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="3rdparty/proj4js/proj4.js"></script>
     <script src="3rdparty/proj4js/25833.js"></script>
     <script src="javascripts/pflegemap.js"></script>
@@ -181,7 +179,21 @@
             </article>
             <article class="clear row">
               <div class="container">
-                <div id="PflegeMap.map" class="Pflegemap.map"><div id="popup"></div></div>
+                <div id="PflegeMap.map" class="Pflegemap.map">
+                  <div id="PflegeMap.popup" class="pm-popup">
+                    <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
+                    <div id="PflegeMap.popup-content">
+                      <div id="PflegeMap.popup-title">Title</div>
+                      <div id="PflegeMap.popup-data"></div>
+                      <div id="PflegeMap.popup-functions"class="pm-popup-functions pm-suchergebnis">
+                        <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-fw"></i>&nbsp; Start</div>
+                        <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-fw"></i>&nbsp; Ziel</div>
+                        <div class="pm-popup-function-nearby"><i class="fa fa-search fa-fw"></i>&nbsp; in der N&auml;he</div>
+                        <div class="pm-popup-function-clear"><i class="fa fa-stack"><i class="fa fa-map-marker fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x"></i></i>&nbsp; L&ouml;schen</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div id="PflegeMap.coordinates">Projektion ETRS89 / UTM zone 33N</div>
             </article>
