@@ -17,9 +17,10 @@ PflegeMap.angebot = function(params) {
   
   style = new ol.style.Style({
     image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
-      anchor: [0.5, 46],
+      anchor: [0.5, 0.5],
       anchorXUnits: 'fraction',
-      anchorYUnits: 'pixels',
+//      anchorYUnits: 'pixels',
+      anchorYUnits: 'fraction',
       opacity: 0.95,
       src: 'images/' + params.kategorie +  '.png'
     }))
