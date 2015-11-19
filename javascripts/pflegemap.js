@@ -22,11 +22,20 @@ $('#PflegeMap').ready(function() {
   var popupCloser  = document.getElementById('PflegeMap.popup-closer');
   var popupContent = document.getElementById('PflegeMap.popup-data');
 
+  /**
+   * Add a click handler to hide the popup.
+   * @return {boolean} Don't follow the href.
+   */
+  popupCloser.onclick = function() {
+    PflegeMap.popup.setPosition(undefined);
+    popupCloser.blur();
+    return false;
+  };
+
   PflegeMap.popup = new ol.Overlay({
     element: popupElem,
-    positioning: 'left-center',
     offset: [0,-8],
-    stopEvent: false,
+    stopEvent: true,
     autoPan: true,
     autoPanAnimation: {
       duration: 300
