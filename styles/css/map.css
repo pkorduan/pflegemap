@@ -1,3 +1,72 @@
+.pm-popup {
+  position: absolute;
+  background-color: white;
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  min-width: 200px;
+}
+
+.pm-popup:after, .ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.pm-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+
+.pm-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+
+.pm-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+
+.pm-popup-closer:after {
+  content: "✖";
+}
+
+.pm-popup-functions>* {
+  visibility: hidden;
+  display: none;
+}
+
+.pm-angebot .pm-popup-function-from,
+.pm-angebot .pm-popup-function-to
+{
+  visibility: visible;
+  display: inline-block;
+}
+
+.pm-suchergebnis .pm-popup-function-from,
+.pm-suchergebnis .pm-popup-function-to ,
+.pm-suchergebnis .pm-popup-function-nearby ,
+.pm-suchergebnis .pm-popup-function-clear
+{
+  visibility: visible;
+  display: inline-block;
+}
+
 .pflegemap-map {
   display: block;
 #  width: 70%;

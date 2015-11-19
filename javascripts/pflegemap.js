@@ -1,7 +1,12 @@
 /**
  * Define a namespace for the application.
  */
-window.PflegeMap = {};
+window.PflegeMap = {
+  // central setting for the projection of the map view
+  viewProjection: 'EPSG:25833',
+  // fuer einige Berechnungen muss nach LonLat transformiert werden
+  baseProjection: 'EPSG:4326'
+};
 var PflegeMap = window.PflegeMap;
 
 // load the data and the map after loading the map div
@@ -12,6 +17,50 @@ $('#PflegeMap').ready(function() {
   PflegeMap.map = PflegeMap.initMap(PflegeMap.store);
   PflegeMap.router = PflegeMap.initRouter();
   PflegeMap.geocoder = PflegeMap.initGeocoder();
+
+  //instanciate the popup overlay
+  var popupElem    = document.getElementById('PflegeMap.popup');
+  var popupCloser  = document.getElementById('PflegeMap.popup-closer');
+  var popupContent = document.getElementById('PflegeMap.popup-data');
+
+  PflegeMap.popup = new ol.Overlay({
+    element: popupElem,
+    positioning: 'left-center',
+    offset: [0,-8],
+    stopEvent: false,
+    autoPan: true,
+    autoPanAnimation: {
+      duration: 300
+    },
+    autoPanMargin: 30
+  });
+  PflegeMap.map.addOverlay(PflegeMap.popup);
+
+  //display popup on click
+  PflegeMap.map.on('click', function(evt) {
+    var feature = PflegeMap.map.forEachFeatureAtPixel(evt.pixel,
+        function(feature, layer) {
+          return feature;
+        });
+    if (feature) {
+      // center des features ermitteln
+      var featureCenter = ol.proj.fromLonLat(
+        ol.extent.getCenter(
+          ol.proj.transformExtent(
+            feature.getGeometry().getExtent(),
+            PflegeMap.viewProjection,PflegeMap.baseProjection
+          )
+        ),
+        PflegeMap.viewProjection
+      );
+      console.log(evt.coordinate, featureCenter);
+      PflegeMap.popup.setPosition(featureCenter);
+//      PflegeMap.popup.setPosition(evt.coordinate);
+      popupContent.innerHTML = 'Ballo';
+    } else {
+      PflegeMap.popup.setPosition(undefined);
+    }
+  });
 });
 
 /**
@@ -36,12 +85,8 @@ function loadJSON(callback) {
  */
 PflegeMap.initMap = function(store) {
 
-   // central setting for the projection of the map view
-  PflegeMap.viewProjection = 'EPSG:25833';
-
   var mousePositionControl = new ol.control.MousePosition({
     coordinateFormat: ol.coordinate.createStringXY(4),
-    // projection: 'EPSG:3875',
     // comment the following two lines to have the mouse position
     // be placed within the map.
     //className: 'mouse-position',
@@ -107,10 +152,13 @@ PflegeMap.initMap = function(store) {
       maxExtent: [205000, 5880000, 325000, 5968000],
       maxResolution: 176.388888889,
       minResolution: 0.1763888889,
-      center: ol.proj.transform([11.7, 53.4], 'EPSG:4326', PflegeMap.viewProjection),
+      center: ol.proj.transform([11.7, 53.4], PflegeMap.baseProjection, PflegeMap.viewProjection),
       zoom: 0
     })
   });
+  
+  // die map view im Pflegemap Namespace bereitstellen
+  PflegeMap.view = map.getView();
   
   // Pflegeeinrichtungen vom store lesen und in einen Vektorlayer projizieren
   var features = [];
@@ -213,9 +261,37 @@ PflegeMap.initRouter = function() {
   return router;
 }
 
+<<<<<<< HEAD
 PflegeMap.initGeocoder = function() {
   var geocoder = PflegeMap.geocoderController;
   geocoder.setEventHandler();
   geocoder.initLayer();
   return geocoder;
+=======
+PflegeMap.showNominatimResults = function(results) {
+  var displayNamesArray = results.map(function(item){
+    return item.display_name;
+  });
+  console.log(displayNamesArray);
+  $('#search_result').html(PflegeMap.searchResultsFormatter(results));
+};
+
+
+PflegeMap.searchResultsFormatter = function(results) {
+  return results.map(function(item) {
+    return "<a href=\"#\" onclick=\"PflegeMap.addFeature(new PflegeMap.searchResult('" + item.display_name + "', " + item.lat + ", " + item.lon + "));\">" + item.display_name + '</a><br>';
+  });
+};
+
+PflegeMap.addFeature = function(feature) {
+  var vectorLayer = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          features: [feature]
+        })
+      }),
+      extent = feature.getGeometry().getExtent();
+  vectorLayer.setMap(PflegeMap.map);
+  PflegeMap.map.getView().fit(ol.extent.buffer(extent, 300), PflegeMap.map.getSize());
+  console.log(ol.extent.buffer(extent, 300));
+>>>>>>> development
 }

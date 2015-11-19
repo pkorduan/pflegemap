@@ -51,7 +51,7 @@
     <!--link rel="stylesheet" href="3rdparty/Skeleton/css/skeleton.css"//-->
     <link rel="stylesheet" href="3rdparty/OpenLayers/v3.8.2/css/ol.css" type="text/css">
     <link rel="stylesheet" href="styles/css/map.css" type="text/css">
-    <link href="3rdparty/FontAwesome/font-awesome.min.css" rel="stylesheet">
+    <link href="3rdparty/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
     <script src="3rdparty/jQuery/jquery-1.11.2.min.js"></script>
     <script src="3rdparty/OpenLayers/v3.8.2/build/ol-debug.js"></script>
     <script src="3rdparty/proj4js/proj4.js"></script>
@@ -265,7 +265,23 @@
                   </div>
                 </div>
                 <div class="pflegemap-clear"></div>
-                <div id="PflegeMap.map" class="pflegemap-map"></div>
+                <div class="container">
+                  <div id="PflegeMap.map" class="pflegemap-map">
+                    <div id="PflegeMap.popup" class="pm-popup">
+                      <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
+                      <div id="PflegeMap.popup-content">
+                        <div id="PflegeMap.popup-title">Title</div>
+                        <div id="PflegeMap.popup-data"></div>
+                        <div id="PflegeMap.popup-functions"class="pm-popup-functions pm-suchergebnis">
+                          <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-fw"></i>&nbsp; Start</div>
+                          <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-fw"></i>&nbsp; Ziel</div>
+                          <div class="pm-popup-function-nearby"><i class="fa fa-search fa-fw"></i>&nbsp; in der N&auml;he</div>
+                          <div class="pm-popup-function-clear"><i class="fa fa-stack"><i class="fa fa-map-marker fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x"></i></i>&nbsp; L&ouml;schen</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div id="PflegeMap.coordinates" class="pflegemap-coordinates" style="display:none">Projektion ETRS89 / UTM zone 33N</div>
                 <div id="PflegeMap.routingSearchArea">
                   <input id="PflegeMap.sourceField" class="pflegemap-routing-search-field" type="text" value="53.53,11.34"/>
