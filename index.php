@@ -62,6 +62,7 @@
     <script src="javascripts/models/Angebot.js"></script>
     <script src="javascripts/models/Route.js"></script>
     <script src="javascripts/models/RoutePoint.js"></script>
+    <script src="javascripts/controllers/mapper.js"></script>
     <script src="javascripts/controllers/router.js"></script>
     <script src="javascripts/controllers/geocoder.js"></script>
 
@@ -283,6 +284,7 @@
                   </div>
                 </div>
                 <div id="PflegeMap.coordinates" class="pflegemap-coordinates" style="display:none">Projektion ETRS89 / UTM zone 33N</div>
+                <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list"></div>
                 <div id="PflegeMap.routingSearchArea">
                   <input id="PflegeMap.sourceField" class="pflegemap-routing-search-field" type="text" value="53.53,11.34"/>
                   <input id="PflegeMap.targetField" class="pflegemap-routing-search-field" type="text" value="53.42,11.84"/>

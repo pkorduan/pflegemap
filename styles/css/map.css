@@ -128,6 +128,30 @@
   border: 1px solid #ddd;
   background-color: #eee;
 }
+.pflegemap-care-service {
+#  display: block;
+#  width: 70%;
+  margin-top: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+#  position: relative;
+  background-color: #eee;
+}
+.pflegemap-care-service-close:before {
+  content: "×";
+}
+/*
+.pflegemap-care-service-close {
+  float:right;
+  display:inline-block;
+  padding: 4px;
+  background:#ccc;
+  color:#fff;
+}
+*/
 .pflegemap-overlay{
   background: black;
   opacity: .5;

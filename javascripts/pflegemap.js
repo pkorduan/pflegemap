@@ -14,9 +14,17 @@ $('#PflegeMap').ready(function() {
   loadJSON(function(response) {
     PflegeMap.store = JSON.parse(response);
   });
-  PflegeMap.map = PflegeMap.initMap(PflegeMap.store);
-  PflegeMap.router = PflegeMap.initRouter();
-  PflegeMap.geocoder = PflegeMap.initGeocoder();
+  
+  /*
+   * init map and controller
+   * order is important! initMap first
+  */
+  {
+    PflegeMap.map = PflegeMap.initMap(PflegeMap.store);
+    PflegeMap.mapper = PflegeMap.initMapper(PflegeMap.store);
+    PflegeMap.router = PflegeMap.initRouter();
+    PflegeMap.geocoder = PflegeMap.initGeocoder();
+  }
 
   //instanciate the popup overlay
   var popupElem    = document.getElementById('PflegeMap.popup');
@@ -159,75 +167,6 @@ PflegeMap.initMap = function(store) {
   
   // die map view im Pflegemap Namespace bereitstellen
   PflegeMap.view = map.getView();
-  
-  // Pflegeeinrichtungen vom store lesen und in einen Vektorlayer projizieren
-  var features = [];
-  for (var i = 0; i < store.length; i++){
-    var feature = new PflegeMap.angebot(store[i]);
-    features.push(feature);
-  }
-  var vektorLayer = new ol.layer.Vector({
-    source: new ol.source.Vector({
-      features: features
-    })
-  });
-  
-  // Vektorlayer zur Karte hinzufügen
-  vektorLayer.setMap(map);
-  
-  function zeigeEinrichtungen(store, layer){    
-    var features = [];
-    for (var i = 0; i < store.length; i++){
-      var feature = new PflegeMap.angebot(store[i]);
-      features.push(feature);
-    }
-    layer.setSource(new ol.source.Vector({
-      features: features
-    }));
-    
-    // Vektorlayer zur Karte hinzufügen
-    vektorLayer.setMap(map);
-  };
-  
-//    zeigeEinrichtungen(store, map);
-  
-  // Handler für Kategorie-Checkboxen
-  $(".cb-kat").change(function(event){
-    if (event.target.checked){
-      // alle Kategorien gewählt?
-      var allChecked = true;
-      $(".cb-kat").each(function(){if (!this.checked) allChecked = false;});
-      if (allChecked) $("#cb-all-kat")[0].checked = true;
-    }
-    else {
-      // un-check alle Kategorien
-      if ($("#cb-all-kat").val() == 'on') {
-        $("#cb-all-kat")[0].checked = false;
-      }
-    }
-    // refresh display
-    var einrichtungen = [];
-    $(".cb-kat").each(function(){
-      if (this.checked) {
-        var cb = this;
-        var filterAntwort = store.filter(function(elem){
-          return elem.kategorie == cb.getAttribute('kategorie');
-        }, cb);
-        einrichtungen = einrichtungen.concat(filterAntwort);
-      }
-    });
-    zeigeEinrichtungen(einrichtungen, vektorLayer);
-  });
-  // Handler für "alle Kategorien"
-  $("#cb-all-kat").change(function(event){
-    if (event.target.checked){
-      $(".cb-kat").each(function(){this.checked = true;});
-      zeigeEinrichtungen(store, vektorLayer);
-    } else {
-      $(".cb-kat").each(function(){this.checked = false;});
-      zeigeEinrichtungen([], vektorLayer);
-    }
-  });
 
   function lookupPhoton(queryStr, successFn, errorFn, scope){
     successFn = successFn || function() {};
@@ -254,44 +193,23 @@ PflegeMap.initMap = function(store) {
   return map;
 };
 
+PflegeMap.initMapper = function(store) {
+  var mapper = PflegeMap.mapperController;
+  mapper.initLayer(store);
+  mapper.initList(store);
+  mapper.setEventHandler();
+}
+
 PflegeMap.initRouter = function() {
   var router = PflegeMap.routerController;
   router.setEventHandler();
   router.initLayer();
   return router;
-}
+};
 
-<<<<<<< HEAD
 PflegeMap.initGeocoder = function() {
   var geocoder = PflegeMap.geocoderController;
   geocoder.setEventHandler();
   geocoder.initLayer();
   return geocoder;
-=======
-PflegeMap.showNominatimResults = function(results) {
-  var displayNamesArray = results.map(function(item){
-    return item.display_name;
-  });
-  console.log(displayNamesArray);
-  $('#search_result').html(PflegeMap.searchResultsFormatter(results));
 };
-
-
-PflegeMap.searchResultsFormatter = function(results) {
-  return results.map(function(item) {
-    return "<a href=\"#\" onclick=\"PflegeMap.addFeature(new PflegeMap.searchResult('" + item.display_name + "', " + item.lat + ", " + item.lon + "));\">" + item.display_name + '</a><br>';
-  });
-};
-
-PflegeMap.addFeature = function(feature) {
-  var vectorLayer = new ol.layer.Vector({
-        source: new ol.source.Vector({
-          features: [feature]
-        })
-      }),
-      extent = feature.getGeometry().getExtent();
-  vectorLayer.setMap(PflegeMap.map);
-  PflegeMap.map.getView().fit(ol.extent.buffer(extent, 300), PflegeMap.map.getSize());
-  console.log(ol.extent.buffer(extent, 300));
->>>>>>> development
-}
