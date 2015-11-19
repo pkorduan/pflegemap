@@ -10,15 +10,22 @@ PflegeMap.routerController = {
 
   initLayer: function() {
     this.layer.setMap(PflegeMap.map);
+    this.errMsgElement = $('#PflegeMap\\.routingMessage')[0];
   },
 
   setEventHandler: function() {
     $('#PflegeMap\\.calcRouteButton').click(this, this.loadRoute);
+    $('#PflegeMap\\.MessageBoxClose').click(function() {
+      $('#PflegeMap\\.MessageBox').animate({'top':'-200px'},500,function(){
+        $('#PflegeMap\\.Overlay').fadeOut('fast');
+      });
+    });
   },
 
   loadRoute : function(e) {
-    scope = e.data;
-    var url  = 'osm2poServiceProxy.php';
+    var scope = e.data,
+        url  = 'osm2poServiceProxy.php';
+
     $.ajax({
       url: url,
 
@@ -37,7 +44,31 @@ PflegeMap.routerController = {
       },
 
       // Work with the response
-      success: scope.showRoute
+      success: function(response) {
+        if (response.indexOf('Error') != -1 || response.indexOf('Fehler') != -1) {
+          scope.showErrorMsg(scope, response);
+        }
+        else {
+          scope.errMsgElement.innerHTML = '';
+          scope.showRoute(response);
+        }
+      },
+
+      error: function (xhr, ajaxOptions, thrownError){
+        if(xhr.status==404) {
+          scope.showErrorMsg(scope, thrownError);
+        }
+      }
+    });
+  },
+
+  showErrorMsg: function(e, msg) {
+    if (msg == 'Not Found') {
+      msg = 'Der Routing Service ist nicht erreichbar. Bitte prüfen Sie ob Sie eine Netzverbindung haben.';
+    }
+    e.errMsgElement.innerHTML = msg;
+    $('#PflegeMap\\.Overlay').fadeIn(200,function(){
+      $('#PflegeMap\\.MessageBox').animate({'top':'20px'},200);
     });
   },
 
@@ -60,11 +91,11 @@ PflegeMap.routerController = {
     );
     source.addFeature(
       route.targetPoint
-    )
-  },
+    );
 
-  removeFeatures: function() {
-    
-
+    PflegeMap.map.getView().fit(
+      route.line.getGeometry().getExtent(),
+      PflegeMap.map.getSize()
+    );
   }
 };

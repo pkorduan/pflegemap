@@ -56,12 +56,15 @@
     <script src="3rdparty/OpenLayers/v3.8.2/build/ol-debug.js"></script>
     <script src="3rdparty/proj4js/proj4.js"></script>
     <script src="3rdparty/proj4js/25833.js"></script>
+    
     <script src="javascripts/pflegemap.js"></script>
     <script src="javascripts/models/SearchResult.js"></script>
     <script src="javascripts/models/Angebot.js"></script>
     <script src="javascripts/models/Route.js"></script>
     <script src="javascripts/models/RoutePoint.js"></script>
+    <script src="javascripts/controllers/mapper.js"></script>
     <script src="javascripts/controllers/router.js"></script>
+    <script src="javascripts/controllers/geocoder.js"></script>
 
   </head>
   <body class="purple" style="background: url(http://kreis-lup.de/export/sites/LUP/.galleries/LUP-Allgemein-Aktuelles-und-Presse/Service-Verwaltung/DSC_0474.JPG_1979318820.jpg) no-repeat center center fixed; -webkit-background-size: cover; background-size: cover;">
@@ -156,16 +159,17 @@
           <div id="centercontainer">
             <article class="clear row">
               <div id="PflegeMap">
+                <div class="pflegemap-overlay" id="PflegeMap.Overlay" style="display:none;"></div>
+                <div class="pflegemap-message-box" id="PflegeMap.MessageBox">
+                 <a class="pflegemap-message-box-close" id="PflegeMap.MessageBoxClose"></a>
+                 <span id="PflegeMap.routingMessage"></span>
+                </div>
                 <div><h3 class="">Pflegeangebote</h3></div>
-                <div></div>
-                <input class="u-full-width" type="search" id="search" placeholder="Search..." />
-                <!--button class="icon"><i class="fa fa-search"></i></button-->
-                <!--select class="u-full-width" id="nominatimResponseList" style_="display:none;">
-                  <option value="Option 1">Questions</option>
-                  <option value="Option 2">Admiration</option>
-                  <option value="Option 3">Can I get your number?</option>
-                </select-->
-                <div id="search_result"></div>
+                <div id="PflegeMap.geocodingSearchArea">
+                  <input class="pflegemap-search-field" type="text" id="search" placeholder="Search..." />
+                </div>
+                <div id="PflegeMap.searchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
+<?php /*
                 <div id="list" class="mylist">
                   <label>
                     <input id="cb-all-kat" type="checkbox" checked/>
@@ -176,13 +180,94 @@
                     <span class="label-body"><?php echo $key; ?></span>
                   </label><?php } ?>
                 </div>
-                <div id="routing_1">
-                  <input id="PflegeMap.sourceField" type="text" value="53.53,11.34"/>
-                  <input id="PflegeMap.targetField" type="text" value="53.42,11.84"/>
-                  <input id="PflegeMap.calcRouteButton" type="button" value="Route berechnen"/>
+*/ ?>
+                <div id="list" class="mylist">
+                  <div id="erster" class="pflegemap-kategorie-box">
+                    <label>
+                      <input kategorie="aw" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">AW</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="ab" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Ambulant betreute WG</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="ap" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Apotheke</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="az" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Arzt</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="ba" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Barrierearmes Wohnen</span>
+                    </label>
+                  </div> 
+                  <div id="zwoter" class="pflegemap-kategorie-box">
+                    <label>
+                      <input kategorie="bf" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Barrierefreies Wohnen</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="bw" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Betreutes Wohnen</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="dp" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Dauerpflege</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="hp" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Hospiz ambulant</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="kl" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Klinik</span>
+                    </label>
+                  </div> 
+                  <div id="ditter" class="pflegemap-kategorie-box">
+                    <label>
+                      <input kategorie="kp" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Kurzzeitpflege</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="ks" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Kurzzeitpflege (Streuplätze)</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="pv" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Palliativversorgung</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="pd" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Pflegedienst</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="pt" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Psychiatrische Tagesklinik</span>
+                    </label>
+                  </div> 
+                  <div id="4ta" class="pflegemap-kategorie-box">
+                    <label>
+                      <input kategorie="rh" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Reha</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="tp" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Tagespflege</span>
+                    </label><br>
+                    <br>
+                    <br>
+                    <label>
+                      <input id="cb-all-kat" type="checkbox" checked="">
+                      <span class="label-body">alle Kategorien</span>
+                    </label>
+                  </div>
                 </div>
+                <div class="pflegemap-clear"></div>
                 <div class="container">
-                  <div id="PflegeMap.map" class="Pflegemap.map">
+                  <div id="PflegeMap.map" class="pflegemap-map">
                     <div id="PflegeMap.popup" class="pm-popup">
                       <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
                       <div id="PflegeMap.popup-content">
@@ -198,7 +283,13 @@
                     </div>
                   </div>
                 </div>
-                <div id="PflegeMap.coordinates">Projektion ETRS89 / UTM zone 33N</div>
+                <div id="PflegeMap.coordinates" class="pflegemap-coordinates" style="display:none">Projektion ETRS89 / UTM zone 33N</div>
+                <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list"></div>
+                <div id="PflegeMap.routingSearchArea">
+                  <input id="PflegeMap.sourceField" class="pflegemap-routing-search-field" type="text" value="53.53,11.34"/>
+                  <input id="PflegeMap.targetField" class="pflegemap-routing-search-field" type="text" value="53.42,11.84"/>
+                  <input id="PflegeMap.calcRouteButton" type="button" value="Route berechnen"/>
+                </div>
               </div>
             </article>
           </div>
