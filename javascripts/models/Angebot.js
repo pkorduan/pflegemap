@@ -25,7 +25,16 @@ PflegeMap.angebot = function(params) {
     html += '  <span class="pflegemap-care-service-close"></span>';
     html += '</div>';
     return $(html);
-  }
+  };
+  
+  feature.preparePopup = function() {
+    PflegeMap.popup.get('element').className = 'pm-popup pm-angebot';
+    PflegeMap.popup.get('contentDiv').innerHTML = this.get('angebot')+'<br/>'
+        +this.get('name')+'<br/>'
+        +this.get('gemeinde')+'<br/>'
+        +this.get('strasse')+' '
+        +this.get('hnr');
+  };
 
   style = function(resolution) {
     if (this.get('hidden')) {

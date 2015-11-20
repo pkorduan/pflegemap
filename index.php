@@ -271,13 +271,13 @@
                     <div id="PflegeMap.popup" class="pm-popup">
                       <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
                       <div id="PflegeMap.popup-content">
-                        <div id="PflegeMap.popup-title">Title</div>
+                        <div id="PflegeMap.popup-title" class="pm-popup-title"></div>
                         <div id="PflegeMap.popup-data"></div>
-                        <div id="PflegeMap.popup-functions"class="pm-popup-functions pm-suchergebnis">
+                        <div id="PflegeMap.popup-functions"class="pm-popup-functions">
                           <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-fw"></i>&nbsp; Route von hier</div>
                           <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-fw"></i>&nbsp; Route nach hier</div>
                           <div class="pm-popup-function-nearby"><i class="fa fa-search fa-fw"></i>&nbsp; in der N&auml;he suchen</div>
-                          <div class="pm-popup-function-clear"><i class="fa fa-stack"><i class="fa fa-map-marker fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x"></i></i>&nbsp; Markierung l&ouml;schen</div>
+                          <div class="pm-popup-function-clear"><i class="fa fa-times fa-fw"></i>&nbsp; Markierung l&ouml;schen</div>
                         </div>
                       </div>
                     </div>

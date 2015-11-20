@@ -49,8 +49,10 @@ $('#PflegeMap').ready(function() {
     autoPanAnimation: {
       duration: 300
     },
-    autoPanMargin: 30
+    autoPanMargin: 30,
   });
+  PflegeMap.popup.set('contentDiv',popupContent);
+  
   PflegeMap.map.addOverlay(PflegeMap.popup);
 
   //display popup on click
@@ -70,10 +72,11 @@ $('#PflegeMap').ready(function() {
         ),
         PflegeMap.viewProjection
       );
-      console.log(evt.coordinate, featureCenter);
+      // prepare popup
+      feature.preparePopup();
+
+      // show popup
       PflegeMap.popup.setPosition(featureCenter);
-//      PflegeMap.popup.setPosition(evt.coordinate);
-      popupContent.innerHTML = 'Ballo';
     } else {
       PflegeMap.popup.setPosition(undefined);
     }

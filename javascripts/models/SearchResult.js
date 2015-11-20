@@ -15,7 +15,12 @@ PflegeMap.searchResult = function(name, lat, lon) {
     }))
   });
   
-  feature.setStyle(style);
+  feature.preparePopup = function() {
+    PflegeMap.popup.get('element').className = 'pm-popup pm-suchergebnis';
+    PflegeMap.popup.get('contentDiv').innerHTML = this.get('name');
+  };
+
+feature.setStyle(style);
   
   return feature;
 };
