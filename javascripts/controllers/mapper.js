@@ -46,20 +46,12 @@ PflegeMap.mapperController = {
     }
   },
 
+  // Handler für Kategorie-Checkboxen
   setEventHandler: function() {
-
-    // Handler für Kategorie-Checkboxen
     $(".cb-kat").on(
       'change',
       this,
       this.switchCategoryCheckBox
-    );
-
-    // Handler für "alle Kategorien"
-    $("#cb-all-kat").on(
-      'change',
-      this,
-      this.switchAllCategoryCheckBox
     );
   },
 
@@ -70,47 +62,6 @@ PflegeMap.mapperController = {
       event.target.getAttribute('kategorie'),
       event.target.checked
     );
-/*
-    // refresh display
-    var einrichtungen = [];
-    $(".cb-kat").each(function(){
-      if (this.checked) {
-        var cb = this,
-            filterAntwort = store.filter(
-              function(elem) {
-                return elem.kategorie == cb.getAttribute('kategorie');
-              },
-              cb
-            ),
-            einrichtungen = einrichtungen.concat(filterAntwort);
-      }
-    });
-    scope.zeigeEinrichtungen(einrichtungen, vektorLayer);
-      */
-  },
-
-  switchAllCategoryCheckBox: function(event) {
-    var scope = event.data,
-        source = scope.layer.getSource();
-
-    if (event.target.checked) {
-      console.log('checked');
-/*      $(".cb-kat").each(
-        function() {
-          this.checked = true;
-        }
-      );
-      scope.zeigeEinrichtungen(store, vektorLayer); */
-    }
-    else {
-      console.log('unchecked');
-/*      $(".cb-kat").each(
-        function(){
-          this.checked = false;
-        }
-      );
-      this.mapper.zeigeEinrichtungen([], vektorLayer);*/
-    }
   },
 
   /*
@@ -121,7 +72,24 @@ PflegeMap.mapperController = {
    * @return(void)
    */
   switchCategorie: function(c, v) {
-    console.log('Switch visibility of all features with categorie: ' + c + ' to ' + v);
+    var source = this.layer.getSource(),
+      features = source.getFeatures(),
+      i,
+      all_categories = (c == 'all');
+
+    if (all_categories) $(".cb-kat").prop('checked', v);
+
+    for ( i = 0; i < features.length; i++) {
+      if (c == features[i].get('kategorie') || all_categories) {
+        features[i].set('hidden', !v);
+        features[i].changed();
+        (v)
+          ? $('#PflegeMap\\.careService_' + features[i].get('id')).show()
+          : $('#PflegeMap\\.careService_' + features[i].get('id')).hide();
+      }
+    }
+
+    this.layer.changed();
   },
 
   zeigeEinrichtungen: function(store, layer) {

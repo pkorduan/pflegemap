@@ -21,7 +21,11 @@ PflegeMap.angebot = function(params) {
   feature.listElement = function() {
     html  = '<div id="PflegeMap.careService_' + this.get('id') + '" class="pflegemap-care-service">';
     html += '  <b>' + this.get('name') + '</b><br>';
-    html += '  ' + this.get('plz') + ' ' + this.get('gemeinde') + ', ' + this.get('strasse') + ' ' + this.get('hnr');
+    html += '  ' + this.get('plz') + ' ' + this.get('gemeinde') + ', ' + this.get('strasse') + ' ' + this.get('hnr') + '<br>';
+    html += '  Einrichtung: ' + this.get('einrichtung') + '<br>';
+    html += '  Träger: ' + this.get('traeger') + '<br>';
+    html += '  Ansprechpartner: ' + this.get('ansprechpartner') + ' Telefon: ' + this.get('telefon') + '<br>';
+    html += '  Kapazität: ' + this.get('kapazität') + '<br>';
     html += '  <span class="pflegemap-care-service-close"></span>';
     html += '</div>';
     return $(html);

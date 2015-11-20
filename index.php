@@ -250,6 +250,10 @@
                   </div> 
                   <div id="4ta" class="pflegemap-kategorie-box">
                     <label>
+                      <input kategorie="st" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">Stationäre Pflege</span>
+                    </label><br>
+                    <label>
                       <input kategorie="rh" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Reha</span>
                     </label><br>
@@ -260,7 +264,7 @@
                     <br>
                     <br>
                     <label>
-                      <input id="cb-all-kat" type="checkbox" checked="">
+                      <input kategorie="all" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">alle Kategorien</span>
                     </label>
                   </div>
