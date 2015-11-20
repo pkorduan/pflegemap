@@ -13,9 +13,6 @@ PflegeMap.mapperController = {
       var element = feature.listElement();
       element.click();
       this.div.append( element );
-    },
-    hide: function(feature) {
-      console.log('list.hide');
     }
   },
 
@@ -105,16 +102,5 @@ PflegeMap.mapperController = {
     // Vektorlayer zur Karte hinzufügen
     vektorLayer.setMap(map);
   }
-  
-//    zeigeEinrichtungen(store, map);
-  
-/*
-    setEventHandler: function() {
-    $("#search").on(
-      'change',
-      this,
-      this.lookupNominatim
-    );
-  }
-*/
+
 };

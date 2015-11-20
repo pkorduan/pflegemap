@@ -16,20 +16,7 @@ PflegeMap.angebot = function(params) {
     telefon: params.telefon,
     kapazitaet: params.kapazitaet,
     hidden: false
-  });
-
-  feature.listElement = function() {
-    html  = '<div id="PflegeMap.careService_' + this.get('id') + '" class="pflegemap-care-service">';
-    html += '  <b>' + this.get('name') + '</b><br>';
-    html += '  ' + this.get('plz') + ' ' + this.get('gemeinde') + ', ' + this.get('strasse') + ' ' + this.get('hnr') + '<br>';
-    html += '  Einrichtung: ' + this.get('einrichtung') + '<br>';
-    html += '  Träger: ' + this.get('traeger') + '<br>';
-    html += '  Ansprechpartner: ' + this.get('ansprechpartner') + ' Telefon: ' + this.get('telefon') + '<br>';
-    html += '  Kapazität: ' + this.get('kapazität') + '<br>';
-    html += '  <span class="pflegemap-care-service-close"></span>';
-    html += '</div>';
-    return $(html);
-  }
+  }),
 
   style = function(resolution) {
     if (this.get('hidden')) {
@@ -50,6 +37,72 @@ PflegeMap.angebot = function(params) {
   };
 
   feature.setStyle(style);
+
+  feature.listElement = function() {
+    html  = '<div id="PflegeMap.careService_' + this.get('id') + '" class="pflegemap-care-service">';
+    html += '  <div class="pflegemap-care-service-content">';
+    html += '    <b>' + this.get('angebot') + '</b><br>';
+    html += '    Name: ' + this.get('name') + '<br>';
+    html += '    Adresse: ' + this.address() + '<br>';
+    html += '    Einrichtung: ' + this.get('einrichtung') + '<br>';
+    if (this.get('traeger') != '')
+      html += '  Träger: ' + this.get('traeger') + '<br>';
+    if (this.get('ansprechpartner') != '')
+      html += '  Ansprechpartner: ' + this.get('ansprechpartner') + '<br>';
+    if (this.get('telefon') != '')
+      html += '   Telefon: ' + this.get('telefon') + '<br>';
+    if (this.get('kapazität') != undefined)
+      html += '  Kapazität: ' + this.get('kapazität') + '<br>';
+    html += '  </div>'
+    html += '  <span class="pflegemap-care-service-close"></span>';
+    html += '</div>';
+    html += '<div class="pflegemap-clear"></div>';
+    return $(html);
+  };
+
+  feature.title = function() {
+    return this.get('name');
+  };
+
+  feature.data = function() {
+    var html = this.get('ansprechpartner');
+    html += '<br>' + this.get('plz') + ' ' + this.get('gemeinde');
+    html += '<br>' + this.get('strasse') + ' ' + this.get('hnr');
+    if (this.get('kapazitaet') != undefined && this.get('kapazitaet') > 0)
+      html += '<br>Kapazität: ' + this.get('kapazitaet');
+    return html;
+  };
+  
+  feature.address = function() {
+    return this.get('plz') + ' ' + this.get('gemeinde') + ', ' + this.get('strasse') + ' ' + this.get('hnr');
+  };
+  
+  feature.xy = function() {
+    var xy = this.getGeometry().getCoordinates();
+    return xy[0] + ', ' + xy[1];
+  };
+
+  feature.latlng = function() {
+    var lnglat = ol.proj.transform(this.getGeometry().getCoordinates(), PflegeMap.viewProjection, PflegeMap.baseProjection);
+    return lnglat[1] + ', ' + lnglat[0];
+  };
+
+  feature.showPopUp = function() {
+    $('#PflegeMap\\.popup-title').html(this.title());
+    $('#PflegeMap\\.popup-data').html(this.data());
+    $('#PflegeMap\\.popup-source').off();
+    $('#PflegeMap\\.popup-source').on(
+      'click',
+      this,
+      PflegeMap.router.openRouteSearch
+    );
+    $('#PflegeMap\\.popup-target').off();
+    $('#PflegeMap\\.popup-target').on(
+      'click',
+      this,
+      PflegeMap.router.openRouteSearch
+    );
+  };
   
   return feature;
 }

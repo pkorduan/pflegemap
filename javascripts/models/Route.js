@@ -32,8 +32,6 @@ PflegeMap.route = function(params) {
       })
     })
   );
-  console.log(coordinates[0]);
-        console.log(coordinates[coordinates.length-1]);
 
   return {
     line: line,

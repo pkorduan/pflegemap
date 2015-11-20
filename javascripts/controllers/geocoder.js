@@ -15,7 +15,7 @@ PflegeMap.geocoderController = {
   },
 
   setEventHandler: function() {
-    $("#search").on(
+    $('#search').on(
       'change',
       this,
       this.lookupNominatim

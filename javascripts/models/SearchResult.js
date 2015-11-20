@@ -1,7 +1,7 @@
 PflegeMap.searchResult = function(name, lat, lon) {
   var feature = new ol.Feature({
     type: 'SearchResult',
-    geometry: new ol.geom.Point(ol.proj.transform([lon, lat], 'EPSG:4326', PflegeMap.viewProjection)),
+    geometry: new ol.geom.Point(ol.proj.transform([lon, lat], PflegeMap.baseProjection, PflegeMap.viewProjection)),
     name: name
   }),
   
@@ -14,8 +14,45 @@ PflegeMap.searchResult = function(name, lat, lon) {
       src: 'images/SearchPoint.png'
     }))
   });
-  
+
   feature.setStyle(style);
-  
+
+  feature.data = function() {
+    var html  = this.get('name') + '<br>';
+        html += 'Koordinaten: ' + this.latlng();
+    return html;
+  };
+
+  feature.address = function() {
+    return this.get('name');
+  };
+
+  feature.xy = function() {
+    var xy = this.getGeometry().getCoordinates();
+    return xy[0] + ', ' + xy[1];
+  };
+
+  feature.latlng = function() {
+    var lnglat = ol.proj.transform(this.getGeometry().getCoordinates(), PflegeMap.viewProjection, PflegeMap.baseProjection);
+    return lnglat[1] + ', ' + lnglat[0];
+  };
+
+  feature.showPopUp = function() {
+    $('#PflegeMap\\.popup-title').html('Suchbegriff');
+    $('#PflegeMap\\.popup-data').html(this.data());
+    $('#PflegeMap\\.popup-source').off();
+    $('#PflegeMap\\.popup-source').on(
+      'click',
+      this,
+      PflegeMap.router.openRouteSearch
+    );
+    $('#PflegeMap\\.popup-target').off();
+    $('#PflegeMap\\.popup-target').on(
+      'click',
+      this,
+      PflegeMap.router.openRouteSearch
+    );
+  };
+
   return feature;
 };

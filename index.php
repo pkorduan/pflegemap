@@ -1,5 +1,5 @@
 <?php
-  $config = parse_ini_file('constant.ini', true);
+  $config = parse_ini_file('config.ini', true);
 ?>
 <!DOCTYPE html>
 <html lang="de" class="js svg">
@@ -58,6 +58,7 @@
     <script src="3rdparty/proj4js/25833.js"></script>
     
     <script src="javascripts/pflegemap.js"></script>
+    <script src?"javascripts/config.js.php"></script>
     <script src="javascripts/models/SearchResult.js"></script>
     <script src="javascripts/models/Angebot.js"></script>
     <script src="javascripts/models/Route.js"></script>
@@ -158,17 +159,21 @@
         <div class="wrapper mobile-full" style="width:880px;">
           <div id="centercontainer">
             <article class="clear row">
-              <div id="PflegeMap">
-                <div class="pflegemap-overlay" id="PflegeMap.Overlay" style="display:none;"></div>
-                <div class="pflegemap-message-box" id="PflegeMap.MessageBox">
-                 <a class="pflegemap-message-box-close" id="PflegeMap.MessageBoxClose"></a>
-                 <span id="PflegeMap.routingMessage"></span>
+              <div id="PflegeMap" class="pflegemap">
+                <div id="PflegeMap.Overlay" class="pflegemap-overlay" style="display:none;"></div>
+                <div id="PflegeMap.MessageBox" class="pflegemap-message-box">
+                  <a id="PflegeMap.MessageBoxClose" class="pflegemap-message-box-close"></a>
+                  <span id="PflegeMap.routingMessage"></span>
                 </div>
-                <div><h3 class="">Pflegeangebote</h3></div>
-                <div id="PflegeMap.geocodingSearchArea">
-                  <input class="pflegemap-search-field" type="text" id="search" placeholder="Search..." />
+                <div class="pflegemap-header">
+                  <h3 class="">Pflegeangebote</h3>
                 </div>
-                <div id="PflegeMap.searchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
+                <div id="PflegeMap.geocodingSearchArea" class="pflegemap-searching-area">
+                  <input id="search" class="pflegemap-search-field" type="text" placeholder="Search..."/>
+                </div>
+                <div id="PflegeMap.searchResultBox" class="pflegemap-search-result-box" style="display:none;">
+
+                </div>
 <?php /*
                 <div id="list" class="mylist">
                   <label>
@@ -181,8 +186,8 @@
                   </label><?php } ?>
                 </div>
 */ ?>
-                <div id="list" class="mylist">
-                  <div id="erster" class="pflegemap-kategorie-box">
+                <div id="list" class="pflegemap-categories">
+                  <div class="pflegemap-category-box">
                     <label>
                       <input kategorie="aw" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">AW</span>
@@ -204,7 +209,7 @@
                       <span class="label-body">Barrierearmes Wohnen</span>
                     </label>
                   </div> 
-                  <div id="zwoter" class="pflegemap-kategorie-box">
+                  <div class="pflegemap-category-box">
                     <label>
                       <input kategorie="bf" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Barrierefreies Wohnen</span>
@@ -226,7 +231,7 @@
                       <span class="label-body">Klinik</span>
                     </label>
                   </div> 
-                  <div id="ditter" class="pflegemap-kategorie-box">
+                  <div class="pflegemap-category-box">
                     <label>
                       <input kategorie="kp" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Kurzzeitpflege</span>
@@ -248,7 +253,7 @@
                       <span class="label-body">Psychiatrische Tagesklinik</span>
                     </label>
                   </div> 
-                  <div id="4ta" class="pflegemap-kategorie-box">
+                  <div class="pflegemap-category-box">
                     <label>
                       <input kategorie="st" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Stationäre Pflege</span>
@@ -262,7 +267,6 @@
                       <span class="label-body">Tagespflege</span>
                     </label><br>
                     <br>
-                    <br>
                     <label>
                       <input kategorie="all" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">alle Kategorien</span>
@@ -270,30 +274,29 @@
                   </div>
                 </div>
                 <div class="pflegemap-clear"></div>
-                <div class="container">
-                  <div id="PflegeMap.map" class="pflegemap-map">
-                    <div id="PflegeMap.popup" class="pm-popup">
-                      <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
-                      <div id="PflegeMap.popup-content">
-                        <div id="PflegeMap.popup-title">Title</div>
-                        <div id="PflegeMap.popup-data"></div>
-                        <div id="PflegeMap.popup-functions"class="pm-popup-functions pm-suchergebnis">
-                          <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-fw"></i>&nbsp; Start</div>
-                          <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-fw"></i>&nbsp; Ziel</div>
-                          <div class="pm-popup-function-nearby"><i class="fa fa-search fa-fw"></i>&nbsp; in der N&auml;he</div>
-                          <div class="pm-popup-function-clear"><i class="fa fa-stack"><i class="fa fa-map-marker fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x"></i></i>&nbsp; L&ouml;schen</div>
-                        </div>
+                <div id="PflegeMap.map" class="pflegemap-map">
+                  <div id="PflegeMap.popup" class="pm-popup">
+                    <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
+                    <div id="PflegeMap.popup-content">
+                      <div id="PflegeMap.popup-title" class="pflegemap-popup-title"></div>
+                      <div id="PflegeMap.popup-data"></div>
+                      <hr class="pflegemap-hr">
+                      <div id="PflegeMap.popup-functions" class="pm-popup-functions pm-suchergebnis">
+                        <div id="PflegeMap.popup-source" class="pm-popup-function-from"><i class="fa fa-flag-o fa-fw"></i>&nbsp; Start</div>
+                        <div id="PflegeMap.popup-target" class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-fw"></i>&nbsp; Ziel</div>
+                        <div class="pm-popup-function-nearby" style="display:none"><i class="fa fa-search fa-fw"></i>&nbsp; in der N&auml;he</div>
+                        <div class="pm-popup-function-clear" style="display:none"><i class="fa fa-stack"><i class="fa fa-map-marker fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x"></i></i>&nbsp; L&ouml;schen</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div id="PflegeMap.coordinates" class="pflegemap-coordinates" style="display:none">Projektion ETRS89 / UTM zone 33N</div>
-                <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list"></div>
-                <div id="PflegeMap.routingSearchArea">
-                  <input id="PflegeMap.sourceField" class="pflegemap-routing-search-field" type="text" value="53.53,11.34"/>
-                  <input id="PflegeMap.targetField" class="pflegemap-routing-search-field" type="text" value="53.42,11.84"/>
-                  <input id="PflegeMap.calcRouteButton" type="button" value="Route berechnen"/>
+                <div class="pflegemap-clear"></div>
+                <div id="PflegeMap.routingSearchArea" style="display:none">
+                  <input id="PflegeMap.sourceField" class="pflegemap-routing-search-field" type="text" coordinates="" value=""/> <input id="PflegeMap.removeRouteButton" type="button" value="Route löschen"/><br>
+                  <input id="PflegeMap.targetField" class="pflegemap-routing-search-field" type="text" coordinates="" value=""/> <input id="PflegeMap.calcRouteButton" type="button" value="Route berechnen"/>
                 </div>
+                <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list"></div>
               </div>
             </article>
           </div>

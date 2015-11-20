@@ -1,158 +1,7 @@
-.pm-popup {
-  position: absolute;
-  background-color: white;
-  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
-  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
-  padding: 15px;
-  border-radius: 10px;
-  border: 1px solid #cccccc;
-  bottom: 12px;
-  left: -50px;
-  min-width: 200px;
-}
+.pflegemap {
 
-.pm-popup:after, .ol-popup:before {
-  top: 100%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
 }
-
-.pm-popup:after {
-  border-top-color: white;
-  border-width: 10px;
-  left: 48px;
-  margin-left: -10px;
-}
-
-.pm-popup:before {
-  border-top-color: #cccccc;
-  border-width: 11px;
-  left: 48px;
-  margin-left: -11px;
-}
-
-.pm-popup-closer {
-  text-decoration: none;
-  position: absolute;
-  top: 2px;
-  right: 8px;
-}
-
-.pm-popup-closer:after {
-  content: "✖";
-}
-
-.pm-popup-functions>* {
-  visibility: hidden;
-  display: none;
-}
-
-.pm-angebot .pm-popup-function-from,
-.pm-angebot .pm-popup-function-to
-{
-  visibility: visible;
-  display: inline-block;
-}
-
-.pm-suchergebnis .pm-popup-function-from,
-.pm-suchergebnis .pm-popup-function-to ,
-.pm-suchergebnis .pm-popup-function-nearby ,
-.pm-suchergebnis .pm-popup-function-clear
-{
-  visibility: visible;
-  display: inline-block;
-}
-
-.pflegemap-map {
-  display: block;
-#  width: 70%;
-  height: 500px;
-  margin-top: 2px;
-  margin-left: auto;
-  margin-right: auto;
-#  padding: 2px;
-#  background-color: #ddd;
-  border-radius: 5px;
-  border: 1px solid #fff;
-  position: relative;  
-}
-.pflegemap-kategorie-box{
-  float: left;
-  width: 25%;
-}
-.pflegemap-clear{
-  clear: both;
-}
-.pflegemap-coordinates {
-  display: block;
-#  width: 70%;
-  margin-top: 2px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 5px;
-#  background-color: #ddd;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  position: relative;
-}
-.pflegemap-search-field{
-#  display: block;
-  width: 100%;
-#  margin-top: 2px;
-  margin-left: auto;
-  margin-right: auto;
-#  padding: 5px;
-#  background-color: #ddd;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  position: relative;
-}
-.pflegemap-routing-search-field{
-  width: 50%;
-#  margin-top: 2px;
-  margin-left: auto;
-  margin-right: auto;
-#  padding: 5px;
-#  background-color: #ddd;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  position: relative;
-}
-.pflegemap-search-result-box{
-  padding: 4px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  background-color: #eee;
-}
-.pflegemap-care-service {
-#  display: block;
-#  width: 70%;
-  margin-top: 2px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-#  position: relative;
-  background-color: #eee;
-}
-.pflegemap-care-service-close:before {
-  content: "×";
-}
-/*
-.pflegemap-care-service-close {
-  float:right;
-  display:inline-block;
-  padding: 4px;
-  background:#ccc;
-  color:#fff;
-}
-*/
-.pflegemap-overlay{
+.pflegemap-overlay {
   background: black;
   opacity: .5;
   position:fixed;
@@ -196,7 +45,6 @@ a.pflegemap-message-box-close{
 .pflegemap-message-box-close:before {
   content: "×";
 }
-
 .pflegemap-message-box h1{
   border-bottom: 1px dashed #7F7F7F;
   margin:-20px -20px 0px -20px;
@@ -209,6 +57,177 @@ a.pflegemap-message-box-close{
   -khtml-border-top-left-radius: 20px;
   -khtml-border-top-right-radius: 20px;
 }
+.pflegemap-header {
+  
+}
+.pflegemap-searching-area {
+  
+}
+.pflegemap-search-field{
+#  display: block;
+  width: 100%;
+#  margin-top: 2px;
+  margin-left: auto;
+  margin-right: auto;
+#  padding: 5px;
+#  background-color: #ddd;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  position: relative;
+}
+.pflegemap-search-result-box{
+  padding: 4px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #eee;
+}
+.pflegemap-categories {
+}
+.pflegemap-category-box {
+  float: left;
+  width: 25%;
+}
+.pflegemap-clear{
+  clear: both;
+}
+.pflegemap-map {
+  margin-top: 2px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+#  bottom: 12px;
+}
+.pm-popup {
+  position: absolute;
+  background-color: white;
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  padding: 5px;
+  padding-right: 25px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  bottom: 12px;
+  left: -50px;
+  min-width: 200px;
+}
+
+.pm-popup:after, .ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.pm-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+
+.pm-popup:before {
+  border-top-color: #ccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+
+.pm-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+
+.pm-popup-closer:after {
+  content: "✖";
+}
+
+.pm-popup-functions>* {
+  visibility: hidden;
+  display: none;
+}
+
+.pm-angebot .pm-popup-function-from,
+.pm-angebot .pm-popup-function-to {
+  visibility: visible;
+  display: inline-block;
+}
+
+.pm-suchergebnis .pm-popup-function-from,
+.pm-suchergebnis .pm-popup-function-to ,
+.pm-suchergebnis .pm-popup-function-nearby ,
+.pm-suchergebnis .pm-popup-function-clear {
+  visibility: visible;
+  display: inline-block;
+}
+
+.pflegemap-popup-title {
+  font-weight: bold !important;
+}
+
+hr.pflegemap-hr {
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+.pflegemap-coordinates {
+  display: block;
+#  width: 70%;
+  margin-top: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+#  background-color: #ddd;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  position: relative;
+}
+
+.pflegemap-care-service-list {
+}
+.pflegemap-care-service {
+  background-color: #eee;
+  margin-top: 5px;
+  padding: 5px;
+  overflow: hidden;
+  height: 1%;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+.pflegemap-care-service-content {
+  float: left;
+  width: 95%;
+}
+.pflegemap-care-service-close:before {
+  #content: "×";
+}
+.pflegemap-care-service-close {
+  float: right;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-decoration: none;
+  font-weight: bold;
+#  border: 1px solid #ccc;
+#  -webkit-border-radius: 5px;
+#  -moz-border-radius: 5px;
+#  background-color: #ddd;
+}
+
+.pflegemap-routing-search-field{
+  width: 50%;
+#  margin-top: 2px;
+  margin-left: auto;
+  margin-right: auto;
+#  padding: 5px;
+#  background-color: #ddd;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  position: relative;
+}
+
 #query {
   display: block;
   width: 70%;

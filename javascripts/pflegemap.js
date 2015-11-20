@@ -29,7 +29,6 @@ $('#PflegeMap').ready(function() {
   //instanciate the popup overlay
   var popupElem    = document.getElementById('PflegeMap.popup');
   var popupCloser  = document.getElementById('PflegeMap.popup-closer');
-  var popupContent = document.getElementById('PflegeMap.popup-data');
 
   PflegeMap.popup = new ol.Overlay({
     element: popupElem,
@@ -61,10 +60,8 @@ $('#PflegeMap').ready(function() {
         ),
         PflegeMap.viewProjection
       );
-      console.log(evt.coordinate, featureCenter);
       PflegeMap.popup.setPosition(featureCenter);
-//      PflegeMap.popup.setPosition(evt.coordinate);
-      popupContent.innerHTML = 'Ballo';
+      feature.showPopUp();
     } else {
       PflegeMap.popup.setPosition(undefined);
     }
