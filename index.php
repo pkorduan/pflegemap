@@ -196,24 +196,24 @@
                       <input kategorie="ab" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Ambulant betreute WG</span>
                     </label><br>
-                    <label>
+                    <!--label>
                       <input kategorie="ap" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Apotheke</span>
-                    </label><br>
-                    <label>
+                    </label><br//-->
+                    <!--label>
                       <input kategorie="az" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Arzt</span>
-                    </label><br>
+                    </label><br//-->
                     <label>
                       <input kategorie="ba" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Barrierearmes Wohnen</span>
-                    </label>
-                  </div> 
-                  <div class="pflegemap-category-box">
+                    </label><br>
                     <label>
                       <input kategorie="bf" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Barrierefreies Wohnen</span>
                     </label><br>
+                  </div> 
+                  <div class="pflegemap-category-box">
                     <label>
                       <input kategorie="bw" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Betreutes Wohnen</span>
@@ -226,16 +226,16 @@
                       <input kategorie="hp" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Hospiz ambulant</span>
                     </label><br>
-                    <label>
+                    <!--label>
                       <input kategorie="kl" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Klinik</span>
-                    </label>
-                  </div> 
-                  <div class="pflegemap-category-box">
+                    </label//-->
                     <label>
                       <input kategorie="kp" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Kurzzeitpflege</span>
-                    </label><br>
+                    </label>
+                  </div> 
+                  <div class="pflegemap-category-box">
                     <label>
                       <input kategorie="ks" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Kurzzeitpflege (Streuplätze)</span>
@@ -248,16 +248,16 @@
                       <input kategorie="pd" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Pflegedienst</span>
                     </label><br>
-                    <label>
+                    <!--label>
                       <input kategorie="pt" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Psychiatrische Tagesklinik</span>
-                    </label>
-                  </div> 
-                  <div class="pflegemap-category-box">
+                    </label//-->
                     <label>
                       <input kategorie="rh" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Reha</span>
-                    </label><br>
+                    </label>
+                  </div>
+                  <div class="pflegemap-category-box">
                     <label>
                       <input kategorie="tp" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Tagespflege</span>
