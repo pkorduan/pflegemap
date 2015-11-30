@@ -255,16 +255,16 @@
                   </div> 
                   <div class="pflegemap-category-box">
                     <label>
-                      <input kategorie="st" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Stationäre Pflege</span>
-                    </label><br>
-                    <label>
                       <input kategorie="rh" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Reha</span>
                     </label><br>
                     <label>
                       <input kategorie="tp" class="cb-kat" type="checkbox" checked="">
                       <span class="label-body">Tagespflege</span>
+                    </label><br>
+                    <label>
+                      <input kategorie="st" class="cb-kat" type="checkbox" checked="">
+                      <span class="label-body">sonstiges</span>
                     </label><br>
                     <br>
                     <label>
