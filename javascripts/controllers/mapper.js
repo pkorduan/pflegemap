@@ -38,7 +38,7 @@ PflegeMap.mapperController = {
     var source = this.layer.getSource(),
         features = source.getFeatures();
 
-    for (i = 0; i < features.length; i++) {
+    for (var i = 0; i < features.length; i++) {
       this.list.add(features[i]);
     }
   },

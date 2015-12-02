@@ -14,6 +14,26 @@ PflegeMap.routerController = {
   },
 
   setEventHandler: function() {
+    // add popup function handlers
+    $('#PflegeMap\\.popup .pm-popup-function-from').off();
+    $('#PflegeMap\\.popup .pm-popup-function-from').on(
+      'click',
+      {
+        routeField: $('#PflegeMap\\.sourceField'),
+        popup: PflegeMap.popup
+      },
+      this.openRouteSearch
+    );
+    $('#PflegeMap\\.popup .pm-popup-function-to').off();
+    $('#PflegeMap\\.popup .pm-popup-function-to').on(
+      'click',
+      {
+        routeField: $('#PflegeMap\\.targetField'),
+        popup: PflegeMap.popup
+      },
+      this.openRouteSearch
+    );
+
     $('#PflegeMap\\.calcRouteButton').click(this, this.loadRoute);
     $('#PflegeMap\\.removeRouteButton').click(this.removeRoute);
     $('#PflegeMap\\.MessageBoxClose').click(function() {
@@ -124,15 +144,14 @@ PflegeMap.routerController = {
     $('#PflegeMap\\.targetField').prop('readonly', false);
   },
 
-  openRouteSearch: function(careService) {
-    $('#PflegeMap\\.' + careService.target.id.split('-')[1] + 'Field').attr(
-      'coordinates',
-      careService.data.latlng()
-    );
-    $('#PflegeMap\\.' + careService.target.id.split('-')[1] + 'Field').val(
-      careService.data.address()
-    );
-    $('#PflegeMap\\.' + careService.target.id.split('-')[1] + 'Field').prop('readonly', true);
+  openRouteSearch: function(event) {
+    var currFeature = event.data.popup.feature;
+    var routeField = event.data.routeField;
+    
+    routeField.attr('coordinates', currFeature.latlng());
+    routeField.val(currFeature.address());
+    routeField.prop('readonly', true);
+    
     $('#PflegeMap\\.routingSearchArea').show();
   }
 };

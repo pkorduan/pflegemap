@@ -57,6 +57,15 @@
     <script src="3rdparty/proj4js/proj4.js"></script>
     <script src="3rdparty/proj4js/25833.js"></script>
     
+    <script type="text/javascript">
+      /**
+       * Define a namespace for the application.
+       */
+      window.PflegeMap = {};
+      var PflegeMap = window.PflegeMap;
+      PflegeMap.storeURL = "<?php echo $config['store']['url'] ?>";
+    </script>
+
     <script src="javascripts/pflegemap.js"></script>
     <script src?"javascripts/config.js.php"></script>
     <script src="javascripts/models/SearchResult.js"></script>
@@ -66,7 +75,6 @@
     <script src="javascripts/controllers/mapper.js"></script>
     <script src="javascripts/controllers/router.js"></script>
     <script src="javascripts/controllers/geocoder.js"></script>
-
   </head>
   <body class="purple" style="background: url(http://kreis-lup.de/export/sites/LUP/.galleries/LUP-Allgemein-Aktuelles-und-Presse/Service-Verwaltung/DSC_0474.JPG_1979318820.jpg) no-repeat center center fixed; -webkit-background-size: cover; background-size: cover;">
     <ul id="skiplinks">
@@ -274,18 +282,19 @@
                   </div>
                 </div>
                 <div class="pflegemap-clear"></div>
-                <div id="PflegeMap.map" class="pflegemap-map">
-                  <div id="PflegeMap.popup" class="pm-popup">
-                    <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
-                    <div id="PflegeMap.popup-content">
-                      <div id="PflegeMap.popup-title" class="pflegemap-popup-title"></div>
-                      <div id="PflegeMap.popup-data"></div>
-                      <hr class="pflegemap-hr">
-                      <div id="PflegeMap.popup-functions" class="pm-popup-functions pm-suchergebnis">
-                        <div id="PflegeMap.popup-source" class="pm-popup-function-from"><i class="fa fa-flag-o fa-fw"></i>&nbsp; Start</div>
-                        <div id="PflegeMap.popup-target" class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-fw"></i>&nbsp; Ziel</div>
-                        <div class="pm-popup-function-nearby" style="display:none"><i class="fa fa-search fa-fw"></i>&nbsp; in der N&auml;he</div>
-                        <div class="pm-popup-function-clear" style="display:none"><i class="fa fa-stack"><i class="fa fa-map-marker fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x"></i></i>&nbsp; L&ouml;schen</div>
+                <div class="container">
+                  <div id="PflegeMap.map" class="pflegemap-map">
+                    <div id="PflegeMap.popup" class="pm-popup">
+                      <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
+                      <div id="PflegeMap.popup-content">
+                        <div id="PflegeMap.popup-title" class="pm-popup-title"></div>
+                        <div id="PflegeMap.popup-data"></div>
+                        <div id="PflegeMap.popup-functions"class="pm-popup-functions">
+                          <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-fw"></i>&nbsp; Route von hier</div>
+                          <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-fw"></i>&nbsp; Route nach hier</div>
+                          <div class="pm-popup-function-nearby"><i class="fa fa-search fa-fw"></i>&nbsp; in der N&auml;he suchen</div>
+                          <div class="pm-popup-function-clear"><i class="fa fa-times fa-fw"></i>&nbsp; Markierung l&ouml;schen</div>
+                        </div>
                       </div>
                     </div>
                   </div>

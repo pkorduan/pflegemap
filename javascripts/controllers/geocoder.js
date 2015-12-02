@@ -20,6 +20,32 @@ PflegeMap.geocoderController = {
       this,
       this.lookupNominatim
     );
+    
+    $('#PflegeMap\\.popup .pm-popup-function-nearby').off();
+    $('#PflegeMap\\.popup .pm-popup-function-nearby').on(
+      'click',
+      {
+        routeField: $('#PflegeMap\\.targetField'),
+        popup: PflegeMap.popup
+      },
+      PflegeMap.router.openRouteSearch
+    );
+
+    $('#PflegeMap\\.popup .pm-popup-function-clear').off();
+    $('#PflegeMap\\.popup .pm-popup-function-clear').on(
+      'click',
+      {
+        popup: PflegeMap.popup,
+        layer: this.layer
+      },
+      function(event){
+        var layer = event.data.layer,
+          popup = event.data.popup,
+          feature = popup.feature;
+        popup.setPosition(undefined);
+        layer.getSource().removeFeature(feature);
+      }
+    );
   },
 
   lookupNominatim: function(e){
@@ -68,9 +94,6 @@ PflegeMap.geocoderController = {
   },
 
   showNominatimResults: function(scope, results) {
-    var displayNamesArray = results.map(function(item){
-      return item.display_name;
-    });
     $('#PflegeMap\\.searchResultBox').html(scope.searchResultsFormatter(results));
     $('#PflegeMap\\.searchResultBox').show();
   },
@@ -83,16 +106,11 @@ PflegeMap.geocoderController = {
 
   addSearchResultFeature: function(display_name, lat, lon) {
     var searchResultFeature = new PflegeMap.searchResult(display_name, lat, lon),
-        source = this.layer.getSource(),
-        features = source.getFeatures();
+        source = this.layer.getSource();
 
     $('#PflegeMap\\.searchResultBox').hide();
-
-    if (features != null && features.length > 0) {
-      for (x in features) {
-          source.removeFeature( features[x] );
-      }
-    }
+    
+    this.removeSearchResultFeatures(this);
 
     source.addFeature( searchResultFeature );
 
@@ -103,5 +121,16 @@ PflegeMap.geocoderController = {
       ),
       PflegeMap.map.getSize()
     );
+  },
+  
+  removeSearchResultFeatures : function(){
+    var source = this.layer.getSource(),
+    features = source.getFeatures();
+
+    if (features != null && features.length > 0) {
+      for (x in features) {
+          source.removeFeature( features[x] );
+      }
+    }
   }
 };

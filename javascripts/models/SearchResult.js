@@ -37,21 +37,11 @@ PflegeMap.searchResult = function(name, lat, lon) {
     return lnglat[1] + ', ' + lnglat[0];
   };
 
-  feature.showPopUp = function() {
-    $('#PflegeMap\\.popup-title').html('Suchbegriff');
+  feature.preparePopup = function() {
+    PflegeMap.popup.feature = this;
+    $('#PflegeMap\\.popup').attr('class','pm-popup pm-suchergebnis');
+    $('#PflegeMap\\.popup-title').html('Suchergebnis');
     $('#PflegeMap\\.popup-data').html(this.data());
-    $('#PflegeMap\\.popup-source').off();
-    $('#PflegeMap\\.popup-source').on(
-      'click',
-      this,
-      PflegeMap.router.openRouteSearch
-    );
-    $('#PflegeMap\\.popup-target').off();
-    $('#PflegeMap\\.popup-target').on(
-      'click',
-      this,
-      PflegeMap.router.openRouteSearch
-    );
   };
 
   return feature;

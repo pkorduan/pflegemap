@@ -110,7 +110,9 @@ a.pflegemap-message-box-close{
   min-width: 200px;
 }
 
-.pm-popup:after, .ol-popup:before {
+.pm-popup:after,
+.ol-popup:before 
+{
   top: 100%;
   border: solid transparent;
   content: " ";
@@ -134,6 +136,18 @@ a.pflegemap-message-box-close{
   margin-left: -11px;
 }
 
+.pm-popup-title {
+  font-weight: bold;
+}
+
+.pm-angebot .pm-popup-title:before {
+  #content: "Pflegeangebot";
+}
+
+.pm-suchergebnis .pm-popup-title:before {
+  #content: "Suchergebnis";
+}
+
 .pm-popup-closer {
   text-decoration: none;
   position: absolute;
@@ -145,6 +159,10 @@ a.pflegemap-message-box-close{
   content: "✖";
 }
 
+.pm-popup-functions {
+  border-top: 1px solid #cccccc;
+}
+
 .pm-popup-functions>* {
   visibility: hidden;
   display: none;
@@ -153,7 +171,7 @@ a.pflegemap-message-box-close{
 .pm-angebot .pm-popup-function-from,
 .pm-angebot .pm-popup-function-to {
   visibility: visible;
-  display: inline-block;
+  display: block;
 }
 
 .pm-suchergebnis .pm-popup-function-from,
@@ -161,11 +179,7 @@ a.pflegemap-message-box-close{
 .pm-suchergebnis .pm-popup-function-nearby ,
 .pm-suchergebnis .pm-popup-function-clear {
   visibility: visible;
-  display: inline-block;
-}
-
-.pflegemap-popup-title {
-  font-weight: bold !important;
+  display: block;
 }
 
 hr.pflegemap-hr {
