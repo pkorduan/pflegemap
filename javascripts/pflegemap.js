@@ -1,13 +1,7 @@
-/**
- * Define a namespace for the application.
- */
-window.PflegeMap = {
   // central setting for the projection of the map view
-  viewProjection: 'EPSG:25833',
+  PflegeMap.viewProjection = 'EPSG:25833',
   // fuer einige Berechnungen muss nach LonLat transformiert werden
-  baseProjection: 'EPSG:4326'
-};
-var PflegeMap = window.PflegeMap;
+  PflegeMap.baseProjection = 'EPSG:4326';
 
 // load the data and the map after loading the map div
 $('#PflegeMap').ready(function() {
@@ -21,39 +15,11 @@ $('#PflegeMap').ready(function() {
   */
   {
     PflegeMap.map = PflegeMap.initMap(PflegeMap.store);
+    PflegeMap.popup = PflegeMap.initPopup();
     PflegeMap.mapper = PflegeMap.initMapper(PflegeMap.store);
     PflegeMap.router = PflegeMap.initRouter();
     PflegeMap.geocoder = PflegeMap.initGeocoder();
   }
-
-  //instanciate the popup overlay
-  var popupElem    = document.getElementById('PflegeMap.popup');
-  var popupCloser  = document.getElementById('PflegeMap.popup-closer');
-  var popupContent = document.getElementById('PflegeMap.popup-data');
-
-  /**
-   * Add a click handler to hide the popup.
-   * @return {boolean} Don't follow the href.
-   */
-  popupCloser.onclick = function() {
-    PflegeMap.popup.setPosition(undefined);
-    popupCloser.blur();
-    return false;
-  };
-
-  PflegeMap.popup = new ol.Overlay({
-    element: popupElem,
-    offset: [0,-8],
-    stopEvent: true,
-    autoPan: true,
-    autoPanAnimation: {
-      duration: 300
-    },
-    autoPanMargin: 30,
-  });
-  PflegeMap.popup.set('contentDiv',popupContent);
-  
-  PflegeMap.map.addOverlay(PflegeMap.popup);
 
   //display popup on click
   PflegeMap.map.on('click', function(evt) {
@@ -72,12 +38,15 @@ $('#PflegeMap').ready(function() {
         ),
         PflegeMap.viewProjection
       );
-      // prepare popup
+      // set popup style and content
       feature.preparePopup();
 
       // show popup
       PflegeMap.popup.setPosition(featureCenter);
+
     } else {
+      
+      // hide popup
       PflegeMap.popup.setPosition(undefined);
     }
   });
@@ -89,7 +58,8 @@ $('#PflegeMap').ready(function() {
 function loadJSON(callback) {
   var xobj = new XMLHttpRequest();
   xobj.overrideMimeType("application/json");
-  xobj.open('GET', '/wfs2json/json/data.json', false); // true would load asynchronous
+  xobj.open('GET', PflegeMap.storeURL, false); // true would load asynchronous
+  //xobj.open('GET', '/wfs2json/json/data.json', false); // true would load asynchronous
   xobj.onreadystatechange = function () {
     if (xobj.readyState == 4 && xobj.status == "200") {
       // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
@@ -203,6 +173,37 @@ PflegeMap.initMap = function(store) {
   };
 
   return map;
+};
+
+PflegeMap.initPopup = function(){
+  //instanciate the popup overlay
+  var popupElem    = document.getElementById('PflegeMap.popup');
+  var popupCloser  = document.getElementById('PflegeMap.popup-closer');
+
+  /**
+   * Add a click handler to hide the popup.
+   * @return {boolean} Don't follow the href.
+   */
+  popupCloser.onclick = function() {
+    PflegeMap.popup.setPosition(undefined);
+    popupCloser.blur();
+    return false;
+  };
+
+  var popup = new ol.Overlay({
+    element: popupElem,
+    offset: [0,-8],
+    stopEvent: true,
+    autoPan: true,
+    autoPanAnimation: {
+      duration: 300
+    },
+    autoPanMargin: 30,
+  });
+  
+  PflegeMap.map.addOverlay(popup);
+
+  return popup;
 };
 
 PflegeMap.initMapper = function(store) {

@@ -14,7 +14,28 @@ PflegeMap.routerController = {
   },
 
   setEventHandler: function() {
+    // add popup function handlers
+    $('#PflegeMap\\.popup .pm-popup-function-from').off();
+    $('#PflegeMap\\.popup .pm-popup-function-from').on(
+      'click',
+      {
+        routeField: $('#PflegeMap\\.sourceField'),
+        popup: PflegeMap.popup
+      },
+      this.openRouteSearch
+    );
+    $('#PflegeMap\\.popup .pm-popup-function-to').off();
+    $('#PflegeMap\\.popup .pm-popup-function-to').on(
+      'click',
+      {
+        routeField: $('#PflegeMap\\.targetField'),
+        popup: PflegeMap.popup
+      },
+      this.openRouteSearch
+    );
+
     $('#PflegeMap\\.calcRouteButton').click(this, this.loadRoute);
+    $('#PflegeMap\\.removeRouteButton').click(this.removeRoute);
     $('#PflegeMap\\.MessageBoxClose').click(function() {
       $('#PflegeMap\\.MessageBox').animate({'top':'-200px'},500,function(){
         $('#PflegeMap\\.Overlay').fadeOut('fast');
@@ -24,7 +45,11 @@ PflegeMap.routerController = {
 
   loadRoute : function(e) {
     var scope = e.data,
-        url  = 'osm2poServiceProxy.php';
+        url  = 'osm2poServiceProxy.php',
+        source = $('#PflegeMap\\.sourceField').attr('coordinates') || $('#PflegeMap\\.sourceField').val(),
+        target = $('#PflegeMap\\.targetField').attr('coordinates') || $('#PflegeMap\\.targetField').val(),
+        queryString = 'Route von: ' + source + ' nach: ' + target,
+        hint = '';
 
     $.ajax({
       url: url,
@@ -39,14 +64,22 @@ PflegeMap.routerController = {
       data: {
         cmd: 'fr',
         //format: 'geojson',
-        source: $('#PflegeMap\\.sourceField')[0].value,
-        target: $('#PflegeMap\\.targetField')[0].value
+        source: source,
+        target: target
       },
 
       // Work with the response
       success: function(response) {
         if (response.indexOf('Error') != -1 || response.indexOf('Fehler') != -1) {
-          scope.showErrorMsg(scope, response);
+          if (source == '')
+            hint = 'Keine Angaben für den Startpunkt: ' + source;
+          console.log(source);
+          if (target == '')
+            hint = 'Keine Angaben für den Zielpunkt: ' + target;
+          console.log(target);
+          if (source == target)
+            hint = 'Start: ' + source + ' und Zielpunkt: ' + target + ' sind identisch';
+          scope.showErrorMsg(scope, hint || 'Kein Ergebnis für ' + queryString + '<br>' + response);
         }
         else {
           scope.errMsgElement.innerHTML = '';
@@ -97,5 +130,28 @@ PflegeMap.routerController = {
       route.line.getGeometry().getExtent(),
       PflegeMap.map.getSize()
     );
+  },
+
+  removeRoute: function(scope) {
+    var source = PflegeMap.router.layer.getSource(),
+        features = source.getFeatures();
+
+    $('#PflegeMap\\.sourceField').attr('coordinates', '');
+    $('#PflegeMap\\.sourceField').val('');
+    $('#PflegeMap\\.sourceField').prop('readonly', false);
+    $('#PflegeMap\\.targetField').attr('coordinates', '');
+    $('#PflegeMap\\.targetField').val('');
+    $('#PflegeMap\\.targetField').prop('readonly', false);
+  },
+
+  openRouteSearch: function(event) {
+    var currFeature = event.data.popup.feature;
+    var routeField = event.data.routeField;
+    
+    routeField.attr('coordinates', currFeature.latlng());
+    routeField.val(currFeature.address());
+    routeField.prop('readonly', true);
+    
+    $('#PflegeMap\\.routingSearchArea').show();
   }
 };
