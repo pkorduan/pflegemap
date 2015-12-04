@@ -213,7 +213,7 @@ hr.pflegemap-hr {
 }
 .pflegemap-care-service-content {
   float: left;
-  width: 95%;
+  width: 85%;
 }
 .pflegemap-care-service-close:before {
   #content: "×";
