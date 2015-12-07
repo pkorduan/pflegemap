@@ -1,6 +1,12 @@
-PflegeMap.mapperController = {
+PflegeMap.mapperController = function() { return {
   scope: this,
+  
+// dummy zum Testen bitte löschen
+proximityRadius: 10000, // umkreis in Meter
+proximityExtent: PflegeMap.map.getView().calculateExtent(PflegeMap.map.getSize()),
 
+
+  
   layer: new ol.layer.Vector({
     opacity: 1,
     source: new ol.source.Vector({
@@ -43,13 +49,30 @@ PflegeMap.mapperController = {
     }
   },
 
-  // Handler für Kategorie-Checkboxen
-  setEventHandler: function() {
+  setEventHandlers: function() {
+    // Handler für Kategorie-Checkboxen
     $(".cb-kat").on(
       'change',
       this,
       this.switchCategoryCheckBox
     );
+    
+    // handler for popup's proximity search
+    $('#PflegeMap\\.popup .pm-popup-function-nearby').off();
+    $('#PflegeMap\\.popup .pm-popup-function-nearby').on(
+      'click',
+      {
+        mapper: this,
+        popup: PflegeMap.popup,
+        proximity: this.proximityRadius
+      },
+      function (event) {
+        var data = event.data,
+            feature = data.popup.feature;
+        data.mapper.proximityExtent = data.mapper.calculateProximityExtent(feature, data.proximity);
+      }
+    );
+
   },
 
   switchCategoryCheckBox: function(event) {
@@ -78,7 +101,8 @@ PflegeMap.mapperController = {
 
     for ( i = 0; i < features.length; i++) {
       if (c == features[i].get('kategorie') || all_categories) {
-        features[i].set('hidden', !v);
+        var hidden = v ? !(v && this.featureWithinProximity(features[i])) : !v;
+        features[i].set('hidden', hidden);
         features[i].changed();
         (v)
           ? $('#PflegeMap\\.careService_' + features[i].get('id')).show()
@@ -87,6 +111,36 @@ PflegeMap.mapperController = {
     }
 
     this.layer.changed();
+  },
+  
+  featureWithinProximity: function(feature){
+     return ol.extent.containsCoordinate(this.proximityExtent,feature.getGeometry().getCoordinates());
+  },
+  
+  calculateProximityExtent: function(feature, radius){
+//    var layerProjection = this.layer.getSource().getProjection(),
+    var layerProjection = PflegeMap.map.getView().getProjection(),
+        metricProjection = 'EPSG:25833';
+    var isMetric = layerProjection.getUnits() == 'm';
+//    var isMetric = layerProjection.code == metricProjection;
+    var featureGeom = feature.getGeometry().clone();
+    featureGeom = isMetric ? featureGeom : featureGeom.transform(layerProjection, metricProjection);
+    var minCoord = featureGeom.clone();
+    minCoord.translate(-radius,-radius);
+    var maxCoord = featureGeom.clone();
+    maxCoord.translate(radius,radius);
+    var proximityExtent = ol.extent.extend(minCoord.getExtent(),maxCoord.getExtent());
+    proximityExtent = isMetric ? proximityExtent : ol.proj.transformExtent(proximityExtent, metricProjection, layerProjection);
+    return proximityExtent;
+  },
+  
+  determineLocalUtmZone: function(geometryObj){
+    var center = geometryObj.getExtend().getCenter(),
+        projection = geometryObj.getProjection(),
+        lonLat = ol.proj.toLonLat(center,projection.code),
+        utmZone = (Math.floor((lonLat[0]+180)/6) % 60) + 1;
+    
+    return 'EPSG:258'+utmZone;
   },
 
   zeigeEinrichtungen: function(store, layer) {
@@ -103,4 +157,4 @@ PflegeMap.mapperController = {
     vektorLayer.setMap(map);
   }
 
-};
+};};
