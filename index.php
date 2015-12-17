@@ -176,11 +176,118 @@
                 <div class="pflegemap-header">
                   <h3 class="">Pflegeangebote</h3>
                 </div>
-                <div id="PflegeMap.geocodingSearchArea" class="pflegemap-searching-area">
-                  <input id="search" class="pflegemap-search-field" type="text" placeholder="Search..."/>
+                <div id="PflegeMap.searchArea" class="pflegemap-search-area">
+                  <div id="PflegeMap.textSearchArea"  style="display:#none">
+                    <input id="PflegeMap.textSearchField" class="pflegemap-search-field" type="text" placeholder="Pflegeeinrichtungen suchen ..."/>
+                    <div id="PflegeMap.textSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
+                  </div>
+                  <div id="PflegeMap.addressSearchArea" style="display:none">
+                    <input id="PflegeMap.addressSearchField" class="pflegemap-search-field" type="text" placeholder="Adresse suchen ..."/>
+                    <div id="PflegeMap.addressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
+                  </div>
+                  <div id="PflegeMap.proximitySearchArea"  style="display:none">
+                    <input id="PflegeMap.textSearchField" style="width:90%" class="pflegemap-search-field" type="text" placeholder="Pflegeeinrichtungen im Umkreis suchen ..."/>
+                    <select>
+                      <option value="1000" selected>1km</option>
+                      <option value="2000">2km</option>
+                    </select>
+                  </div>
+                  <div id="PflegeMap.categorySearchArea" style="display:none">
+                    <div id="list" class="pflegemap-categories">
+                      <div class="pflegemap-category-box">
+                        <label>
+                          <input kategorie="ab" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Ambulant betreute WG (ab)</span>
+                        </label><br>
+                        <!--label>
+                          <input kategorie="ap" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Apotheke</span>
+                        </label><br//-->
+                        <!--label>
+                          <input kategorie="az" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Arzt</span>
+                        </label><br//-->
+                        <label>
+                          <input kategorie="ba" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Barrierearmes Wohnen (ba)</span>
+                        </label><br>
+                        <label>
+                          <input kategorie="bf" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Barrierefreies Wohnen (bf)</span>
+                        </label><br>
+                        <label>
+                          <input kategorie="bw" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Betreutes Wohnen (bw)</span>
+                        </label>
+                      </div> 
+                      <div class="pflegemap-category-box">
+                        <label>
+                          <input kategorie="dp" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Dauerpflege (dp)</span>
+                        </label><br>
+                        <label>
+                          <input kategorie="hp" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Hospiz ambulant (hp)</span>
+                        </label><br>
+                        <label>
+                          <input kategorie="kp" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Kurzzeitpflege (kp)</span>
+                        </label><br>
+                        <label>
+                          <input kategorie="ks" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Kurzzeitpflege (Streuplätze) (ks)</span>
+                        </label>
+                        <!--label>
+                          <input kategorie="kl" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Klinik</span>
+                        </label//-->
+                      </div> 
+                      <div class="pflegemap-category-box">
+                        <label>
+                          <input kategorie="pv" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Palliativversorgung (pv)</span>
+                        </label><br>
+                        <label>
+                          <input kategorie="pd" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Pflegedienst (pd)</span>
+                        </label><br>
+                        <label>
+                          <input kategorie="rh" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Reha (rh)</span>
+                        </label><br>
+                        <label>
+                          <input kategorie="tp" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Tagespflege (tp)</span>
+                        </label>
+                        <!--label>
+                          <input kategorie="pt" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">Psychiatrische Tagesklinik</span>
+                        </label//-->
+                      </div>
+                      <div class="pflegemap-category-box">
+                        <br>
+                        <label>
+                          <input kategorie="st" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">sonstiges (st)</span>
+                        </label><br>
+                        <label>
+                          <input kategorie="all" class="cb-kat" type="checkbox" checked="">
+                          <span class="label-body">alle Kategorien</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div id="PflegeMap.searchResultBox" class="pflegemap-search-result-box" style="display:none;">
-
+                <div id="PflegeMap.routingSearchArea" class="pflegemap-search-area" style="display:none">
+                  <input id="PflegeMap.sourceField" class="pflegemap-routing-search-field" type="text" coordinates="" value="" placeholder="Startadresse eingeben ..."/> <input id="PflegeMap.removeRouteButton" type="button" value="Route löschen"/><br>
+                  <input id="PflegeMap.targetField" class="pflegemap-routing-search-field" type="text" coordinates="" value="" placeholder="Zieladresse eingeben ..."/> <input id="PflegeMap.calcRouteButton" type="button" value="Route berechnen"/>
+                </div>
+                <div id="PflegeMap.searchToolbox" class="pflegemap-search-toolbox">
+                  <a href="#"><img id="PflegeMap.textSearchTool" src="images/textSearchIcon.png" class="pflegemap-search-tool-icon" toolname="textSearch"></a>
+                  <a href="#"><img id="PflegeMap.addressSearchTool" src="images/addressSearchIcon.png" class="pflegemap-search-tool-icon" toolname="addressSearch"></a>
+                  <a href="#"><img id="PflegeMap.categorySearchTool" src="images/categorySearchIcon.png" class="pflegemap-search-tool-icon" toolname="categorySearch"></a>
+                  <a href="#"><img id="PflegeMap.proximitySearchTool" src="images/proximitySearchIcon.png" class="pflegemap-search-tool-icon" toolname="proximitySearch"></a>
+                  <a href="#"><img id="PflegeMap.routingSearchTool" src="images/routingIcon.png"  class="pflegemap-search-tool-icon" toolname="routingSearch"></a>
                 </div>
 <?php /*
                 <div id="list" class="mylist">
@@ -194,89 +301,6 @@
                   </label><?php } ?>
                 </div>
 */ ?>
-                <div id="list" class="pflegemap-categories">
-                  <div class="pflegemap-category-box">
-                    <label>
-                      <input kategorie="ab" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Ambulant betreute WG (ab)</span>
-                    </label><br>
-                    <!--label>
-                      <input kategorie="ap" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Apotheke</span>
-                    </label><br//-->
-                    <!--label>
-                      <input kategorie="az" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Arzt</span>
-                    </label><br//-->
-                    <label>
-                      <input kategorie="ba" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Barrierearmes Wohnen (ba)</span>
-                    </label><br>
-                    <label>
-                      <input kategorie="bf" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Barrierefreies Wohnen (bf)</span>
-                    </label><br>
-                    <label>
-                      <input kategorie="bw" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Betreutes Wohnen (bw)</span>
-                    </label>
-                  </div> 
-                  <div class="pflegemap-category-box">
-                    <label>
-                      <input kategorie="dp" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Dauerpflege (dp)</span>
-                    </label><br>
-                    <label>
-                      <input kategorie="hp" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Hospiz ambulant (hp)</span>
-                    </label><br>
-                    <label>
-                      <input kategorie="kp" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Kurzzeitpflege (kp)</span>
-                    </label><br>
-                    <label>
-                      <input kategorie="ks" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Kurzzeitpflege (Streuplätze) (ks)</span>
-                    </label>
-                    <!--label>
-                      <input kategorie="kl" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Klinik</span>
-                    </label//-->
-                  </div> 
-                  <div class="pflegemap-category-box">
-                    <label>
-                      <input kategorie="pv" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Palliativversorgung (pv)</span>
-                    </label><br>
-                    <label>
-                      <input kategorie="pd" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Pflegedienst (pd)</span>
-                    </label><br>
-                    <label>
-                      <input kategorie="rh" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Reha (rh)</span>
-                    </label><br>
-                    <label>
-                      <input kategorie="tp" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Tagespflege (tp)</span>
-                    </label>
-                    <!--label>
-                      <input kategorie="pt" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">Psychiatrische Tagesklinik</span>
-                    </label//-->
-                  </div>
-                  <div class="pflegemap-category-box">
-                    <br>
-                    <label>
-                      <input kategorie="st" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">sonstiges (st)</span>
-                    </label><br>
-                    <label>
-                      <input kategorie="all" class="cb-kat" type="checkbox" checked="">
-                      <span class="label-body">alle Kategorien</span>
-                    </label>
-                  </div>
-                </div>
                 <div class="pflegemap-clear"></div>
                 <div class="container">
                   <div id="PflegeMap.map" class="pflegemap-map">
@@ -297,10 +321,6 @@
                 </div>
                 <div id="PflegeMap.coordinates" class="pflegemap-coordinates" style="display:none">Projektion ETRS89 / UTM zone 33N</div>
                 <div class="pflegemap-clear"></div>
-                <div id="PflegeMap.routingSearchArea" style="display:none">
-                  <input id="PflegeMap.sourceField" class="pflegemap-routing-search-field" type="text" coordinates="" value=""/> <input id="PflegeMap.removeRouteButton" type="button" value="Route löschen"/><br>
-                  <input id="PflegeMap.targetField" class="pflegemap-routing-search-field" type="text" coordinates="" value=""/> <input id="PflegeMap.calcRouteButton" type="button" value="Route berechnen"/>
-                </div>
                 <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list"></div>
               </div>
             </article>

@@ -1,11 +1,9 @@
 PflegeMap.mapperController = function() { return {
   scope: this,
   
-// dummy zum Testen bitte löschen
-proximityRadius: 10000, // umkreis in Meter
-proximityExtent: PflegeMap.map.getView().calculateExtent(PflegeMap.map.getSize()),
-
-
+  // dummy zum Testen bitte löschen
+  proximityRadius: 10000, // umkreis in Meter
+  proximityExtent: PflegeMap.map.getView().calculateExtent(PflegeMap.map.getSize()),
   
   layer: new ol.layer.Vector({
     opacity: 1,
@@ -38,6 +36,12 @@ proximityExtent: PflegeMap.map.getView().calculateExtent(PflegeMap.map.getSize()
 
   },
 
+  initSearchTools: function() {
+    PflegeMap.searchTools.push('textSearch');
+    PflegeMap.searchTools.push('categorySearch');
+    PflegeMap.searchTools.push('proximitySearch');
+  },
+
   initList: function() {
     this.list.div = $('#PflegeMap\\.careServicesList');
 
@@ -50,6 +54,31 @@ proximityExtent: PflegeMap.map.getView().calculateExtent(PflegeMap.map.getSize()
   },
 
   setEventHandlers: function() {
+    $('#PflegeMap\\.proximitySearchTool').on(
+      'click',
+      this,
+      this.switchSearchTools
+    );
+
+    $('#PflegeMap\\.categorySearchTool').on(
+      'click',
+      this,
+      this.switchSearchTools
+    );
+
+    $('#PflegeMap\\.textSearchTool').on(
+      'click',
+      this,
+      this.switchSearchTools
+    );
+
+    // Handler for thematic search
+    $('#PflegeMap\\.textSearchField').on(
+      'input',
+      this,
+      this.themeSearch
+    );
+
     // Handler für Kategorie-Checkboxen
     $(".cb-kat").on(
       'change',
@@ -75,6 +104,22 @@ proximityExtent: PflegeMap.map.getView().calculateExtent(PflegeMap.map.getSize()
 
   },
 
+  themeSearch: function(event) {
+    debug_e = event;
+    console.log('Search with this text: ' + event.target.value);
+    if (event.target.value.length == 0) {
+      $('#PflegeMap\\.textSearchResultBox').html('');
+      $('#PflegeMap\\.textSearchResultBox').hide();
+    }
+    else if (event.target.value.length == 1) {
+      $('#PflegeMap\\.textSearchResultBox').show();
+      $('#PflegeMap\\.textSearchResultBox').append('Eingabe: ' + event.target.value);
+    }
+    else {
+      $('#PflegeMap\\.textSearchResultBox').append('<br>Eingabe: ' + event.target.value);
+    }
+  },
+
   switchCategoryCheckBox: function(event) {
     var scope = event.data;
 
@@ -82,6 +127,13 @@ proximityExtent: PflegeMap.map.getView().calculateExtent(PflegeMap.map.getSize()
       event.target.getAttribute('kategorie'),
       event.target.checked
     );
+  },
+  
+  switchSearchTools: function(event) {
+    $.each(PflegeMap.searchTools, function(index, searchTool) {
+      $('#PflegeMap\\.' + searchTool + 'Area').hide();
+    });
+    $('#PflegeMap\\.' + event.target.getAttribute('toolname') + 'Area').show();
   },
 
   /*

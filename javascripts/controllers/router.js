@@ -8,12 +8,22 @@ PflegeMap.routerController = {
     })
   }),
 
+  initSearchTool: function() {
+    PflegeMap.searchTools.push('routingSearch');
+  },
+
   initLayer: function() {
     this.layer.setMap(PflegeMap.map);
     this.errMsgElement = $('#PflegeMap\\.routingMessage')[0];
   },
 
   setEventHandler: function() {
+    $('#PflegeMap\\.routingSearchTool').on(
+      'click',
+      this,
+      PflegeMap.mapper.switchSearchTools
+    );
+
     // add popup function handlers
     $('#PflegeMap\\.popup .pm-popup-function-from').off();
     $('#PflegeMap\\.popup .pm-popup-function-from').on(
@@ -151,7 +161,7 @@ PflegeMap.routerController = {
     routeField.attr('coordinates', currFeature.latlng());
     routeField.val(currFeature.address());
     routeField.prop('readonly', true);
-    
-    $('#PflegeMap\\.routingSearchArea').show();
+    debug_r = { "target" : $('#PflegeMap\\.routingSearchTool')[0] };
+    PflegeMap.mapper.switchSearchTools({ "target" : $('#PflegeMap\\.routingSearchTool')[0]});
   }
 };
