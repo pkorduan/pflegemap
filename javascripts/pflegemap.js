@@ -207,10 +207,10 @@ PflegeMap.initPopup = function(){
 };
 
 PflegeMap.initMapper = function(store) {
-  var mapper = PflegeMap.mapperController;
+  var mapper = new PflegeMap.mapperController();
   mapper.initLayer(store);
   mapper.initList(store);
-  mapper.setEventHandler();
+  mapper.setEventHandlers();
 }
 
 PflegeMap.initRouter = function() {

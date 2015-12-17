@@ -21,16 +21,6 @@ PflegeMap.geocoderController = {
       this.lookupNominatim
     );
     
-    $('#PflegeMap\\.popup .pm-popup-function-nearby').off();
-    $('#PflegeMap\\.popup .pm-popup-function-nearby').on(
-      'click',
-      {
-        routeField: $('#PflegeMap\\.targetField'),
-        popup: PflegeMap.popup
-      },
-      PflegeMap.router.openRouteSearch
-    );
-
     $('#PflegeMap\\.popup .pm-popup-function-clear').off();
     $('#PflegeMap\\.popup .pm-popup-function-clear').on(
       'click',
