@@ -167,6 +167,7 @@ a.pflegemap-message-box-close{
 .pm-popup-functions>* {
   visibility: hidden;
   display: none;
+  cursor: pointer;
 }
 
 .pm-angebot .pm-popup-function-from,
@@ -177,10 +178,15 @@ a.pflegemap-message-box-close{
 
 .pm-suchergebnis .pm-popup-function-from,
 .pm-suchergebnis .pm-popup-function-to ,
-.pm-suchergebnis .pm-popup-function-nearby ,
+.pm-suchergebnis .pm-popup-function-proximity ,
 .pm-suchergebnis .pm-popup-function-clear {
   visibility: visible;
   display: block;
+}
+
+.pm-popup-function-proximity-search {
+	display: inline-block;
+	padding-right: 1.2em;
 }
 
 hr.pflegemap-hr {

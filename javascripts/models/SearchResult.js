@@ -1,7 +1,7 @@
 PflegeMap.searchResult = function(name, lat, lon) {
   var feature = new ol.Feature({
     type: 'SearchResult',
-    geometry: new ol.geom.Point(ol.proj.transform([lon, lat], PflegeMap.baseProjection, PflegeMap.viewProjection)),
+    geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat], PflegeMap.viewProjection)),
     name: name
   }),
   
@@ -19,7 +19,7 @@ PflegeMap.searchResult = function(name, lat, lon) {
 
   feature.data = function() {
     var html  = this.get('name') + '<br>';
-        html += 'Koordinaten: ' + this.latlng();
+        html += 'Koordinaten: ' + this.latlng().join(', ');
     return html;
   };
 
@@ -34,7 +34,7 @@ PflegeMap.searchResult = function(name, lat, lon) {
 
   feature.latlng = function() {
     var lnglat = ol.proj.transform(this.getGeometry().getCoordinates(), PflegeMap.viewProjection, PflegeMap.baseProjection);
-    return lnglat[1] + ', ' + lnglat[0];
+    return [lnglat[1], lnglat[0]];
   };
 
   feature.preparePopup = function() {
