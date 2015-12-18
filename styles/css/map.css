@@ -101,13 +101,14 @@ a.pflegemap-message-box-close{
   background-color: white;
   -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
   filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
-  padding: 5px;
-  padding-right: 25px;
+  padding: 0.7em;
+  padding-right: 2.3em;
   border-radius: 5px;
   border: 1px solid #ccc;
   bottom: 12px;
   left: -50px;
-  min-width: 200px;
+  min-width: 21em;
+  font-size: smaller;
 }
 
 .pm-popup:after,
@@ -151,8 +152,8 @@ a.pflegemap-message-box-close{
 .pm-popup-closer {
   text-decoration: none;
   position: absolute;
-  top: 2px;
-  right: 8px;
+  top:   .5ex;
+  right: .7em;
 }
 
 .pm-popup-closer:after {
