@@ -14,13 +14,23 @@ PflegeMap.geocoderController = {
     this.searchResultBox = $('#PflegeMap\\.searchResultBox')[0];
   },
 
+  initSearchTool: function() {
+    PflegeMap.searchTools.push('addressSearch');
+  },
+
   setEventHandler: function() {
-    $('#search').on(
+    $('#PflegeMap\\.addressSearchTool').on(
+      'click',
+      this,
+      PflegeMap.mapper.switchSearchTools
+    );
+
+    $('#PflegeMap\\.addressSearchField').on(
       'change',
       this,
       this.lookupNominatim
     );
-    
+
     $('#PflegeMap\\.popup .pm-popup-function-clear').off();
     $('#PflegeMap\\.popup .pm-popup-function-clear').on(
       'click',
@@ -84,8 +94,8 @@ PflegeMap.geocoderController = {
   },
 
   showNominatimResults: function(scope, results) {
-    $('#PflegeMap\\.searchResultBox').html(scope.searchResultsFormatter(results));
-    $('#PflegeMap\\.searchResultBox').show();
+    $('#PflegeMap\\.addressSearchResultBox').html(scope.searchResultsFormatter(results));
+    $('#PflegeMap\\.addressSearchResultBox').show();
   },
 
   searchResultsFormatter: function(results) {

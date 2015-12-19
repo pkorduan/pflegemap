@@ -60,8 +60,10 @@ PflegeMap.angebot = function(params) {
       html += '   Internet: <a href="' + url + '" target="_blank">' + this.get('internet') + '</a><br>';
     }
     if (this.get('kapazitaet') != undefined)
-      html += '  Kapazität: ' + this.get('kapazitaet') + '<br>';
+      html += '    Kapazität: ' + this.get('kapazitaet') + '<br>';
     html += '  </div>';
+    html += '<a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-o fa-fw"></i> Route von hier</a><br>';
+    html += '<a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</a>';
     html += '  <span class="pflegemap-care-service-close"></span>';
     html += '</div>';
     html += '<div class="pflegemap-clear"></div>';

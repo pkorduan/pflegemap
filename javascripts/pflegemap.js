@@ -14,6 +14,7 @@ $('#PflegeMap').ready(function() {
    * order is important! initMap first
   */
   {
+    PflegeMap.searchTools = [];
     PflegeMap.map = PflegeMap.initMap(PflegeMap.store);
     PflegeMap.popup = PflegeMap.initPopup();
     PflegeMap.mapper = PflegeMap.initMapper(PflegeMap.map, PflegeMap.store);
@@ -212,14 +213,17 @@ PflegeMap.initPopup = function(){
 };
 
 PflegeMap.initMapper = function(map, store) {
-  var mapper = PflegeMap.mapperController(map);
+  var mapper = new PflegeMap.mapperController(map);
+  mapper.initSearchTools();
   mapper.initLayer(store);
   mapper.initList(store);
   mapper.setEventHandlers();
+  return mapper;
 };
 
 PflegeMap.initRouter = function() {
   var router = PflegeMap.routerController;
+  router.initSearchTool();
   router.setEventHandler();
   router.initLayer();
   return router;
@@ -227,7 +231,8 @@ PflegeMap.initRouter = function() {
 
 PflegeMap.initGeocoder = function() {
   var geocoder = PflegeMap.geocoderController;
-  geocoder.setEventHandler();
+  geocoder.initSearchTool();
   geocoder.initLayer();
+  geocoder.setEventHandler();
   return geocoder;
 };
