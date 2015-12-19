@@ -5,7 +5,7 @@ PflegeMap.angebot = function(params) {
     angebot: params.angebot,
     name: params.name,
     kategorie: params.kategorie,
-    geometry: new ol.geom.Point([params.x, params.y]),
+    geometry: new ol.geom.Point([Number(params.x), Number(params.y)]),
     einrichtung: params.einrichtung,
     strasse: params.strasse,
     hnr: params.hnr,
@@ -86,7 +86,7 @@ PflegeMap.angebot = function(params) {
 
   feature.latlng = function() {
     var lnglat = ol.proj.transform(this.getGeometry().getCoordinates(), PflegeMap.viewProjection, PflegeMap.baseProjection);
-    return lnglat[1] + ', ' + lnglat[0];
+    return [lnglat[1], lnglat[0]];
   };
 
   feature.preparePopup = function() {

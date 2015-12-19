@@ -155,10 +155,10 @@ PflegeMap.routerController = {
   },
 
   openRouteSearch: function(event) {
-    var currFeature = event.data.popup.feature;
+    var currFeature = event.data.popup.target.feature;
     var routeField = event.data.routeField;
     
-    routeField.attr('coordinates', currFeature.latlng());
+    routeField.attr('coordinates', currFeature.latlng().join(', '));
     routeField.val(currFeature.address());
     routeField.prop('readonly', true);
     debug_r = { "target" : $('#PflegeMap\\.routingSearchTool')[0] };

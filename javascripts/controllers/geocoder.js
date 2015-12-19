@@ -41,7 +41,7 @@ PflegeMap.geocoderController = {
       function(event){
         var layer = event.data.layer,
           popup = event.data.popup,
-          feature = popup.feature;
+          feature = popup.target.feature;
         popup.setPosition(undefined);
         layer.getSource().removeFeature(feature);
       }

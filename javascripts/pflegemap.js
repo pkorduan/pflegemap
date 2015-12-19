@@ -17,33 +17,30 @@ $('#PflegeMap').ready(function() {
     PflegeMap.searchTools = [];
     PflegeMap.map = PflegeMap.initMap(PflegeMap.store);
     PflegeMap.popup = PflegeMap.initPopup();
-    PflegeMap.mapper = PflegeMap.initMapper(PflegeMap.store);
+    PflegeMap.mapper = PflegeMap.initMapper(PflegeMap.map, PflegeMap.store);
     PflegeMap.router = PflegeMap.initRouter();
     PflegeMap.geocoder = PflegeMap.initGeocoder();
   }
 
   //display popup on click
   PflegeMap.map.on('click', function(evt) {
-    var feature = PflegeMap.map.forEachFeatureAtPixel(evt.pixel,
+    var target = PflegeMap.map.forEachFeatureAtPixel(evt.pixel,
         function(feature, layer) {
-          return feature;
+          return {
+            feature: feature,
+            layer: layer
+          };
         });
-    if (feature) {
-      // center des features ermitteln
-      var featureCenter = ol.proj.fromLonLat(
-        ol.extent.getCenter(
-          ol.proj.transformExtent(
-            feature.getGeometry().getExtent(),
-            PflegeMap.viewProjection,PflegeMap.baseProjection
-          )
-        ),
-        PflegeMap.viewProjection
-      );
+    if (target) {      
+      // associate click target with popup
+      PflegeMap.popup.target = target;
+      
       // set popup style and content
-      feature.preparePopup();
+      target.feature.preparePopup();
 
       // show popup
-      PflegeMap.popup.setPosition(featureCenter);
+      var featureCoords = target.feature.getGeometry().getCoordinates();
+      PflegeMap.popup.setPosition(featureCoords);
 
     } else {
       
@@ -150,7 +147,15 @@ PflegeMap.initMap = function(store) {
   
   // die map view im Pflegemap Namespace bereitstellen
   PflegeMap.view = map.getView();
+  PflegeMap.maxExtent = PflegeMap.view.calculateExtent(map.getSize());
 
+  // close the popup on map zoom and pan actions
+  function closePopup(){
+    PflegeMap.popup.setPosition(undefined);
+  };
+  PflegeMap.view.on('change:resolution', closePopup);
+  PflegeMap.view.on('change:center', closePopup);
+  
   function lookupPhoton(queryStr, successFn, errorFn, scope){
     successFn = successFn || function() {};
     errorFn   = errorFn   || function() {};
@@ -207,14 +212,14 @@ PflegeMap.initPopup = function(){
   return popup;
 };
 
-PflegeMap.initMapper = function(store) {
-  var mapper = new PflegeMap.mapperController();
+PflegeMap.initMapper = function(map, store) {
+  var mapper = new PflegeMap.mapperController(map);
   mapper.initSearchTools();
   mapper.initLayer(store);
   mapper.initList(store);
   mapper.setEventHandlers();
   return mapper;
-}
+};
 
 PflegeMap.initRouter = function() {
   var router = PflegeMap.routerController;

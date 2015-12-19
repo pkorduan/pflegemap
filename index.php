@@ -309,11 +309,22 @@
                       <div id="PflegeMap.popup-content">
                         <div id="PflegeMap.popup-title" class="pm-popup-title"></div>
                         <div id="PflegeMap.popup-data"></div>
-                        <div id="PflegeMap.popup-functions" class="pm-popup-functions">
-                          <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-fw"></i>&nbsp; Route von hier</div>
-                          <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-fw"></i>&nbsp; Route nach hier</div>
-                          <div class="pm-popup-function-nearby"><i class="fa fa-search fa-fw"></i>&nbsp; in der N&auml;he suchen</div>
-                          <div class="pm-popup-function-clear"><i class="fa fa-times fa-fw"></i>&nbsp; Markierung l&ouml;schen</div>
+                        <div id="PflegeMap.popup-functions"class="pm-popup-functions">
+                          <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-lg fa-fw"></i>&nbsp; Route von hier</div>
+                          <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-lg fa-fw"></i>&nbsp; Route nach hier</div>
+                          <div class="pm-popup-function-proximity">
+                            <div class="pm-popup-function-proximity-search">
+                              <i class="fa fa-search fa-lg fa-fw"></i>
+                              &nbsp; im Umkreis suchen
+                            </div>
+                            <select id="pm-popup-proximity-select">
+                              <option value="10000">10km</option>
+                              <option value="20000">20km</option>
+                              <option value="40000">40km</option>
+                              <option value="-1" selected="selected">--</option>
+                            </select>
+                          </div>
+                          <div class="pm-popup-function-clear"><i class="fa fa-times fa-lg fa-fw"></i>&nbsp; Markierung l&ouml;schen</div>
                         </div>
                       </div>
                     </div>
