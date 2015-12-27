@@ -63,11 +63,9 @@
        */
       window.PflegeMap = {};
       var PflegeMap = window.PflegeMap;
-      PflegeMap.storeURL = "<?php echo $config['store']['url'] ?>";
     </script>
-
+    <script src="javascripts/config.js"></script>
     <script src="javascripts/pflegemap.js"></script>
-    <script src?"javascripts/config.js.php"></script>
     <script src="javascripts/models/SearchResult.js"></script>
     <script src="javascripts/models/Angebot.js"></script>
     <script src="javascripts/models/Route.js"></script>

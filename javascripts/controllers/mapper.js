@@ -150,19 +150,46 @@ PflegeMap.mapperController = function(map) { return {
   },
 
   themeSearch: function(event) {
-    debug_e = event;
-    console.log('Search with this text: ' + event.target.value);
-    if (event.target.value.length == 0) {
+    var searchString = event.target.value.toLowerCase(),
+        searchResult = [];
+
+    $('#PflegeMap\\.textSearchResultBox').hide();
+    if (event.target.value.length > 2) {
+      var searchString = event.target.value.toLowerCase(),
+          searchResult = $.map(PflegeMap.suchIndex, function(value, key) {
+            lowerKey = key.toLowerCase();
+            if (lowerKey.indexOf(searchString) == 0) return key;
+          });
+       if (searchResult.length > 0) {
+         $('#PflegeMap\\.textSearchResultBox').show();
+         $('#PflegeMap\\.textSearchResultBox').html(searchResult.join('<br>'));
+       }
+     }
+/*
+    
+    $('#PflegeMap\\.textSearchResultBox').append($.map(PflegeMap.suchIndex, function(value, key) {
+//      console.log(searchString + ' ' + searchString.indexOf(key) + ' ' + key);
+      if (key.indexOf(searchString) == 0) {
+        return key;
+      }
+    });
+/*
+    if (PflegeMap.suchIndex[event.target.value]) {
+      
       $('#PflegeMap\\.textSearchResultBox').html('');
       $('#PflegeMap\\.textSearchResultBox').hide();
     }
-    else if (event.target.value.length == 1) {
+    else (event.target.value.length == 1) {
       $('#PflegeMap\\.textSearchResultBox').show();
-      $('#PflegeMap\\.textSearchResultBox').append('Eingabe: ' + event.target.value);
     }
+    if ()
+    
+    
+    $('#PflegeMap\\.textSearchResultBox').append('Eingabe: ' + event.target.value);
+    
     else {
       $('#PflegeMap\\.textSearchResultBox').append('<br>Eingabe: ' + event.target.value);
-    }
+    }*/
   },
 
   switchCategoryCheckBox: function(event) {

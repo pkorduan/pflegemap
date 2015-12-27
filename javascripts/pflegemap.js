@@ -1,14 +1,14 @@
   // central setting for the projection of the map view
-  PflegeMap.viewProjection = 'EPSG:25833',
+  PflegeMap.viewProjection = PflegeMap.config.viewProjection,
   // fuer einige Berechnungen muss nach LonLat transformiert werden
-  PflegeMap.baseProjection = 'EPSG:4326';
+  PflegeMap.baseProjection = PflegeMap.config.baseProjection;
 
 // load the data and the map after loading the map div
 $('#PflegeMap').ready(function() {
-  loadJSON(function(response) {
+  loadJSON(PflegeMap.config.storeUrl, function(response) {
     PflegeMap.store = JSON.parse(response);
   });
-  
+
   /*
    * init map and controller
    * order is important! initMap first
@@ -16,6 +16,9 @@ $('#PflegeMap').ready(function() {
   {
     PflegeMap.searchTools = [];
     PflegeMap.map = PflegeMap.initMap(PflegeMap.store);
+    loadJSON(PflegeMap.config.indexUrl, function(response) {
+      PflegeMap.suchIndex = JSON.parse(response);
+    });
     PflegeMap.popup = PflegeMap.initPopup();
     PflegeMap.mapper = PflegeMap.initMapper(PflegeMap.map, PflegeMap.store);
     PflegeMap.router = PflegeMap.initRouter();
@@ -53,10 +56,10 @@ $('#PflegeMap').ready(function() {
 /**
  * Function read the json data
  */
-function loadJSON(callback) {
+function loadJSON(source, callback) {
   var xobj = new XMLHttpRequest();
   xobj.overrideMimeType("application/json");
-  xobj.open('GET', PflegeMap.storeURL, false); // true would load asynchronous
+  xobj.open('GET', source, false); // true would load asynchronous
   //xobj.open('GET', '/wfs2json/json/data.json', false); // true would load asynchronous
   xobj.onreadystatechange = function () {
     if (xobj.readyState == 4 && xobj.status == "200") {
