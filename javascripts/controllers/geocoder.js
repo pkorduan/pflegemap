@@ -108,7 +108,7 @@ PflegeMap.geocoderController = {
     var searchResultFeature = new PflegeMap.searchResult(display_name, lat, lon),
         source = this.layer.getSource();
 
-    $('#PflegeMap\\.searchResultBox').hide();
+    $('#PflegeMap\\.addressSearchResultBox').hide();
     
     this.removeSearchResultFeatures(this);
 

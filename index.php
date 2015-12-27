@@ -187,7 +187,7 @@
                     <div id="PflegeMap.addressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
                   </div>
                   <div id="PflegeMap.proximitySearchArea"  style="display:none">
-                    <input id="PflegeMap.textSearchField" style="width:90%" class="pflegemap-search-field" type="text" placeholder="Pflegeeinrichtungen im Umkreis suchen ..."/>
+                    <input id="PflegeMap.textSearchField" style="width:90%" class="pflegemap-search-field" list="PflegeMap.searchWords" type="text" placeholder="Pflegeeinrichtungen im Umkreis suchen ..."/>
                     <select>
                       <option value="1000" selected>1km</option>
                       <option value="2000">2km</option>
