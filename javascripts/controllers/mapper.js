@@ -75,13 +75,13 @@ PflegeMap.mapperController = function(map) { return {
       this.switchSearchTools
     );
 
-    // Handler for thematic search
+/*    // Handler for thematic search
     $('#PflegeMap\\.textSearchField').on(
       'input',
       this,
       this.themeSearch
     );
-
+*/
     // Handler für Kategorie-Checkboxen
     $(".cb-kat").on(
       'change',
@@ -148,7 +148,7 @@ PflegeMap.mapperController = function(map) { return {
     );
 
   },
-
+/*
   themeSearch: function(event) {
     var searchString = event.target.value.toLowerCase(),
         searchResult = [];
@@ -189,8 +189,8 @@ PflegeMap.mapperController = function(map) { return {
     
     else {
       $('#PflegeMap\\.textSearchResultBox').append('<br>Eingabe: ' + event.target.value);
-    }*/
-  },
+    }
+  },*/
 
   switchCategoryCheckBox: function(event) {
     var scope = event.data;

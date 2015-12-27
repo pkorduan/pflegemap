@@ -51,12 +51,14 @@
     <!--link rel="stylesheet" href="3rdparty/Skeleton/css/skeleton.css"//-->
     <link rel="stylesheet" href="3rdparty/OpenLayers/v3.8.2/css/ol.css" type="text/css">
     <link rel="stylesheet" href="styles/css/map.css" type="text/css">
-    <link href="3rdparty/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="3rdparty/font-awesome-4.0.3/css/font-awesome.min.css" type="text/css">
     <script src="3rdparty/jQuery/jquery-1.11.2.min.js"></script>
     <script src="3rdparty/OpenLayers/v3.8.2/build/ol-debug.js"></script>
     <script src="3rdparty/proj4js/proj4.js"></script>
     <script src="3rdparty/proj4js/25833.js"></script>
-    
+    <!--script src="3rdparty/awesomplete-gh-pages/awesomplete.js" async></script-->
+    <link rel="stylesheet" href="3rdparty/awesomplete-gh-pages/awesomplete.css" type="text/css"/>
+
     <script type="text/javascript">
       /**
        * Define a namespace for the application.
@@ -73,6 +75,7 @@
     <script src="javascripts/controllers/mapper.js"></script>
     <script src="javascripts/controllers/router.js"></script>
     <script src="javascripts/controllers/geocoder.js"></script>
+
   </head>
   <body class="purple" style="background: url(http://kreis-lup.de/export/sites/LUP/.galleries/LUP-Allgemein-Aktuelles-und-Presse/Service-Verwaltung/DSC_0474.JPG_1979318820.jpg) no-repeat center center fixed; -webkit-background-size: cover; background-size: cover;">
     <ul id="skiplinks">
@@ -176,7 +179,7 @@
                 </div>
                 <div id="PflegeMap.searchArea" class="pflegemap-search-area">
                   <div id="PflegeMap.textSearchArea"  style="display:#none">
-                    <input id="PflegeMap.textSearchField" class="pflegemap-search-field" type="text" placeholder="Pflegeeinrichtungen suchen ..."/>
+                    <input id="PflegeMap.textSearchField" class="pflegemap-search-field" list="PflegeMap.searchWords" type="text" placeholder="Pflegeeinrichtungen suchen ..."/><datalist id="PflegeMap.searchWords"></datalist>
                     <div id="PflegeMap.textSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
                   </div>
                   <div id="PflegeMap.addressSearchArea" style="display:none">

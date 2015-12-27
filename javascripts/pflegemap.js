@@ -18,7 +18,11 @@ $('#PflegeMap').ready(function() {
     PflegeMap.map = PflegeMap.initMap(PflegeMap.store);
     loadJSON(PflegeMap.config.indexUrl, function(response) {
       PflegeMap.suchIndex = JSON.parse(response);
+      $.each(PflegeMap.suchIndex, function(value, key){
+        $('#PflegeMap\\.searchWords').append('<option>' + value + '</option>')
+      });
     });
+
     PflegeMap.popup = PflegeMap.initPopup();
     PflegeMap.mapper = PflegeMap.initMapper(PflegeMap.map, PflegeMap.store);
     PflegeMap.router = PflegeMap.initRouter();
