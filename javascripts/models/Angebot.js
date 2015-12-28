@@ -14,6 +14,8 @@ PflegeMap.angebot = function(params) {
     traeger: params.traeger,
     ansprechpartner: params.ansprechpartner,
     telefon: params.telefon,
+    email: params.email,
+    internet: params.internet,
     kapazitaet: params.kapazitaet,
     hidden: false
   }),
@@ -51,6 +53,12 @@ PflegeMap.angebot = function(params) {
       html += '  Ansprechpartner: ' + this.get('ansprechpartner') + '<br>';
     if (this.get('telefon') != '')
       html += '   Telefon: ' + this.get('telefon') + '<br>';
+    if (this.get('email') != undefined && this.get('email') != '')
+      html += '   E-Mail: <a href="mailto:' + this.get('email') + '">' + this.get('email') + '</a><br>';
+    if (this.get('internet') != undefined && this.get('internet') != '') {
+      var url = (!/http/i.test(this.get('internet'))) ? url = 'http://' + this.get('internet') : this.get('internet');
+      html += '   Internet: <a href="' + url + '" target="_blank">' + this.get('internet') + '</a><br>';
+    }
     if (this.get('kapazitaet') != undefined)
       html += '    Kapazität: ' + this.get('kapazitaet') + '<br>';
     html += '  </div>';

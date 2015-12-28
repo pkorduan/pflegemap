@@ -319,10 +319,13 @@
                               &nbsp; im Umkreis suchen
                             </div>
                             <select id="pm-popup-proximity-select">
+                              <option value="-1">--</option>
+                              <option value="1000" selected="selected">1km</option>
+                              <option value="2000">2km</option>
+                              <option value="5000">5km</option>
                               <option value="10000">10km</option>
                               <option value="20000">20km</option>
                               <option value="40000">40km</option>
-                              <option value="-1" selected="selected">--</option>
                             </select>
                           </div>
                           <div class="pm-popup-function-clear"><i class="fa fa-times fa-lg fa-fw"></i>&nbsp; Markierung l&ouml;schen</div>
