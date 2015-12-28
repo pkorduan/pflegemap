@@ -17,6 +17,7 @@ PflegeMap.angebot = function(params) {
     email: params.email,
     internet: params.internet,
     kapazitaet: params.kapazitaet,
+    besonderheit: params.besonderheit,
     hidden: false
   }),
 
@@ -61,6 +62,8 @@ PflegeMap.angebot = function(params) {
     }
     if (this.get('kapazitaet') != undefined)
       html += '    Kapazität: ' + this.get('kapazitaet') + '<br>';
+    if (this.get('besonderheit') != undefined)
+      html += '    Besonderheit: ' + this.get('besonderheit') + '<br>';
     html += '  </div>';
     html += '<a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-o fa-fw"></i> Route von hier</a><br>';
     html += '<a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</a>';

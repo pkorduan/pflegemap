@@ -161,7 +161,6 @@ PflegeMap.routerController = {
     routeField.attr('coordinates', currFeature.latlng().join(', '));
     routeField.val(currFeature.address());
     routeField.prop('readonly', true);
-    debug_r = { "target" : $('#PflegeMap\\.routingSearchTool')[0] };
     PflegeMap.mapper.switchSearchTools({ "target" : $('#PflegeMap\\.routingSearchTool')[0]});
   }
 };

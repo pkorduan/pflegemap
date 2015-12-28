@@ -153,19 +153,29 @@ PflegeMap.mapperController = function(map) { return {
     var source = event.data.layer.getSource(),
         features = source.getFeatures(),
         searchString = event.target.value,
+        coordinates = [],
         i;
 
     for ( i = 0; i < features.length; i++) {
       if ($.inArray(features[i].get('id'), PflegeMap.suchIndex[searchString]) > -1) {
-        console.log('id: ' + features[i].get('id'));
         features[i].set('hidden', false);
         $('#PflegeMap\\.careService_' + features[i].get('id')).show();
+        coordinates.push(features[i].getGeometry().getCoordinates());
       } else {
         features[i].set('hidden', true);
         $('#PflegeMap\\.careService_' + features[i].get('id')).hide();
       }
     }
     event.data.layer.changed();
+    if (coordinates.length > 0) {
+      PflegeMap.map.getView().fit(
+        ol.extent.buffer(
+          ol.extent.boundingExtent(coordinates),
+          300
+        ),
+        PflegeMap.map.getSize()
+      );
+    }
   },
 
   switchCategoryCheckBox: function(event) {
