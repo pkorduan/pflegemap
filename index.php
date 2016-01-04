@@ -72,9 +72,11 @@
     <script src="javascripts/models/Angebot.js"></script>
     <script src="javascripts/models/Route.js"></script>
     <script src="javascripts/models/RoutePoint.js"></script>
+    <script src="javascripts/models/ReachArea.js"></script>
     <script src="javascripts/controllers/mapper.js"></script>
     <script src="javascripts/controllers/router.js"></script>
     <script src="javascripts/controllers/geocoder.js"></script>
+    <script src="javascripts/controllers/reacher.js"></script>
 
   </head>
   <body class="purple" style="background: url(http://kreis-lup.de/export/sites/LUP/.galleries/LUP-Allgemein-Aktuelles-und-Presse/Service-Verwaltung/DSC_0474.JPG_1979318820.jpg) no-repeat center center fixed; -webkit-background-size: cover; background-size: cover;">
@@ -172,7 +174,7 @@
                 <div id="PflegeMap.Overlay" class="pflegemap-overlay" style="display:none;"></div>
                 <div id="PflegeMap.MessageBox" class="pflegemap-message-box">
                   <a id="PflegeMap.MessageBoxClose" class="pflegemap-message-box-close"></a>
-                  <span id="PflegeMap.routingMessage"></span>
+                  <span id="PflegeMap.errorMessage"></span>
                 </div>
                 <div class="pflegemap-header">
                   <h3 class="">Pflegeangebote</h3>
@@ -188,10 +190,40 @@
                   </div>
                   <div id="PflegeMap.proximitySearchArea"  style="display:none">
                     <input id="PflegeMap.proximitySearchField" style="width:90%" class="pflegemap-search-field" type="text" placeholder="Pflegeeinrichtungen im Umkreis suchen ..."/>
-                    <select>
-                      <option value="1000" selected>1km</option>
+                    <select id="PflegeMap.proximitySelect">
+                      <option value="-1">--</option>
+                      <option value="1000" selected="selected">1km</option>
                       <option value="2000">2km</option>
+                      <option value="5000">5km</option>
+                      <option value="10000">10km</option>
+                      <option value="20000">20km</option>
+                      <option value="40000">40km</option>
                     </select>
+                  </div>
+                  <div
+                    id="PflegeMap.reachSearchArea"
+                    style="display:none">
+                    <input
+                      id="PflegeMap.reachSearchField"
+                      style="width:85%"
+                      class="pflegemap-search-field"
+                      type="text"
+                      placeholder="Ereichbarkeit von Adresse ..."
+                    />
+                    <select id="PflegeMap.reachMinutes">
+                      <option value="5" selected>5 Minuten</option>
+                      <option value="10">10 Minuten</option>
+                      <option value="15">15 Minuten</option>
+                      <option value="20">20 Minuten</option>
+                      <option value="30">30 Minuten</option>
+                      <option value="45">45 Minuten</option>
+                      <option value="60">1 Stunde</option>
+                    </select>
+                    <div
+                      id="PflegeMap.reachSearchResultBox"
+                      class="pflegemap-reach-result-box"
+                      style="display:none;">
+                    </div>
                   </div>
                   <div id="PflegeMap.categorySearchArea" style="display:none">
                     <div id="list" class="pflegemap-categories">
@@ -279,16 +311,69 @@
                     </div>
                   </div>
                 </div>
-                <div id="PflegeMap.routingSearchArea" class="pflegemap-search-area" style="display:none">
-                  <input id="PflegeMap.sourceField" class="pflegemap-routing-search-field" type="text" coordinates="" value="" placeholder="Startadresse eingeben ..."/> <input id="PflegeMap.removeRouteButton" type="button" value="Route löschen"/><br>
-                  <input id="PflegeMap.targetField" class="pflegemap-routing-search-field" type="text" coordinates="" value="" placeholder="Zieladresse eingeben ..."/> <input id="PflegeMap.calcRouteButton" type="button" value="Route berechnen"/>
+                <div
+                  id="PflegeMap.routingSearchArea"
+                  class="pflegemap-search-area"
+                  style="display:none">
+                  <input
+                    id="PflegeMap.sourceField"
+                    class="pflegemap-routing-search-field"
+                    type="text"
+                    coordinates=""
+                    value=""
+                    placeholder="Startadresse eingeben ..."/> <input id="PflegeMap.removeRouteButton" type="button" value="Route löschen"/><br>
+                  <input
+                    id="PflegeMap.targetField"
+                    class="pflegemap-routing-search-field"
+                    type="text"
+                    coordinates=""
+                    value=""
+                    placeholder="Zieladresse eingeben ..."/> <input id="PflegeMap.calcRouteButton" type="button" value="Route berechnen"/>
                 </div>
+
                 <div id="PflegeMap.searchToolbox" class="pflegemap-search-toolbox">
-                  <a href="#"><img id="PflegeMap.textSearchTool" src="images/textSearchIcon.png" class="pflegemap-search-tool-icon" toolname="textSearch"></a>
-                  <a href="#"><img id="PflegeMap.addressSearchTool" src="images/addressSearchIcon.png" class="pflegemap-search-tool-icon" toolname="addressSearch"></a>
-                  <a href="#"><img id="PflegeMap.categorySearchTool" src="images/categorySearchIcon.png" class="pflegemap-search-tool-icon" toolname="categorySearch"></a>
-                  <a href="#"><img id="PflegeMap.proximitySearchTool" src="images/proximitySearchIcon.png" class="pflegemap-search-tool-icon" toolname="proximitySearch"></a>
-                  <a href="#"><img id="PflegeMap.routingSearchTool" src="images/routingIcon.png"  class="pflegemap-search-tool-icon" toolname="routingSearch"></a>
+                  <a href="#"><img
+                    id="PflegeMap.textSearchTool"
+                    src="images/textSearchIcon.png"
+                    class="pflegemap-search-tool-icon"
+                    toolname="textSearch"
+                    title="Textsuche"
+                    alt="Textsuche"></a>
+                  <a href="#"><img
+                    id="PflegeMap.addressSearchTool"
+                    src="images/addressSearchIcon.png"
+                    class="pflegemap-search-tool-icon"
+                    toolname="addressSearch"
+                    title="Adresssuche"
+                    alt="Adresssuche"></a>
+                  <a href="#"><img
+                    id="PflegeMap.categorySearchTool"
+                    src="images/categorySearchIcon.png"
+                    class="pflegemap-search-tool-icon"
+                    toolname="categorySearch"
+                    title="Kategoriesuche"
+                    alt="Kategoriesuche"></a>
+                  <a href="#"><img
+                    id="PflegeMap.proximitySearchTool"
+                    src="images/proximitySearchIcon.png"
+                    class="pflegemap-search-tool-icon"
+                    toolname="proximitySearch"
+                    title="Umkreissuche"
+                    alt="Umkreissuche"></a>
+                  <a href="#"><img
+                    id="PflegeMap.routingSearchTool"
+                    src="images/routingIcon.png"
+                    class="pflegemap-search-tool-icon"
+                    toolname="routingSearch"
+                    title="Routing"
+                    alt="Routing"></a>
+                  <a href="#"><img
+                    id="PflegeMap.reachSearchTool"
+                    src="images/reachIcon.png"
+                    class="pflegemap-search-tool-icon"
+                    toolname="reachSearch"
+                    title="Erreichbarkeitsanalyse"
+                    alt="Erreichbarkeitsanalyse"></a>
                 </div>
 <?php /*
                 <div id="list" class="mylist">
@@ -316,7 +401,7 @@
                           <div class="pm-popup-function-proximity">
                             <div class="pm-popup-function-proximity-search">
                               <i class="fa fa-search fa-lg fa-fw"></i>
-                              &nbsp; im Umkreis suchen
+                              &nbsp;Umkreis
                             </div>
                             <select id="pm-popup-proximity-select">
                               <option value="-1">--</option>
@@ -328,7 +413,24 @@
                               <option value="40000">40km</option>
                             </select>
                           </div>
-                          <div class="pm-popup-function-clear"><i class="fa fa-times fa-lg fa-fw"></i>&nbsp; Markierung l&ouml;schen</div>
+                          <div class="pm-popup-function-reach">
+                            <div class="pm-popup-function-reach-search">
+                              <i class="fa fa-search fa-lg fa-fw"></i>
+                              &nbsp;Erreichbarkeit
+                            </div>
+                            <select id="pm-popup-reach-select">
+                              <option value="-1">--</option>
+                              <option value="5">5min</option>
+                              <option value="10">10min</option>
+                              <option value="15" selected>15min</option>
+                              <option value="30">30min</option>
+                              <option value="45">45min</option>
+                              <option value="60">1h</option>
+                            </select>
+                          </div>
+                          <div class="pm-popup-function-clear">
+                            <i class="fa fa-times fa-lg fa-fw"></i>&nbsp; Markierung l&ouml;schen
+                          </div>
                         </div>
                       </div>
                     </div>

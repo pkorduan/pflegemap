@@ -100,11 +100,20 @@ PflegeMap.mapperController = function(map) { return {
       function (event) {
         var data = event.data,
             popup = data.popup,
-            mapper = data.mapper;
+            mapper = data.mapper
+            mapTarget = data.popup.target,
+            radius = Number($('#pm-popup-proximity-select').val());
         
+        mapper.proximityRadius = radius;
+        mapper.proximityExtent = data.mapper.calculateProximityExtent(mapTarget, radius);
+        mapper.proximityCenter = ol.extent.getCenter(data.mapper.proximityExtent);
+
         // switch visibility of angebote
         $(".cb-kat").each(function (){
-          mapper.switchCategory($(this).attr('kategorie'), $(this).prop('checked'));
+          mapper.switchCategory(
+            $(this).attr('kategorie'),
+            $(this).prop('checked')
+          );
         });
         
         // calculate view extent that centers on filtered results
@@ -113,7 +122,9 @@ PflegeMap.mapperController = function(map) { return {
           viewExtent = ol.extent.createEmpty();
         features.forEach(function(feature){
           if (!feature.get('hidden'))
-            ol.extent.extend(viewExtent, feature.getGeometry().getExtent());
+            ol.extent.extend(
+              viewExtent,
+              feature.getGeometry().getExtent());
         });
         
         // buffer extent with a fraction of the proximity radius
@@ -123,7 +134,10 @@ PflegeMap.mapperController = function(map) { return {
         );
         
         // zoom to buffered viewExtent
-        PflegeMap.map.getView().fit(viewExtent, PflegeMap.map.getSize());
+        PflegeMap.map.getView().fit(
+          viewExtent,
+          PflegeMap.map.getSize()
+        );
 
         // dismiss popup
         popup.setPosition(undefined);

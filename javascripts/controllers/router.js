@@ -14,7 +14,7 @@ PflegeMap.routerController = {
 
   initLayer: function() {
     this.layer.setMap(PflegeMap.map);
-    this.errMsgElement = $('#PflegeMap\\.routingMessage')[0];
+    this.errMsgElement = $('#PflegeMap\\.errorMessage')[0];
   },
 
   setEventHandler: function() {

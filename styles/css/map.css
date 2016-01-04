@@ -61,7 +61,7 @@ a.pflegemap-message-box-close{
   
 }
 .pflegemap-search-area {
-  width: 80%;
+  width: 78%;
   float: left;
   margin-top: 0px;
 }
@@ -90,7 +90,13 @@ a.pflegemap-message-box-close{
   padding: 4px;
   border-radius: 5px;
   border: 1px solid #ddd;
-  background-color: #eee;
+  background-color: #fff;
+}
+.pflegemap-reach-result-box{
+  padding: 4px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #fff;
 }
 .pflegemap-categories {
 }
@@ -190,6 +196,7 @@ a.pflegemap-message-box-close{
 .pm-suchergebnis .pm-popup-function-from,
 .pm-suchergebnis .pm-popup-function-to ,
 .pm-suchergebnis .pm-popup-function-proximity ,
+.pm-suchergebnis .pm-popup-function-reach ,
 .pm-suchergebnis .pm-popup-function-clear {
   visibility: visible;
   display: block;
