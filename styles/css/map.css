@@ -73,6 +73,16 @@ a.pflegemap-message-box-close{
 .pflegemap-search-tool-icon {
   width: 28px;
   height: 28px;
+  border: 0;
+  border-radius: 4px;
+  background-color: #4285F4;
+}
+.pflegemap-search-tool-icon.fa-lg {
+  padding: 0px;
+  vertical-align: 0;
+}
+.pflegemap-search-tool-icon:hover {
+  opacity: 0.7;
 }
 .pflegemap-search-field{
 #  display: block;

@@ -332,48 +332,57 @@
                 </div>
 
                 <div id="PflegeMap.searchToolbox" class="pflegemap-search-toolbox">
-                  <a href="#"><img
+                  <button
                     id="PflegeMap.textSearchTool"
-                    src="images/textSearchIcon.png"
                     class="pflegemap-search-tool-icon"
                     toolname="textSearch"
                     title="Textsuche"
-                    alt="Textsuche"></a>
-                  <a href="#"><img
+                    alt="Textsuche">
+                      <i class="fa fa-lg fa-inverse fa-search"></i>
+                    </button>
+                  <button
                     id="PflegeMap.addressSearchTool"
-                    src="images/addressSearchIcon.png"
                     class="pflegemap-search-tool-icon"
                     toolname="addressSearch"
                     title="Adresssuche"
-                    alt="Adresssuche"></a>
-                  <a href="#"><img
+                    alt="Adresssuche">
+                      <!-- i class="fa fa-lg fa-inverse fa-map-pin"></i-->
+                      <i class="fa fa-lg fa-inverse fa-map-marker"></i>
+                    </button>
+                  <button
                     id="PflegeMap.categorySearchTool"
-                    src="images/categorySearchIcon.png"
                     class="pflegemap-search-tool-icon"
                     toolname="categorySearch"
                     title="Kategoriesuche"
-                    alt="Kategoriesuche"></a>
-                  <a href="#"><img
+                    alt="Kategoriesuche">
+                      <!-- i class="fa fa-lg fa-inverse fa-filter"></i-->
+                      <i class="fa fa-lg fa-inverse fa-check-square-o"></i>
+                    </button>
+                  <button
                     id="PflegeMap.proximitySearchTool"
-                    src="images/proximitySearchIcon.png"
                     class="pflegemap-search-tool-icon"
                     toolname="proximitySearch"
                     title="Umkreissuche"
-                    alt="Umkreissuche"></a>
-                  <a href="#"><img
+                    alt="Umkreissuche">
+                      <i class="fa fa-lg fa-inverse fa-bullseye"></i>
+                      <!--i class="fa fa-lg fa-inverse fa-street-view"></i-->
+                    </button>
+                  <button
                     id="PflegeMap.routingSearchTool"
-                    src="images/routingIcon.png"
                     class="pflegemap-search-tool-icon"
                     toolname="routingSearch"
                     title="Routing"
-                    alt="Routing"></a>
-                  <a href="#"><img
+                    alt="Routing">
+                      <i class="fa fa-lg fa-inverse fa-flag-checkered"></i>
+                    </button>
+                  <button
                     id="PflegeMap.reachSearchTool"
-                    src="images/reachIcon.png"
                     class="pflegemap-search-tool-icon"
                     toolname="reachSearch"
                     title="Erreichbarkeitsanalyse"
-                    alt="Erreichbarkeitsanalyse"></a>
+                    alt="Erreichbarkeitsanalyse">
+                      <i class="fa fa-lg fa-inverse fa-clock-o"></i>
+                    </button>
                 </div>
 <?php /*
                 <div id="list" class="mylist">
