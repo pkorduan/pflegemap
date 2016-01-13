@@ -171,7 +171,7 @@ PflegeMap.mapperController = function(map) { return {
         i;
 
     for ( i = 0; i < features.length; i++) {
-      if ($.inArray(features[i].get('id'), PflegeMap.suchIndex[searchString]) > -1) {
+      if (searchString.length < 3 || $.inArray(features[i].get('id'), PflegeMap.suchIndex[searchString]) > -1) {
         features[i].set('hidden', false);
         $('#PflegeMap\\.careService_' + features[i].get('id')).show();
         coordinates.push(features[i].getGeometry().getCoordinates());
@@ -203,9 +203,12 @@ PflegeMap.mapperController = function(map) { return {
   
   switchSearchTools: function(event) {
     $.each(PflegeMap.searchTools, function(index, searchTool) {
+      //console.log('hide element: #PflegeMap.' + searchTool + 'Area');
       $('#PflegeMap\\.' + searchTool + 'Area').hide();
     });
-    $('#PflegeMap\\.' + event.target.getAttribute('toolname') + 'Area').show();
+    var searchType = event.target.getAttribute('toolname') || event.target.parentElement.getAttribute('toolname');
+    //console.log('show element: #PflegeMap.' + searchType + 'Area');
+    $('#PflegeMap\\.' + searchType + 'Area').show();
   },
 
   /*

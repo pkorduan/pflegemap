@@ -1,6 +1,6 @@
 <?php
 #  header ('Content-type: application/json; charset=utf-8');
-  $service_url = 'http://localhost:8888/Osm2poService';
+  $service_url = 'http://gdi-service.de:8888/Osm2poService';
   $content = @file_get_contents($service_url . '?' . $_SERVER['QUERY_STRING']);
   if ($content === false) {
     echo "#Fehler: 404
