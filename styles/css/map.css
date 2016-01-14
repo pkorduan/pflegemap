@@ -139,8 +139,8 @@ a.pflegemap-message-box-close{
 }
 .pflegemap-care-service-list {
 }
-.pflegemap-care-service {
-  background-color: #eee;
+.pm-care-service {
+  background-color: #edeae5;
   margin-top: 5px;
   padding: 5px;
   overflow: hidden;
@@ -149,7 +149,7 @@ a.pflegemap-message-box-close{
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
 }
-.pm-content {
+.pm-care-service-content {
   float: left;
   width: 85%;
 }
@@ -171,6 +171,9 @@ a.pflegemap-message-box-close{
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   background-color: #ddd;*/
+}
+.pm-care-service-highlighted {
+  background-color: cornsilk;
 }
 
 .pm-popup:after,

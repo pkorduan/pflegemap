@@ -39,21 +39,14 @@ $('#PflegeMap').ready(function() {
             layer: layer
           };
         });
-    if (target) {      
-      // associate click target with popup
+    if (target) {
       PflegeMap.popup.target = target;
-      
-      // set popup style and content
-      target.feature.preparePopup();
-
-      // show popup
-      var featureCoords = target.feature.getGeometry().getCoordinates();
-      PflegeMap.popup.setPosition(featureCoords);
-
+      target.feature.select();
     } else {
-      
+      //console.log('In Karte geklickt, kein Feature getroffen. Altes target %o', PflegeMap.popup.target);
       // hide popup
       PflegeMap.popup.setPosition(undefined);
+      
     }
   });
 });
@@ -159,10 +152,11 @@ PflegeMap.initMap = function(store) {
 
   // close the popup on map zoom and pan actions
   function closePopup(){
-    PflegeMap.popup.setPosition(undefined);
+    if (PflegeMap.popup.feature)
+      PflegeMap.popup.feature.unselect();
   };
   PflegeMap.view.on('change:resolution', closePopup);
-  PflegeMap.view.on('change:center', closePopup);
+  //PflegeMap.view.on('change:center', closePopup);
   
   function lookupPhoton(queryStr, successFn, errorFn, scope){
     successFn = successFn || function() {};
@@ -199,7 +193,7 @@ PflegeMap.initPopup = function(){
    * @return {boolean} Don't follow the href.
    */
   popupCloser.onclick = function() {
-    PflegeMap.popup.setPosition(undefined);
+    PflegeMap.popup.feature.unselect();
     popupCloser.blur();
     return false;
   };

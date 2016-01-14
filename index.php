@@ -170,6 +170,7 @@
         <div class="wrapper mobile-full" style="width:880px;">
           <div id="centercontainer">
             <article class="clear row">
+              <a name="PflegeMap.top"></a>
               <div id="PflegeMap" class="pflegemap">
                 <div id="PflegeMap.Overlay" class="pflegemap-overlay" style="display:none;"></div>
                 <div id="PflegeMap.MessageBox" class="pflegemap-message-box">

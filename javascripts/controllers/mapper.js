@@ -17,7 +17,7 @@ PflegeMap.mapperController = function(map) { return {
 
   list: {
     add: function(feature) {
-      var element = feature.listElement();
+      var element = feature.getListElement();
       element.click();
       this.div.append( element );
     }
@@ -82,7 +82,14 @@ PflegeMap.mapperController = function(map) { return {
       this.themeSearch
     );
 
-    // Handler für Kategorie-Checkboxen
+    // Handler for List Elements of care-services (Angebote)
+    $('.pm-care-service-content').on(
+      'click',
+      this,
+      this.toggleFeature
+    );
+
+    // Handler for Category-Checkboxes
     $(".cb-kat").on(
       'change',
       this,
@@ -229,11 +236,9 @@ PflegeMap.mapperController = function(map) { return {
     for ( i = 0; i < features.length; i++) {
       if (c == features[i].get('kategorie') || all_categories) {
         var hidden = v ? !(v && this.featureWithinProximity(features[i])) : !v;
-        features[i].set('hidden', hidden);
-        features[i].changed();
         (hidden)
-          ? $('#PflegeMap\\.careService_' + features[i].get('id')).hide()
-          : $('#PflegeMap\\.careService_' + features[i].get('id')).show();
+          ? features[i].hide()
+          : features[i].show();
       }
     }
 
@@ -259,7 +264,7 @@ PflegeMap.mapperController = function(map) { return {
         needTransform = sourceProjection !== localUTMProjection,
         featureGeom = maptarget.feature.getGeometry().clone();
     
-    featureGeom = needTransform 
+    featureGeom == needTransform 
       ? featureGeom.transform(sourceProjection, localUTMProjection)
       : featureGeom;
     
@@ -269,7 +274,7 @@ PflegeMap.mapperController = function(map) { return {
     maxCoord.translate(radius,radius);
     
     var proximityExtent = ol.extent.extend(minCoord.getExtent(),maxCoord.getExtent());
-    proximityExtent = needTransform 
+    proximityExtent == needTransform 
       ? ol.proj.transformExtent(proximityExtent, localUTMProjection, sourceProjection)
       : proximityExtent;
       
@@ -293,6 +298,17 @@ PflegeMap.mapperController = function(map) { return {
     
     // Vektorlayer zur Karte hinzufügen
     vektorLayer.setMap(this.map);
+  },
+  
+  toggleFeature: function(event) {
+    var features = PflegeMap.mapper.layer.getSource().getFeatures(),
+        selected_id = $(event.target).parents(".pm-care-service")[0].getAttribute('feature_id'),
+        i;
+
+    for ( i = 0; i < features.length; i++) {
+      if (features[i].get('id') == selected_id)
+        features[i].toggle();
+    }
   }
 
 };};

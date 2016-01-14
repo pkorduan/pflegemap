@@ -2,7 +2,8 @@ PflegeMap.searchResult = function(name, lat, lon) {
   var feature = new ol.Feature({
     type: 'SearchResult',
     geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat], PflegeMap.viewProjection)),
-    name: name
+    name: name,
+    selected: false
   }),
   
   style = new ol.style.Style({
@@ -19,7 +20,7 @@ PflegeMap.searchResult = function(name, lat, lon) {
 
   feature.data = function() {
     var html  = this.get('name') + '<br>';
-        html += 'Koordinaten: ' + this.latlng().join(', ');
+        html += '' + this.latlng().join(', ');
     return html;
   };
 
@@ -44,5 +45,33 @@ PflegeMap.searchResult = function(name, lat, lon) {
     $('#PflegeMap\\.popup-data').html(this.data());
   };
 
+  feature.unselect = function() {
+    if (this.get('selected')) {
+      //console.log('Unselect feature: ' + this.get('name'));
+      // close Popup
+      PflegeMap.popup.setPosition(undefined);
+
+      // set this feature to unselected
+      this.set('selected', false);
+    }
+  };
+
+  feature.select = function() {
+    if (!this.get('selected')) {
+      //console.log('Select feature: ' + this.get('name'));
+
+      // show popup
+      //console.log('show popup');
+      this.preparePopup();
+      PflegeMap.popup.setPosition(
+        this.getGeometry().getCoordinates()
+      );
+
+      // set this feature to selected
+      this.set('selected', true);
+      //console.log('set this feature: ' + this.get('name') + ' as selected Feature.');
+      PflegeMap.mapper.selectedFeature = this;
+    }
+  };
   return feature;
 };
