@@ -99,9 +99,17 @@ PflegeMap.geocoderController = {
   },
 
   searchResultsFormatter: function(results) {
-    return results.map(function(item) {
-      return "<a href=\"#\" onclick=\"PflegeMap.geocoder.addSearchResultFeature('" + item.display_name + "', " + item.lat + ", " + item.lon + ");\">" + item.display_name + '</a><br>';
-    });
+    var html = '';
+    debug_r = results;
+    if(typeof results != "undefined" && results != null && results.length > 0) {
+      html = results.map(function(item) {
+        return "<a href=\"#\" onclick=\"PflegeMap.geocoder.addSearchResultFeature('" + item.display_name + "', " + item.lat + ", " + item.lon + ");\">" + item.display_name + '</a><br>';
+      });
+    }
+    else {
+      html = 'keine Treffer gefunden!'
+    }
+    return html;
   },
 
   addSearchResultFeature: function(display_name, lat, lon) {
