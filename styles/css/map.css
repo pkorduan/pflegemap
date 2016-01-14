@@ -137,6 +137,41 @@ a.pflegemap-message-box-close{
   min-width: 21em;
   font-size: smaller;
 }
+.pflegemap-care-service-list {
+}
+.pflegemap-care-service {
+  background-color: #eee;
+  margin-top: 5px;
+  padding: 5px;
+  overflow: hidden;
+  height: 1%;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+.pm-content {
+  float: left;
+  width: 85%;
+}
+.pm-box {
+  float: left;
+/*  width: 571px;*/
+  margin-right: 1em;
+}
+.pm-care-service-close:before {
+  content: "×";
+}
+.pm-care-service-close {
+  float: right;
+/*  padding-left: 5px;
+  padding-right: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  background-color: #ddd;*/
+}
 
 .pm-popup:after,
 .ol-popup:before 
@@ -232,37 +267,6 @@ hr.pflegemap-hr {
   border-radius: 5px;
   border: 1px solid #ddd;
   position: relative;
-}
-
-.pflegemap-care-service-list {
-}
-.pflegemap-care-service {
-  background-color: #eee;
-  margin-top: 5px;
-  padding: 5px;
-  overflow: hidden;
-  height: 1%;
-  border: 1px solid #ddd;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-}
-.pflegemap-care-service-content {
-  float: left;
-  width: 85%;
-}
-.pflegemap-care-service-close:before {
-  #content: "×";
-}
-.pflegemap-care-service-close {
-  float: right;
-  padding-left: 5px;
-  padding-right: 5px;
-  text-decoration: none;
-  font-weight: bold;
-#  border: 1px solid #ccc;
-#  -webkit-border-radius: 5px;
-#  -moz-border-radius: 5px;
-#  background-color: #ddd;
 }
 
 .pflegemap-routing-search-field{

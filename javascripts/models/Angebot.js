@@ -43,31 +43,43 @@ PflegeMap.angebot = function(params) {
 
   feature.listElement = function() {
     html  = '<div id="PflegeMap.careService_' + this.get('id') + '" class="pflegemap-care-service">';
-    html += '  <div class="pflegemap-care-service-content">';
-    html += '    <b>' + this.get('angebot') + '</b><br>';
-    html += '    Name: ' + this.get('name') + '<br>';
-    html += '    Adresse: ' + this.address() + '<br>';
-    html += '    Einrichtung: ' + this.get('einrichtung') + '<br>';
+    html += '  <div class="pm-content">';
+    html += '    <div>';
+    html += '      <b>' + this.get('einrichtung') + '</b><br>';
+    html += '<i>Kategorie:</i> ' + this.get('angebot');
     if (this.get('traeger') != '')
-      html += '  Träger: ' + this.get('traeger') + '<br>';
+      html += ', <i>Träger:</i> ' + this.get('traeger') + '<br>';
+    html += '    </div>';
+    html += '    <div class="pm-box">';
     if (this.get('ansprechpartner') != '')
-      html += '  Ansprechpartner: ' + this.get('ansprechpartner') + '<br>';
+      html += this.get('ansprechpartner') + '<br>';
+    if (this.get('strasse') != '')
+      html += this.get('strasse') + ' ' + this.get('hnr') + '<br>';
+    if (this.get('plz') != '')
+      html += this.get('plz') + ' ' + this.get('gemeinde');
+    html += '    </div>';
+    html += '    <div class="pm-box">';
     if (this.get('telefon') != '')
-      html += '   Telefon: ' + this.get('telefon') + '<br>';
+      html += this.get('telefon') + '<br>';
     if (this.get('email') != undefined && this.get('email') != '')
-      html += '   E-Mail: <a href="mailto:' + this.get('email') + '">' + this.get('email') + '</a><br>';
+      html += '<a href="mailto:' + this.get('email') + '">' + this.get('email') + '</a><br>';
     if (this.get('internet') != undefined && this.get('internet') != '') {
       var url = (!/http/i.test(this.get('internet'))) ? url = 'http://' + this.get('internet') : this.get('internet');
-      html += '   Internet: <a href="' + url + '" target="_blank">' + this.get('internet') + '</a><br>';
+      html += '<a href="' + url + '" target="_blank">' + this.get('internet') + '</a><br>';
     }
-    if (this.get('kapazitaet') != undefined)
-      html += '    Kapazität: ' + this.get('kapazitaet') + '<br>';
-    if (this.get('besonderheit') != undefined)
-      html += '    Besonderheit: ' + this.get('besonderheit') + '<br>';
+    html += '    </div>';
+    html += '    <div class="pm-box">';
+    if (this.get('kapazitaet') != '')
+      html += '     <i>Kapazität:</i> ' + this.get('kapazitaet') + '<br>';
+    if (this.get('besonderheit') != '')
+      html += '     <i>Besonderheit:</i> ' + this.get('besonderheit') + '<br>';
+    html += '    </div>';
+    html += '  </div>'
+    html += '  <div>';
+    html += '    <!--span class="pm-care-service-close"></span><br//-->';
+    html += '    <a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-o fa-fw"></i> Route von hier</a><br>';
+    html += '    <a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</a>';
     html += '  </div>';
-    html += '<a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-o fa-fw"></i> Route von hier</a><br>';
-    html += '<a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</a>';
-    html += '  <span class="pflegemap-care-service-close"></span>';
     html += '</div>';
     html += '<div class="pflegemap-clear"></div>';
     return $(html);
@@ -87,7 +99,8 @@ PflegeMap.angebot = function(params) {
   };
   
   feature.address = function() {
-    return this.get('plz') + ' ' + this.get('gemeinde') + ', ' + this.get('strasse') + ' ' + this.get('hnr');
+    return (this.get('strasse') + ' ' + this.get('hnr') + '<br>' + this.get('plz') + ' ' + this.get('gemeinde')).trim();
+    //return (this.get('plz') + ' ' + this.get('gemeinde') + ', ' + this.get('strasse') + ' ' + this.get('hnr')).trim();
   };
   
   feature.xy = function() {
