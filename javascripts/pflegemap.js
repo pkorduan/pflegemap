@@ -40,6 +40,8 @@ $('#PflegeMap').ready(function() {
           };
         });
     if (target) {
+      if (PflegeMap.mapper.selectedFeature)
+        PflegeMap.mapper.selectedFeature.unselect();
       PflegeMap.popup.target = target;
       target.feature.select();
     } else {
