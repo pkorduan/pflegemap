@@ -86,15 +86,15 @@ PflegeMap.angebot = function(params) {
   };
 
   feature.title = function() {
-    return this.get('name');
+    return this.get('einrichtung');
   };
 
   feature.data = function() {
     var html = this.get('ansprechpartner');
-    html += '<br>' + this.get('plz') + ' ' + this.get('gemeinde');
     html += '<br>' + this.get('strasse') + ' ' + this.get('hnr');
-    if (this.get('kapazitaet') != undefined && this.get('kapazitaet') > 0)
-      html += '<br>Kapazität: ' + this.get('kapazitaet');
+    html += '<br>' + this.get('plz') + ' ' + this.get('gemeinde');
+    if (this.get('telefon') != '')
+      html += '<br>Tel: ' + this.get('telefon');
     return html;
   };
   
