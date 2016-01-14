@@ -45,8 +45,8 @@ $('#PflegeMap').ready(function() {
     } else {
       //console.log('In Karte geklickt, kein Feature getroffen. Altes target %o', PflegeMap.popup.target);
       // hide popup
-      PflegeMap.popup.setPosition(undefined);
-      
+      if (PflegeMap.mapper.selectedFeature)
+        PflegeMap.mapper.selectedFeature.unselect();
     }
   });
 });
