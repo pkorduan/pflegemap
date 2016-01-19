@@ -1,6 +1,3 @@
-<?php
-  $config = parse_ini_file('config.ini', true);
-?>
 <!DOCTYPE html>
 <html lang="de" class="js svg">
   <head>
@@ -228,87 +225,30 @@
                   </div>
                   <div id="PflegeMap.categorySearchArea" style="display:none">
                     <div id="list" class="pflegemap-categories">
-                      <div class="pflegemap-category-box">
-                        <label>
-                          <input kategorie="ab" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Ambulant betreute WG (ab)</span>
-                        </label><br>
-                        <!--label>
-                          <input kategorie="ap" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Apotheke</span>
-                        </label><br//-->
-                        <!--label>
-                          <input kategorie="az" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Arzt</span>
-                        </label><br//-->
-                        <label>
-                          <input kategorie="ba" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Barrierearmes Wohnen (ba)</span>
-                        </label><br>
-                        <label>
-                          <input kategorie="bf" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Barrierefreies Wohnen (bf)</span>
-                        </label><br>
-                        <label>
-                          <input kategorie="bw" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Betreutes Wohnen (bw)</span>
-                        </label>
-                      </div> 
-                      <div class="pflegemap-category-box">
-                        <label>
-                          <input kategorie="dp" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Dauerpflege (dp)</span>
-                        </label><br>
-                        <label>
-                          <input kategorie="hp" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Hospiz ambulant (hp)</span>
-                        </label><br>
-                        <label>
-                          <input kategorie="kp" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Kurzzeitpflege (kp)</span>
-                        </label><br>
-                        <label>
-                          <input kategorie="ks" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Kurzzeitpflege (Streuplätze) (ks)</span>
-                        </label>
-                        <!--label>
-                          <input kategorie="kl" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Klinik</span>
-                        </label//-->
-                      </div> 
-                      <div class="pflegemap-category-box">
-                        <label>
-                          <input kategorie="pv" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Palliativversorgung (pv)</span>
-                        </label><br>
-                        <label>
-                          <input kategorie="pd" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Pflegedienst (pd)</span>
-                        </label><br>
-                        <label>
-                          <input kategorie="rh" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Reha (rh)</span>
-                        </label><br>
-                        <label>
-                          <input kategorie="tp" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Tagespflege (tp)</span>
-                        </label>
-                        <!--label>
-                          <input kategorie="pt" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">Psychiatrische Tagesklinik</span>
-                        </label//-->
-                      </div>
-                      <div class="pflegemap-category-box">
-                        <br>
-                        <label>
-                          <input kategorie="st" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">sonstiges (st)</span>
-                        </label><br>
-                        <label>
-                          <input kategorie="all" class="cb-kat" type="checkbox" checked="">
-                          <span class="label-body">alle Kategorien</span>
-                        </label>
-                      </div>
+                      <label style="margin-left:0.5em;">
+                        <input versart="all" class="cb-kat" type="checkbox" checked="">
+                        <span class="label-body">alle Kategorien</span>
+                      </label>
+                      <label>
+                        <input versart="Stationäre Pflege" class="cb-kat" type="checkbox" checked="">
+                        <span class="label-body">Stationäre Pflege</span>
+                      </label>
+                      <label>
+                        <input versart="Teilstationäre Pflege" class="cb-kat" type="checkbox" checked="">
+                        <span class="label-body">Teilstationäre Pflege</span>
+                      </label>
+                      <label>
+                        <input versart="Ambulante Pflege" class="cb-kat" type="checkbox" checked="">
+                        <span class="label-body">Ambulante Pflege</span>
+                      </label>
+                      <label>
+                        <input versart="Wohnen" class="cb-kat" type="checkbox" checked="">
+                        <span class="label-body">Wohnen</span>
+                      </label>
+                      <label>
+                        <input versart="Gesundheit" class="cb-kat" type="checkbox" checked="">
+                        <span class="label-body">Gesundheit</span>
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -385,18 +325,6 @@
                       <i class="fa fa-lg fa-inverse fa-clock-o"></i>
                     </button>
                 </div>
-<?php /*
-                <div id="list" class="mylist">
-                  <label>
-                    <input id="cb-all-kat" type="checkbox" checked/>
-                    <span class="label-body">alle Kategorien</span>
-                  </label><?php foreach($config['sozialpflege']['kategorie'] AS $key => $value) { ?>
-                  <label>
-                    <input kategorie="<?php echo $value; ?>" class="cb-kat" type="checkbox" checked/>
-                    <span class="label-body"><?php echo $key; ?></span>
-                  </label><?php } ?>
-                </div>
-*/ ?>
                 <div class="pflegemap-clear"></div>
                 <div class="container">
                   <div id="PflegeMap.map" class="pflegemap-map">

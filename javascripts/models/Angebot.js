@@ -5,6 +5,7 @@ PflegeMap.angebot = function(params) {
     angebot: params.angebot,
     name: params.name,
     kategorie: params.kategorie,
+    versorgungsart: params.versorgungsart,
     geometry: new ol.geom.Point([Number(params.x), Number(params.y)]),
     einrichtung: params.einrichtung,
     strasse: params.strasse,

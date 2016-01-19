@@ -118,7 +118,7 @@ PflegeMap.mapperController = function(map) { return {
         // switch visibility of angebote
         $(".cb-kat").each(function (){
           mapper.switchCategory(
-            $(this).attr('kategorie'),
+            $(this).attr('versart'),
             $(this).prop('checked')
           );
         });
@@ -203,7 +203,7 @@ PflegeMap.mapperController = function(map) { return {
     var scope = event.data;
 
     scope.switchCategory(
-      event.target.getAttribute('kategorie'),
+      event.target.getAttribute('versart'),
       event.target.checked
     );
   },
@@ -234,7 +234,7 @@ PflegeMap.mapperController = function(map) { return {
     if (all_categories) $(".cb-kat").prop('checked', v);
 
     for ( i = 0; i < features.length; i++) {
-      if (c == features[i].get('kategorie') || all_categories) {
+      if (c == features[i].get('versorgungsart') || all_categories) {
         var hidden = v ? !(v && this.featureWithinProximity(features[i])) : !v;
         (hidden)
           ? features[i].hide()

@@ -108,11 +108,9 @@ a.pflegemap-message-box-close{
   border: 1px solid #ddd;
   background-color: #fff;
 }
-.pflegemap-categories {
-}
-.pflegemap-category-box {
-  float: left;
-  width: 25%;
+.pflegemap-categories label{
+  display: block;
+  margin-left: 2em;
 }
 .pflegemap-clear{
   clear: both;
