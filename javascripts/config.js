@@ -1,5 +1,6 @@
 PflegeMap.config = {
-  storeUrl: '../wfs2json/json/data.json',
+//  storeUrl: '../wfs2json/json/data.json',
+  storeUrl: 'data.json',
   indexUrl: '../json2index/index/index.json',
   reachUrl: '../reach/reach.php',
   viewProjection: 'EPSG:25833',

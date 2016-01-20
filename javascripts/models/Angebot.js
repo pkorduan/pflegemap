@@ -20,7 +20,23 @@ PflegeMap.angebot = function(params) {
     kapazitaet: params.kapazitaet,
     besonderheit: params.besonderheit,
     hidden: false,
-    selected: false
+    selected: false,
+    icon: (function(){
+      switch (params.versorgungsart){
+      case 'Gesundheit':
+        return 'Gesundheit';
+      case 'Stationäre Pflege':
+        return 'StationPflege';
+      case 'Teilstationäre Pflege':
+        return 'TeilstationPflege';
+      case 'Ambulante Pflege':
+        return 'AmbulantePflege';
+      case 'Wohnen':
+        return 'Wohnen';
+      default:
+        return 'Sonstige';
+      }
+    })()
   }),
 
   style = function(resolution) {
@@ -32,10 +48,9 @@ PflegeMap.angebot = function(params) {
         image: new ol.style.Icon({
           anchor: [0.5, 0.5],
           anchorXUnits: 'fraction',
-//        anchorYUnits: 'pixels',
           anchorYUnits: 'fraction',
           opacity: 0.95,
-          src: 'images/' + params.kategorie +  '.png'
+          src: 'images/' + this.get('icon') +  '.png'
         })
       })];
     }

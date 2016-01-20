@@ -108,6 +108,12 @@ a.pflegemap-message-box-close{
   border: 1px solid #ddd;
   background-color: #fff;
 }
+.pflegemap-categories label img{
+  width: 1.5em;
+  vertical-align: bottom;
+  position: absolute;
+  left: 15em;
+}
 .pflegemap-categories label{
   display: block;
   margin-left: 2em;

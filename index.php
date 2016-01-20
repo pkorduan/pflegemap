@@ -227,27 +227,27 @@
                     <div id="list" class="pflegemap-categories">
                       <label style="margin-left:0.5em;">
                         <input versart="all" class="cb-kat" type="checkbox" checked="">
-                        <span class="label-body">alle Kategorien</span>
+                        <span class="label-body">alle Versorgungsarten</span>
                       </label>
                       <label>
                         <input versart="Stationäre Pflege" class="cb-kat" type="checkbox" checked="">
-                        <span class="label-body">Stationäre Pflege</span>
+                        <span class="label-body">Stationäre Pflege<img src="./images/StationPflege.png"></img></span>
                       </label>
                       <label>
                         <input versart="Teilstationäre Pflege" class="cb-kat" type="checkbox" checked="">
-                        <span class="label-body">Teilstationäre Pflege</span>
+                        <span class="label-body">Teilstationäre Pflege<img src="./images/TeilstationPflege.png"></img></span>
                       </label>
                       <label>
                         <input versart="Ambulante Pflege" class="cb-kat" type="checkbox" checked="">
-                        <span class="label-body">Ambulante Pflege</span>
+                        <span class="label-body">Ambulante Pflege<img src="./images/AmbulantePflege.png"></img></span>
                       </label>
                       <label>
                         <input versart="Wohnen" class="cb-kat" type="checkbox" checked="">
-                        <span class="label-body">Wohnen</span>
+                        <span class="label-body">Wohnen<img src="./images/Wohnen.png"></img></span>
                       </label>
                       <label>
                         <input versart="Gesundheit" class="cb-kat" type="checkbox" checked="">
-                        <span class="label-body">Gesundheit</span>
+                        <span class="label-body">Gesundheit<img src="./images/Gesundheit.png"></img></span>
                       </label>
                     </div>
                   </div>
