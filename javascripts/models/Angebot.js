@@ -63,7 +63,8 @@ PflegeMap.angebot = function(params) {
     html += '  <div class="pm-care-service-content">';
     html += '    <div>';
     html += '      <a name="PflegeMap.careService_' + this.get('id') + '"></a><b>' + this.get('einrichtung') + '</b><br>';
-    html += '<i>Kategorie:</i> ' + this.get('angebot');
+    html += '<i>Versorgungsart:</i> ' + this.get('versorgungsart');
+    html += ', <i>Kategorie:</i> ' + this.get('angebot');
     if (this.get('traeger') != '')
       html += ', <i>Träger:</i> ' + this.get('traeger') + '<br>';
     html += '    </div>';
