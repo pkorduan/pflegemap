@@ -73,6 +73,7 @@
     <script src="javascripts/controllers/mapper.js"></script>
     <script src="javascripts/controllers/router.js"></script>
     <script src="javascripts/controllers/geocoder.js"></script>
+    <script src="javascripts/controllers/proximiter.js"></script>
     <script src="javascripts/controllers/reacher.js"></script>
 
   </head>
@@ -197,7 +198,7 @@
                       <option value="20000">20km</option>
                       <option value="40000">40km</option>
                     </select>
-                    <div id="PflegeMap.proximityAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
+                    <div id="PflegeMap.proximitySearchFieldResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
                   </div>
                   <div
                     id="PflegeMap.reachSearchArea"
@@ -219,7 +220,7 @@
                       <option value="60">1 Stunde</option>
                     </select>
                     <div
-                      id="PflegeMap.reachSearchResultBox"
+                      id="PflegeMap.reachSearchFieldResultBox"
                       class="pflegemap-reach-result-box"
                       style="display:none;">
                     </div>

@@ -57,18 +57,6 @@ PflegeMap.mapperController = function(map) { return {
   },
 
   setEventHandlers: function() {
-    $('#PflegeMap\\.proximitySearchTool').on(
-      'click',
-      this,
-      this.switchSearchTools
-    );
-
-    $('#PflegeMap\\.proximitySearchField').on(
-      'change',
-      this,
-      this.lookupNominatim
-    );
-
     $('#PflegeMap\\.categorySearchTool').on(
       'click',
       this,
@@ -252,7 +240,18 @@ PflegeMap.mapperController = function(map) { return {
     });
   },
 
-  showNominatimResults: function(scope, results) {
+  showNominatimResults: function(event, results) {
+    console.log('showNominatimResults in mapper.js scope: %o', scope);
+    $('#' + event.target.id.replace('.', '\\.') + 'AddressSearchResultBox').html(
+      event.data.searchResultsFormatter(
+        event,
+        results
+      )
+    );
+    $('#' + event.target.id.replace('.', '\\.') + 'AddressSearchResultBox').show();
+    
+    
+    
     $('#PflegeMap\\.proximityAddressSearchResultBox').html(scope.searchResultsFormatter(results));
     $('#PflegeMap\\.proximityAddressSearchResultBox').show();
   },

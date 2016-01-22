@@ -30,67 +30,17 @@ PflegeMap.reacherController = {
     $('#PflegeMap\\.reachSearchField').on(
       'change',
       this,
-      this.lookupNominatim
+      PflegeMap.geocoder.lookupNominatim
     );
   },
 
-  lookupNominatim: function(e){
-    var scope = e.data,
-        queryStr = e.target.value,
-        url  = 'http://nominatim.openstreetmap.org/search';
-
-    $.ajax({
-      url: url,
-      data: {
-        viewboxlbrt    : '10.57,53.10,12.40,53.82',
-        bounded        : 1,
-        q              : queryStr,
-        format         : 'json',
-        addressdetails : 1,
-      },
-
-      // Work with the response
-      success: function(response) {
-        if (response.indexOf('Error') != -1 || response.indexOf('Fehler') != -1) {
-          scope.showErrorMsg(response);
-        }
-        else {
-          scope.errMsgElement.innerHTML = '';
-          scope.showNominatimResults(scope, response);
-        }
-      },
-
-      error: function (xhr, ajaxOptions, thrownError){
-        if(xhr.status==404) {
-          scope.showErrorMsg(thrownError);
-        }
-      }
-    });
-  },
-
-  showErrorMsg: function(msg) {
-    if (msg == 'Not Found') {
-      msg = 'Der Errechbarkeitsdienst ist nicht erreichbar. Bitte prüfen Sie ob Sie eine Netzverbindung haben.';
-    }
-    PflegeMap.reacherController.errMsgElement.innerHTML = msg;
-    $('#PflegeMap\\.Overlay').fadeIn(200,function(){
-      $('#PflegeMap\\.MessageBox').animate({'top':'20px'},200);
-    });
-  },
-
-  showNominatimResults: function(scope, results) {
-    $('#PflegeMap\\.reachSearchResultBox').html(scope.searchResultsFormatter(results));
-    $('#PflegeMap\\.reachSearchResultBox').show();
-  },
-
-  searchResultsFormatter: function(results) {
-    return results.map(function(item) {
-      return "<a href=\"#\" onclick=\"PflegeMap.reacher.getReachArea('" + item.display_name + "', " + item.lat + ", " + item.lon + ");\">" + item.display_name + '</a><br>';
-    });
+  getSearchResultCallback: function(event, item) {
+    return "PflegeMap.reacher.getReachArea('" + item.display_name + "', " + item.lat + ", " + item.lon + ")";
   },
 
   getReachArea : function(name, lat, lon) {
-    $('#PflegeMap\\.reachSearchResultBox').hide();
+    PflegeMap.geocoder.addSearchResultFeature('reachSearchField', name, lat, lon);
+
     console.log('Starte mit der Berechnung des Erreichbarkeitsgebietes.');
     $.ajax({
       url: PflegeMap.config.reachUrl + '?',
@@ -132,6 +82,16 @@ PflegeMap.reacherController = {
           PflegeMap.reacherController.showErrorMsg(thrownError);
         }
       }
+    });
+  },
+
+  showErrorMsg: function(msg) {
+    if (msg == 'Not Found') {
+      msg = 'Der Errechbarkeitsdienst ist nicht erreichbar. Bitte prüfen Sie ob Sie eine Netzverbindung haben.';
+    }
+    PflegeMap.reacherController.errMsgElement.innerHTML = msg;
+    $('#PflegeMap\\.Overlay').fadeIn(200,function(){
+      $('#PflegeMap\\.MessageBox').animate({'top':'20px'},200);
     });
   },
 

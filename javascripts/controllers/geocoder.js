@@ -49,7 +49,7 @@ PflegeMap.geocoderController = {
   },
 
   lookupNominatim: function(e){
-    var scope = e.data,
+    var scope = PflegeMap.geocoder,
         queryStr = e.target.value,
         url  = 'http://nominatim.openstreetmap.org/search';
 
@@ -71,7 +71,7 @@ PflegeMap.geocoderController = {
         }
         else {
           scope.errMsgElement.innerHTML = '';
-          scope.showNominatimResults(scope, response);
+          scope.showNominatimResults(e, response);
         }
       },
 
@@ -93,17 +93,24 @@ PflegeMap.geocoderController = {
     });
   },
 
-  showNominatimResults: function(scope, results) {
-    $('#PflegeMap\\.addressSearchFieldResultBox').html(scope.searchResultsFormatter(results));
-    $('#PflegeMap\\.addressSearchFieldResultBox').show();
+  showNominatimResults: function(event, results) {
+    $('#' + event.target.id.replace('.', '\\.') + 'ResultBox').html(
+      this.searchResultsFormatter(
+        event,
+        results
+      )
+    );
+    $('#' + event.target.id.replace('.', '\\.') + 'ResultBox').show();
   },
 
-  searchResultsFormatter: function(results) {
+  searchResultsFormatter: function(event, results) {
+    debug_e = event;
     var html = '';
 
     if(typeof results != "undefined" && results != null && results.length > 0) {
       html = results.map(function(item) {
-        return "<a href=\"#\" onclick=\"PflegeMap.geocoder.addSearchResultFeature('addressSearchField', '" + item.display_name + "', " + item.lat + ", " + item.lon + ");\">" + item.display_name + '</a><br>';
+        item.display_name = PflegeMap.geocoder.displayNameFormatter(item);
+        return "<a href=\"#\" onclick=\"" + event.data.getSearchResultCallback(event, item) + "\">" + item.display_name + '</a><br>';
       });
     }
     else {
@@ -112,12 +119,19 @@ PflegeMap.geocoderController = {
     return html;
   },
 
+  displayNameFormatter: function(item) {
+    return item.display_name;
+  },
+
+  getSearchResultCallback: function(event, item) {
+    return "PflegeMap.geocoder.addSearchResultFeature('addressSearchField', '" + item.display_name + "', " + item.lat + ", " + item.lon + ")";
+  },
+
   addSearchResultFeature: function(search_field, display_name, lat, lon) {
     var searchResultFeature = new PflegeMap.searchResult(display_name, lat, lon),
         source = this.layer.getSource(),
         target = $('#PflegeMap\\.' + search_field);
 
-        debug_t = target;
     target.val(display_name);
     target[0].setAttribute('coordinates', lat + ', ' + lon);
     $('#PflegeMap\\.' + search_field + 'ResultBox').hide();

@@ -46,6 +46,7 @@ PflegeMap.routerController = {
       },
       this.openRouteSearch
     );
+
     $('#PflegeMap\\.popup .pm-popup-function-to').off();
     $('#PflegeMap\\.popup .pm-popup-function-to').on(
       'click',
