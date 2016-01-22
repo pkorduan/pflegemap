@@ -24,6 +24,18 @@ PflegeMap.routerController = {
       PflegeMap.mapper.switchSearchTools
     );
 
+    $('#PflegeMap\\.sourceField').on(
+      'change',
+      this,
+      this.lookupNominatim
+    );
+
+    $('#PflegeMap\\.targetField').on(
+      'change',
+      this,
+      this.lookupNominatim
+    );
+
     // add popup function handlers
     $('#PflegeMap\\.popup .pm-popup-function-from').off();
     $('#PflegeMap\\.popup .pm-popup-function-from').on(
@@ -159,8 +171,83 @@ PflegeMap.routerController = {
     var routeField = event.data.routeField;
     
     routeField.attr('coordinates', currFeature.latlng().join(', '));
-    routeField.val(currFeature.address());
-    routeField.prop('readonly', true);
+    routeField.val(currFeature.addressText());
+    //routeField.prop('readonly', true);
     PflegeMap.mapper.switchSearchTools({ "target" : $('#PflegeMap\\.routingSearchTool')[0]});
+  },
+
+  lookupNominatim: function(e){
+    var scope = e.data,
+        queryStr = e.target.value,
+        url  = 'http://nominatim.openstreetmap.org/search';
+
+    $.ajax({
+      url: url,
+
+      data: {
+        viewboxlbrt    : '10.57,53.10,12.40,53.82',
+        bounded        : 1,
+        q              : queryStr,
+        format         : 'json',
+        addressdetails : 1,
+      },
+
+      // Work with the response
+      success: function(response) {
+        if (response.indexOf('Error') != -1 || response.indexOf('Fehler') != -1) {
+          scope.showErrorMsg(scope, response);
+        }
+        else {
+          scope.errMsgElement.innerHTML = '';
+          scope.showNominatimResults(e, response);
+        }
+      },
+
+      error: function (xhr, ajaxOptions, thrownError){
+        if(xhr.status==404) {
+          scope.showErrorMsg(scope, thrownError);
+        }
+      }
+    });
+  },
+
+  showErrorMsg: function(e, msg) {
+    if (msg == 'Not Found') {
+      msg = 'Der Service zum Suchen von Adressen ist nicht erreichbar. Bitte prüfen Sie ob Sie eine Netzverbindung haben.';
+    }
+    e.errMsgElement.innerHTML = msg;
+    $('#PflegeMap\\.Overlay').fadeIn(200,function(){
+      $('#PflegeMap\\.MessageBox').animate({'top':'20px'},200);
+    });
+  },
+
+  showNominatimResults: function(event, results) {
+    $('#' + event.target.id.replace('.', '\\.') + 'AddressSearchResultBox').html(
+      event.data.searchResultsFormatter(
+        event,
+        results
+      )
+    );
+    $('#' + event.target.id.replace('.', '\\.') + 'AddressSearchResultBox').show();
+  },
+
+  searchResultsFormatter: function(event, results) {
+    var html = '';
+    if(typeof results != "undefined" && results != null && results.length > 0) {
+      html = results.map(function(item) {
+        return "<a href=\"#\" onclick=\"PflegeMap.router.setSearchResult('" + event.target.id + "', '" + item.display_name + "', " + item.lat + ", " + item.lon + ");\">" + item.display_name + '</a><br>';
+      });
+    }
+    else {
+      html = 'keine Treffer gefunden!'
+    }
+    return html;
+  },
+
+  setSearchResult: function(target_id, display_name, lat, lon) {
+    var target = '#' + target_id.replace('.', '\\.');
+    $(target).val(display_name);
+    $(target)[0].setAttribute('coordinates', lat + ', ' + lon);
+    $(target + 'AddressSearchResultBox').hide();
   }
 };

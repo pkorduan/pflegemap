@@ -85,7 +85,7 @@ PflegeMap.geocoderController = {
 
   showErrorMsg: function(e, msg) {
     if (msg == 'Not Found') {
-      msg = 'Der Routing Service ist nicht erreichbar. Bitte prüfen Sie ob Sie eine Netzverbindung haben.';
+      msg = 'Der Service zum Suchen von Adressen ist nicht erreichbar. Bitte prüfen Sie ob Sie eine Netzverbindung haben.';
     }
     e.errMsgElement.innerHTML = msg;
     $('#PflegeMap\\.Overlay').fadeIn(200,function(){
@@ -94,16 +94,16 @@ PflegeMap.geocoderController = {
   },
 
   showNominatimResults: function(scope, results) {
-    $('#PflegeMap\\.addressSearchResultBox').html(scope.searchResultsFormatter(results));
-    $('#PflegeMap\\.addressSearchResultBox').show();
+    $('#PflegeMap\\.addressSearchFieldResultBox').html(scope.searchResultsFormatter(results));
+    $('#PflegeMap\\.addressSearchFieldResultBox').show();
   },
 
   searchResultsFormatter: function(results) {
     var html = '';
-    debug_r = results;
+
     if(typeof results != "undefined" && results != null && results.length > 0) {
       html = results.map(function(item) {
-        return "<a href=\"#\" onclick=\"PflegeMap.geocoder.addSearchResultFeature('" + item.display_name + "', " + item.lat + ", " + item.lon + ");\">" + item.display_name + '</a><br>';
+        return "<a href=\"#\" onclick=\"PflegeMap.geocoder.addSearchResultFeature('addressSearchField', '" + item.display_name + "', " + item.lat + ", " + item.lon + ");\">" + item.display_name + '</a><br>';
       });
     }
     else {
@@ -112,11 +112,15 @@ PflegeMap.geocoderController = {
     return html;
   },
 
-  addSearchResultFeature: function(display_name, lat, lon) {
+  addSearchResultFeature: function(search_field, display_name, lat, lon) {
     var searchResultFeature = new PflegeMap.searchResult(display_name, lat, lon),
-        source = this.layer.getSource();
+        source = this.layer.getSource(),
+        target = $('#PflegeMap\\.' + search_field);
 
-    $('#PflegeMap\\.addressSearchResultBox').hide();
+        debug_t = target;
+    target.val(display_name);
+    target[0].setAttribute('coordinates', lat + ', ' + lon);
+    $('#PflegeMap\\.' + search_field + 'ResultBox').hide();
     
     this.removeSearchResultFeatures(this);
 
@@ -130,7 +134,7 @@ PflegeMap.geocoderController = {
       PflegeMap.map.getSize()
     );
   },
-  
+
   removeSearchResultFeatures : function(){
     var source = this.layer.getSource(),
     features = source.getFeatures();

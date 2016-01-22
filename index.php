@@ -184,7 +184,7 @@
                   </div>
                   <div id="PflegeMap.addressSearchArea" style="display:none">
                     <input id="PflegeMap.addressSearchField" class="pflegemap-search-field" type="text" placeholder="Adresse suchen ..."/>
-                    <div id="PflegeMap.addressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
+                    <div id="PflegeMap.addressSearchFieldResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
                   </div>
                   <div id="PflegeMap.proximitySearchArea"  style="display:none">
                     <input id="PflegeMap.proximitySearchField" style="width:90%" class="pflegemap-search-field" type="text" placeholder="Pflegeeinrichtungen im Umkreis suchen ..."/>
@@ -197,6 +197,7 @@
                       <option value="20000">20km</option>
                       <option value="40000">40km</option>
                     </select>
+                    <div id="PflegeMap.proximityAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
                   </div>
                   <div
                     id="PflegeMap.reachSearchArea"
@@ -263,6 +264,7 @@
                     coordinates=""
                     value=""
                     placeholder="Startadresse eingeben ..."/> <input id="PflegeMap.removeRouteButton" type="button" value="Route löschen"/><br>
+                  <div id="PflegeMap.sourceFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
                   <input
                     id="PflegeMap.targetField"
                     class="pflegemap-routing-search-field"
@@ -270,6 +272,7 @@
                     coordinates=""
                     value=""
                     placeholder="Zieladresse eingeben ..."/> <input id="PflegeMap.calcRouteButton" type="button" value="Route berechnen"/>
+                  <div id="PflegeMap.targetFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
                 </div>
 
                 <div id="PflegeMap.searchToolbox" class="pflegemap-search-toolbox">

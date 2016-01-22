@@ -28,6 +28,10 @@ PflegeMap.searchResult = function(name, lat, lon) {
     return this.get('name');
   };
 
+  feature.addressText = function() {
+    return this.get('name');
+  };
+
   feature.xy = function() {
     var xy = this.getGeometry().getCoordinates();
     return xy[0] + ', ' + xy[1];

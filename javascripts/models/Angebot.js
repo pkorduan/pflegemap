@@ -124,7 +124,12 @@ PflegeMap.angebot = function(params) {
     return (this.get('strasse') + ' ' + this.get('hnr') + '<br>' + this.get('plz') + ' ' + this.get('gemeinde')).trim();
     //return (this.get('plz') + ' ' + this.get('gemeinde') + ', ' + this.get('strasse') + ' ' + this.get('hnr')).trim();
   };
-  
+
+  feature.addressText = function() {
+    return (this.get('strasse') + ' ' + this.get('hnr') + ', ' + this.get('plz') + ' ' + this.get('gemeinde')).trim();
+    //return (this.get('plz') + ' ' + this.get('gemeinde') + ', ' + this.get('strasse') + ' ' + this.get('hnr')).trim();
+  };
+    
   feature.xy = function() {
     var xy = this.getGeometry().getCoordinates();
     return xy[0] + ', ' + xy[1];

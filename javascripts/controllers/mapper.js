@@ -36,7 +36,7 @@ PflegeMap.mapperController = function(map) { return {
     }
 
     this.layer.setMap(this.map);
-
+    this.errMsgElement = $('#PflegeMap\\.errorMessage')[0];
   },
 
   initSearchTools: function() {
@@ -61,6 +61,12 @@ PflegeMap.mapperController = function(map) { return {
       'click',
       this,
       this.switchSearchTools
+    );
+
+    $('#PflegeMap\\.proximitySearchField').on(
+      'change',
+      this,
+      this.lookupNominatim
     );
 
     $('#PflegeMap\\.categorySearchTool').on(
@@ -104,51 +110,7 @@ PflegeMap.mapperController = function(map) { return {
         mapper: this,
         popup: PflegeMap.popup,
       },
-      function (event) {
-        var data = event.data,
-            popup = data.popup,
-            mapper = data.mapper
-            mapTarget = data.popup.target,
-            radius = Number($('#pm-popup-proximity-select').val());
-        
-        mapper.proximityRadius = radius;
-        mapper.proximityExtent = data.mapper.calculateProximityExtent(mapTarget, radius);
-        mapper.proximityCenter = ol.extent.getCenter(data.mapper.proximityExtent);
-
-        // switch visibility of angebote
-        $(".cb-kat").each(function (){
-          mapper.switchCategory(
-            $(this).attr('versart'),
-            $(this).prop('checked')
-          );
-        });
-        
-        // calculate view extent that centers on filtered results
-        var source = data.mapper.layer.getSource(),
-          features = source.getFeatures(),
-          viewExtent = ol.extent.createEmpty();
-        features.forEach(function(feature){
-          if (!feature.get('hidden'))
-            ol.extent.extend(
-              viewExtent,
-              feature.getGeometry().getExtent());
-        });
-        
-        // buffer extent with a fraction of the proximity radius
-        viewExtent = ol.extent.buffer(
-          viewExtent,
-          mapper.proximityRadius > 0 ? mapper.proximityRadius / 10 : 0
-        );
-        
-        // zoom to buffered viewExtent
-        PflegeMap.map.getView().fit(
-          viewExtent,
-          PflegeMap.map.getSize()
-        );
-
-        // dismiss popup
-        popup.setPosition(undefined);
-      }
+      this.proximitySearch
     );
 
     $('#pm-popup-proximity-select').off();
@@ -219,12 +181,12 @@ PflegeMap.mapperController = function(map) { return {
   },
 
   /*
-   * Switch the visibility of all features with category c
-   * to the visibility v
-   * @params(string) c category (2 characters)
-   * @params(boolean) v visibility
-   * @return(void)
-   */
+  * Switch the visibility of all features with category c
+  * to the visibility v
+  * @params(string) c category (2 characters)
+  * @params(boolean) v visibility
+  * @return(void)
+  */
   switchCategory: function(c, v) {
     var source = this.layer.getSource(),
       features = source.getFeatures(),
@@ -244,7 +206,126 @@ PflegeMap.mapperController = function(map) { return {
 
     this.layer.changed();
   },
-  
+
+  lookupNominatim: function(e){
+    var scope = e.data,
+        queryStr = e.target.value,
+        url  = 'http://nominatim.openstreetmap.org/search';
+
+    $.ajax({
+      url: url,
+
+      data: {
+        viewboxlbrt    : '10.57,53.10,12.40,53.82',
+        bounded        : 1,
+        q              : queryStr,
+        format         : 'json',
+        addressdetails : 1,
+      },
+
+      // Work with the response
+      success: function(response) {
+        if (response.indexOf('Error') != -1 || response.indexOf('Fehler') != -1) {
+          scope.showErrorMsg(scope, response);
+        }
+        else {
+          scope.errMsgElement.innerHTML = '';
+          scope.showNominatimResults(scope, response);
+        }
+      },
+
+      error: function (xhr, ajaxOptions, thrownError){
+        if(xhr.status==404) {
+          scope.showErrorMsg(scope, thrownError);
+        }
+      }
+    });
+  },
+
+  showErrorMsg: function(e, msg) {
+    if (msg == 'Not Found') {
+      msg = 'Der Service zum Suchen von Adressen ist nicht erreichbar. Bitte prüfen Sie ob Sie eine Netzverbindung haben.';
+    }
+    e.errMsgElement.innerHTML = msg;
+    $('#PflegeMap\\.Overlay').fadeIn(200,function(){
+      $('#PflegeMap\\.MessageBox').animate({'top':'20px'},200);
+    });
+  },
+
+  showNominatimResults: function(scope, results) {
+    $('#PflegeMap\\.proximityAddressSearchResultBox').html(scope.searchResultsFormatter(results));
+    $('#PflegeMap\\.proximityAddressSearchResultBox').show();
+  },
+
+  searchResultsFormatter: function(results) {
+    var html = '';
+    if(typeof results != "undefined" && results != null && results.length > 0) {
+      html = results.map(function(item) {
+        return "<a href=\"#\" onclick=\"PflegeMap.mapper.addSearchResultFeature('" + item.display_name + "', " + item.lat + ", " + item.lon + ");\">" + item.display_name + '</a><br>';
+      });
+    }
+    else {
+      html = 'keine Treffer gefunden!'
+    }
+    return html;
+  },
+
+  /*
+  * Filter care service features in proximity radius, zoom to extent and add marker in center
+  */
+  addSearchResultFeature: function(display_name, lat, lon) {
+    PflegeMap.geocoder.addSearchResultFeature('proximityAddress', display_name, lat, lon);
+  },
+
+  proximitySearch: function(event) {
+    var data = event.data,
+        popup = data.popup,
+        mapper = data.mapper
+        mapTarget = data.popup.target,
+        radius = Number($('#pm-popup-proximity-select').val());
+    
+    mapper.proximityRadius = radius;
+    mapper.proximityExtent = data.mapper.calculateProximityExtent(mapTarget, radius);
+    mapper.proximityCenter = ol.extent.getCenter(data.mapper.proximityExtent);
+
+    // switch visibility of angebote
+    $(".cb-kat").each(function (){
+     // console.log('versart: %o', $(this).attr('versart'));
+    //  console.log('checked: %o', $(this).prop('checked'));
+      
+      mapper.switchCategory(
+        $(this).attr('versart'),
+        $(this).prop('checked')
+      );
+    });
+    
+    // calculate view extent that centers on filtered results
+    var source = data.mapper.layer.getSource(),
+      features = source.getFeatures(),
+      viewExtent = ol.extent.createEmpty();
+    features.forEach(function(feature){
+      if (!feature.get('hidden'))
+        ol.extent.extend(
+          viewExtent,
+          feature.getGeometry().getExtent());
+    });
+    
+    // buffer extent with a fraction of the proximity radius
+    viewExtent = ol.extent.buffer(
+      viewExtent,
+      mapper.proximityRadius > 0 ? mapper.proximityRadius / 10 : 0
+    );
+    
+    // zoom to buffered viewExtent
+    PflegeMap.map.getView().fit(
+      viewExtent,
+      PflegeMap.map.getSize()
+    );
+
+    // dismiss popup
+    popup.setPosition(undefined);
+  },
+
   featureWithinProximity: function(feature){
     var featureCoords = feature.getGeometry().getCoordinates(),
         centerCoords = this.proximityCenter;
