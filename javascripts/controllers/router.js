@@ -86,7 +86,7 @@ PflegeMap.routerController = {
       // Tell YQL what we want and that we want JSON
       data: {
         cmd: 'fr',
-        //format: 'geojson',
+        format: 'geojson',
         source: source,
         target: target
       },
@@ -106,7 +106,7 @@ PflegeMap.routerController = {
         }
         else {
           scope.errMsgElement.innerHTML = '';
-          scope.showRoute(response);
+          scope.showRoute(response, scope);
         }
       },
 
@@ -128,7 +128,7 @@ PflegeMap.routerController = {
     });
   },
 
-  showRoute: function(result) {
+  showRoute: function(result, scope) {
     var route = new PflegeMap.route(result),
         source = PflegeMap.router.layer.getSource(),
         features = source.getFeatures();
@@ -153,6 +153,14 @@ PflegeMap.routerController = {
       route.line.getGeometry().getExtent(),
       PflegeMap.map.getSize()
     );
+
+    $('#PflegeMap\\.routingDuration').html(
+      scope.durationFormatter(route.duration)
+    );
+    $('#PflegeMap\\.routingDistance').html(
+      scope.distanceFormatter(route.distance)
+    );
+    console.log(route);
   },
 
   removeRoute: function(scope) {
@@ -243,6 +251,21 @@ PflegeMap.routerController = {
       html = 'keine Treffer gefunden!'
     }
     return html;
+  },
+
+  durationFormatter: function(duration) {
+    var hours = Math.floor(duration),
+      minutes = Math.round((duration - hours) * 60),
+      textParts = [];
+    if (hours > 0)
+      textParts.push(hours + ' Std.');
+    if (minutes > 0)
+      textParts.push(minutes + ' Min.');
+    return textParts.join(' ');
+  },
+
+  distanceFormatter: function(duration) {
+    return (Math.round(duration * 100) / 100) + " km"
   },
 
   setSearchResult: function(target_id, display_name, lat, lon) {

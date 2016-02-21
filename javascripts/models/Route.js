@@ -1,4 +1,61 @@
 PflegeMap.route = function(params) {
+  var routeObj = JSON.parse(params),
+      coordinates = [],
+      duration = 0,
+      distance = 0,
+      line;
+
+  // take the first coordinates of the first segment of the route
+  coordinates.push(
+    ol.proj.transform(
+      routeObj.features[0].geometry.coordinates[0],
+      'EPSG:4326',
+      PflegeMap.viewProjection
+    )
+  );
+
+  // merge the coordinates despite of the first of each segment
+  $.each(routeObj.features, function() {
+    coordinates = $.merge(
+      coordinates,
+      $.map(
+        this.geometry.coordinates.filter(
+          function(coordinate, index) {
+            return index > 0;
+          }
+        ),
+        function(coordinate) {
+          return [
+            ol.proj.transform(
+              coordinate,
+              'EPSG:4326',
+              PflegeMap.viewProjection
+            )
+          ]
+        }
+      )
+    );
+    duration += this.properties.time || 0;
+    distance += this.properties.length || 0;
+  });
+
+  line = new ol.Feature({
+    geometry: new ol.geom.LineString(
+      coordinates
+    ),
+    type: 'Route'
+  });
+
+  line.setStyle(
+    new ol.style.Style({
+      stroke: new ol.style.Stroke({
+        color: [0, 0, 255, 255],
+        width: 7,
+        opacity: 0.5
+      })
+    })
+  );
+  
   var paramsToCoordinates = function(pointString) {
     var values = pointString.split(','),
         coordinates = [],
@@ -16,22 +73,7 @@ PflegeMap.route = function(params) {
       );
     }
     return coordinates;
-  },
-  coordinates = paramsToCoordinates(params),
-  line = new ol.Feature({
-    geometry: new ol.geom.LineString(coordinates),
-    type: 'Route'
-  });
-
-  line.setStyle(
-    new ol.style.Style({
-      stroke: new ol.style.Stroke({
-        color: [0, 0, 255, 255],
-        width: 7,
-        opacity: 0.5
-      })
-    })
-  );
+  }
 
   return {
     line: line,
@@ -44,6 +86,8 @@ PflegeMap.route = function(params) {
       'Ziel',
       'TargetPoint',
       coordinates[coordinates.length - 1]
-    )
+    ),
+    duration: duration,
+    distance: distance
   };
 }

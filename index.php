@@ -264,7 +264,7 @@
                     type="text"
                     coordinates=""
                     value=""
-                    placeholder="Startadresse eingeben ..."/> <input id="PflegeMap.removeRouteButton" type="button" value="Route löschen"/><br>
+                    placeholder="Startadresse eingeben ..."/> <input id="PflegeMap.removeRouteButton" class="pflegemap-routing-button" type="button" value="Route löschen"/> <div id="PflegeMap.routingDuration" class="pflegemap-routing-result"></div><br>
                   <div id="PflegeMap.sourceFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
                   <input
                     id="PflegeMap.targetField"
@@ -272,10 +272,9 @@
                     type="text"
                     coordinates=""
                     value=""
-                    placeholder="Zieladresse eingeben ..."/> <input id="PflegeMap.calcRouteButton" type="button" value="Route berechnen"/>
+                    placeholder="Zieladresse eingeben ..."/> <input id="PflegeMap.calcRouteButton" class="pflegemap-routing-button" type="button" value="Route berechnen"/> <div id="PflegeMap.routingDistance" class="pflegemap-routing-result"></div>
                   <div id="PflegeMap.targetFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
                 </div>
-
                 <div id="PflegeMap.searchToolbox" class="pflegemap-search-toolbox">
                   <button
                     id="PflegeMap.textSearchTool"
