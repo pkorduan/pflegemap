@@ -114,10 +114,6 @@ PflegeMap.reacherController = {
         source = PflegeMap.reacher.layer.getSource(),
         features = source.getFeatures();
 
-
-        console.log('reachArea: %o' , reachArea);
-        debug_ra = reachArea;
-
     if (features != null && features.length > 0) {
       for (x in features) {
         source.removeFeature(features[x]);
@@ -128,7 +124,6 @@ PflegeMap.reacherController = {
       reachArea
     );
 
-    console.log('add origin');
     source.addFeature(
       reachArea.origin
     );

@@ -82,22 +82,14 @@ PflegeMap.reachArea = function(origin, coordinates) {
   };
 
   polygon.select = function() {
-    console.log('Select feature: ' + this.get('name'));
-
-    // show popup
-    console.log('show popup');
     this.preparePopup();
     PflegeMap.popup.setPosition(
       this.origin.getGeometry().getCoordinates()
     );
-
-    // set this feature to selected
-    this.set('selected', true);
-    console.log('set this feature: ' + this.get('name') + ' as selected Feature.');
   };
 
   polygon.unselect = function() {
-    // hier soll nichts passieren
+    PflegeMap.popup.setPosition(undefined);
   };
 
   return polygon;
