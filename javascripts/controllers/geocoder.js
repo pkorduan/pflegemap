@@ -1,11 +1,14 @@
 PflegeMap.geocoderController = {
   scope: this,
 
+  name: "geocoderController",
+
   layer: new ol.layer.Vector({
     opacity: 1,
     source: new ol.source.Vector({
       features: []
-    })
+    }),
+    zIndex: 100
   }),
 
   initLayer: function() {
@@ -36,14 +39,21 @@ PflegeMap.geocoderController = {
       'click',
       {
         popup: PflegeMap.popup,
-        layer: this.layer
+        layer: this.layer,
+        scope: this
       },
       function(event){
+        event.data.scope.removeSearchResultFeatures(event.data.scope);
+        event.data.popup.setPosition(undefined);
+/*
+        debug_e=event;
         var layer = event.data.layer,
           popup = event.data.popup,
           feature = popup.target.feature;
+        
         popup.setPosition(undefined);
         layer.getSource().removeFeature(feature);
+*/
       }
     );
   },
@@ -104,7 +114,6 @@ PflegeMap.geocoderController = {
   },
 
   searchResultsFormatter: function(event, results) {
-    debug_e = event;
     var html = '';
 
     if(typeof results != "undefined" && results != null && results.length > 0) {
@@ -128,6 +137,7 @@ PflegeMap.geocoderController = {
   },
 
   addSearchResultFeature: function(search_field, display_name, lat, lon) {
+
     var searchResultFeature = new PflegeMap.searchResult(display_name, lat, lon),
         source = this.layer.getSource(),
         target = $('#PflegeMap\\.' + search_field);
@@ -149,13 +159,13 @@ PflegeMap.geocoderController = {
     );
   },
 
-  removeSearchResultFeatures : function(){
-    var source = this.layer.getSource(),
-    features = source.getFeatures();
+  removeSearchResultFeatures : function(scope){
+    var source = scope.layer.getSource(),
+        features = source.getFeatures();
 
     if (features != null && features.length > 0) {
       for (x in features) {
-          source.removeFeature( features[x] );
+        source.removeFeature( features[x] );
       }
     }
   }

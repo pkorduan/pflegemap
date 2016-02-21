@@ -1,5 +1,7 @@
 PflegeMap.reacherController = {
   scope: this,
+  
+  name: "reacherController",
 
   layer: new ol.layer.Vector({
     opacity: 1,
@@ -32,6 +34,14 @@ PflegeMap.reacherController = {
       this,
       PflegeMap.geocoder.lookupNominatim
     );
+
+    // Beim Klick auf Markierung Löschen im Infofenster
+    $('#PflegeMap\\.popup .pm-popup-function-clear').on(
+      'click',
+      this,
+      this.removeReachArea
+    );
+
   },
 
   getSearchResultCallback: function(event, item) {
@@ -39,8 +49,12 @@ PflegeMap.reacherController = {
   },
 
   getReachArea : function(name, lat, lon) {
-    PflegeMap.geocoder.addSearchResultFeature('reachSearchField', name, lat, lon);
-
+    console.log('Schließe Suchergebnisliste');
+    var target = $('#PflegeMap\\.reachSearchField');
+    target.val(name);
+    target[0].setAttribute('coordinates', lat + ', ' + lon);
+    $('#PflegeMap\\.reachSearchFieldResultBox').hide();
+    
     console.log('Starte mit der Berechnung des Erreichbarkeitsgebietes.');
     $.ajax({
       url: PflegeMap.config.reachUrl + '?',
@@ -95,10 +109,14 @@ PflegeMap.reacherController = {
     });
   },
 
-  showReachArea: function(centerPoint, reachAreaCoords) {
-    var reachArea = new PflegeMap.reachArea(centerPoint, reachAreaCoords),
+  showReachArea: function(origin, reachAreaCoords) {
+    var reachArea = new PflegeMap.reachArea(origin, reachAreaCoords),
         source = PflegeMap.reacher.layer.getSource(),
         features = source.getFeatures();
+
+
+        console.log('reachArea: %o' , reachArea);
+        debug_ra = reachArea;
 
     if (features != null && features.length > 0) {
       for (x in features) {
@@ -106,30 +124,35 @@ PflegeMap.reacherController = {
       }
     }
 
-    console.log('add polygon');
     source.addFeature(
-      reachArea.polygon
+      reachArea
     );
 
-    console.log('add startPoint');
+    console.log('add origin');
     source.addFeature(
-      reachArea.startPoint
+      reachArea.origin
     );
+
+//    PflegeMap.geocoder.addSearchResultFeature('reachSearchField', centerPoint.name, centerPoint.lat, centerPoint.lon);
 
     PflegeMap.map.getView().fit(
-      reachArea.polygon.getGeometry().getExtent(),
+      reachArea.getGeometry().getExtent(),
       PflegeMap.map.getSize()
     );
   },
 
-  removeReachArea: function(scope) {
-    var source = PflegeMap.reacher.layer.getSource(),
+  removeReachArea: function(event) {
+    debug_e = event;
+    var source = event.data.layer.getSource(),
         features = source.getFeatures();
 
-    $('#PflegeMap\\.sourceField').attr('coordinates', '');
-    $('#PflegeMap\\.sourceField').val('');
-    $('#PflegeMap\\.sourceField').prop('readonly', false);
-    $('#PflegeMap\\.minutesField').val('');
-    $('#PflegeMap\\.minutesField').prop('readonly', false);
+    $('#PflegeMap\\.reachSearchField').attr('coordinates', '');
+    $('#PflegeMap\\.reachSearchField').val('');
+
+    if (features != null && features.length > 0) {
+      for (x in features) {
+        source.removeFeature( features[x] );
+      }
+    }
   }
 };

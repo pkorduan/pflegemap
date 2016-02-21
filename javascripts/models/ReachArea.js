@@ -1,18 +1,34 @@
-PflegeMap.reachArea = function(startPoint, coordinates) {
+PflegeMap.reachArea = function(origin, coordinates) {
   var polygon = new ol.Feature({
     geometry: new ol.geom.Polygon(
       [ $.map(
-        coordinates,
-        function (c, i) {
-          return [ol.proj.transform(
-            c,
-            'EPSG:4326',
-            PflegeMap.viewProjection
-          )];
-        }
-      )]
+          coordinates,
+          function (c, i) {
+            return [ol.proj.transform(
+              c,
+              'EPSG:4326',
+              PflegeMap.viewProjection
+            )];
+          }
+        )
+      ]
     ),
-    type: 'ReachPolygon'
+    type: 'ReachPolygon',
+    name: 'Erreichbarkeitsgebiet'
+  }),
+
+  origin = new ol.Feature({
+    type: 'ReachAreaOrigin',
+    geometry: new ol.geom.Point(
+      ol.proj.fromLonLat(
+        [
+          origin.lon,
+          origin.lat
+        ],
+        PflegeMap.viewProjection
+      )
+    ),
+    name: origin.name
   });
 
   polygon.setStyle(
@@ -27,13 +43,62 @@ PflegeMap.reachArea = function(startPoint, coordinates) {
       })
     })
   );
+  
+  origin.setStyle(
+    new ol.style.Style({
+      image: new ol.style.Icon(({
+        anchor: [0.5, 46],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'pixels',
+        opacity: 0.75,
+        src: 'images/SearchPoint.png'
+      }))
+    })
+  );
 
-  return {
-    polygon: polygon,
-    startPoint: new PflegeMap.searchResult(
-      startPoint.name,
-      startPoint.lat,
-      startPoint.lon
-    )
+  origin.select = function() {
+    // origin kann nicht selectiert werden
+    // selectiere statt dessen das Polygon
+  }
+
+  polygon.origin = origin;
+
+  polygon.data = function() {
+    var html  = this.origin.get('name') + '<br>';
+        html += '' + this.latlng().join(', ');
+    return html;
   };
+
+  polygon.latlng = function() {
+    var lnglat = ol.proj.transform(this.origin.getGeometry().getCoordinates(), PflegeMap.viewProjection, PflegeMap.baseProjection);
+    return [lnglat[1], lnglat[0]];
+  };
+
+  polygon.preparePopup = function() {
+    PflegeMap.popup.feature = this;
+    $('#PflegeMap\\.popup').attr('class','pm-popup pm-suchergebnis');
+    $('#PflegeMap\\.popup-title').html('Erreichbarkeitsgebiet');
+    $('#PflegeMap\\.popup-data').html(this.data());
+  };
+
+  polygon.select = function() {
+    console.log('Select feature: ' + this.get('name'));
+
+    // show popup
+    console.log('show popup');
+    this.preparePopup();
+    PflegeMap.popup.setPosition(
+      this.origin.getGeometry().getCoordinates()
+    );
+
+    // set this feature to selected
+    this.set('selected', true);
+    console.log('set this feature: ' + this.get('name') + ' as selected Feature.');
+  };
+
+  polygon.unselect = function() {
+    // hier soll nichts passieren
+  };
+
+  return polygon;
 }
