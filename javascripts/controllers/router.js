@@ -57,8 +57,12 @@ PflegeMap.routerController = {
       this.openRouteSearch
     );
 
-    $('#PflegeMap\\.calcRouteButton').click(this, this.loadRoute);
-    $('#PflegeMap\\.removeRouteButton').click(this.removeRoute);
+    $('#PflegeMap\\.calcRouteButton').click(
+      this, this.loadRoute
+    );
+    $('#PflegeMap\\.removeRouteButton').click(
+      this.removeRoute
+    );
     $('#PflegeMap\\.MessageBoxClose').click(function() {
       $('#PflegeMap\\.MessageBox').animate({'top':'-200px'},500,function(){
         $('#PflegeMap\\.Overlay').fadeOut('fast');
@@ -173,6 +177,15 @@ PflegeMap.routerController = {
     $('#PflegeMap\\.targetField').attr('coordinates', '');
     $('#PflegeMap\\.targetField').val('');
     $('#PflegeMap\\.targetField').prop('readonly', false);
+
+    $('#PflegeMap\\.routingDuration').html();
+    $('#PflegeMap\\.routingDistance').html();
+
+    if (features != null && features.length > 0) {
+      for (x in features) {
+        source.removeFeature(features[x]);
+      }
+    }
   },
 
   openRouteSearch: function(event) {
