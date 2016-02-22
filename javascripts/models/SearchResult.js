@@ -19,8 +19,8 @@ PflegeMap.searchResult = function(name, lat, lon) {
   feature.setStyle(style);
 
   feature.data = function() {
-    var html  = this.get('name') + '<br>';
-        html += '' + this.latlng().join(', ');
+    var html  = this.get('name') /*+ '<br>';
+        html += '' + this.latlng().join(', ')*/;
     return html;
   };
 
