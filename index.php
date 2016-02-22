@@ -75,7 +75,7 @@
     <script src="javascripts/controllers/geocoder.js"></script>
     <script src="javascripts/controllers/proximiter.js"></script>
     <script src="javascripts/controllers/reacher.js"></script>
-
+    <script src="javascripts/controllers/helper.js"></script>
   </head>
   <body class="purple" style="background: url(http://kreis-lup.de/export/sites/LUP/.galleries/LUP-Allgemein-Aktuelles-und-Presse/Service-Verwaltung/DSC_0474.JPG_1979318820.jpg) no-repeat center center fixed; -webkit-background-size: cover; background-size: cover;">
     <ul id="skiplinks">
@@ -174,6 +174,10 @@
                 <div id="PflegeMap.MessageBox" class="pflegemap-message-box">
                   <a id="PflegeMap.MessageBoxClose" class="pflegemap-message-box-close"></a>
                   <span id="PflegeMap.errorMessage"></span>
+                </div>
+                <div id="PflegeMap.HelpBox" class="pflegemap-help-box">
+                  <a id="PflegeMap.HelpBoxClose" class="pflegemap-help-box-close"></a>
+                  <span id="PflegeMap.helpMessage"></span>
                 </div>
                 <div class="pflegemap-header">
                   <h3 class="">Pflegeangebote</h3>
@@ -326,7 +330,15 @@
                     title="Erreichbarkeitsanalyse"
                     alt="Erreichbarkeitsanalyse">
                       <i class="fa fa-lg fa-inverse fa-clock-o"></i>
-                    </button>
+                  </button>
+                  <button
+                    id="PflegeMap.helpTool"
+                    class="pflegemap-search-tool-icon"
+                    toolname="help"
+                    title="Hilfe"
+                    alt="Hilfe und Hinweise">
+                      <i class="fa fa-lg fa-inverse fa-question"></i>
+                  </button>
                 </div>
                 <div class="pflegemap-clear"></div>
                 <div class="container">

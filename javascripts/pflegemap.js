@@ -29,6 +29,7 @@ $('#PflegeMap').ready(function() {
     PflegeMap.geocoder = PflegeMap.initGeocoder();
     PflegeMap.proximiter = PflegeMap.initProximiter();
     PflegeMap.reacher = PflegeMap.initReacher();
+    PflegeMap.helper = PflegeMap.initHelper();
   }
 
   //display popup on click
@@ -256,3 +257,10 @@ PflegeMap.initReacher = function() {
   reacher.setEventHandler();
   return reacher;
 };
+
+PflegeMap.initHelper = function() {
+  var helper = PflegeMap.helpController;
+  helper.initHelp();
+  helper.setEventHandler();
+  return helper;
+}
