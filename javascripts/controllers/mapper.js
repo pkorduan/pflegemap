@@ -108,33 +108,33 @@ PflegeMap.mapperController = function(map) { return {
       this.switchCategoryCheckBox
     );
     
-    // handler for popup's proximity search
-    $('#PflegeMap\\.popup .pm-popup-function-proximity-search').off();
-    $('#PflegeMap\\.popup .pm-popup-function-proximity-search').on(
-      'click',
-      {
-        mapper: this,
-        popup: PflegeMap.popup,
-      },
-      this.proximitySearch
-    );
-
-    $('#pm-popup-proximity-select').off();
-    $('#pm-popup-proximity-select').on(
-      'change',
-      {
-        mapper: this,
-        popup: PflegeMap.popup,
-      },
-      function (event) {
-        var data = event.data,
-            mapTarget = data.popup.target,
-            radius = Number(event.target.value);
-        data.mapper.proximityRadius = radius;
-        data.mapper.proximityExtent = data.mapper.calculateProximityExtent(mapTarget, radius);
-        data.mapper.proximityCenter = ol.extent.getCenter(data.mapper.proximityExtent);
-      }
-    );
+//    // handler for popup's proximity search
+//    $('#PflegeMap\\.popup .pm-popup-function-proximity-search').off();
+//    $('#PflegeMap\\.popup .pm-popup-function-proximity-search').on(
+//      'click',
+//      {
+//        mapper: this,
+//        popup: PflegeMap.popup,
+//      },
+//      this.proximitySearch
+//    );
+//
+//    $('#pm-popup-proximity-select').off();
+//    $('#pm-popup-proximity-select').on(
+//      'change',
+//      {
+//        mapper: this,
+//        popup: PflegeMap.popup,
+//      },
+//      function (event) {
+//        var data = event.data,
+//            mapTarget = data.popup.target,
+//            radius = Number(event.target.value);
+//        data.mapper.proximityRadius = radius;
+//        data.mapper.proximityExtent = data.mapper.calculateProximityExtent(mapTarget, radius);
+//        data.mapper.proximityCenter = ol.extent.getCenter(data.mapper.proximityExtent);
+//      }
+//    );
 
   },
 
@@ -303,96 +303,96 @@ PflegeMap.mapperController = function(map) { return {
     PflegeMap.geocoder.addSearchResultFeature('proximityAddress', display_name, lat, lon);
   },
 
-  proximitySearch: function(event) {
-    var data = event.data,
-        popup = data.popup,
-        mapper = data.mapper
-        mapTarget = data.popup.target,
-        radius = Number($('#pm-popup-proximity-select').val());
-    
-    mapper.proximityRadius = radius;
-    mapper.proximityExtent = data.mapper.calculateProximityExtent(mapTarget, radius);
-    mapper.proximityCenter = ol.extent.getCenter(data.mapper.proximityExtent);
-
-    // switch visibility of angebote
-    $(".cb-kat").each(function (){
-     // console.log('versart: %o', $(this).attr('versart'));
-    //  console.log('checked: %o', $(this).prop('checked'));
-      
-      mapper.switchCategory(
-        $(this).attr('versart'),
-        $(this).prop('checked')
-      );
-    });
-    
-    // calculate view extent that centers on filtered results
-    var source = data.mapper.layer.getSource(),
-      features = source.getFeatures(),
-      viewExtent = ol.extent.createEmpty();
-    features.forEach(function(feature){
-      if (!feature.get('hidden'))
-        ol.extent.extend(
-          viewExtent,
-          feature.getGeometry().getExtent());
-    });
-    
-    // buffer extent with a fraction of the proximity radius
-    viewExtent = ol.extent.buffer(
-      viewExtent,
-      mapper.proximityRadius > 0 ? mapper.proximityRadius / 10 : 0
-    );
-    
-    // zoom to buffered viewExtent
-    PflegeMap.map.getView().fit(
-      viewExtent,
-      PflegeMap.map.getSize()
-    );
-
-    // dismiss popup
-    popup.setPosition(undefined);
-  },
+//  proximitySearch: function(event) {
+//    var data = event.data,
+//        popup = data.popup,
+//        mapper = data.mapper
+//        mapTarget = data.popup.target,
+//        radius = Number($('#pm-popup-proximity-select').val());
+//    
+//    mapper.proximityRadius = radius;
+//    mapper.proximityExtent = data.mapper.calculateProximityExtent(mapTarget, radius);
+//    mapper.proximityCenter = ol.extent.getCenter(data.mapper.proximityExtent);
+//
+//    // switch visibility of angebote
+//    $(".cb-kat").each(function (){
+//     // console.log('versart: %o', $(this).attr('versart'));
+//    //  console.log('checked: %o', $(this).prop('checked'));
+//      
+//      mapper.switchCategory(
+//        $(this).attr('versart'),
+//        $(this).prop('checked')
+//      );
+//    });
+//    
+//    // calculate view extent that centers on filtered results
+//    var source = data.mapper.layer.getSource(),
+//      features = source.getFeatures(),
+//      viewExtent = ol.extent.createEmpty();
+//    features.forEach(function(feature){
+//      if (!feature.get('hidden'))
+//        ol.extent.extend(
+//          viewExtent,
+//          feature.getGeometry().getExtent());
+//    });
+//    
+//    // buffer extent with a fraction of the proximity radius
+//    viewExtent = ol.extent.buffer(
+//      viewExtent,
+//      mapper.proximityRadius > 0 ? mapper.proximityRadius / 10 : 0
+//    );
+//    
+//    // zoom to buffered viewExtent
+//    PflegeMap.map.getView().fit(
+//      viewExtent,
+//      PflegeMap.map.getSize()
+//    );
+//
+//    // dismiss popup
+//    popup.setPosition(undefined);
+//  },
 
   featureWithinProximity: function(feature){
     var featureCoords = feature.getGeometry().getCoordinates(),
-        centerCoords = this.proximityCenter;
-        withinExtent = ol.extent.containsCoordinate(this.proximityExtent, featureCoords);
+        centerCoords = PflegeMap.proximiter.proximityCenter;
+        withinExtent = ol.extent.containsCoordinate(PflegeMap.proximiter.proximityExtent, featureCoords);
         withinDistance = withinExtent 
-        ? ((featureCoords[0] - centerCoords[0])^2 + (featureCoords[0] - centerCoords[0])^2) > this.proximityRadius^2 
+        ? ((featureCoords[0] - centerCoords[0])^2 + (featureCoords[0] - centerCoords[0])^2) > PflegeMap.proximiter.proximityRadius^2 
         : false;
     
     return withinDistance;
   },
   
-  calculateProximityExtent: function(maptarget, radius){
-    if (radius == -1) return PflegeMap.maxExtent; // no proximity specified
-    var sourceProjection = PflegeMap.viewProjection,
-//    var sourceProjection = this.map.getView().getProjection(),
-        localUTMProjection = this.determineLocalUtmZone(maptarget.feature),
-        needTransform = sourceProjection !== localUTMProjection,
-        featureGeom = maptarget.feature.getGeometry().clone();
-    
-    featureGeom == needTransform 
-      ? featureGeom.transform(sourceProjection, localUTMProjection)
-      : featureGeom;
-    
-    var minCoord = featureGeom.clone(),
-        maxCoord = featureGeom.clone();
-    minCoord.translate(-radius,-radius);
-    maxCoord.translate(radius,radius);
-    
-    var proximityExtent = ol.extent.extend(minCoord.getExtent(),maxCoord.getExtent());
-    proximityExtent == needTransform 
-      ? ol.proj.transformExtent(proximityExtent, localUTMProjection, sourceProjection)
-      : proximityExtent;
-      
-    return proximityExtent;
-  },
+//  calculateProximityExtent: function(maptarget, radius){
+//    if (radius == -1) return PflegeMap.maxExtent; // no proximity specified
+//    var sourceProjection = PflegeMap.viewProjection,
+////    var sourceProjection = this.map.getView().getProjection(),
+//        localUTMProjection = this.determineLocalUtmZone(maptarget.feature),
+//        needTransform = sourceProjection !== localUTMProjection,
+//        featureGeom = maptarget.feature.getGeometry().clone();
+//    
+//    featureGeom == needTransform 
+//      ? featureGeom.transform(sourceProjection, localUTMProjection)
+//      : featureGeom;
+//    
+//    var minCoord = featureGeom.clone(),
+//        maxCoord = featureGeom.clone();
+//    minCoord.translate(-radius,-radius);
+//    maxCoord.translate(radius,radius);
+//    
+//    var proximityExtent = ol.extent.extend(minCoord.getExtent(),maxCoord.getExtent());
+//    proximityExtent == needTransform 
+//      ? ol.proj.transformExtent(proximityExtent, localUTMProjection, sourceProjection)
+//      : proximityExtent;
+//      
+//    return proximityExtent;
+//  },
   
-  determineLocalUtmZone: function(feature){
-    var utmZone = (Math.floor((feature.latlng()[1]+180)/6) % 60) + 1;
-    return 'EPSG:258'+utmZone;
-  },
-
+//  determineLocalUtmZone: function(feature){
+//    var utmZone = (Math.floor((feature.latlng()[1]+180)/6) % 60) + 1;
+//    return 'EPSG:258'+utmZone;
+//  },
+//
   zeigeEinrichtungen: function(store, layer) {
     var features = [];
     for (var i = 0; i < store.length; i++){
