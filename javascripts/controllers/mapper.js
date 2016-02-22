@@ -57,7 +57,16 @@ PflegeMap.mapperController = function(map) { return {
       this.list.add(features[i]);
     }
   },
-  
+
+  searchAnimation: {
+    show: function() {
+      $('#PflegeMap\\.searchOverlay').show();
+    },
+    hide: function() {
+      $('#PflegeMap\\.searchOverlay').hide();
+    }
+  },
+
   sortFeatures: function (a, b) {
     var aName = a.get('versorgungsart').toLowerCase() + a.get('kategorie') + a.get('gemeinde');
     var bName = b.get('versorgungsart').toLowerCase() + b.get('kategorie') + b.get('gemeinde'); 
@@ -136,6 +145,8 @@ PflegeMap.mapperController = function(map) { return {
         coordinates = [],
         i;
 
+    PflegeMap.mapper.searchAnimation.show();
+
     for ( i = 0; i < features.length; i++) {
       if (searchString.length < 3 || $.inArray(features[i].get('id'), PflegeMap.suchIndex[searchString]) > -1) {
         features[i].set('hidden', false);
@@ -156,6 +167,8 @@ PflegeMap.mapperController = function(map) { return {
         PflegeMap.map.getSize()
       );
     }
+    
+    PflegeMap.mapper.searchAnimation.hide();
   },
 
   switchCategoryCheckBox: function(event) {
@@ -212,6 +225,8 @@ PflegeMap.mapperController = function(map) { return {
     $.ajax({
       url: url,
 
+      beforeSend: PflegeMap.mapper.searchAnimation.show,
+
       data: {
         viewboxlbrt    : '10.57,53.10,12.40,53.82',
         bounded        : 1,
@@ -235,7 +250,10 @@ PflegeMap.mapperController = function(map) { return {
         if(xhr.status==404) {
           scope.showErrorMsg(scope, thrownError);
         }
-      }
+      },
+
+      complete: PflegeMap.mapper.searchAnimation.hide()
+
     });
   },
 

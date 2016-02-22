@@ -171,6 +171,11 @@
               <a name="PflegeMap.top"></a>
               <div id="PflegeMap" class="pflegemap">
                 <div id="PflegeMap.Overlay" class="pflegemap-overlay" style="display:none;"></div>
+                <div id="PflegeMap.searchOverlay" class="pflegemap-search-overlay" style="display:none">
+                  <div id="PflegeMap.searchAnimation" class="pflegemap-search-animation">
+                    <i class="fa fa-5x fa-spinner fa-spin"></i>
+                </div>
+              </div>
                 <div id="PflegeMap.MessageBox" class="pflegemap-message-box">
                   <a id="PflegeMap.MessageBoxClose" class="pflegemap-message-box-close"></a>
                   <span id="PflegeMap.errorMessage"></span>

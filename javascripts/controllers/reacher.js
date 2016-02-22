@@ -49,13 +49,11 @@ PflegeMap.reacherController = {
   },
 
   getReachArea : function(name, lat, lon) {
-    console.log('Schließe Suchergebnisliste');
     var target = $('#PflegeMap\\.reachSearchField');
     target.val(name);
     target[0].setAttribute('coordinates', lat + ', ' + lon);
     $('#PflegeMap\\.reachSearchFieldResultBox').hide();
-    
-    console.log('Starte mit der Berechnung des Erreichbarkeitsgebietes.');
+
     $.ajax({
       url: PflegeMap.config.reachUrl + '?',
       data: {
@@ -71,6 +69,8 @@ PflegeMap.reacherController = {
         diffPolys: true,
         coords: (lat + ',' + lon)
       },
+
+      beforeSend: PflegeMap.mapper.searchAnimation.show,
 
       // Work with the response
       success: function(response) {
@@ -95,7 +95,9 @@ PflegeMap.reacherController = {
         if(xhr.status==404) {
           PflegeMap.reacherController.showErrorMsg(thrownError);
         }
-      }
+      },
+      
+      complete:  PflegeMap.mapper.searchAnimation.hide
     });
   },
 
