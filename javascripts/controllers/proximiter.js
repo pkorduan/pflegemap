@@ -69,7 +69,9 @@ PflegeMap.proximiterController = {
         proximiter = data.proximiter
         mapTarget = data.popup.target,
         radius = Number($('#pm-popup-proximity-select').val());
-    
+
+    PflegeMap.mapper.searchAnimation.show();
+
     proximiter.proximityRadius = radius;
     proximiter.proximityExtent = data.proximiter.calculateProximityExtent(mapTarget, radius);
     proximiter.proximityCenter = ol.extent.getCenter(data.proximiter.proximityExtent);
@@ -110,6 +112,8 @@ PflegeMap.proximiterController = {
 
     // dismiss popup
     popup.setPosition(undefined);
+
+    PflegeMap.mapper.searchAnimation.hide();
   },
 
   featureWithinProximity: function(feature){

@@ -74,6 +74,8 @@ PflegeMap.geocoderController = {
         addressdetails : 1,
       },
 
+      beforeSend: PflegeMap.mapper.searchAnimation.show,
+
       // Work with the response
       success: function(response) {
         if (response.indexOf('Error') != -1 || response.indexOf('Fehler') != -1) {
@@ -89,7 +91,9 @@ PflegeMap.geocoderController = {
         if(xhr.status==404) {
           scope.showErrorMsg(scope, thrownError);
         }
-      }
+      },
+      
+      complete:  PflegeMap.mapper.searchAnimation.hide
     });
   },
 
@@ -104,6 +108,7 @@ PflegeMap.geocoderController = {
   },
 
   showNominatimResults: function(event, results) {
+
     $('#' + event.target.id.replace('.', '\\.') + 'ResultBox').html(
       this.searchResultsFormatter(
         event,

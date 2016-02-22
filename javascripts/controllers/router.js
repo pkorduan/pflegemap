@@ -95,6 +95,8 @@ PflegeMap.routerController = {
         target: target
       },
 
+      beforeSend: PflegeMap.mapper.searchAnimation.show,
+
       // Work with the response
       success: function(response) {
         if (response.indexOf('Error') != -1 || response.indexOf('Fehler') != -1) {
@@ -118,7 +120,10 @@ PflegeMap.routerController = {
         if(xhr.status==404) {
           scope.showErrorMsg(scope, thrownError);
         }
-      }
+      },
+
+      complete: PflegeMap.mapper.searchAnimation.hide
+
     });
   },
 
