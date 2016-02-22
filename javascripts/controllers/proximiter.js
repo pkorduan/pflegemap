@@ -1,5 +1,4 @@
 PflegeMap.proximiterController = {
-  scope: this,
 
   // dummy zum Testen bitte löschen
 /*  proximityRadius: -1, // kein Umkreis gegeben, Umkreis in Meter
@@ -11,43 +10,67 @@ PflegeMap.proximiterController = {
   },
 
   setEventHandler: function() {
+    self = this;
     $('#PflegeMap\\.proximitySearchTool').on(
       'click',
-      this,
+      self,
       PflegeMap.mapper.switchSearchTools
     );
 
     $('#PflegeMap\\.proximitySearchField').on(
       'change',
-      this,
+      self,
       PflegeMap.geocoder.lookupNominatim
     );
     
+    // handler for search field's proximity search
+    $('#PflegeMap\\.proximitySelect').off();
+    $('#PflegeMap\\.proximitySelect').on(
+      'change',
+      {
+        mapper: PflegeMap.mapper
+      },
+      function(event) {
+        // do proximity filtering
+        var layer = PflegeMap.geocoder.layer,
+          radius = Number(event.target.value),
+          mapTarget = {
+            layer: layer,
+            feature: layer.getSource().getFeatures()[0]
+          };
+        self.proximityRadius = radius;
+        self.proximitySearch(self, event.data.mapper, mapTarget);
+      }
+    );
+
     // handler for popup's proximity search
     $('#PflegeMap\\.popup .pm-popup-function-proximity-search').off();
     $('#PflegeMap\\.popup .pm-popup-function-proximity-search').on(
       'click',
       {
-        proximiter: this,
         popup: PflegeMap.popup,
+        mapper: PflegeMap.mapper
       },
-      this.proximitySearch
+      function(event) {
+        // do proximity filtering
+        self.proximitySearch(self, event.data.mapper, event.data.popup.target);
+        // dismiss popup
+        event.data.popup.setPosition(undefined);
+      }
     );
 
     $('#pm-popup-proximity-select').off();
     $('#pm-popup-proximity-select').on(
       'change',
       {
-        proximiter: this,
         popup: PflegeMap.popup,
       },
       function (event) {
-        var data = event.data,
-            mapTarget = data.popup.target,
+        var mapTarget = event.data.popup.target,
             radius = Number(event.target.value);
-        data.proximiter.proximityRadius = radius;
-        data.proximiter.proximityExtent = data.proximiter.calculateProximityExtent(mapTarget, radius);
-        data.proximiter.proximityCenter = ol.extent.getCenter(data.proximiter.proximityExtent);
+        self.proximityRadius = radius;
+//        self.proximityExtent = self.calculateProximityExtent(mapTarget, radius);
+//        self.proximityCenter = ol.extent.getCenter(self.proximityExtent);
       }
     );
   },
@@ -63,16 +86,12 @@ PflegeMap.proximiterController = {
     PflegeMap.geocoder.addSearchResultFeature('proximitySearchField', display_name, lat, lon);
   },
 
-  proximitySearch: function(event) {
-    var data = event.data,
-        popup = data.popup,
-        proximiter = data.proximiter
-        mapTarget = data.popup.target,
-        radius = Number($('#pm-popup-proximity-select').val());
-    
-    proximiter.proximityRadius = radius;
-    proximiter.proximityExtent = data.proximiter.calculateProximityExtent(mapTarget, radius);
-    proximiter.proximityCenter = ol.extent.getCenter(data.proximiter.proximityExtent);
+  proximitySearch: function(self, mapper, mapTarget) {
+//    var radius = Number($('#pm-popup-proximity-select').val());
+//    
+//    self.proximityRadius = radius;
+    self.proximityExtent = self.calculateProximityExtent(mapTarget, self.proximityRadius);
+    self.proximityCenter = ol.extent.getCenter(self.proximityExtent);
 
     // switch visibility of angebote
     $(".cb-kat").each(function (){
@@ -86,30 +105,44 @@ PflegeMap.proximiterController = {
     });
     
     // calculate view extent that centers on filtered results
-    var source = data.mapper.layer.getSource(),
+    var source = mapper.layer.getSource(),
       features = source.getFeatures(),
-      viewExtent = ol.extent.createEmpty();
-    features.forEach(function(feature){
-      if (!feature.get('hidden'))
+      viewExtent = ol.extent.createEmpty(),
+      visisbleFeatures = features.filter(function(feature){
+        return !feature.get('hidden');
+      });
+    visisbleFeatures.forEach(function(feature){
+      ol.extent.extend(
+        viewExtent,
+        feature.getGeometry().getExtent());
+    });
+    
+    // include the proximity's origin
+    ol.extent.extend(viewExtent, self.proximityCenter.concat(self.proximityCenter));
+    
+    if (visisbleFeatures.length < 1)
+      // ensure minimal extend as extent of search proximity
+      ol.extent.extend(viewExtent, self.proximityExtent);
+    else {
+      // extend view to contain all results 
+      visisbleFeatures.forEach(function(feature){
         ol.extent.extend(
           viewExtent,
           feature.getGeometry().getExtent());
-    });
-    
-    // buffer extent with a fraction of the proximity radius
-    viewExtent = ol.extent.buffer(
-      viewExtent,
-      proximiter.proximityRadius > 0 ? proximiter.proximityRadius / 10 : 0
-    );
+      });
+
+      // buffer extent with a fraction of the proximity radius in order to keep clear off the map's frame
+      viewExtent = ol.extent.buffer(
+        viewExtent,
+        self.proximityRadius > 0 ? self.proximityRadius / 10 : 0
+      );
+    }
     
     // zoom to buffered viewExtent
     PflegeMap.map.getView().fit(
       viewExtent,
       PflegeMap.map.getSize()
     );
-
-    // dismiss popup
-    popup.setPosition(undefined);
   },
 
   featureWithinProximity: function(feature){
@@ -146,6 +179,11 @@ PflegeMap.proximiterController = {
       : proximityExtent;
       
     return proximityExtent;
-  }
+  },
  
+  determineLocalUtmZone: function(feature){
+    var utmZone = (Math.floor((feature.latlng()[1]+180)/6) % 60) + 1;
+    return 'EPSG:258'+utmZone;
+  },
+
 }
