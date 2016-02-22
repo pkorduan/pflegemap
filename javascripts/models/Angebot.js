@@ -87,7 +87,7 @@ PflegeMap.angebot = function(params) {
     }
     html += '    </div>';
     html += '    <div class="pm-box">';
-    if (this.get('kapazitaet') != '')
+    if (this.get('kapazitaet') != '' && this.get('kapazitaet') > 1)
       html += '     <i>Kapazität:</i> ' + this.get('kapazitaet') + '<br>';
     if (this.get('besonderheit') != '')
       html += '     <i>Besonderheit:</i> ' + this.get('besonderheit') + '<br>';

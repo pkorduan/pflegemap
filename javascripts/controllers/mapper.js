@@ -50,8 +50,6 @@ PflegeMap.mapperController = function(map) { return {
 
     var source = this.layer.getSource(),
         features = source.getFeatures();
-        
-    features.sort(this.sortFeatures);
 
     features.sort(this.sortFeatures);
 
