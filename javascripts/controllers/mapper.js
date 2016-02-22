@@ -50,10 +50,20 @@ PflegeMap.mapperController = function(map) { return {
 
     var source = this.layer.getSource(),
         features = source.getFeatures();
+        
+    debug_f = features;
+    
+    features.sort(this.sortFeatures);
 
     for (var i = 0; i < features.length; i++) {
       this.list.add(features[i]);
     }
+  },
+  
+  sortFeatures: function (a, b) {
+    var aName = a.get('versorgungsart').toLowerCase() + a.get('kategorie');
+    var bName = b.get('versorgungsart').toLowerCase() + b.get('kategorie'); 
+    return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
   },
 
   setEventHandlers: function() {
