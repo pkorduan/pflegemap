@@ -169,7 +169,6 @@ PflegeMap.routerController = {
     $('#PflegeMap\\.routingDistance').html(
       scope.distanceFormatter(route.distance)
     );
-    console.log(route);
   },
 
   removeRoute: function(scope) {
@@ -191,6 +190,7 @@ PflegeMap.routerController = {
         source.removeFeature(features[x]);
       }
     }
+    $('.pflegemap-routing-result').hide();
   },
 
   openRouteSearch: function(event) {

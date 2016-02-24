@@ -329,23 +329,24 @@
                     Startadresse:<br>
                     <input
                       id="PflegeMap.sourceField"
-                      class="pflegemap-routing-search-field small-input medium-input large-input-short"
+                      class="pflegemap-routing-search-field small-input medium-input large-input"
                       type="text"
                       coordinates=""
                       value=""
-                      placeholder="Startadresse eingeben ..."/> <div id="PflegeMap.routingDuration" class="pflegemap-routing-result"></div><br>
+                      placeholder="Startadresse eingeben ..."/><br>
                     <div id="PflegeMap.sourceFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
                     Zieladresse:<br>
                     <input
                       id="PflegeMap.targetField"
-                      class="pflegemap-routing-search-field small-input medium-input large-input-short"
+                      class="pflegemap-routing-search-field small-input medium-input large-input"
                       type="text"
                       coordinates=""
                       value=""
-                      placeholder="Zieladresse eingeben ..."/> <div id="PflegeMap.routingDistance" class="pflegemap-routing-result"></div><br>
-                    <div id="PflegeMap.targetFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
+                      placeholder="Zieladresse eingeben ..."/><br>
+                    <div id="PflegeMap.targetFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div><br>
                     <input id="PflegeMap.calcRouteButton" class="pflegemap-routing-button" type="button" value="Route berechnen"/>
                     <input id="PflegeMap.removeRouteButton" class="pflegemap-routing-button" type="button" value="Route löschen"/>
+                    <span id="PflegeMap.routingDistance" class="pflegemap-routing-result"></span> <span id="PflegeMap.routingDuration" class="pflegemap-routing-result"></span>
                   </div>
                 </div>
               </div>
