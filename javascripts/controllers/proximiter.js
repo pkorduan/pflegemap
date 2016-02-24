@@ -38,6 +38,9 @@ PflegeMap.proximiterController = {
             layer: layer,
             feature: layer.getSource().getFeatures()[0]
           };
+        // synchronize popup select element
+        $('#pm-popup-proximity-select').val(radius);
+        // trigger search
         self.proximityRadius = radius;
         self.proximitySearch(self, event.data.mapper, mapTarget);
       }
@@ -68,9 +71,10 @@ PflegeMap.proximiterController = {
       function (event) {
         var mapTarget = event.data.popup.target,
             radius = Number(event.target.value);
+        // synchronize popup select element
+        $('#PflegeMap\\.proximitySelect').val(radius);
+        // set new value
         self.proximityRadius = radius;
-//        self.proximityExtent = self.calculateProximityExtent(mapTarget, radius);
-//        self.proximityCenter = ol.extent.getCenter(self.proximityExtent);
       }
     );
   },

@@ -43,8 +43,16 @@ PflegeMap.geocoderController = {
         scope: this
       },
       function(event){
-        event.data.scope.removeSearchResultFeatures(event.data.scope);
+        // hide popup
         event.data.popup.setPosition(undefined);
+        // remove map marker
+        event.data.scope.removeSearchResultFeatures(event.data.scope);
+        // clear search field
+        $('#PflegeMap\\.proximitySearchField').val("");
+        // reset and disable proximity search
+        $('#pm-popup-proximity-select').val(-1);
+        $('#PflegeMap\\.proximitySelect').val(-1);
+        $('#PflegeMap\\.proximitySelect').prop('disabled', true);
 /*
         debug_e=event;
         var layer = event.data.layer,
@@ -162,6 +170,8 @@ PflegeMap.geocoderController = {
       ),
       PflegeMap.map.getSize()
     );
+    // enable proximity search
+    $('#PflegeMap\\.proximitySelect').prop('disabled', false);
   },
 
   removeSearchResultFeatures : function(scope){
