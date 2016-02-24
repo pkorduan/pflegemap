@@ -99,12 +99,12 @@ PflegeMap.proximiterController = function(map) {return {
     self.proximityCenter = ol.extent.getCenter(self.proximityExtent);
 
     // switch visibility of angebote
-    $(".cb-kat").each(function (){
+    $(".cb-subkat").each(function (){
      // console.log('versart: %o', $(this).attr('versart'));
     //  console.log('checked: %o', $(this).prop('checked'));
       
-      mapper.switchCategory(
-        $(this).attr('versart'),
+      mapper.switchSubCategory(
+        $(this).attr('kategorie'),
         $(this).prop('checked')
       );
     });

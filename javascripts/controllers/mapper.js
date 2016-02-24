@@ -105,7 +105,14 @@ PflegeMap.mapperController = function(map) { return {
     $(".cb-kat").on(
       'change',
       this,
-      this.switchCategoryCheckBox
+      this.onChangeCategoryCheckBox
+    );
+    
+    // Handler for Sub-Category-Checkboxes
+    $(".cb-subkat").on(
+      'change',
+      this,
+      this.onChangeSubCategoryCheckBox
     );
     
 //    // handler for popup's proximity search
@@ -170,14 +177,44 @@ PflegeMap.mapperController = function(map) { return {
     
     PflegeMap.mapper.searchAnimation.hide();
   },
-
-  switchCategoryCheckBox: function(event) {
+  
+  onChangeSubCategoryCheckBox: function(event) {
     var scope = event.data;
+    
+    var categry = event.target.getAttribute('kategorie'),
+      isChecked = event.target.checked,
+      versart = $(event.target).closest('.pflegemap-subcategories').siblings('.cb-kat');
 
-    scope.switchCategory(
-      event.target.getAttribute('versart'),
-      event.target.checked
+    // uncheck versart-box if any of the subcatgrs is unchecked and vice versa
+    var numChecked = $(".cb-subkat:checked", versart.parent()).length,
+      allChecked = (numChecked == $(".cb-subkat", versart.parent()).length);
+    versart.prop('checked', allChecked);
+    if (numChecked > 0) $('.pflegemap-subcategories',versart.parent()).show()
+    else $('.pflegemap-subcategories',versart.parent()).hide();
+
+    scope.switchSubCategory(
+      categry,
+      isChecked
     );
+  },
+  
+  onChangeCategoryCheckBox: function(event) {
+    var scope = event.data;
+    
+    var versart = event.target.getAttribute('versart'),
+      isChecked = event.target.checked;
+    
+    if (versart == 'all') $(".cb-kat[versart!='all']").prop('checked', isChecked).trigger('change')
+    else {
+      // uncheck 'all'-box if any of the catgrs is unchecked and vice versa
+      var allChecked = ($(".cb-kat[versart!='all']:checked").length == $(".cb-kat[versart!='all']").length);
+      $(".cb-kat[versart='all']").prop('checked', allChecked);
+    }
+
+    // show/hide and check/uncheck all subcategories
+    var subcatDiv = $('div.pflegemap-subcategories', $(event.target).parent());
+    subcatDiv.show();
+    $('.cb-subkat', $(subcatDiv)).prop('checked',isChecked).trigger('change');
   },
   
   switchSearchTools: function(event) {
@@ -197,21 +234,13 @@ PflegeMap.mapperController = function(map) { return {
   * @params(boolean) v visibility
   * @return(void)
   */
-  switchCategory: function(c, v) {
+  switchSubCategory: function(c, v) {
     var source = this.layer.getSource(),
       features = source.getFeatures(),
-      i,
-      all_categories = (c == 'all');
-
-    if (all_categories) $(".cb-kat").prop('checked', v)
-    else {
-      // uncheck 'all'-box if any of the catgrs is unchecked and vice versa
-      var allChecked = ($(".cb-kat[versart!='all']:checked").length == $(".cb-kat[versart!='all']").length);
-      $(".cb-kat[versart='all']").prop('checked', allChecked);
-    }
+      i;
 
     for ( i = 0; i < features.length; i++) {
-      if (c == features[i].get('versorgungsart') || all_categories) {
+      if (c == features[i].get('kategorie')) {
         var hidden = v ? !(v && this.featureWithinProximity(features[i])) : !v;
         (hidden)
           ? features[i].hide()
