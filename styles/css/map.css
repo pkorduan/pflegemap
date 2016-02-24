@@ -145,6 +145,7 @@ a.pflegemap-help-box-close{
   border: 0;
   border-radius: 4px;
   background-color: #4285F4;
+  margin: 0.1em;
 }
 .pflegemap-search-tool-icon.fa-lg {
   padding: 0px;
