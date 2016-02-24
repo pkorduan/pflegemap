@@ -59,46 +59,29 @@ PflegeMap.angebot = function(params) {
   feature.setStyle(style);
 
   feature.getListElement = function() {
-    html  = '<div id="PflegeMap.careService_' + this.get('id') + '" class="pm-care-service" feature_id="' + this.get('id') + '">';
-    html += '  <div class="pm-care-service-content">';
-    html += '    <div>';
-    html += '      <a name="PflegeMap.careService_' + this.get('id') + '"></a><b>' + this.get('name') + '</b><br>';
-    html += '<i>Versorgungsart:</i> ' + this.get('versorgungsart');
-    html += ', <i>Kategorie:</i> ' + this.get('angebot');
-    if (this.get('traeger') != '')
-      html += ', <i>Träger:</i> ' + this.get('traeger') + '<br>';
-    html += '    </div>';
-    html += '    <div class="pm-box">';
-    if (this.get('ansprechpartner') != '')
-      html += this.get('ansprechpartner') + '<br>';
-    if (this.get('strasse') != '')
-      html += this.get('strasse') + ' ' + this.get('hnr') + '<br>';
-    if (this.get('plz') != '')
-      html += this.get('plz') + ' ' + this.get('gemeinde');
-    html += '    </div>';
-    html += '    <div class="pm-box">';
-    if (this.get('telefon') != '')
-      html += this.get('telefon') + '<br>';
-    if (this.get('email') != undefined && this.get('email') != '')
-      html += '<a href="mailto:' + this.get('email') + '">' + this.get('email') + '</a><br>';
-    if (this.get('internet') != undefined && this.get('internet') != '') {
-      var url = (!/http/i.test(this.get('internet'))) ? url = 'http://' + this.get('internet') : this.get('internet');
-      html += '<a href="' + url + '" target="_blank">' + this.get('internet') + '</a><br>';
-    }
-    html += '    </div>';
-    html += '    <div class="pm-box">';
-    if (this.get('kapazitaet') != '' && this.get('kapazitaet') > 1)
-      html += '     <i>Kapazität:</i> ' + this.get('kapazitaet') + '<br>';
-    if (this.get('besonderheit') != '')
-      html += '     <i>Besonderheit:</i> ' + this.get('besonderheit') + '<br>';
-    html += '    </div>';
-    html += '  </div>'
-    html += '  <div>';
-    html += '    <!--span class="pm-care-service-close"></span><br//-->';
-    html += '    <a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-o fa-fw"></i> Route von hier</a><br>';
-    html += '    <a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</a><br>';
-    html += '    <a href="#PflegeMap.top"><i class="fa fa-map-marker fa-fw"></i> zur Karte</a>';
-    html += '  </div>';
+    html  = '<div id="PflegeMap.careService_' + this.get('id') + '" class="pm-care-service" feature_id="' + this.get('id') + '" class="row list small-map medium-map large-map">';
+
+      html += '<div class="pm-care-service-content small-100 medium-80 large-45 columns">';
+        html += '<a name="PflegeMap.careService_' + this.get('id') + '"></a><b>' + this.get('name') + '</b><br>';
+        html += '<i>Versorgungsart:</i> ' + this.get('versorgungsart') + '<br>';
+        html += '<i>Kategorie:</i> ' + this.get('angebot');
+      if (this.get('traeger') != '')
+        html += '<br><i>Träger:</i> ' + this.get('traeger');
+      if (this.get('kapazitaet') != '' && this.get('kapazitaet') > 1)
+        html += '<br><i>Kapazität:</i> ' + this.get('kapazitaet');
+      if (this.get('besonderheit') != '')
+        html += '<br>' + this.get('besonderheit');
+      html += '</div>';
+
+      html += '<div class="small-100 medium-80 large-40 columns">';
+        html += this.contact();
+      html += '</div>';
+
+      html += '<div class="small-100 medium-20 large-15 columns push">';
+        html += '<a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-o fa-fw"></i> Route von hier</a><br>';
+        html += '<a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</a><br>';
+        html += '<a href="#PflegeMap.top"><i class="fa fa-map-marker fa-fw"></i> zur Karte</a>';
+      html += '</div>';
     html += '</div>';
     html += '<div class="pflegemap-clear"></div>';
     this.listElement = $(html);
@@ -125,10 +108,25 @@ PflegeMap.angebot = function(params) {
     //return (this.get('plz') + ' ' + this.get('gemeinde') + ', ' + this.get('strasse') + ' ' + this.get('hnr')).trim();
   };
 
+  feature.contact = function() {
+    var contactData = [];
+    if (this.get('ansprechpartner') != '') contactData.push(this.get('ansprechpartner'));
+    contactData.push(this.address());
+    if (this.get('telefon') != '') contactData.push(this.get('telefon'));
+    if (this.get('email') != undefined && this.get('email') != '')
+      contactData.push('<a href="mailto:' + this.get('email') + '">' + this.get('email') + '</a>');
+    if (this.get('internet') != undefined && this.get('internet') != '') {
+      var url = (!/http/i.test(this.get('internet'))) ? url = 'http://' + this.get('internet') : this.get('internet');
+      contactData.push('<a href="' + url + '" target="_blank">' + this.get('internet') + '</a>');
+    }
+    return contactData.join('</br>');
+  }
+
   feature.addressText = function() {
     return (this.get('strasse') + ' ' + this.get('hnr') + ', ' + this.get('plz') + ' ' + this.get('gemeinde')).trim();
     //return (this.get('plz') + ' ' + this.get('gemeinde') + ', ' + this.get('strasse') + ' ' + this.get('hnr')).trim();
   };
+
     
   feature.xy = function() {
     var xy = this.getGeometry().getCoordinates();

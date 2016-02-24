@@ -169,6 +169,25 @@
         <div class="wrapper mobile-full" style="width:880px;">
           <div id="centercontainer">
             <article class="clear row">
+              <a name="PflegeMap.top"></a>
+
+              <div id="PflegeMap.Overlay" class="pflegemap-overlay" style="display:none;"></div>
+
+              <div id="PflegeMap.searchOverlay" class="pflegemap-search-overlay" style="display:none">
+                <div id="PflegeMap.searchAnimation" class="pflegemap-search-animation">
+                  <i class="fa fa-5x fa-spinner fa-spin"></i>
+                </div>
+              </div>
+
+              <div id="PflegeMap.MessageBox" class="pflegemap-message-box">
+                <a id="PflegeMap.MessageBoxClose" class="pflegemap-message-box-close"></a>
+                <span id="PflegeMap.errorMessage"></span>
+              </div>
+
+              <div id="PflegeMap.HelpBox" class="pflegemap-help-box">
+                <a id="PflegeMap.HelpBoxClose" class="pflegemap-help-box-close"></a>
+                <span id="PflegeMap.helpMessage"></span>
+              </div>
 
               <!-- header //-->
               <div class="row">
@@ -181,7 +200,9 @@
 
               <!-- search //-->
               <div class="row list small-map medium-map large-map">
-                <aside class="small-100 medium-30 large-20 columns push">
+
+                <!-- search tools //-->
+                <aside class="small-100 medium-20 large-10 columns">
                    <div id="PflegeMap.searchToolbox" class="pflegemap-search-toolbox">
                       <button
                         id="PflegeMap.textSearchTool"
@@ -226,25 +247,107 @@
                       </button> Hilfe
                     </div> 
                 </aside>
-                  <article class="small-100 medium-70 large-60 columns">
-                   <div>
-                      Was suchen Sie?<br>
-                      <input type="text" class="small-input medium-input large-input"><br>
-                      Wo suchen Sie?<br>
-                      <input type="text" class="small-input medium-input large-input"><br>
-                      Im Umrkeis von: <select>
-                        <option>1 km</option>
-                        <option>2 km</option>
-                        <option>5 km</option>
-                      </select>
+
+                <!-- searchAreas //-->
+                <div class="small-100 medium-80 large-90 columns">
+                  <div id="PflegeMap.textSearchArea" class="pflegemap-search-area">
+                    Was suchen Sie?<br>
+                    <input id="PflegeMap.textSearchField" class="pflegemap-search-field small-input medium-input large-input" list="PflegeMap.searchWords" type="text" placeholder="Pflegeeinrichtungen suchen ..."/><datalist id="PflegeMap.searchWords"></datalist>
+                    <div id="PflegeMap.textSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div><br>
+                    Wo suchen Sie?<br>
+                    <input id="PflegeMap.addressSearchField" class="pflegemap-search-field small-input medium-input large-input" type="text" placeholder="Adresse suchen ..."/>
+                    <div id="PflegeMap.addressSearchFieldResultBox" class="pflegemap-search-result-box" style="display:none;"></div><br>
+                    Im Umrkeis von:<br>
+                    <select id="PflegeMap.proximitySelect">
+                      <option value="-1">--</option>
+                      <option value="1000" selected="selected">1km</option>
+                      <option value="2000">2km</option>
+                      <option value="5000">5km</option>
+                      <option value="10000">10km</option>
+                      <option value="20000">20km</option>
+                      <option value="40000">40km</option>
+                    </select>
                   </div>
-                </article>
-                <article class="small-100 medium-70 large-20 columns">
-                    <div>
-                      <input id="PflegeMap.removeRouteButton" class="pflegemap-routing-button" type="button" value="Route löschen"/><br>
-                      <input id="PflegeMap.calcRouteButton" class="pflegemap-routing-button" type="button" value="Route berechnen"/>
+
+                  <div id="PflegeMap.categorySearchArea" style="display:none">
+                    <div id="list" class="pflegemap-categories">
+                      <label style="margin-left:0.5em;">
+                        <input versart="all" class="cb-kat" type="checkbox" checked="">
+                        <span class="label-body">alle Versorgungsarten</span>
+                      </label>
+                      <label>
+                        <input versart="Stationäre Pflege" class="cb-kat" type="checkbox" checked="">
+                        <span class="label-body">Stationäre Pflege<img src="./images/StationPflege.png"></img></span>
+                      </label>
+                      <label>
+                        <input versart="Teilstationäre Pflege" class="cb-kat" type="checkbox" checked="">
+                        <span class="label-body">Teilstationäre Pflege<img src="./images/TeilstationPflege.png"></img></span>
+                      </label>
+                      <label>
+                        <input versart="Ambulante Pflege" class="cb-kat" type="checkbox" checked="">
+                        <span class="label-body">Ambulante Pflege<img src="./images/AmbulantePflege.png"></img></span>
+                      </label>
+                      <label>
+                        <input versart="Wohnen" class="cb-kat" type="checkbox" checked="">
+                        <span class="label-body">Wohnen<img src="./images/Wohnen.png"></img></span>
+                      </label>
+                      <label>
+                        <input versart="Gesundheit" class="cb-kat" type="checkbox" checked="">
+                        <span class="label-body">Gesundheit<img src="./images/Gesundheit.png"></img></span>
+                      </label>
                     </div>
-                </article>
+                  </div>
+
+                  <!-- reach search area //-->
+                  <div id="PflegeMap.reachSearchArea" style="display:none">
+                    Ausgangspunkt der Erreichbarkeitssuche:<br>
+                    <input
+                      id="PflegeMap.reachSearchField"
+                      class="pflegemap-search-field small-input medium-input large-input"
+                      type="text"
+                      placeholder="Ereichbarkeit von Adresse ..."
+                    />
+                    <div
+                      id="PflegeMap.reachSearchFieldResultBox"
+                      class="pflegemap-reach-result-box"
+                      style="display:none;">
+                    </div><br>
+                    Maximale Entfernung:<br>
+                    <select id="PflegeMap.reachMinutes">
+                      <option value="5" selected>5 Minuten</option>
+                      <option value="10">10 Minuten</option>
+                      <option value="15">15 Minuten</option>
+                      <option value="20">20 Minuten</option>
+                      <option value="30">30 Minuten</option>
+                      <option value="45">45 Minuten</option>
+                      <option value="60">1 Stunde</option>
+                    </select>
+                  </div>
+
+                  <!-- routing search aarea //-->
+                  <div id="PflegeMap.routingSearchArea" class="pflegemap-search-area" style="display:none">
+                    Startadresse:<br>
+                    <input
+                      id="PflegeMap.sourceField"
+                      class="pflegemap-routing-search-field small-input medium-input large-input-short"
+                      type="text"
+                      coordinates=""
+                      value=""
+                      placeholder="Startadresse eingeben ..."/> <div id="PflegeMap.routingDuration" class="pflegemap-routing-result"></div><br>
+                    <div id="PflegeMap.sourceFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
+                    Zieladresse:<br>
+                    <input
+                      id="PflegeMap.targetField"
+                      class="pflegemap-routing-search-field small-input medium-input large-input-short"
+                      type="text"
+                      coordinates=""
+                      value=""
+                      placeholder="Zieladresse eingeben ..."/> <div id="PflegeMap.routingDistance" class="pflegemap-routing-result"></div><br>
+                    <div id="PflegeMap.targetFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
+                    <input id="PflegeMap.calcRouteButton" class="pflegemap-routing-button" type="button" value="Route berechnen"/>
+                    <input id="PflegeMap.removeRouteButton" class="pflegemap-routing-button" type="button" value="Route löschen"/>
+                  </div>
+                </div>
               </div>
 
               <!-- map //-->
@@ -302,76 +405,8 @@
               </div>
 
               <!-- Liste //-->
-              <div class="row small-map medium-map large-map">
-                <article class="row list small-map medium-map large-map">
-                  <article class="small-100 medium-80 large-40 columns">
-                    <strong>Alten-und Pflegeheim Neu Krenzlin</strong><br>
-                      Versorgungsart: Stationäre Pflege<br>
-                      Kategorie: Kurzzeitpflege<br>
-                      Träger: Gutshof-Stiftung Krenzlin<br>
-                      Kapazität: 179<br>
-                      Besonderheit: einschl. Whg. in Rosa-Luxemburg-Straße 8,9, Ziegendorfer Chaussee 90-93
-                  </article>
-                  <article class="small-100 medium-80 large-40 columns">
-                    Herr Blaschkowski<br>
-                    Vogelsang 32<br>
-                    19370 Parchim<br>
-                    03871 720148<br>
-                    swa-st.martin@caritas-mecklenburg.de<br>
-                    www.caritas-mecklenburg.de
-                  </article>
-                  <article class="small-100 medium-20 large-20 columns">
-                      <a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-o fa-fw"></i> Route von hier</a><br>
-                      <a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</a><br>
-                      <a onclick="windows.location(#PflegeMap.top)"><i class="fa fa-map-marker fa-fw"></i> zur Karte</a>
-                  </article>
-                </article>
-                <article class="row list small-map medium-map large-map">
-                  <article class="small-100 medium-80 large-40 columns">
-                    <strong>Alten-und Pflegeheim Neu Krenzlin</strong><br>
-                      Versorgungsart: Stationäre Pflege<br>
-                      Kategorie: Kurzzeitpflege<br>
-                      Träger: Gutshof-Stiftung Krenzlin<br>
-                      Kapazität: 179<br>
-                      Besonderheit: einschl. Whg. in Rosa-Luxemburg-Straße 8,9, Ziegendorfer Chaussee 90-93
-                  </article>
-                  <article class="small-100 medium-80 large-40 columns">
-                    Herr Blaschkowski<br>
-                    Vogelsang 32<br>
-                    19370 Parchim<br>
-                    03871 720148<br>
-                    swa-st.martin@caritas-mecklenburg.de<br>
-                    www.caritas-mecklenburg.de
-                  </article>
-                  <article class="small-100 medium-20 large-20 columns">
-                      <a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-o fa-fw"></i> Route von hier</a><br>
-                      <a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</a><br>
-                      <a onclick="windows.location(#PflegeMap.top)"><i class="fa fa-map-marker fa-fw"></i> zur Karte</a>
-                  </article>
-                </article>
-                <article class="row list small-map medium-map large-map">
-                  <article class="small-100 medium-80 large-40 columns">
-                    <strong>Alten-und Pflegeheim Neu Krenzlin</strong><br>
-                      Versorgungsart: Stationäre Pflege<br>
-                      Kategorie: Kurzzeitpflege<br>
-                      Träger: Gutshof-Stiftung Krenzlin<br>
-                      Kapazität: 179<br>
-                      Besonderheit: einschl. Whg. in Rosa-Luxemburg-Straße 8,9, Ziegendorfer Chaussee 90-93
-                  </article>
-                  <article class="small-100 medium-80 large-40 columns">
-                    Herr Blaschkowski<br>
-                    Vogelsang 32<br>
-                    19370 Parchim<br>
-                    03871 720148<br>
-                    swa-st.martin@caritas-mecklenburg.de<br>
-                    www.caritas-mecklenburg.de
-                  </article>
-                  <article class="small-100 medium-20 large-20 columns">
-                      <a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-o fa-fw"></i> Route von hier</a><br>
-                      <a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</a><br>
-                      <a onclick="windows.location(#PflegeMap.top)"><i class="fa fa-map-marker fa-fw"></i> zur Karte</a>
-                  </article>
-                </article>
+              <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list row small-map medium-map large-map"></div>
+
               </div>
             </article>
           </div>

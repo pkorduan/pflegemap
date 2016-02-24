@@ -135,9 +135,7 @@ a.pflegemap-help-box-close{
   margin-top: 4px;
 }
 .pflegemap-search-toolbox {
-#  width: 50%;
-  margin-left: 5px;
-  float: right;
+
 }
 .pflegemap-search-tool-icon {
   width: 28px;
@@ -156,7 +154,6 @@ a.pflegemap-help-box-close{
 }
 .pflegemap-search-field{
 #  display: block;
-  width: 100%;
 #  margin-top: 2px;
   margin-left: auto;
   margin-right: auto;
@@ -164,7 +161,6 @@ a.pflegemap-help-box-close{
 #  background-color: #ddd;
   border-radius: 5px;
   border: 1px solid #ddd;
-  position: relative;
 }
 .pflegemap-routing-button {
   width: 9em;
@@ -350,7 +346,6 @@ hr.pflegemap-hr {
 }
 
 .pflegemap-routing-search-field{
-  width: 65%;
 #  margin-top: 2px;
   margin-left: auto;
   margin-right: auto;

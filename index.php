@@ -33,12 +33,12 @@
         float: right;
       }
       .u-pull-left {
-        float: left;
+        float: left; 
       }
     </style>
-
+    
     <script id="twitter-wjs" src="./styles/lup/widgets.js"></script><script src="./styles/lup/jquery.min.js"></script>
-    <script src="./styles/lup/modernizr.js"></script>
+    <script src="./styles/lup/modernizr.js"></script>  
     <script src="./styles/lup/jquery.fancybox.pack.js"></script>
     <script src="./styles/lup/default.js"></script>
     <script src="./styles/lup/tsa.js"></script>
@@ -84,7 +84,7 @@
       <li><a href="http://kreis-lup.de/buergerservice-verwaltung/zustaendigkeiten/#content-main">Zum Hauptinhalt der Seite</a></li>
       <li><a href="http://kreis-lup.de/buergerservice-verwaltung/zustaendigkeiten/#content-sub">Zum Inhalt der Randspalte</a></li>
     </ul>
-    <section class="container">
+    <section class="container">  
       <header class="" style="bottom: auto; top: auto;">
         <a href="http://kreis-lup.de/" title="Zur Startseite">
           <div id="logo"><img src="http://kreis-lup.de/export/system/modules/de.sis.lup/resources/images/logo.png"></div>
@@ -187,19 +187,23 @@
                 <div class="pflegemap-header">
                   <h3 class="">Pflegeangebote</h3>
                 </div>
+
                 <div id="PflegeMap.searchArea" class="pflegemap-search-area">
+
                   <div id="PflegeMap.textSearchArea"  style="display:#none">
                     <input id="PflegeMap.textSearchField" class="pflegemap-search-field" list="PflegeMap.searchWords" type="text" placeholder="Pflegeeinrichtungen suchen ..."/><datalist id="PflegeMap.searchWords"></datalist>
                     <div id="PflegeMap.textSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
                   </div>
+
                   <div id="PflegeMap.addressSearchArea" style="display:none">
                     <input id="PflegeMap.addressSearchField" class="pflegemap-search-field" type="text" placeholder="Adresse suchen ..."/>
                     <div id="PflegeMap.addressSearchFieldResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
                   </div>
+
                   <div id="PflegeMap.proximitySearchArea" style="display:none">
                     <input id="PflegeMap.proximitySearchField" style="width:89%" class="pflegemap-search-field" type="text" placeholder="Pflegeeinrichtungen im Umkreis suchen ..."/>
-                    <select id="PflegeMap.proximitySelect" disabled="disabled">
-                      <option value="-1">--km</option>
+                    <select id="PflegeMap.proximitySelect">
+                      <option value="-1">--</option>
                       <option value="1000" selected="selected">1km</option>
                       <option value="2000">2km</option>
                       <option value="5000">5km</option>
