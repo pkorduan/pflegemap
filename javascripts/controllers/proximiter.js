@@ -1,10 +1,11 @@
-PflegeMap.proximiterController = {
-
-  // dummy zum Testen bitte löschen
-/*  proximityRadius: -1, // kein Umkreis gegeben, Umkreis in Meter
+PflegeMap.proximiterController = function(map) {return {
+  map: map,
+  
+  // initial values, ensuring complete coverage 
+  proximityRadius: -1, // kein Umkreis gegeben, Umkreis in Meter
   proximityExtent: PflegeMap.maxExtent,
   proximityCenter: map.getView().getCenter(),
-*/
+
   initSearchTool: function() {
     PflegeMap.searchTools.push('proximitySearch');
   },
@@ -98,12 +99,12 @@ PflegeMap.proximiterController = {
     self.proximityCenter = ol.extent.getCenter(self.proximityExtent);
 
     // switch visibility of angebote
-    $(".cb-kat").each(function (){
+    $(".cb-subkat").each(function (){
      // console.log('versart: %o', $(this).attr('versart'));
     //  console.log('checked: %o', $(this).prop('checked'));
       
-      mapper.switchCategory(
-        $(this).attr('versart'),
+      mapper.switchSubCategory(
+        $(this).attr('kategorie'),
         $(this).prop('checked')
       );
     });
@@ -191,5 +192,4 @@ PflegeMap.proximiterController = {
     var utmZone = (Math.floor((feature.latlng()[1]+180)/6) % 60) + 1;
     return 'EPSG:258'+utmZone;
   },
-
-}
+}};

@@ -27,7 +27,7 @@ $('#PflegeMap').ready(function() {
     PflegeMap.mapper = PflegeMap.initMapper(PflegeMap.map, PflegeMap.store);
     PflegeMap.router = PflegeMap.initRouter();
     PflegeMap.geocoder = PflegeMap.initGeocoder();
-    PflegeMap.proximiter = PflegeMap.initProximiter();
+    PflegeMap.proximiter = PflegeMap.initProximiter(PflegeMap.map);
     PflegeMap.reacher = PflegeMap.initReacher();
     PflegeMap.helper = PflegeMap.initHelper();
   }
@@ -243,8 +243,8 @@ PflegeMap.initGeocoder = function() {
   return geocoder;
 };
 
-PflegeMap.initProximiter = function() {
-  var proximiter = PflegeMap.proximiterController;
+PflegeMap.initProximiter = function(map) {
+  var proximiter = PflegeMap.proximiterController(map);
   proximiter.initSearchTool();
   proximiter.setEventHandler();
   return proximiter;
