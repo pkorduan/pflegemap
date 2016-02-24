@@ -2,10 +2,10 @@ PflegeMap.mapperController = function(map) { return {
   scope: this,
   map: map,
 
-  // dummy zum Testen bitte löschen
-  proximityRadius: -1, // kein Umkreis gegeben, Umkreis in Meter
-  proximityExtent: PflegeMap.maxExtent,
-  proximityCenter: map.getView().getCenter(),
+//  // dummy zum Testen bitte löschen
+//  proximityRadius: -1, // kein Umkreis gegeben, Umkreis in Meter
+//  proximityExtent: PflegeMap.maxExtent,
+//  proximityCenter: map.getView().getCenter(),
 
   layer: new ol.layer.Vector({
     opacity: 1,
@@ -203,7 +203,12 @@ PflegeMap.mapperController = function(map) { return {
       i,
       all_categories = (c == 'all');
 
-    if (all_categories) $(".cb-kat").prop('checked', v);
+    if (all_categories) $(".cb-kat").prop('checked', v)
+    else {
+      // uncheck 'all'-box if any of the catgrs is unchecked and vice versa
+      var allChecked = ($(".cb-kat[versart!='all']:checked").length == $(".cb-kat[versart!='all']").length);
+      $(".cb-kat[versart='all']").prop('checked', allChecked);
+    }
 
     for ( i = 0; i < features.length; i++) {
       if (c == features[i].get('versorgungsart') || all_categories) {
