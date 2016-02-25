@@ -150,7 +150,13 @@ PflegeMap.mapperController = function(map) { return {
         features = source.getFeatures(),
         searchString = event.target.value,
         coordinates = [],
+        addrCoords = $('#PflegeMap\\.addressSearchField').attr('coordinates'),
+        range = $('#PflegeMap\\.proximitySelect').val(),
         i;
+
+    if (typeof addrCoords !== typeof undefined && addrCoords !== false) {
+      console.log('Zeige nur Suchergebnisse im Umkreis von: ' + range/1000 + 'km an Position: ' + addrCoords);
+    }
 
     PflegeMap.mapper.searchAnimation.show();
 
@@ -160,6 +166,7 @@ PflegeMap.mapperController = function(map) { return {
         $('#PflegeMap\\.careService_' + features[i].get('id')).show();
         coordinates.push(features[i].getGeometry().getCoordinates());
       } else {
+        
         features[i].set('hidden', true);
         $('#PflegeMap\\.careService_' + features[i].get('id')).hide();
       }
