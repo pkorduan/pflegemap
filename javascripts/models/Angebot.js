@@ -19,7 +19,7 @@ PflegeMap.angebot = function(params) {
     internet: params.internet,
     kapazitaet: params.kapazitaet,
     besonderheit: params.besonderheit,
-    hidden: false,
+    hidden: true,
     selected: false,
     icon: (function(){
       switch (params.versorgungsart){

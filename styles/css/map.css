@@ -173,15 +173,20 @@ a.pflegemap-help-box-close{
   border: 1px solid #ddd;
   background-color: #fff;
 }
+.pflegemap-subcategories {
+  display: none;
+}
 .pflegemap-categories label img{
   width: 1.5em;
   vertical-align: bottom;
   position: absolute;
-  left: 15em;
+  #left: 15em;
+  left: 1.5em;
 }
 .pflegemap-categories label{
   display: block;
-  margin-left: 2em;
+  margin-left: 2.5em;
+  padding-bottom: 0.5ex;
 }
 .pflegemap-clear{
   clear: both;
