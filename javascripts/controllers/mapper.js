@@ -164,14 +164,15 @@ PflegeMap.mapperController = function(map) {
     * Die Filterbedingung ist, dass das Suchwort weniger als
     * 3 Zeichen hat oder das Suchwort für das Feature im Index
     * eingetragen ist.
+    * Wenn die Kategorieauswahl aufgerufen ist soll der Word
+    * Filter keine herausfiltern also immer true liefern.
     */
     wordFilter: function(feature) {
       var searchWord = $('#PflegeMap\\.textSearchField').val();
-  /* 
-      console.log('wordFilter: searchWord.lenth < 3: ' + (searchWord.length < 3));
-      if (!(searchWord.length < 3))
-        console.log('wordFilter: word in array: ' + ($.inArray(feature.get('id'), PflegeMap.suchIndex[searchWord]) > -1));
-  */
+
+      if ($('#PflegeMap\\.categorySearchArea').is(':visible'))
+        return true
+
       return (searchWord.length < 3 || $.inArray(feature.get('id'), PflegeMap.suchIndex[searchWord]) > -1);
     },
 

@@ -24,7 +24,7 @@ PflegeMap.proximiterController = function(map) {return {
       PflegeMap.geocoder.lookupNominatim
     );
     
-    // handler for search field's proximity search
+    // Nach Änderung des Umkreises im Suchbereich
     $('#PflegeMap\\.proximitySelect').off();
     $('#PflegeMap\\.proximitySelect').on(
       'change',
@@ -41,7 +41,7 @@ PflegeMap.proximiterController = function(map) {return {
       }
     );
 
-    // handler for popup's proximity search
+/*
     $('#PflegeMap\\.popup .pm-popup-function-proximity-search').off();
     $('#PflegeMap\\.popup .pm-popup-function-proximity-search').on(
       'click',
@@ -56,7 +56,8 @@ PflegeMap.proximiterController = function(map) {return {
         event.data.popup.setPosition(undefined);
       }
     );
-
+*/
+    // Nach Änderung des Umkreises im Popup
     $('#pm-popup-proximity-select').off();
     $('#pm-popup-proximity-select').on(
       'change',
