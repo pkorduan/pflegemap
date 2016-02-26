@@ -57,8 +57,51 @@ PflegeMap.routerController = {
       this.openRouteSearch
     );
 
+    $('.pm-care-service .pm-list-function-from').off();
+    $('.pm-care-service .pm-list-function-from').on(
+      'click',
+      function(event) {
+        var feature_id = $(event.target).parents('.pm-care-service').attr('feature_id');
+
+        event.data = {
+          routeField: $('#PflegeMap\\.sourceField'),
+          popup : {
+            target : {
+              feature: PflegeMap.mapper.layer.getSource().getFeatures().filter(function(feature) {
+                return (feature.get('id') == feature_id)
+              })[0]
+            }
+          }
+        }
+
+        PflegeMap.router.openRouteSearch(event);
+      }
+    );
+
+    $('.pm-care-service .pm-list-function-to').off();
+    $('.pm-care-service .pm-list-function-to').on(
+      'click',
+      function(event) {
+        var feature_id = $(event.target).parents('.pm-care-service').attr('feature_id');
+
+        event.data = {
+          routeField: $('#PflegeMap\\.targetField'),
+          popup : {
+            target : {
+              feature: PflegeMap.mapper.layer.getSource().getFeatures().filter(function(feature) {
+                return (feature.get('id') == feature_id)
+              })[0]
+            }
+          }
+        }
+
+        PflegeMap.router.openRouteSearch(event);
+      }
+    );
+
     $('#PflegeMap\\.calcRouteButton').click(
-      this, this.loadRoute
+      this,
+      this.loadRoute
     );
     $('#PflegeMap\\.removeRouteButton').click(
       this.removeRoute
@@ -73,10 +116,14 @@ PflegeMap.routerController = {
   loadRoute : function(e) {
     var scope = e.data,
         url  = 'osm2poServiceProxy.php',
-        source = $('#PflegeMap\\.sourceField').attr('coordinates') || $('#PflegeMap\\.sourceField').val(),
-        target = $('#PflegeMap\\.targetField').attr('coordinates') || $('#PflegeMap\\.targetField').val(),
+        source = $('#PflegeMap\\.sourceField').attr('coordinates'),
+        target = $('#PflegeMap\\.targetField').attr('coordinates'),
         queryString = 'Route von: ' + source + ' nach: ' + target,
         hint = '';
+
+    if (typeof source == typeof undefined || source == false ||
+        typeof target == typeof undefined || target == false)
+      return false;
 
     $.ajax({
       url: url,
@@ -164,11 +211,11 @@ PflegeMap.routerController = {
     );
 
     $('#PflegeMap\\.routingDuration').html(
-      scope.durationFormatter(route.duration)
-    );
+      ', ' + scope.durationFormatter(route.duration)
+    ).show();
     $('#PflegeMap\\.routingDistance').html(
-      scope.distanceFormatter(route.distance)
-    );
+      'Auto: ' + scope.distanceFormatter(route.distance)
+    ).show();
   },
 
   removeRoute: function(scope) {
@@ -194,6 +241,9 @@ PflegeMap.routerController = {
   },
 
   openRouteSearch: function(event) {
+    debug_von = event;
+    console.log('route starten von: %o', event.data);
+    
     var currFeature = event.data.popup.target.feature;
     var routeField = event.data.routeField;
     

@@ -67,6 +67,7 @@ PflegeMap.geocoderController = {
   },
 
   lookupNominatim: function(e){
+    console.log('lookupNominatim in geocoder');
     var scope = PflegeMap.geocoder,
         queryStr = e.target.value,
         url  = 'http://nominatim.openstreetmap.org/search';
@@ -116,6 +117,7 @@ PflegeMap.geocoderController = {
   },
 
   showNominatimResults: function(event, results) {
+    console.log('ShowNominatimResults in geocoder');
 
     $('#' + event.target.id.replace('.', '\\.') + 'ResultBox').html(
       this.searchResultsFormatter(
@@ -170,8 +172,6 @@ PflegeMap.geocoderController = {
       ),
       PflegeMap.map.getSize()
     );
-    // enable proximity search
-    $('#PflegeMap\\.proximitySelect').prop('disabled', false);
   },
 
   removeSearchResultFeatures : function(scope){

@@ -25,7 +25,7 @@ PflegeMap.reacherController = {
       this,
       function(e) {
         PflegeMap.mapper.switchSearchTools(e);
-        alert('Diese Funktion ermittelt ausgehend von einer Adresse die Erreichbarkeit entlang von Strassen. Wählen Sie zuerst die gewünschte Fahrzeit aus und dann eine Adresse. Im Ergebnis wird Ihnen die Fläche der Orte angezeigt, die in der gewünschten Zeit erreicht werden können. Die Berechnung kann bei längeren Fahrzeiten bis zu einer Minute dauern.');
+      //  alert('Diese Funktion ermittelt ausgehend von einer Adresse die Erreichbarkeit entlang von Strassen. Wählen Sie zuerst die gewünschte Fahrzeit aus und dann eine Adresse. Im Ergebnis wird Ihnen die Fläche der Orte angezeigt, die in der gewünschten Zeit erreicht werden können. Die Berechnung kann bei längeren Fahrzeiten bis zu einer Minute dauern.');
       }
     );
 
@@ -37,6 +37,12 @@ PflegeMap.reacherController = {
 
     // Beim Klick auf Markierung Löschen im Infofenster
     $('#PflegeMap\\.popup .pm-popup-function-clear').on(
+      'click',
+      this,
+      this.removeReachArea
+    );
+    
+    $('.pflegemap-reach-button').on(
       'click',
       this,
       this.removeReachArea
@@ -55,7 +61,7 @@ PflegeMap.reacherController = {
     $('#PflegeMap\\.reachSearchFieldResultBox').hide();
 
     $.ajax({
-      url: PflegeMap.config.reachUrl + '?',
+      url: PflegeMap.config.reachUrl,
       data: {
         cmd: 'fx',
         schema: 'public',
@@ -74,7 +80,6 @@ PflegeMap.reacherController = {
 
       // Work with the response
       success: function(response) {
-        console.log('Berechnung des Erreichbarkeitsgebietes abgeschlossen.');
         if (response.Error != undefined || response.Fehler != undefined) {
           PflegeMap.reacherController.showErrorMsg('Kein Ergebnis für die Erreichbarkeitsanalyse mit der Anfrage' + '<br>' + response);
         }
@@ -139,7 +144,6 @@ PflegeMap.reacherController = {
   },
 
   removeReachArea: function(event) {
-    debug_e = event;
     var source = event.data.layer.getSource(),
         features = source.getFeatures();
 

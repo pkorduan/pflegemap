@@ -95,7 +95,7 @@ PflegeMap.mapperController = function(map) { return {
     );
 
     // Handler for List Elements of care-services (Angebote)
-    $('.pm-care-service-content').on(
+    $('.pm-care-service').on(
       'click',
       this,
       this.toggleFeature
@@ -145,6 +145,12 @@ PflegeMap.mapperController = function(map) { return {
 
   },
 
+  wordSearch: function() {
+    this.filterFeatures();
+    this.updateSearchFeatures();
+    this.zoomToFeatuesExtent();
+  },
+
   themeSearch: function(event) {
     var source = event.data.layer.getSource(),
         features = source.getFeatures(),
@@ -154,10 +160,6 @@ PflegeMap.mapperController = function(map) { return {
         range = $('#PflegeMap\\.proximitySelect').val(),
         i;
 
-    if (typeof addrCoords !== typeof undefined && addrCoords !== false) {
-      console.log('Zeige nur Suchergebnisse im Umkreis von: ' + range/1000 + 'km an Position: ' + addrCoords);
-    }
-
     PflegeMap.mapper.searchAnimation.show();
 
     for ( i = 0; i < features.length; i++) {
@@ -166,7 +168,6 @@ PflegeMap.mapperController = function(map) { return {
         $('#PflegeMap\\.careService_' + features[i].get('id')).show();
         coordinates.push(features[i].getGeometry().getCoordinates());
       } else {
-        
         features[i].set('hidden', true);
         $('#PflegeMap\\.careService_' + features[i].get('id')).hide();
       }
@@ -184,7 +185,48 @@ PflegeMap.mapperController = function(map) { return {
     
     PflegeMap.mapper.searchAnimation.hide();
   },
-  
+
+  /*
+  * function liefert true wenn Filterbedingung erfüllt wird.
+  * Die Filterbedingung ist, dass das Suchwort weniger als
+  * 3 Zeichen hat oder das Suchwort für das Feature im Index
+  * eingetragen ist.
+  */
+  wordFilter: function(feature) {
+    var searchWord = $('#PflegeMap\\.textSearchField').val();
+/* 
+    console.log('wordFilter: searchWord.lenth < 3: ' + (searchWord.length < 3));
+    if (!(searchWord.length < 3))
+      console.log('wordFilter: word in array: ' + ($.inArray(feature.get('id'), PflegeMap.suchIndex[searchWord]) > -1));
+*/
+    return (searchWord.length < 3 || $.inArray(feature.get('id'), PflegeMap.suchIndex[searchWord]) > -1);
+  },
+
+  filterFeatures: function(features) {
+    var source = PflegeMap.mapper.layer.getSource(),
+        features = source.getFeatures();
+
+    features.map(function(feature) {
+      if (
+        PflegeMap.mapper.wordFilter(feature) &&
+        PflegeMap.proximiter.proximityFilter(feature)
+      )
+        PflegeMap.mapper.showCareService(feature);
+      else
+        PflegeMap.mapper.hideCareService(feature);
+    });
+  },
+
+  showCareService: function(careService) {
+    careService.set('hidden', false);
+    $('#PflegeMap\\.careService_' + careService.get('id')).show();
+  },
+
+  hideCareService: function(careService) {
+    careService.set('hidden', true);
+    $('#PflegeMap\\.careService_' + careService.get('id')).hide();
+  },
+
   onChangeSubCategoryCheckBox: function(event) {
     var scope = event.data;
     
@@ -450,13 +492,13 @@ PflegeMap.mapperController = function(map) { return {
   
   toggleFeature: function(event) {
     var features = PflegeMap.mapper.layer.getSource().getFeatures(),
-        selected_id = $(event.target).parents(".pm-care-service")[0].getAttribute('feature_id'),
+        target = $(event.target),
+        selected_id = (target.length == 0) ? target.attr('feature_id') : target.parents(".pm-care-service").attr('feature_id'),
         i;
-
-    for ( i = 0; i < features.length; i++) {
-      if (features[i].get('id') == selected_id)
-        features[i].toggle();
-    }
+    features.map(function(feature) {
+      if (feature.get('id') == selected_id)
+        feature.toggle();
+    });
   }
 
 };};

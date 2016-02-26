@@ -255,12 +255,12 @@
                     <input id="PflegeMap.textSearchField" class="pflegemap-search-field small-input medium-input large-input" list="PflegeMap.searchWords" type="text" placeholder="Pflegeeinrichtungen suchen ..."/><datalist id="PflegeMap.searchWords"></datalist>
                     <div id="PflegeMap.textSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div><br>
                     Wo suchen Sie?<br>
-                    <input id="PflegeMap.addressSearchField" class="pflegemap-search-field small-input medium-input large-input" type="text" placeholder="Adresse suchen ..."/>
-                    <div id="PflegeMap.addressSearchFieldResultBox" class="pflegemap-search-result-box" style="display:none;"></div><br>
+                    <input id="PflegeMap.proximitySearchField" class="pflegemap-search-field small-input medium-input large-input" type="text" placeholder="Adresse suchen ..."/>
+                    <div id="PflegeMap.proximitySearchFieldResultBox" class="pflegemap-search-result-box small-input medium-input large-input" style="display:none;"></div><br>
                     Im Umrkeis von:<br>
                     <select id="PflegeMap.proximitySelect">
-                      <option value="-1">--</option>
-                      <option value="1000" selected="selected">1km</option>
+                      <option value="-1" selected>--</option>
+                      <option value="1000">1km</option>
                       <option value="2000">2km</option>
                       <option value="5000">5km</option>
                       <option value="10000">10km</option>
@@ -390,7 +390,7 @@
                     />
                     <div
                       id="PflegeMap.reachSearchFieldResultBox"
-                      class="pflegemap-reach-result-box"
+                      class="pflegemap-reach-result-box small-input medium-input large-input"
                       style="display:none;">
                     </div><br>
                     Maximale Entfernung:<br>
@@ -402,7 +402,8 @@
                       <option value="30">30 Minuten</option>
                       <option value="45">45 Minuten</option>
                       <option value="60">1 Stunde</option>
-                    </select>
+                    </select><br>
+                    <input id="PflegeMap.removeReachButton" class="pflegemap-reach-button" type="button" value="Gebiet löschen"/>
                   </div>
 
                   <!-- routing search aarea //-->
@@ -415,7 +416,7 @@
                       coordinates=""
                       value=""
                       placeholder="Startadresse eingeben ..."/><br>
-                    <div id="PflegeMap.sourceFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
+                    <div id="PflegeMap.sourceFieldAddressSearchResultBox" class="pflegemap-search-result-box small-input medium-input large-input" style="display:none;"></div>
                     Zieladresse:<br>
                     <input
                       id="PflegeMap.targetField"
@@ -424,10 +425,11 @@
                       coordinates=""
                       value=""
                       placeholder="Zieladresse eingeben ..."/><br>
-                    <div id="PflegeMap.targetFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div><br>
+                    <div id="PflegeMap.targetFieldAddressSearchResultBox" class="pflegemap-search-result-box small-input medium-input large-input" style="display:none;"></div><br>
                     <input id="PflegeMap.calcRouteButton" class="pflegemap-routing-button" type="button" value="Route berechnen"/>
                     <input id="PflegeMap.removeRouteButton" class="pflegemap-routing-button" type="button" value="Route löschen"/>
-                    <span id="PflegeMap.routingDistance" class="pflegemap-routing-result"></span> <span id="PflegeMap.routingDuration" class="pflegemap-routing-result"></span>
+                    <span id="PflegeMap.routingDuration" class="pflegemap-routing-result"></span>
+                    <span id="PflegeMap.routingDistance" class="pflegemap-routing-result"></span>
                   </div>
                 </div>
               </div>
@@ -488,8 +490,6 @@
 
               <!-- Liste //-->
               <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list row small-map medium-map large-map"></div>
-
-              </div>
             </article>
           </div>
         </div>
@@ -500,234 +500,3 @@
     </footer>
   </body>
 </html>
-<!--
-
-
-              <a name="PflegeMap.top"></a>
-              <div id="PflegeMap" class="pflegemap">
-                <div id="PflegeMap.Overlay" class="pflegemap-overlay" style="display:none;"></div>
-                <div id="PflegeMap.searchOverlay" class="pflegemap-search-overlay" style="display:none">
-                  <div id="PflegeMap.searchAnimation" class="pflegemap-search-animation">
-                    <i class="fa fa-5x fa-spinner fa-spin"></i>
-                </div>
-              </div>
-                <div id="PflegeMap.MessageBox" class="pflegemap-message-box">
-                  <a id="PflegeMap.MessageBoxClose" class="pflegemap-message-box-close"></a>
-                  <span id="PflegeMap.errorMessage"></span>
-                </div>
-                <div id="PflegeMap.HelpBox" class="pflegemap-help-box">
-                  <a id="PflegeMap.HelpBoxClose" class="pflegemap-help-box-close"></a>
-                  <span id="PflegeMap.helpMessage"></span>
-                </div>
-                <div class="pflegemap-header">
-                  <h3 class="">Pflegeangebote</h3>
-                </div>
-                <div id="PflegeMap.searchArea" class="pflegemap-search-area">
-                  <div id="PflegeMap.textSearchArea"  style="display:#none">
-                    <input id="PflegeMap.textSearchField" class="pflegemap-search-field" list="PflegeMap.searchWords" type="text" placeholder="Pflegeeinrichtungen suchen ..."/><datalist id="PflegeMap.searchWords"></datalist>
-                    <div id="PflegeMap.textSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
-                  </div>
-                  <div id="PflegeMap.addressSearchArea" style="display:none">
-                    <input id="PflegeMap.addressSearchField" class="pflegemap-search-field" type="text" placeholder="Adresse suchen ..."/>
-                    <div id="PflegeMap.addressSearchFieldResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
-                  </div>
-                  <div id="PflegeMap.proximitySearchArea" style="display:none">
-                    <input id="PflegeMap.proximitySearchField" style="width:89%" class="pflegemap-search-field" type="text" placeholder="Pflegeeinrichtungen im Umkreis suchen ..."/>
-                    <select id="PflegeMap.proximitySelect" disabled="disabled">
-                      <option value="-1">--km</option>
-                      <option value="1000" selected="selected">1km</option>
-                      <option value="2000">2km</option>
-                      <option value="5000">5km</option>
-                      <option value="10000">10km</option>
-                      <option value="20000">20km</option>
-                      <option value="40000">40km</option>
-                    </select>
-                    <div id="PflegeMap.proximitySearchFieldResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
-                  </div>
-                  <div
-                    id="PflegeMap.reachSearchArea"
-                    style="display:none">
-                    <input
-                      id="PflegeMap.reachSearchField"
-                      style="width:85%"
-                      class="pflegemap-search-field"
-                      type="text"
-                      placeholder="Ereichbarkeit von Adresse ..."
-                    />
-                    <select id="PflegeMap.reachMinutes">
-                      <option value="5" selected>5 Minuten</option>
-                      <option value="10">10 Minuten</option>
-                      <option value="15">15 Minuten</option>
-                      <option value="20">20 Minuten</option>
-                      <option value="30">30 Minuten</option>
-                      <option value="45">45 Minuten</option>
-                      <option value="60">1 Stunde</option>
-                    </select>
-                    <div
-                      id="PflegeMap.reachSearchFieldResultBox"
-                      class="pflegemap-reach-result-box"
-                      style="display:none;">
-                    </div>
-                  </div>
-                  <div id="PflegeMap.categorySearchArea" style="display:none">
-                    <div id="list" class="pflegemap-categories">
-                      <label style="margin-left:0.5em;">
-                        <input versart="all" class="cb-kat" type="checkbox" checked="">
-                        <span class="label-body">alle Versorgungsarten</span>
-                      </label>
-                      <label>
-                        <input versart="Stationäre Pflege" class="cb-kat" type="checkbox" checked="">
-                        <span class="label-body">Stationäre Pflege<img src="./images/StationPflege.png"></img></span>
-                      </label>
-                      <label>
-                        <input versart="Teilstationäre Pflege" class="cb-kat" type="checkbox" checked="">
-                        <span class="label-body">Teilstationäre Pflege<img src="./images/TeilstationPflege.png"></img></span>
-                      </label>
-                      <label>
-                        <input versart="Ambulante Pflege" class="cb-kat" type="checkbox" checked="">
-                        <span class="label-body">Ambulante Pflege<img src="./images/AmbulantePflege.png"></img></span>
-                      </label>
-                      <label>
-                        <input versart="Wohnen" class="cb-kat" type="checkbox" checked="">
-                        <span class="label-body">Wohnen<img src="./images/Wohnen.png"></img></span>
-                      </label>
-                      <label>
-                        <input versart="Gesundheit" class="cb-kat" type="checkbox" checked="">
-                        <span class="label-body">Gesundheit<img src="./images/Gesundheit.png"></img></span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  id="PflegeMap.routingSearchArea"
-                  class="pflegemap-search-area"
-                  style="display:none">
-                  <input
-                    id="PflegeMap.sourceField"
-                    class="pflegemap-routing-search-field"
-                    type="text"
-                    coordinates=""
-                    value=""
-                    placeholder="Startadresse eingeben ..."/> <input id="PflegeMap.removeRouteButton" class="pflegemap-routing-button" type="button" value="Route löschen"/> <div id="PflegeMap.routingDuration" class="pflegemap-routing-result"></div><br>
-                  <div id="PflegeMap.sourceFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
-                  <input
-                    id="PflegeMap.targetField"
-                    class="pflegemap-routing-search-field"
-                    type="text"
-                    coordinates=""
-                    value=""
-                    placeholder="Zieladresse eingeben ..."/> <input id="PflegeMap.calcRouteButton" class="pflegemap-routing-button" type="button" value="Route berechnen"/> <div id="PflegeMap.routingDistance" class="pflegemap-routing-result"></div>
-                  <div id="PflegeMap.targetFieldAddressSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div>
-                </div>
-                <div id="PflegeMap.searchToolbox" class="pflegemap-search-toolbox">
-                  <button
-                    id="PflegeMap.textSearchTool"
-                    class="pflegemap-search-tool-icon"
-                    toolname="textSearch"
-                    title="Textsuche"
-                    alt="Textsuche">
-                      <i class="fa fa-lg fa-inverse fa-search"></i>
-                    </button>
-                  <button
-                    id="PflegeMap.addressSearchTool"
-                    class="pflegemap-search-tool-icon"
-                    toolname="addressSearch"
-                    title="Adresssuche"
-                    alt="Adresssuche">
-                      <i class="fa fa-lg fa-inverse fa-map-marker"></i>
-                    </button>
-                  <button
-                    id="PflegeMap.categorySearchTool"
-                    class="pflegemap-search-tool-icon"
-                    toolname="categorySearch"
-                    title="Kategoriesuche"
-                    alt="Kategoriesuche">
-                      <i class="fa fa-lg fa-inverse fa-check-square-o"></i>
-                    </button>
-                  <button
-                    id="PflegeMap.proximitySearchTool"
-                    class="pflegemap-search-tool-icon"
-                    toolname="proximitySearch"
-                    title="Umkreissuche"
-                    alt="Umkreissuche">
-                      <i class="fa fa-lg fa-inverse fa-bullseye"></i>
-                    </button>
-                  <button
-                    id="PflegeMap.routingSearchTool"
-                    class="pflegemap-search-tool-icon"
-                    toolname="routingSearch"
-                    title="Routing"
-                    alt="Routing">
-                      <i class="fa fa-lg fa-inverse fa-flag-checkered"></i>
-                    </button>
-                  <button
-                    id="PflegeMap.reachSearchTool"
-                    class="pflegemap-search-tool-icon"
-                    toolname="reachSearch"
-                    title="Erreichbarkeitsanalyse"
-                    alt="Erreichbarkeitsanalyse">
-                      <i class="fa fa-lg fa-inverse fa-clock-o"></i>
-                  </button>
-                  <button
-                    id="PflegeMap.helpTool"
-                    class="pflegemap-search-tool-icon"
-                    toolname="help"
-                    title="Hilfe"
-                    alt="Hilfe und Hinweise">
-                      <i class="fa fa-lg fa-inverse fa-question"></i>
-                  </button>
-                </div>
-                <div class="pflegemap-clear"></div>
-                <div class="container">
-                  <div id="PflegeMap.map" class="pflegemap-map">
-                    <div id="PflegeMap.popup" class="pm-popup">
-                      <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
-                      <div id="PflegeMap.popup-content">
-                        <div id="PflegeMap.popup-title" class="pm-popup-title"></div>
-                        <div id="PflegeMap.popup-data"></div>
-                        <div id="PflegeMap.popup-functions"class="pm-popup-functions">
-                          <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-lg fa-fw"></i>&nbsp; Route von hier</div>
-                          <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-lg fa-fw"></i>&nbsp; Route nach hier</div>
-                          <div class="pm-popup-function-proximity">
-                            <div class="pm-popup-function-proximity-search">
-                              <i class="fa fa-search fa-lg fa-fw"></i>
-                              &nbsp;Umkreis
-                            </div>
-                            <select id="pm-popup-proximity-select">
-                              <option value="-1">--</option>
-                              <option value="1000" selected="selected">1km</option>
-                              <option value="2000">2km</option>
-                              <option value="5000">5km</option>
-                              <option value="10000">10km</option>
-                              <option value="20000">20km</option>
-                              <option value="40000">40km</option>
-                            </select>
-                          </div>
-                          <div class="pm-popup-function-reach">
-                            <div class="pm-popup-function-reach-search">
-                              <i class="fa fa-search fa-lg fa-fw"></i>
-                              &nbsp;Erreichbarkeit
-                            </div>
-                            <select id="pm-popup-reach-select">
-                              <option value="-1">--</option>
-                              <option value="5">5min</option>
-                              <option value="10">10min</option>
-                              <option value="15" selected>15min</option>
-                              <option value="30">30min</option>
-                              <option value="45">45min</option>
-                              <option value="60">1h</option>
-                            </select>
-                          </div>
-                          <div class="pm-popup-function-clear">
-                            <i class="fa fa-times fa-lg fa-fw"></i>&nbsp; Markierung l&ouml;schen
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="PflegeMap.coordinates" class="pflegemap-coordinates" style="display:none">Projektion ETRS89 / UTM zone 33N</div>
-                <div class="pflegemap-clear"></div>
-                <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list"></div>
-              </div>
-//-->

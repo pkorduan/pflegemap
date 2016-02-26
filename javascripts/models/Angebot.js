@@ -77,9 +77,9 @@ PflegeMap.angebot = function(params) {
         html += this.contact();
       html += '</div>';
 
-      html += '<div class="small-100 medium-20 large-15 columns push">';
-        html += '<a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-o fa-fw"></i> Route von hier</a><br>';
-        html += '<a onclick="alert(\'Funktion noch nicht implementiert\');"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</a><br>';
+      html += '<div class="pm-list-functions small-100 medium-20 large-15 columns push">';
+        html += '<div class="pm-list-function-from"><i class="fa fa-flag-o fa-fw "></i> Route von hier</div>';
+        html += '<div class="pm-list-function-to"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</div>';
         html += '<a href="#PflegeMap.top"><i class="fa fa-map-marker fa-fw"></i> zur Karte</a>';
       html += '</div>';
     html += '</div>';

@@ -129,6 +129,7 @@ a.pflegemap-help-box-close{
 
 }
 .pflegemap-routing-result {
+  float:right;
 }
 .pflegemap-search-toolbox {
 
@@ -160,6 +161,10 @@ a.pflegemap-help-box-close{
 }
 .pflegemap-routing-button {
   width: 9em;
+}
+
+.pflegemap-reach-button {
+  margin-top: 0.4em;
 }
 .pflegemap-search-result-box{
   padding: 4px;
@@ -214,6 +219,7 @@ a.pflegemap-help-box-close{
 .pflegemap-care-service-list {
 }
 .pm-care-service {
+  display: none;
   background-color: #edeae5;
   margin-top: 5px;
   padding: 5px;
@@ -301,6 +307,14 @@ a.pflegemap-help-box-close{
 
 .pm-popup-functions {
   border-top: 1px solid #cccccc;
+}
+
+.pm-list-functions {
+  border-left: 1px solid #fff;
+}
+
+.pm-list-functions>* {
+  cursor: pointer;
 }
 
 .pm-popup-functions>* {

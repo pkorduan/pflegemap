@@ -43,7 +43,8 @@ PflegeMap.route = function(params) {
     geometry: new ol.geom.LineString(
       coordinates
     ),
-    type: 'Route'
+    type: 'Route',
+    selected: false
   });
 
   line.setStyle(
@@ -55,7 +56,54 @@ PflegeMap.route = function(params) {
       })
     })
   );
-  
+
+  line.data = function() {
+    var html = '<b>von:</b><br>';
+    html += $('#PflegeMap\\.sourceField').val() + '<br>';
+    html += '<b>nach:</b><br>';
+    html += $('#PflegeMap\\.targetField').val() + '<br>';
+    html += '<b>Fortbewegungsmittel</b><br>';
+    html += $('#PflegeMap\\.routingDistance').html();
+    html += $('#PflegeMap\\.routingDuration').html();
+    return html;
+  };
+
+  line.preparePopup = function() {
+    debug_l = this;
+    PflegeMap.popup.feature = this;
+    $('#PflegeMap\\.popup').attr('class','pm-popup');
+    $('#PflegeMap\\.popup-title').html('Routenberechnung');
+    $('#PflegeMap\\.popup-data').html(this.data());
+  };
+
+  line.select = function() {
+    if (!this.get('selected')) {
+      //console.log('Select feature: ' + this.get('name'));
+
+      // show popup
+      //console.log('show popup');
+      this.preparePopup();
+      PflegeMap.popup.setPosition(
+        ol.extent.getCenter(this.getGeometry().getExtent())
+      );
+
+      // set this feature to selected
+      this.set('selected', true);
+
+    }
+  };
+
+  line.unselect = function() {
+    if (this.get('selected')) {
+
+      // close Popup
+      PflegeMap.popup.setPosition(undefined);
+
+      // set this feature to unselected
+      this.set('selected', false);
+    }
+  };
+
   var paramsToCoordinates = function(pointString) {
     var values = pointString.split(','),
         coordinates = [],

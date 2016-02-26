@@ -28,7 +28,13 @@ PflegeMap.proximiterController = function(map) {return {
     $('#PflegeMap\\.proximitySelect').off();
     $('#PflegeMap\\.proximitySelect').on(
       'change',
-      {
+      function() {
+        var coords = $('#PflegeMap\\.proximitySearchField').attr('coordinates');
+        
+        if (typeof coords !== typeof undefined && coords !== false)
+          PflegeMap.mapper.filterFeatures();
+      }
+/*      {
         mapper: PflegeMap.mapper
       },
       function(event) {
@@ -40,11 +46,12 @@ PflegeMap.proximiterController = function(map) {return {
             feature: layer.getSource().getFeatures()[0]
           };
         // synchronize popup select element
-        $('#pm-popup-proximity-select').val(radius);
+        $('#PflegeMap\\.proximitySelect').val(radius);
         // trigger search
         self.proximityRadius = radius;
         self.proximitySearch(self, event.data.mapper, mapTarget);
-      }
+      
+      }*/
     );
 
     // handler for popup's proximity search
@@ -81,6 +88,7 @@ PflegeMap.proximiterController = function(map) {return {
   },
 
   getSearchResultCallback: function(event, item) {
+    console.log('getSearchResultCallback PflegeMap.proximiter.addSearchResultFeature');
     return "PflegeMap.proximiter.addSearchResultFeature('" + item.display_name + "', " + item.lat + ", " + item.lon + ")";
   },
 
@@ -88,7 +96,9 @@ PflegeMap.proximiterController = function(map) {return {
   * Filter care service features in proximity radius, zoom to extent and add marker in center
   */
   addSearchResultFeature: function(display_name, lat, lon) {
+    console.log('addSearchResultFeature display_name: ' + display_name + ' lat: ' + lat + ' lon: ' + lon);
     PflegeMap.geocoder.addSearchResultFeature('proximitySearchField', display_name, lat, lon);
+    PflegeMap.mapper.filterFeatures();
   },
 
   proximitySearch: function(self, mapper, mapTarget) {
@@ -151,6 +161,42 @@ PflegeMap.proximiterController = function(map) {return {
     
     PflegeMap.mapper.searchAnimation.hide();
   },
+  
+  proximityFilter: function(feature) {
+    var coords = $('#PflegeMap\\.proximitySearchField').attr('coordinates'),
+        radius = $('#PflegeMap\\.proximitySelect').val();
+
+    console.log('proximityFilter: (radius == -1): ' + (radius == -1));
+    if (radius == -1)  // Wenn kein Radius gesetzt ist liefer true
+      return true
+
+    console.log('proximityFilter: (coords defined) ' + (typeof coords !== typeof undefined && coords !== false));
+    if (!(typeof coords !== typeof undefined && coords !== false))
+      return feature.get('hidden');
+
+    coords = coords.split(', ');
+    var center = new ol.Feature({
+      geometry: new ol.geom.Point(
+        ol.proj.fromLonLat([coords[1], coords[0]], PflegeMap.viewProjection)
+      )
+    }),
+    wgs84Sphere = new ol.Sphere(6378137);
+
+    console.log('proximityFilter: (dist < ' + radius + '): ' + (
+        wgs84Sphere.haversineDistance(
+          ol.proj.transform(center.getGeometry().getCoordinates(), PflegeMap.viewProjection, 'EPSG:4326'),
+          ol.proj.transform(feature.getGeometry().getCoordinates(), PflegeMap.viewProjection, 'EPSG:4326')
+        ) < radius
+      )
+    );
+
+    return (
+      wgs84Sphere.haversineDistance(
+        ol.proj.transform(center.getGeometry().getCoordinates(), PflegeMap.viewProjection, 'EPSG:4326'),
+        ol.proj.transform(feature.getGeometry().getCoordinates(), PflegeMap.viewProjection, 'EPSG:4326')
+      ) < radius
+    );
+  },
 
   featureWithinProximity: function(feature){
     var featureCoords = feature.getGeometry().getCoordinates(),
@@ -162,7 +208,7 @@ PflegeMap.proximiterController = function(map) {return {
     
     return withinDistance;
   },
-  
+
   calculateProximityExtent: function(maptarget, radius){
     if (radius == -1) return PflegeMap.maxExtent; // no proximity specified
     var sourceProjection = PflegeMap.viewProjection,
