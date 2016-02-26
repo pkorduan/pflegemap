@@ -47,6 +47,9 @@ PflegeMap.searchResult = function(name, lat, lon) {
     $('#PflegeMap\\.popup').attr('class','pm-popup pm-suchergebnis');
     $('#PflegeMap\\.popup-title').html('Suchergebnis');
     $('#PflegeMap\\.popup-data').html(this.data());
+    $('#PflegeMap\\.popup').attr('lat', lat);
+    $('#PflegeMap\\.popup').attr('lon', lon);
+    $('#PflegeMap\\.popup').attr('name', name);
   };
 
   feature.unselect = function() {

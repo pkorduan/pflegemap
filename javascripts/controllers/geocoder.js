@@ -49,25 +49,17 @@ PflegeMap.geocoderController = {
         event.data.scope.removeSearchResultFeatures(event.data.scope);
         // clear search field
         $('#PflegeMap\\.proximitySearchField').val("");
+        $('#PflegeMap\\.proximitySearchField').removeAttr("coordinates");
         // reset and disable proximity search
         $('#pm-popup-proximity-select').val(-1);
         $('#PflegeMap\\.proximitySelect').val(-1);
-        $('#PflegeMap\\.proximitySelect').prop('disabled', true);
-/*
-        debug_e=event;
-        var layer = event.data.layer,
-          popup = event.data.popup,
-          feature = popup.target.feature;
-        
-        popup.setPosition(undefined);
-        layer.getSource().removeFeature(feature);
-*/
+
       }
     );
   },
 
   lookupNominatim: function(e){
-    console.log('lookupNominatim in geocoder');
+
     var scope = PflegeMap.geocoder,
         queryStr = e.target.value,
         url  = 'http://nominatim.openstreetmap.org/search';
@@ -117,8 +109,7 @@ PflegeMap.geocoderController = {
   },
 
   showNominatimResults: function(event, results) {
-    console.log('ShowNominatimResults in geocoder');
-
+    console.log('showNominatimResults');
     $('#' + event.target.id.replace('.', '\\.') + 'ResultBox').html(
       this.searchResultsFormatter(
         event,
@@ -129,6 +120,7 @@ PflegeMap.geocoderController = {
   },
 
   searchResultsFormatter: function(event, results) {
+    console.log('searchResultsFormatter');
     var html = '';
 
     if(typeof results != "undefined" && results != null && results.length > 0) {
@@ -152,7 +144,6 @@ PflegeMap.geocoderController = {
   },
 
   addSearchResultFeature: function(search_field, display_name, lat, lon) {
-
     var searchResultFeature = new PflegeMap.searchResult(display_name, lat, lon),
         source = this.layer.getSource(),
         target = $('#PflegeMap\\.' + search_field);
@@ -160,7 +151,8 @@ PflegeMap.geocoderController = {
     target.val(display_name);
     target[0].setAttribute('coordinates', lat + ', ' + lon);
     $('#PflegeMap\\.' + search_field + 'ResultBox').hide();
-    
+
+
     this.removeSearchResultFeatures(this);
 
     source.addFeature( searchResultFeature );

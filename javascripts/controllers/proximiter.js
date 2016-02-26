@@ -28,30 +28,17 @@ PflegeMap.proximiterController = function(map) {return {
     $('#PflegeMap\\.proximitySelect').off();
     $('#PflegeMap\\.proximitySelect').on(
       'change',
-      function() {
-        var coords = $('#PflegeMap\\.proximitySearchField').attr('coordinates');
-        
-        if (typeof coords !== typeof undefined && coords !== false)
-          PflegeMap.mapper.filterFeatures();
-      }
-/*      {
-        mapper: PflegeMap.mapper
-      },
       function(event) {
-        // do proximity filtering
-        var layer = PflegeMap.geocoder.layer,
-          radius = Number(event.target.value),
-          mapTarget = {
-            layer: layer,
-            feature: layer.getSource().getFeatures()[0]
-          };
-        // synchronize popup select element
-        $('#PflegeMap\\.proximitySelect').val(radius);
-        // trigger search
-        self.proximityRadius = radius;
-        self.proximitySearch(self, event.data.mapper, mapTarget);
-      
-      }*/
+        var coords = $('#PflegeMap\\.proximitySearchField').attr('coordinates');
+            radius = Number(event.target.value);
+
+        // synchronize with proximity select in popup
+        $('#pm-popup-proximity-select').val(radius);
+        if (typeof coords !== typeof undefined && coords !== false) {
+          PflegeMap.mapper.filterFeatures();
+          PflegeMap.mapper.zoomToExtent();
+        }
+      }
     );
 
     // handler for popup's proximity search
@@ -77,18 +64,17 @@ PflegeMap.proximiterController = function(map) {return {
         popup: PflegeMap.popup,
       },
       function (event) {
-        var mapTarget = event.data.popup.target,
-            radius = Number(event.target.value);
-        // synchronize popup select element
+        var radius = Number(event.target.value);
+
+        // synchronize with proximity select in search Area
         $('#PflegeMap\\.proximitySelect').val(radius);
-        // set new value
-        self.proximityRadius = radius;
+        PflegeMap.mapper.filterFeatures();
+        PflegeMap.mapper.zoomToExtent();
       }
     );
   },
 
   getSearchResultCallback: function(event, item) {
-    console.log('getSearchResultCallback PflegeMap.proximiter.addSearchResultFeature');
     return "PflegeMap.proximiter.addSearchResultFeature('" + item.display_name + "', " + item.lat + ", " + item.lon + ")";
   },
 
@@ -96,9 +82,9 @@ PflegeMap.proximiterController = function(map) {return {
   * Filter care service features in proximity radius, zoom to extent and add marker in center
   */
   addSearchResultFeature: function(display_name, lat, lon) {
-    console.log('addSearchResultFeature display_name: ' + display_name + ' lat: ' + lat + ' lon: ' + lon);
     PflegeMap.geocoder.addSearchResultFeature('proximitySearchField', display_name, lat, lon);
     PflegeMap.mapper.filterFeatures();
+    PflegeMap.mapper.zoomToExtent();
   },
 
   proximitySearch: function(self, mapper, mapTarget) {
@@ -166,11 +152,11 @@ PflegeMap.proximiterController = function(map) {return {
     var coords = $('#PflegeMap\\.proximitySearchField').attr('coordinates'),
         radius = $('#PflegeMap\\.proximitySelect').val();
 
-    console.log('proximityFilter: (radius == -1): ' + (radius == -1));
+    //console.log('proximityFilter: (radius == -1): ' + (radius == -1));
     if (radius == -1)  // Wenn kein Radius gesetzt ist liefer true
       return true
 
-    console.log('proximityFilter: (coords defined) ' + (typeof coords !== typeof undefined && coords !== false));
+    //console.log('proximityFilter: (coords defined) ' + (typeof coords !== typeof undefined && coords !== false));
     if (!(typeof coords !== typeof undefined && coords !== false))
       return feature.get('hidden');
 
@@ -182,6 +168,7 @@ PflegeMap.proximiterController = function(map) {return {
     }),
     wgs84Sphere = new ol.Sphere(6378137);
 
+/*
     console.log('proximityFilter: (dist < ' + radius + '): ' + (
         wgs84Sphere.haversineDistance(
           ol.proj.transform(center.getGeometry().getCoordinates(), PflegeMap.viewProjection, 'EPSG:4326'),
@@ -189,6 +176,7 @@ PflegeMap.proximiterController = function(map) {return {
         ) < radius
       )
     );
+*/
 
     return (
       wgs84Sphere.haversineDistance(

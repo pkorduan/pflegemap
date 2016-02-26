@@ -64,8 +64,7 @@ PflegeMap.reachArea = function(origin, coordinates) {
   polygon.origin = origin;
 
   polygon.data = function() {
-    var html  = this.origin.get('name') + '<br>';
-        html += '' + this.latlng().join(', ');
+    var html  = this.origin.get('name');
     return html;
   };
 

@@ -34,6 +34,35 @@ PflegeMap.reacherController = {
       this,
       PflegeMap.geocoder.lookupNominatim
     );
+    
+    $('#pm-popup-reach-select').on(
+      'change',
+      this,
+      function(event) {
+        var minutes = Number(event.target.value);
+
+        // synchronize with reach select in search area
+        $('#PflegeMap\\.reachMinutes').val(minutes);
+
+        PflegeMap.reacher.getReachArea(
+          $('#PflegeMap\\.popup').attr('name'),
+          $('#PflegeMap\\.popup').attr('lat'),
+          $('#PflegeMap\\.popup').attr('lon')
+        );
+      }
+    );
+
+    $('#PflegeMap.reachMinutes').on(
+      'change',
+      function(event) {
+              console.log('change on PflegeMap.reachMinutes');
+        var minutes = Number(event.target.value);
+
+        // synchronize with reach select in popup
+        $('#pm-popup-reach-select').val(minutes);
+        
+      }
+    );
 
     // Beim Klick auf Markierung Löschen im Infofenster
     $('#PflegeMap\\.popup .pm-popup-function-clear').on(
@@ -55,9 +84,10 @@ PflegeMap.reacherController = {
   },
 
   getReachArea : function(name, lat, lon) {
+    console.log('getReachArea');
     var target = $('#PflegeMap\\.reachSearchField');
     target.val(name);
-    target[0].setAttribute('coordinates', lat + ', ' + lon);
+    target.attr('coordinates', lat + ', ' + lon);
     $('#PflegeMap\\.reachSearchFieldResultBox').hide();
 
     $.ajax({
@@ -130,6 +160,10 @@ PflegeMap.reacherController = {
     source.addFeature(
       reachArea
     );
+
+    $('#PflegeMap\\.popup').attr('lat', origin.lat);
+    $('#PflegeMap\\.popup').attr('lon', origin.lon);
+    $('#PflegeMap\\.popup').attr('name', origin.name);
 
     source.addFeature(
       reachArea.origin

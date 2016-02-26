@@ -259,7 +259,7 @@
                     <div id="PflegeMap.proximitySearchFieldResultBox" class="pflegemap-search-result-box small-input medium-input large-input" style="display:none;"></div><br>
                     Im Umrkeis von:<br>
                     <select id="PflegeMap.proximitySelect">
-                      <option value="-1" selected>--</option>
+                      <option value="-1" selected="selected">--</option>
                       <option value="1000">1km</option>
                       <option value="2000">2km</option>
                       <option value="5000">5km</option>
@@ -395,7 +395,7 @@
                     </div><br>
                     Maximale Entfernung:<br>
                     <select id="PflegeMap.reachMinutes">
-                      <option value="5" selected>5 Minuten</option>
+                      <option value="5" selected="selected">5 Minuten</option>
                       <option value="10">10 Minuten</option>
                       <option value="15">15 Minuten</option>
                       <option value="20">20 Minuten</option>
@@ -453,8 +453,8 @@
                                 &nbsp;Umkreis
                               </div>
                               <select id="pm-popup-proximity-select">
-                                <option value="-1">--</option>
-                                <option value="1000" selected="selected">1km</option>
+                                <option value="-1" selected="selected">--</option>
+                                <option value="1000">1km</option>
                                 <option value="2000">2km</option>
                                 <option value="5000">5km</option>
                                 <option value="10000">10km</option>
@@ -469,9 +469,9 @@
                               </div>
                               <select id="pm-popup-reach-select">
                                 <option value="-1">--</option>
-                                <option value="5">5min</option>
+                                <option value="5" selected="selected">5min</option>
                                 <option value="10">10min</option>
-                                <option value="15" selected>15min</option>
+                                <option value="15">15min</option>
                                 <option value="30">30min</option>
                                 <option value="45">45min</option>
                                 <option value="60">1h</option>
