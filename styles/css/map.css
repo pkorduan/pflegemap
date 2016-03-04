@@ -126,18 +126,13 @@ a.pflegemap-help-box-close{
   
 }
 .pflegemap-search-area {
-  width: 70%;
-  float: left;
-  margin-top: 0px;
+
 }
 .pflegemap-routing-result {
-  float: right;
-  margin-top: 4px;
+  float:right;
 }
 .pflegemap-search-toolbox {
-#  width: 50%;
-  margin-left: 5px;
-  float: right;
+
 }
 .pflegemap-search-tool-icon {
   width: 28px;
@@ -145,6 +140,7 @@ a.pflegemap-help-box-close{
   border: 0;
   border-radius: 4px;
   background-color: #4285F4;
+  margin: 0.1em;
 }
 .pflegemap-search-tool-icon.fa-lg {
   padding: 0px;
@@ -155,7 +151,6 @@ a.pflegemap-help-box-close{
 }
 .pflegemap-search-field{
 #  display: block;
-  width: 100%;
 #  margin-top: 2px;
   margin-left: auto;
   margin-right: auto;
@@ -163,10 +158,13 @@ a.pflegemap-help-box-close{
 #  background-color: #ddd;
   border-radius: 5px;
   border: 1px solid #ddd;
-  position: relative;
 }
 .pflegemap-routing-button {
   width: 9em;
+}
+
+.pflegemap-reach-button {
+  margin-top: 0.4em;
 }
 .pflegemap-search-result-box{
   padding: 4px;
@@ -221,6 +219,7 @@ a.pflegemap-help-box-close{
 .pflegemap-care-service-list {
 }
 .pm-care-service {
+  display: none;
   background-color: #edeae5;
   margin-top: 5px;
   padding: 5px;
@@ -310,6 +309,14 @@ a.pflegemap-help-box-close{
   border-top: 1px solid #cccccc;
 }
 
+.pm-list-functions {
+  border-left: 1px solid #fff;
+}
+
+.pm-list-functions>* {
+  cursor: pointer;
+}
+
 .pm-popup-functions>* {
   visibility: hidden;
   display: none;
@@ -354,7 +361,6 @@ hr.pflegemap-hr {
 }
 
 .pflegemap-routing-search-field{
-  width: 65%;
 #  margin-top: 2px;
   margin-left: auto;
   margin-right: auto;

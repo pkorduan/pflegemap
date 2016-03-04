@@ -25,7 +25,7 @@ PflegeMap.reacherController = {
       this,
       function(e) {
         PflegeMap.mapper.switchSearchTools(e);
-        alert('Diese Funktion ermittelt ausgehend von einer Adresse die Erreichbarkeit entlang von Strassen. Wählen Sie zuerst die gewünschte Fahrzeit aus und dann eine Adresse. Im Ergebnis wird Ihnen die Fläche der Orte angezeigt, die in der gewünschten Zeit erreicht werden können. Die Berechnung kann bei längeren Fahrzeiten bis zu einer Minute dauern.');
+      //  alert('Diese Funktion ermittelt ausgehend von einer Adresse die Erreichbarkeit entlang von Strassen. Wählen Sie zuerst die gewünschte Fahrzeit aus und dann eine Adresse. Im Ergebnis wird Ihnen die Fläche der Orte angezeigt, die in der gewünschten Zeit erreicht werden können. Die Berechnung kann bei längeren Fahrzeiten bis zu einer Minute dauern.');
       }
     );
 
@@ -34,9 +34,44 @@ PflegeMap.reacherController = {
       this,
       PflegeMap.geocoder.lookupNominatim
     );
+    
+    $('#pm-popup-reach-select').on(
+      'change',
+      this,
+      function(event) {
+        var minutes = Number(event.target.value);
+
+        // synchronize with reach select in search area
+        $('#PflegeMap\\.reachMinutes').val(minutes);
+
+        PflegeMap.reacher.getReachArea(
+          $('#PflegeMap\\.popup').attr('name'),
+          $('#PflegeMap\\.popup').attr('lat'),
+          $('#PflegeMap\\.popup').attr('lon')
+        );
+      }
+    );
+
+    $('#PflegeMap.reachMinutes').on(
+      'change',
+      function(event) {
+              console.log('change on PflegeMap.reachMinutes');
+        var minutes = Number(event.target.value);
+
+        // synchronize with reach select in popup
+        $('#pm-popup-reach-select').val(minutes);
+        
+      }
+    );
 
     // Beim Klick auf Markierung Löschen im Infofenster
     $('#PflegeMap\\.popup .pm-popup-function-clear').on(
+      'click',
+      this,
+      this.removeReachArea
+    );
+    
+    $('.pflegemap-reach-button').on(
       'click',
       this,
       this.removeReachArea
@@ -49,13 +84,14 @@ PflegeMap.reacherController = {
   },
 
   getReachArea : function(name, lat, lon) {
+    console.log('getReachArea');
     var target = $('#PflegeMap\\.reachSearchField');
     target.val(name);
-    target[0].setAttribute('coordinates', lat + ', ' + lon);
+    target.attr('coordinates', lat + ', ' + lon);
     $('#PflegeMap\\.reachSearchFieldResultBox').hide();
 
     $.ajax({
-      url: PflegeMap.config.reachUrl + '?',
+      url: PflegeMap.config.reachUrl,
       data: {
         cmd: 'fx',
         schema: 'public',
@@ -74,7 +110,6 @@ PflegeMap.reacherController = {
 
       // Work with the response
       success: function(response) {
-        console.log('Berechnung des Erreichbarkeitsgebietes abgeschlossen.');
         if (response.Error != undefined || response.Fehler != undefined) {
           PflegeMap.reacherController.showErrorMsg('Kein Ergebnis für die Erreichbarkeitsanalyse mit der Anfrage' + '<br>' + response);
         }
@@ -126,6 +161,10 @@ PflegeMap.reacherController = {
       reachArea
     );
 
+    $('#PflegeMap\\.popup').attr('lat', origin.lat);
+    $('#PflegeMap\\.popup').attr('lon', origin.lon);
+    $('#PflegeMap\\.popup').attr('name', origin.name);
+
     source.addFeature(
       reachArea.origin
     );
@@ -139,7 +178,6 @@ PflegeMap.reacherController = {
   },
 
   removeReachArea: function(event) {
-    debug_e = event;
     var source = event.data.layer.getSource(),
         features = source.getFeatures();
 
