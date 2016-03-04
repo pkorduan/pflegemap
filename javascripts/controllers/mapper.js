@@ -116,6 +116,17 @@ PflegeMap.mapperController = function(map) {
         this,
         this.onChangeSubCategoryCheckBox
       );
+      // Handler for changes of map extent
+      PflegeMap.map.on('moveend', function(evt) {
+        var newExtent = evt.frameState.extent,
+          source = this.layer.getSource(),
+          features = source.getFeatures();
+        features.forEach(function(feature){
+          if (!feature.get('hidden')) {
+            feature.listElement.toggle(ol.extent.containsExtent(newExtent,feature.getGeometry().getExtent()));
+          }
+        });
+      }, this);
 
     },
 
