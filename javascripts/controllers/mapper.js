@@ -275,7 +275,11 @@ PflegeMap.mapperController = function(map) {
 
       for ( i = 0; i < features.length; i++) {
         if (c == features[i].get('kategorie')) {
-          var hidden = v ? !(v && this.featureWithinProximity(features[i])) : !v;
+          var hidden = v 
+            ? !(v 
+              && this.featureWithinProximity(features[i]) 
+              && PflegeMap.reacher.featureWithinReachArea(features[i]))
+            : !v;
           (hidden)
             ? features[i].hide()
             : features[i].show();

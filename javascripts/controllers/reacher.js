@@ -176,6 +176,10 @@ PflegeMap.reacherController = {
       PflegeMap.map.getSize()
     );
   },
+  
+  featureWithinReachArea: function(feature) {
+    return true;
+  },
 
   removeReachArea: function(event) {
     var source = event.data.layer.getSource(),
