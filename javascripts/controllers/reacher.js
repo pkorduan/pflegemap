@@ -147,7 +147,7 @@ PflegeMap.reacherController = {
   },
 
   showReachArea: function(origin, reachAreaCoords) {
-    var reachArea = new PflegeMap.reachArea(origin, reachAreaCoords),
+    this.reachArea = new PflegeMap.reachArea(origin, reachAreaCoords),
         source = PflegeMap.reacher.layer.getSource(),
         features = source.getFeatures();
 
@@ -158,7 +158,7 @@ PflegeMap.reacherController = {
     }
 
     source.addFeature(
-      reachArea
+      this.reachArea
     );
 
     $('#PflegeMap\\.popup').attr('lat', origin.lat);
@@ -166,21 +166,17 @@ PflegeMap.reacherController = {
     $('#PflegeMap\\.popup').attr('name', origin.name);
 
     source.addFeature(
-      reachArea.origin
+      this.reachArea.origin
     );
 
 //    PflegeMap.geocoder.addSearchResultFeature('reachSearchField', centerPoint.name, centerPoint.lat, centerPoint.lon);
 
     PflegeMap.map.getView().fit(
-      reachArea.getGeometry().getExtent(),
+      this.reachArea.getGeometry().getExtent(),
       PflegeMap.map.getSize()
     );
   },
   
-  featureWithinReachArea: function(feature) {
-    return true;
-  },
-
   removeReachArea: function(event) {
     var source = event.data.layer.getSource(),
         features = source.getFeatures();
@@ -193,5 +189,6 @@ PflegeMap.reacherController = {
         source.removeFeature( features[x] );
       }
     }
+    this.reachArea = undefined;
   }
 };
