@@ -78,6 +78,7 @@ PflegeMap.reachArea = function(origin, coordinates) {
     $('#PflegeMap\\.popup').attr('class','pm-popup pm-suchergebnis');
     $('#PflegeMap\\.popup-title').html('Erreichbarkeitsgebiet');
     $('#PflegeMap\\.popup-data').html(this.data());
+    $('.pm-popup-function-clear').attr('controller','reacher');
   };
 
   polygon.select = function() {
