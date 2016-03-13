@@ -201,6 +201,7 @@ a.pflegemap-help-box-close{
   border-radius: 5px;
   border: 1px solid #ccc;
 #  bottom: 12px;
+  height: 510px;
 }
 .pm-popup {
   position: absolute;

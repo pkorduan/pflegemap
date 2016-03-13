@@ -132,11 +132,12 @@ resolutions: [4891.96981025128, 3459.1450261886484, 2445.9849051256397,
       })
     ],
     view: new ol.View({
-      maxExtent: [205000, 5880000, 325000, 5968000],
-maxResolution: 305.7481131407049,
-        minResolution: 0.14929107086948457,
-      center: ol.proj.transform([11.6, 53.4], PflegeMap.baseProjection, PflegeMap.viewProjection),
-      zoom: 1
+      maxExtent: [250000, 5880000, 325000, 5968000],
+      extent: [206900, 5890660, 325260, 5966070],
+      maxResolution: 152.8740565703524,
+      minResolution: 0.14929107086948457,
+      center: ol.proj.transform([11.55, 53.455], PflegeMap.baseProjection, PflegeMap.viewProjection),
+      zoom: 0
     })
   });
   
