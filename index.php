@@ -425,7 +425,6 @@
                       value=""
                       placeholder="Zieladresse eingeben ..."/><br>
                     <div id="PflegeMap.targetFieldAddressSearchResultBox" class="pflegemap-search-result-box small-input medium-input large-input" style="display:none;"></div><br>
-                    <input id="PflegeMap.calcRouteButton" class="pflegemap-routing-button" type="button" value="Route berechnen"/>
                     <input id="PflegeMap.removeRouteButton" class="pflegemap-routing-button" type="button" value="Route löschen"/>
                     <span id="PflegeMap.routingDuration" class="pflegemap-routing-result"></span>
                     <span id="PflegeMap.routingDistance" class="pflegemap-routing-result"></span>

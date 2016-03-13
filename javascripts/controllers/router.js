@@ -99,10 +99,6 @@ PflegeMap.routerController = {
       }
     );
 
-    $('#PflegeMap\\.calcRouteButton').click(
-      this,
-      this.loadRoute
-    );
     $('#PflegeMap\\.removeRouteButton').click(
       this.removeRoute
     );
@@ -246,6 +242,7 @@ PflegeMap.routerController = {
     routeField.val(currFeature.addressText());
     //routeField.prop('readonly', true);
     PflegeMap.mapper.switchSearchTools({ "target" : $('#PflegeMap\\.routingSearchTool')[0]});
+    PflegeMap.router.loadRoute({ data: PflegeMap.router });
   },
 
   lookupNominatim: function(e){
@@ -336,10 +333,12 @@ PflegeMap.routerController = {
   },
 
   setSearchResult: function(target_id, display_name, lat, lon) {
+    console.log('setSearchResult');
     var target = '#' + target_id.replace('.', '\\.');
     $(target).val(display_name);
     $(target)[0].setAttribute('coordinates', lat + ', ' + lon);
     $(target + 'AddressSearchResultBox').hide();
+    this.loadRoute({ data: this });
   },
   
   removeSearchResult: function(target_id) {
