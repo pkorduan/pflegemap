@@ -88,7 +88,7 @@
     <section class="container">
       <header class="" style="bottom: auto; top: auto;">
         <a href="http://kreis-lup.de/" title="Zur Startseite">
-          <div id="logo"><img src="http://kreis-lup.de/export/system/modules/de.sis.lup/resources/images/logo.png"></div>
+          <div id="logo"></div>
         </a>
       </header>
       <button id="open-button" class="menu-button">Menü öffnen</button>
