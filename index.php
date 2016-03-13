@@ -344,7 +344,7 @@
                             <span class="label-body">Arzt</span>
                           </label>
                           <label>
-                            <a href="http://www.kvmv.info/patienten/40/" target="_blank"><i class="fa fa-external-link"></i> Artzt</a>
+                            <a href="http://www.kvmv.info/patienten/40/" target="_blank"><i class="fa fa-external-link"></i> Arzt</a>
                           </label>
                           <label>
                             <input kategorie="ap" class="cb-subkat" type="checkbox">
