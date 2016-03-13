@@ -76,7 +76,7 @@ a.pflegemap-message-box-close{
 
 .pflegemap-help-box{
   position:fixed;
-  top:-100px;
+  top:-300px;
   left:10%;
   right:10%;
   background-color:#aaffaa;

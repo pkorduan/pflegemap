@@ -12,7 +12,7 @@ PflegeMap.helpController = {
     );
 
     $('#PflegeMap\\.HelpBoxClose').click(function() {
-      $('#PflegeMap\\.HelpBox').animate({'top':'-200px'},500,function(){
+      $('#PflegeMap\\.HelpBox').animate({'top':'-300px'},500,function(){
         $('#PflegeMap\\.Overlay').fadeOut('fast');
       });
     });

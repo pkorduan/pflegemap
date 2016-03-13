@@ -94,7 +94,6 @@ PflegeMap.proximiterController = function(map) {return {
   },
 
   removeSearchResult: function() {
-    console.log('Remove proximity search result');
     $('#PflegeMap\\.proximitySearchField').val("");
     $('#PflegeMap\\.proximitySearchField').removeAttr("coordinates");
     $('#PflegeMap\\.proximitySearchFieldResultBox').hide();
@@ -113,8 +112,6 @@ PflegeMap.proximiterController = function(map) {return {
 
     // switch visibility of angebote
     $(".cb-subkat").each(function (){
-     // console.log('versart: %o', $(this).attr('versart'));
-    //  console.log('checked: %o', $(this).prop('checked'));
       
       mapper.switchSubCategory(
         $(this).attr('kategorie'),
@@ -174,11 +171,9 @@ PflegeMap.proximiterController = function(map) {return {
     var coords = $('#PflegeMap\\.proximitySearchField').attr('coordinates'),
         radius = $('#PflegeMap\\.proximitySelect').val();
 
-    //console.log('proximityFilter: (radius == -1): ' + (radius == -1));
     if (radius == -1)  // Wenn kein Radius gesetzt ist liefer true
       return true
 
-    //console.log('proximityFilter: (coords defined) ' + (typeof coords !== typeof undefined && coords !== false));
     if (!(typeof coords !== typeof undefined && coords !== false))
       return feature.get('hidden');
 
@@ -189,16 +184,6 @@ PflegeMap.proximiterController = function(map) {return {
       )
     }),
     wgs84Sphere = new ol.Sphere(6378137);
-
-/*
-    console.log('proximityFilter: (dist < ' + radius + '): ' + (
-        wgs84Sphere.haversineDistance(
-          ol.proj.transform(center.getGeometry().getCoordinates(), PflegeMap.viewProjection, 'EPSG:4326'),
-          ol.proj.transform(feature.getGeometry().getCoordinates(), PflegeMap.viewProjection, 'EPSG:4326')
-        ) < radius
-      )
-    );
-*/
 
     return (
       wgs84Sphere.haversineDistance(
