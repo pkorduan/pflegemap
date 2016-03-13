@@ -23,18 +23,20 @@ PflegeMap.angebot = function(params) {
     selected: false,
     icon: (function(){
       switch (params.versorgungsart){
-      case 'Gesundheit':
-        return 'Gesundheit';
-      case 'Stationäre Pflege':
-        return 'StationPflege';
-      case 'Teilstationäre Pflege':
-        return 'TeilstationPflege';
-      case 'Ambulante Pflege':
-        return 'AmbulantePflege';
-      case 'Wohnen':
-        return 'Wohnen';
-      default:
-        return 'Sonstige';
+        case 'Ambulante Pflege':
+          return 'AmbulantePflege';
+        case 'Gesundheit':
+          return 'Gesundheit';
+        case 'Stationäre Pflege':
+          return 'StationPflege';
+        case 'Sterbebegleitung':
+          return 'Sterbebegleitung';
+        case 'Teilstationäre Pflege':
+          return 'TeilstationPflege';
+        case 'Wohnen':
+          return 'Wohnen';
+        default:
+          return 'Sonstige';
       }
     })()
   }),

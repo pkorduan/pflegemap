@@ -136,10 +136,6 @@ PflegeMap.geocoderController = {
     return item.display_name;
   },
 
-/*  getSearchResultCallback: function(event, item) {
-    return "PflegeMap.geocoder.addSearchResultFeature('addressSearchField', '" + item.display_name + "', " + item.lat + ", " + item.lon + ")";
-  },*/
-
   addSearchResultFeature: function(search_field, display_name, lat, lon) {
     var searchResultFeature = new PflegeMap.searchResult(display_name, lat, lon),
         source = this.layer.getSource(),

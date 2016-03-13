@@ -189,16 +189,14 @@
               </div>
 
               <!-- header //-->
-              <div class="row">
                 <div class="small-100 medium-100 large-100 columns">
                    <div>
                     <strong>Pflegeportal</strong>
                   </div>
                 </div>
-              </div>
 
               <!-- search //-->
-              <div class="row list small-map medium-map large-map">
+              <div class="list small-map medium-map large-map">
 
                 <!-- search tools //-->
                 <aside class="small-100 medium-20 large-10 columns">
@@ -367,7 +365,7 @@
 
                       <label>
                         <input versart="Sterbebegleitung" class="cb-kat" type="checkbox">
-                        <span class="label-body">Sterbebegleitung<img src="./images/Gesundheit.png"></img></span>
+                        <span class="label-body">Sterbebegleitung<img src="./images/Sterbebegleitung.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="hp" class="cb-subkat" type="checkbox" disabled readonly>
@@ -434,61 +432,57 @@
 
               <!-- map //-->
               <a name="PflegeMap.top"></a>
-              <div class="row">
-                <!--div class="small-100 medium-100 large-100 columns"-->
-                  <div class="map small-map medium-map large-map">
-                    <div id="PflegeMap.map" class="pflegemap-map">
-                      <div id="PflegeMap.popup" class="pm-popup">
-                        <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
-                        <div id="PflegeMap.popup-content">
-                          <div id="PflegeMap.popup-title" class="pm-popup-title"></div>
-                          <div id="PflegeMap.popup-data"></div>
-                          <div id="PflegeMap.popup-functions"class="pm-popup-functions">
-                            <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-lg fa-fw"></i>&nbsp; Route von hier</div>
-                            <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-lg fa-fw"></i>&nbsp; Route nach hier</div>
-                            <div class="pm-popup-function-proximity">
-                              <div class="pm-popup-function-proximity-search">
-                                <i class="fa fa-search fa-lg fa-fw"></i>
-                                &nbsp;Umkreis
-                              </div>
-                              <select id="pm-popup-proximity-select">
-                                <option value="-1" selected="selected">--</option>
-                                <option value="1000">1km</option>
-                                <option value="2000">2km</option>
-                                <option value="5000">5km</option>
-                                <option value="10000">10km</option>
-                                <option value="20000">20km</option>
-                                <option value="40000">40km</option>
-                              </select>
-                            </div>
-                            <div class="pm-popup-function-reach">
-                              <div class="pm-popup-function-reach-search">
-                                <i class="fa fa-search fa-lg fa-fw"></i>
-                                &nbsp;Erreichbarkeit
-                              </div>
-                              <select id="pm-popup-reach-select">
-                                <option value="5" selected="selected">5min</option>
-                                <option value="10">10min</option>
-                                <option value="15">15min</option>
-                                <option value="30">30min</option>
-                                <option value="45">45min</option>
-                                <option value="60">1h</option>
-                              </select>
-                            </div>
-                            <div class="pm-popup-function-clear">
-                              <i class="fa fa-times fa-lg fa-fw"></i>&nbsp; Markierung l&ouml;schen
-                            </div>
-                          </div> <!-- end PflegeMap.popup-functions //-->
-                        </div> <!-- end PflegeMap.popup-content //-->
-                      </div> <!-- end PflegeMap.popup //-->
-                    </div> <!-- end PflegeMap.map //-->
-                  </div>
-                <!--/div-->
+              <div class="map small-map medium-map large-map">
+                <div id="PflegeMap.map" class="pflegemap-map">
+                  <div id="PflegeMap.popup" class="pm-popup">
+                    <a href="#" id="PflegeMap.popup-closer" class="pm-popup-closer"></a>
+                    <div id="PflegeMap.popup-content">
+                      <div id="PflegeMap.popup-title" class="pm-popup-title"></div>
+                      <div id="PflegeMap.popup-data"></div>
+                      <div id="PflegeMap.popup-functions"class="pm-popup-functions">
+                        <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-lg fa-fw"></i>&nbsp; Route von hier</div>
+                        <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-lg fa-fw"></i>&nbsp; Route nach hier</div>
+                        <div class="pm-popup-function-proximity">
+                          <div class="pm-popup-function-proximity-search">
+                            <i class="fa fa-search fa-lg fa-fw"></i>
+                            &nbsp;Umkreis
+                          </div>
+                          <select id="pm-popup-proximity-select">
+                            <option value="-1" selected="selected">--</option>
+                            <option value="1000">1km</option>
+                            <option value="2000">2km</option>
+                            <option value="5000">5km</option>
+                            <option value="10000">10km</option>
+                            <option value="20000">20km</option>
+                            <option value="40000">40km</option>
+                          </select>
+                        </div>
+                        <div class="pm-popup-function-reach">
+                          <div class="pm-popup-function-reach-search">
+                            <i class="fa fa-search fa-lg fa-fw"></i>
+                            &nbsp;Erreichbarkeit
+                          </div>
+                          <select id="pm-popup-reach-select">
+                            <option value="5" selected="selected">5min</option>
+                            <option value="10">10min</option>
+                            <option value="15">15min</option>
+                            <option value="30">30min</option>
+                            <option value="45">45min</option>
+                            <option value="60">1h</option>
+                          </select>
+                        </div>
+                        <div class="pm-popup-function-clear">
+                          <i class="fa fa-times fa-lg fa-fw"></i>&nbsp; Markierung l&ouml;schen
+                        </div>
+                      </div> <!-- end PflegeMap.popup-functions //-->
+                    </div> <!-- end PflegeMap.popup-content //-->
+                  </div> <!-- end PflegeMap.popup //-->
+                </div> <!-- end PflegeMap.map //-->
               </div>
 
               <!-- Liste //-->
-              <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list row small-map medium-map large-map">
-                <div id="PflegeMap.noFeatureMessage" class="pm-care-service" feature_id="0" class="row list small-map medium-map large-map">
+              <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list small-map medium-map large-map">
+                <div id="PflegeMap.noFeatureMessage" class="pm-care-service" feature_id="0" class="list small-map medium-map large-map">
                   Keine Ergebnisse
                 </div>
               </div>

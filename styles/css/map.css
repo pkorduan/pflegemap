@@ -164,7 +164,7 @@ a.pflegemap-help-box-close{
 }
 
 .pflegemap-reach-button {
-  margin-top: 0.4em;
+  margin-top: 1em;
 }
 .pflegemap-search-result-box{
   padding: 4px;
@@ -184,9 +184,8 @@ a.pflegemap-help-box-close{
 .pflegemap-categories label img{
   width: 1.5em;
   vertical-align: bottom;
-  position: absolute;
-  #left: 15em;
-  left: 1.5em;
+  float: left;
+  margin-right: 10px;
 }
 .pflegemap-categories label{
   display: block;

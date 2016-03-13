@@ -12,7 +12,7 @@ footer { background: #ffff00; }
 }
 
 .list {
-  margin: 0.2em;
+  margin-bottom: 0.2em;
   background-color: #eee;
   border:2px solid #ddd;
   -moz-border-radius: 5px;
@@ -111,9 +111,9 @@ footer { background: #ffff00; }
 
 .large-80 {width:80%; max-width:720px;}
 
-.large-100 {width:100%; max-width:900px;}
+.large-100 {width:100%; max-width:890px;}
 
-.large-map {width:900px;}
+.large-map {width:890px;}
 
 .large-input {width:720px;}
 }
