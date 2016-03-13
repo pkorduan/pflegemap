@@ -169,7 +169,6 @@
         <div class="wrapper mobile-full" style="width:880px;">
           <div id="centercontainer">
             <article class="clear row">
-              <a name="PflegeMap.top"></a>
 
               <div id="PflegeMap.Overlay" class="pflegemap-overlay" style="display:none;"></div>
 
@@ -222,14 +221,6 @@
                           <i class="fa fa-inverse fa-check-square-o"></i>
                       </button> Themen<br>
                       <button
-                        id="PflegeMap.routingSearchTool"
-                        class="pflegemap-search-tool-icon"
-                        toolname="routingSearch"
-                        title="Routing"
-                        alt="Routing">
-                          <i class="fa fa-inverse fa-flag-checkered"></i>
-                      </button> Routing<br>
-                      <button
                         id="PflegeMap.reachSearchTool"
                         class="pflegemap-search-tool-icon"
                         toolname="reachSearch"
@@ -237,6 +228,14 @@
                         alt="Erreichbarkeitsanalyse">
                           <i class="fa fa-inverse fa-clock-o"></i>
                       </button> Erreichbarkeit<br>
+                      <button
+                        id="PflegeMap.routingSearchTool"
+                        class="pflegemap-search-tool-icon"
+                        toolname="routingSearch"
+                        title="Routing"
+                        alt="Routing">
+                          <i class="fa fa-inverse fa-flag-checkered"></i>
+                      </button> Routing<br>
                       <button
                         id="PflegeMap.helpTool"
                         class="pflegemap-search-tool-icon"
@@ -435,6 +434,7 @@
               </div>
 
               <!-- map //-->
+              <a name="PflegeMap.top"></a>
               <div class="row">
                 <!--div class="small-100 medium-100 large-100 columns"-->
                   <div class="map small-map medium-map large-map">
@@ -468,7 +468,6 @@
                                 &nbsp;Erreichbarkeit
                               </div>
                               <select id="pm-popup-reach-select">
-                                <option value="-1">--</option>
                                 <option value="5" selected="selected">5min</option>
                                 <option value="10">10min</option>
                                 <option value="15">15min</option>
@@ -489,7 +488,11 @@
               </div>
 
               <!-- Liste //-->
-              <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list row small-map medium-map large-map"></div>
+              <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list row small-map medium-map large-map">
+                <div id="PflegeMap.noFeatureMessage" class="pm-care-service" feature_id="0" class="row list small-map medium-map large-map">
+                  Keine Ergebnisse
+                </div>
+              </div>
             </article>
           </div>
         </div>
