@@ -68,6 +68,15 @@ PflegeMap.mapperController = function(map) {
       }
     },
 
+    noFeaturesMessage: {
+      show: function() {
+        $('#PflegeMap\\.noFeatureMessage').show();
+      },
+      hide: function() {
+        $('#PflegeMap\\.noFeatureMessage').hide();
+      }
+    },
+
     sortFeatures: function (a, b) {
       var aName = a.get('versorgungsart').toLowerCase() + a.get('kategorie') + a.get('gemeinde');
       var bName = b.get('versorgungsart').toLowerCase() + b.get('kategorie') + b.get('gemeinde'); 
@@ -116,6 +125,7 @@ PflegeMap.mapperController = function(map) {
         this,
         this.onChangeSubCategoryCheckBox
       );
+
       // Handler for changes of map extent
       PflegeMap.map.on('moveend', function(evt) {
         var newExtent = evt.frameState.extent,
@@ -135,7 +145,7 @@ PflegeMap.mapperController = function(map) {
       PflegeMap.mapper.zoomToExtent();
     },
 
-    themeSearch: function(event) {
+/*    themeSearch: function(event) {
       var source = event.data.layer.getSource(),
           features = source.getFeatures(),
           searchString = event.target.value,
@@ -169,37 +179,81 @@ PflegeMap.mapperController = function(map) {
 
       PflegeMap.mapper.searchAnimation.hide();
     },
-
+*/
     /*
     * function liefert true wenn Filterbedingung erfüllt wird.
     * Die Filterbedingung ist, dass das Suchwort weniger als
     * 3 Zeichen hat oder das Suchwort für das Feature im Index
     * eingetragen ist.
-    * Wenn die Kategorieauswahl aufgerufen ist soll der Word
-    * Filter keine herausfiltern also immer true liefern.
+    * Wenn die Kategorieauswahl oder die Reachsuche aufgerufen ist,
+    * soll der Word Filter keine herausfiltern also immer true liefern.
     */
     wordFilter: function(feature) {
       var searchWord = $('#PflegeMap\\.textSearchField').val();
 
-      if ($('#PflegeMap\\.categorySearchArea').is(':visible'))
-        return true
+//      if ($('#PflegeMap\\.categorySearchArea').is(':visible') || $('#PfelgeMap\\.reachSearchArea').is(':visible'))
+//        return true
 
       return (searchWord.length < 3 || $.inArray(feature.get('id'), PflegeMap.suchIndex[searchWord]) > -1);
     },
 
+    /*
+    * Diese Funktion liefert true zurück, wenn die Kategorie des Feature
+    * in der Kategoriesuche (Themen) ausgewählt ist.
+    */
+    categoryFilter: function(feature) {
+      return $($("[kategorie='" + feature.get('kategorie') + "']")[0]).is(':checked')
+    },
+
+    /*
+    * Diese Funktion filtert die Feature entsprechend der aktuellen
+    * Such- und Karteneinstellungen. Feature, die zum Filter passen
+    * werden angezeigt und die anderen ausgeblendet.
+    *
+    * Folgende Logik beim Filtern:
+    * Variante A:
+    *   Ist textSearchArea visible:
+    *     Wende den word und proximity filter an
+    *   Ist categorySearchArea visible
+    *     Wende den categorie und reach filter an
+    *   Ist reachSearchArea visible
+    *     Wende den reach und category filter an
+    */
     filterFeatures: function(features) {
       var source = PflegeMap.mapper.layer.getSource(),
-          features = source.getFeatures();
+          features = source.getFeatures(),
+          numVisible = 0;
 
       features.map(function(feature) {
-        if (
-          PflegeMap.mapper.wordFilter(feature) &&
-          PflegeMap.proximiter.proximityFilter(feature)
-        )
+        filterResult = false;
+
+        // Variante A
+
+        if ($('#PflegeMap\\.textSearchArea').is(':visible')) {
+          filterResult = PflegeMap.mapper.wordFilter(feature) &&
+                         PflegeMap.proximiter.proximityFilter(feature)
+        }
+        if ($('#PflegeMap\\.categorySearchArea').is(':visible')) {
+          filterResult = PflegeMap.mapper.categoryFilter(feature) &&
+                         PflegeMap.reacher.reachAreaFilter(feature);
+        }
+        if ($('#PflegeMap\\.reachSearchArea').is(':visible')) {
+          filterResult = PflegeMap.reacher.reachAreaFilter(feature) &&
+                         PflegeMap.mapper.categoryFilter(feature);
+        }
+
+        if (filterResult) {
           PflegeMap.mapper.showCareService(feature);
+          numVisible += 1;
+        }
         else
           PflegeMap.mapper.hideCareService(feature);
       });
+
+      if (numVisible > 0) {
+        PflegeMap.mapper.noFeaturesMessage.hide();
+      } else
+        PflegeMap.mapper.noFeaturesMessage.show();
     },
 
     showCareService: function(careService) {
@@ -212,7 +266,7 @@ PflegeMap.mapperController = function(map) {
       $('#PflegeMap\\.careService_' + careService.get('id')).hide();
     },
 
-    onChangeSubCategoryCheckBox: function(event) {
+    onChangeSubCategoryCheckBox: function(event, applyFilter) {
       var scope = event.data;
     
       var categry = event.target.getAttribute('kategorie'),
@@ -226,19 +280,19 @@ PflegeMap.mapperController = function(map) {
       if (numChecked > 0) $('.pflegemap-subcategories',versart.parent()).show()
       else $('.pflegemap-subcategories',versart.parent()).hide();
 
-      scope.switchSubCategory(
-        categry,
-        isChecked
-      );
+      if (typeof applyFilter === "undefined")
+        PflegeMap.mapper.filterFeatures();
     },
   
-    onChangeCategoryCheckBox: function(event) {
-      var scope = event.data;
-    
-      var versart = event.target.getAttribute('versart'),
-        isChecked = event.target.checked;
-    
-      if (versart == 'all') $(".cb-kat[versart!='all']").prop('checked', isChecked).trigger('change')
+    onChangeCategoryCheckBox: function(event, applyFilter) {
+      var scope = event.data,
+          versart = event.target.getAttribute('versart'),
+          isChecked = event.target.checked;
+
+      if (versart == 'all') {
+        $(".cb-kat[versart!='all']").prop('checked', isChecked).trigger('change', 'do not apply filter');
+        // filterFeatures()
+      }
       else {
         // uncheck 'all'-box if any of the catgrs is unchecked and vice versa
         var allChecked = ($(".cb-kat[versart!='all']:checked").length == $(".cb-kat[versart!='all']").length);
@@ -248,85 +302,18 @@ PflegeMap.mapperController = function(map) {
       // show/hide and check/uncheck all subcategories
       var subcatDiv = $('div.pflegemap-subcategories', $(event.target).parent());
       subcatDiv.show();
-      $('.cb-subkat', $(subcatDiv)).prop('checked',isChecked).trigger('change');
+      $('.cb-subkat', $(subcatDiv)).prop('checked',isChecked).trigger('change', 'do not apply filter');
+
+      if (typeof applyFilter === "undefined")
+        PflegeMap.mapper.filterFeatures();
     },
   
     switchSearchTools: function(event) {
       $.each(PflegeMap.searchTools, function(index, searchTool) {
-        //console.log('hide element: #PflegeMap.' + searchTool + 'Area');
         $('#PflegeMap\\.' + searchTool + 'Area').hide();
       });
       var searchType = event.target.getAttribute('toolname') || event.target.parentElement.getAttribute('toolname');
-      //console.log('show element: #PflegeMap.' + searchType + 'Area');
       $('#PflegeMap\\.' + searchType + 'Area').show();
-    },
-
-    /*
-    * Switch the visibility of all features with category c
-    * to the visibility v
-    * @params(string) c category (2 characters)
-    * @params(boolean) v visibility
-    * @return(void)
-    */
-    switchSubCategory: function(c, v) {
-      var source = this.layer.getSource(),
-        features = source.getFeatures(),
-        i;
-
-      for ( i = 0; i < features.length; i++) {
-        if (c == features[i].get('kategorie')) {
-          var hidden = v 
-            ? !(v 
-              && this.featureWithinProximity(features[i]) 
-              && this.featureWithinReachArea(features[i]))
-            : !v;
-          (hidden)
-            ? features[i].hide()
-            : features[i].show();
-        }
-      }
-
-      this.layer.changed();
-    },
-
-    lookupNominatim: function(e){
-      var scope = e.data,
-          queryStr = e.target.value,
-          url  = 'http://nominatim.openstreetmap.org/search';
-
-      $.ajax({
-        url: url,
-
-        beforeSend: PflegeMap.mapper.searchAnimation.show,
-
-        data: {
-          viewboxlbrt    : '10.57,53.10,12.40,53.82',
-          bounded        : 1,
-          q              : queryStr,
-          format         : 'json',
-          addressdetails : 1,
-        },
-
-        // Work with the response
-        success: function(response) {
-          if (response.indexOf('Error') != -1 || response.indexOf('Fehler') != -1) {
-            scope.showErrorMsg(scope, response);
-          }
-          else {
-            scope.errMsgElement.innerHTML = '';
-            scope.showNominatimResults(scope, response);
-          }
-        },
-
-        error: function (xhr, ajaxOptions, thrownError){
-          if(xhr.status==404) {
-            scope.showErrorMsg(scope, thrownError);
-          }
-        },
-
-        complete: PflegeMap.mapper.searchAnimation.hide()
-
-      });
     },
 
     showErrorMsg: function(e, msg) {
@@ -340,7 +327,6 @@ PflegeMap.mapperController = function(map) {
     },
 
     showNominatimResults: function(event, results) {
-      console.log('showNominatimResults in mapper.js scope: %o', scope);
       $('#' + event.target.id.replace('.', '\\.') + 'AddressSearchResultBox').html(
         event.data.searchResultsFormatter(
           event,
@@ -361,7 +347,7 @@ PflegeMap.mapperController = function(map) {
         });
       }
       else {
-        html = 'keine Treffer gefunden!'
+        html = '<a href="#" onclick="PflegeMap.geocoder.removeSearchResultFeature();">keine Treffer gefunden!</a>';
       }
       return html;
     },
@@ -373,6 +359,10 @@ PflegeMap.mapperController = function(map) {
       PflegeMap.geocoder.addSearchResultFeature('proximityAddress', display_name, lat, lon);
     },
 
+    /*
+    * Debrecated. Use PflegeMap.proximiter.proximiterFilter in stead.
+    */
+/*
     featureWithinProximity: function(feature){
       var featureCoords = feature.getGeometry().getCoordinates(),
           centerCoords = PflegeMap.proximiter.proximityCenter;
@@ -383,9 +373,13 @@ PflegeMap.mapperController = function(map) {
     
       return withinDistance;
     },
+*/
 
+    /*
+    * Debrecated. Use PflegeMap.reacher.reachAreaFilter in stead.
+    */
+/*
     featureWithinReachArea: function(feature) {
-      
       if (!PflegeMap.reacher.reachArea) return true;
 
       //+ Jonas Raoni Soares Silva
@@ -409,6 +403,7 @@ PflegeMap.mapperController = function(map) {
 
       return isPointInPoly(polyCoords, featCoords);
     },
+*/
 
     zeigeEinrichtungen: function(store, layer) {
       var features = [];

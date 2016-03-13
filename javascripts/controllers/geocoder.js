@@ -43,17 +43,15 @@ PflegeMap.geocoderController = {
         scope: this
       },
       function(event){
-        // hide popup
-        event.data.popup.setPosition(undefined);
-        // remove map marker
-        event.data.scope.removeSearchResultFeatures(event.data.scope);
-        // clear search field
-        $('#PflegeMap\\.proximitySearchField').val("");
-        $('#PflegeMap\\.proximitySearchField').removeAttr("coordinates");
-        // reset and disable proximity search
-        $('#pm-popup-proximity-select').val(-1);
-        $('#PflegeMap\\.proximitySelect').val(-1);
-
+        if ($(event.target).attr('controller') == 'geocoder') {
+          // hide popup
+          event.data.popup.setPosition(undefined);
+          // remove map marker
+          event.data.scope.removeSearchResultFeatures(event.data.scope);
+          // clear search field
+          $('#PflegeMap\\.proximitySearchField').val("");
+          $('#PflegeMap\\.proximitySearchField').removeAttr("coordinates");
+        }
       }
     );
   },
@@ -109,7 +107,6 @@ PflegeMap.geocoderController = {
   },
 
   showNominatimResults: function(event, results) {
-    console.log('showNominatimResults');
     $('#' + event.target.id.replace('.', '\\.') + 'ResultBox').html(
       this.searchResultsFormatter(
         event,
@@ -120,7 +117,6 @@ PflegeMap.geocoderController = {
   },
 
   searchResultsFormatter: function(event, results) {
-    console.log('searchResultsFormatter');
     var html = '';
 
     if(typeof results != "undefined" && results != null && results.length > 0) {
@@ -130,7 +126,8 @@ PflegeMap.geocoderController = {
       });
     }
     else {
-      html = 'keine Treffer gefunden!'
+      debug_e = event;
+      html = '<a href="#" onclick="' + event.data.getNoResultCallback() + '">keine Treffer gefunden!</a>';
     }
     return html;
   },
@@ -139,9 +136,9 @@ PflegeMap.geocoderController = {
     return item.display_name;
   },
 
-  getSearchResultCallback: function(event, item) {
+/*  getSearchResultCallback: function(event, item) {
     return "PflegeMap.geocoder.addSearchResultFeature('addressSearchField', '" + item.display_name + "', " + item.lat + ", " + item.lon + ")";
-  },
+  },*/
 
   addSearchResultFeature: function(search_field, display_name, lat, lon) {
     var searchResultFeature = new PflegeMap.searchResult(display_name, lat, lon),

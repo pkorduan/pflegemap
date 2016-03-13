@@ -22,6 +22,7 @@ PflegeMap.proximiterController = function(map) {return {
       'change',
       self,
       PflegeMap.geocoder.lookupNominatim
+      // on click auf ein ausgewählte Adresse wird this.addSearchResultFeature aufgerufen
     );
     
     // Nach Änderung des Umkreises im Suchbereich
@@ -79,6 +80,10 @@ PflegeMap.proximiterController = function(map) {return {
     return "PflegeMap.proximiter.addSearchResultFeature('" + item.display_name + "', " + item.lat + ", " + item.lon + ")";
   },
 
+  getNoResultCallback: function() {
+    return "PflegeMap.proximiter.removeSearchResult()";
+  },
+
   /*
   * Filter care service features in proximity radius, zoom to extent and add marker in center
   */
@@ -86,6 +91,17 @@ PflegeMap.proximiterController = function(map) {return {
     PflegeMap.geocoder.addSearchResultFeature('proximitySearchField', display_name, lat, lon);
     PflegeMap.mapper.filterFeatures();
     PflegeMap.mapper.zoomToExtent();
+  },
+
+  removeSearchResult: function() {
+    console.log('Remove proximity search result');
+    $('#PflegeMap\\.proximitySearchField').val("");
+    $('#PflegeMap\\.proximitySearchField').removeAttr("coordinates");
+    $('#PflegeMap\\.proximitySearchFieldResultBox').hide();
+
+    PflegeMap.popup.setPosition(undefined);
+    // remove map marker
+    PflegeMap.geocoder.removeSearchResultFeatures(PflegeMap.geocoder);
   },
 
   proximitySearch: function(self, mapper, mapTarget) {
@@ -148,7 +164,12 @@ PflegeMap.proximiterController = function(map) {return {
     
     PflegeMap.mapper.searchAnimation.hide();
   },
-  
+
+  /*
+  * Liefert wahr zurück, wenn feature geometrisch im Umkreis
+  * mit dem Radius aus dem Feld PflegeMap.proximitySelect liegt oder
+  * wenn kein Radius gesetzt ist.
+  */
   proximityFilter: function(feature) {
     var coords = $('#PflegeMap\\.proximitySearchField').attr('coordinates'),
         radius = $('#PflegeMap\\.proximitySelect').val();
