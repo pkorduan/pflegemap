@@ -73,6 +73,14 @@ PflegeMap.angebot = function(params) {
         html += '<br><i>Kapazität:</i> ' + this.get('kapazitaet');
       if (this.get('besonderheit') != '')
         html += '<br>' + this.get('besonderheit');
+      html += '<br>' + this.get('versorgungsart');
+      if ($.inArray(this.get('versorgungsart'), [
+        'Stationäre Pflege',
+        'Pflegeheim',
+        'Kurzzeitpflege'
+      ]) > -1 ) {
+        html += '<br><a href="http://kreis-lup.de/leben-im-landkreis/verkehr-ordnung-sicherheit/heimaufsicht/" target="_blank"><i class="fa fa-external-link"></i> Prüfbericht der Heimaufsicht</a>';
+      }
       html += '</div>';
 
       html += '<div class="small-100 medium-80 large-40 columns">';
