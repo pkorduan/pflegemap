@@ -242,8 +242,14 @@ PflegeMap.mapperController = function(map) {
       var numChecked = $(".cb-subkat:checked", versart.parent()).length,
         allChecked = (numChecked == $(".cb-subkat", versart.parent()).length);
       versart.prop('checked', allChecked);
-      if (numChecked > 0) $('.pflegemap-subcategories',versart.parent()).show()
-      else $('.pflegemap-subcategories',versart.parent()).hide();
+      if (numChecked > 0)
+        $('.pflegemap-subcategories',versart.parent()).show()
+      else
+        $('.pflegemap-subcategories',versart.parent()).hide();
+
+      // hide subCategory if only one exists
+      if ($(event.target).parent().siblings().length == 0)
+        $(event.target).parent().hide();
 
       if (typeof applyFilter === "undefined")
         PflegeMap.mapper.filterFeatures();
@@ -266,7 +272,7 @@ PflegeMap.mapperController = function(map) {
 
       // show/hide and check/uncheck all subcategories
       var subcatDiv = $('div.pflegemap-subcategories', $(event.target).parent());
-      subcatDiv.show();
+
       $('.cb-subkat', $(subcatDiv)).prop('checked',isChecked).trigger('change', 'do not apply filter');
 
       if (typeof applyFilter === "undefined")
