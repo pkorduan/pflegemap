@@ -99,7 +99,7 @@ PflegeMap.angebot = function(params) {
   };
 
   feature.title = function() {
-    return this.get('einrichtung');
+    return this.get('name');
   };
 
   feature.data = function() {
