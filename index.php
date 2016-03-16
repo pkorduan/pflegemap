@@ -254,7 +254,7 @@
                     Wo suchen Sie?<br>
                     <input id="PflegeMap.proximitySearchField" class="pflegemap-search-field small-input medium-input large-input" type="text" placeholder="Adresse suchen ..."/>
                     <div id="PflegeMap.proximitySearchFieldResultBox" class="pflegemap-search-result-box small-input medium-input large-input" style="display:none;"></div><br>
-                    Im Umrkeis von:<br>
+                    Im Umkeis von:<br>
                     <select id="PflegeMap.proximitySelect">
                       <option value="-1" selected="selected">--</option>
                       <option value="1000">1km</option>
@@ -276,7 +276,7 @@
 
                       <label>
                         <input versart="Ambulante Pflege" class="cb-kat" type="checkbox">
-                        <span class="label-body">Ambulante Pflege<img src="./images/AmbulantePflege.png"></img></span>
+                        <span class="label-body">Ambulante Pflege<img src="./images/Ambulante Pflege.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="pd" class="cb-subkat" type="checkbox" disabled readonly>
@@ -287,7 +287,7 @@
 
                       <label>
                         <input versart="Teilstationäre Pflege" class="cb-kat" type="checkbox">
-                        <span class="label-body">Teilstationäre Pflege<img src="./images/TeilstationPflege.png"></img></span>
+                        <span class="label-body">Teilstationäre Pflege<img src="./images/Teilstationäre Pflege.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="tp" class="cb-subkat" type="checkbox" disabled readonly>
@@ -298,14 +298,21 @@
 
                       <label>
                         <input versart="Stationäre Pflege" class="cb-kat" type="checkbox">
-                        <span class="label-body">Stationäre Pflege<img src="./images/StationPflege.png"></img></span>
+                        <span class="label-body">Pflegeheim<img src="./images/Pflegeheim.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
-                            <input kategorie="ph" class="cb-subkat" type="checkbox">
+                            <input kategorie="ph" class="cb-subkat" type="checkbox" disabled readonly>
                             <span class="label-body">Pflegeheim</span>
                           </label>
+                        </div>
+                      </label>
+
+                      <label>
+                        <input versart="Stationäre Pflege" class="cb-kat" type="checkbox">
+                        <span class="label-body">Kurzzeitpflege<img src="./images/Kurzzeitpflege.png"></img></span>
+                        <div class="pflegemap-subcategories">
                           <label>
-                            <input kategorie="kp" class="cb-subkat" type="checkbox">
+                            <input kategorie="kp" class="cb-subkat" type="checkbox" disabled readonly>
                             <span class="label-body">Kurzzeitpflege</span>
                           </label>
                         </div>
@@ -317,21 +324,20 @@
                         <div class="pflegemap-subcategories">
                           <label>
                             <input versart="Wohnen" kategorie="bw" class="cb-subkat" type="checkbox">
-                            <span class="label-body">Betreutes Wohnen</span>
+                            <span class="label-body">Betreutes Wohnen<img src="./images/Betreutes Wohnen.png"></img></span>
                           </label>
                           <label>
                             <input versart="Wohnen" kategorie="wg" class="cb-subkat" type="checkbox">
-                            <span class="label-body">Ambulant betreute Wohngemeinschaft</span>
+                            <span class="label-body">Ambulant betreute Wohngemeinschaft<img src="./images/Ambulant betreute Wohngemeinschaft.png"></img></span>
                           </label>
-
-                          <label>
+                          <!--label>
                             <input kategorie="ba" class="cb-subkat" type="checkbox" disabled readonly>
                             <span class="label-body">Barrierearmes Wohnen</span>
                           </label>
                           <label>
                             <input kategorie="bf" class="cb-subkat" type="checkbox" disabled readonly>
                             <span class="label-body">Barrierefreies Wohnen</span>
-                          </label>
+                          </label//-->
                         </div>
                       </label>
 
@@ -350,16 +356,14 @@
                             <input kategorie="ap" class="cb-subkat" type="checkbox">
                             <span class="label-body">Apotheke</span>
                           </label>
-                          <label>
-                          <!--label style="display:none" //-->
+                          <!--label>
                             <input kategorie="kr" class="cb-subkat" type="checkbox" disabled readonly>
                             <span class="label-body">Klinik/Reha</span>
                           </label>
                           <label>
-                          <!--label style="display:none" //-->
                             <input kategorie="pt" class="cb-subkat" type="checkbox" disabled readonly>
                             <span class="label-body">Psychiatrische Tagesklinik</span>
-                          </label>
+                          </label //-->
                         </div>
                       </label>
 
@@ -370,6 +374,17 @@
                           <label>
                             <input kategorie="hp" class="cb-subkat" type="checkbox" disabled readonly>
                             <span class="label-body">Ambulanter Hospizdienst</span>
+                          </label>
+                        </div>
+                      </label>
+
+                      <label>
+                        <input versart="Beratung" class="cb-kat" type="checkbox">
+                        <span class="label-body">Beratung<img src="./images/Beratung.png"></img></span>
+                        <div class="pflegemap-subcategories">
+                          <label>
+                            <input kategorie="nb" class="cb-subkat" type="checkbox" disabled readonly>
+                            <span class="label-body">Neutrale Pflege- und Sozialberatung</span>
                           </label>
                         </div>
                       </label>

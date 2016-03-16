@@ -24,17 +24,23 @@ PflegeMap.angebot = function(params) {
     icon: (function(){
       switch (params.versorgungsart){
         case 'Ambulante Pflege':
-          return 'AmbulantePflege';
+          return params.versorgungsart;
+        case 'Beratung':
+          return params.versorgungsart;
         case 'Gesundheit':
-          return 'Gesundheit';
+          return params.versorgungsart;
+        case 'Kurzzeitpflege':
+          return params.angebot;
+        case 'Pflegeheim':
+          return params.angebot;
         case 'Stationäre Pflege':
-          return 'StationPflege';
+          return params.angebot;
         case 'Sterbebegleitung':
-          return 'Sterbebegleitung';
+          return params.versorgungsart;
         case 'Teilstationäre Pflege':
-          return 'TeilstationPflege';
+          return params.versorgungsart;
         case 'Wohnen':
-          return 'Wohnen';
+          return params.angebot;
         default:
           return 'Sonstige';
       }
