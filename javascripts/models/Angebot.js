@@ -79,7 +79,6 @@ PflegeMap.angebot = function(params) {
         html += '<br><i>Kapazität:</i> ' + this.get('kapazitaet');
       if (this.get('besonderheit') != '')
         html += '<br>' + this.get('besonderheit');
-      html += '<br>' + this.get('versorgungsart');
       if ($.inArray(this.get('versorgungsart'), [
         'Stationäre Pflege',
         'Pflegeheim',
