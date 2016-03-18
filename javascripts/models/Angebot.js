@@ -71,10 +71,10 @@ PflegeMap.angebot = function(params) {
 
       html += '<div class="pm-care-service-content small-100 medium-80 large-45 columns">';
         html += '<a name="PflegeMap.careService_' + this.get('id') + '"></a><b>' + this.get('name') + '</b><br>';
-        html += '<i>Versorgungsart:</i> ' + this.get('versorgungsart') + '<br>';
-        html += '<i>Kategorie:</i> ' + this.get('angebot');
-      if (this.get('traeger') != '')
-        html += '<br><i>Träger:</i> ' + this.get('traeger');
+        if (this.get('traeger') != '')
+          html += '<i>Träger:</i> ' + this.get('traeger');        
+        html += '<br><i>Versorgungsart:</i> ' + this.get('versorgungsart');
+        html += '<br><i>Kategorie:</i> ' + this.get('angebot');
       if (this.get('kapazitaet') != '' && this.get('kapazitaet') > 1)
         html += '<br><i>Kapazität:</i> ' + this.get('kapazitaet');
       if (this.get('besonderheit') != '')
@@ -109,6 +109,7 @@ PflegeMap.angebot = function(params) {
 
   feature.data = function() {
     var html = '';
+    html += this.get('angebot') + '<br>';
     if (this.get('ansprechpartner') != '')
       html += this.get('ansprechpartner') + '<br>';
     html += this.address();
