@@ -276,7 +276,8 @@
 
                       <label>
                         <input versart="Ambulante Pflege" class="cb-kat" type="checkbox">
-                        <span class="label-body">Ambulante Pflege<img src="./images/Ambulante Pflege.png"></img></span>
+                        <!-- Die Versorgungsart lautet eigentlich Ambulante Pflege, angezeigt werden soll aber das Angebot also Pflegedienst //-->
+                        <span class="label-body">Ambulanter Pflegedienst<img src="./images/Ambulante Pflege.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="pd" class="cb-subkat" type="checkbox" disabled readonly>
@@ -287,7 +288,8 @@
 
                       <label>
                         <input versart="Teilstationäre Pflege" class="cb-kat" type="checkbox">
-                        <span class="label-body">Teilstationäre Pflege<img src="./images/Teilstationäre Pflege.png"></img></span>
+                        <!-- Die Versorgungsart lautet eigentlich Teilstationäre Pflege, angezeigt werden soll aber das Angebot also Tagespflege //-->
+                        <span class="label-body">Tagespflege<img src="./images/Teilstationäre Pflege.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="tp" class="cb-subkat" type="checkbox" disabled readonly>
@@ -298,6 +300,7 @@
 
                       <label>
                         <input versart="Stationäre Pflege" class="cb-kat" type="checkbox">
+                        <!-- Die Versorgungsart lautet eigentlich Stationäre Pflege, angezeigt werden soll aber das Angebot also Pflegeheim //-->
                         <span class="label-body">Pflegeheim<img src="./images/Pflegeheim.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
@@ -309,6 +312,7 @@
 
                       <label>
                         <input versart="Stationäre Pflege" class="cb-kat" type="checkbox">
+                        <!-- Die Versorgungsart lautet eigentlich Stationäre Pflege, angezeigt werden soll aber das Angebot also Kurzzeitpflege //-->
                         <span class="label-body">Kurzzeitpflege<img src="./images/Kurzzeitpflege.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>

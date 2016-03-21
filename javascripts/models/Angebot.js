@@ -24,7 +24,9 @@ PflegeMap.angebot = function(params) {
     icon: (function(){
       switch (params.versorgungsart){
         case 'Ambulante Pflege':
-          return params.versorgungsart;
+          return params.angebot;
+        case 'Ambulanter Pflegedienst': // Löschen wenn es die Versorgungsart nicht mehr gibt.
+          return params.angebot;
         case 'Beratung':
           return params.versorgungsart;
         case 'Gesundheit':
@@ -37,11 +39,14 @@ PflegeMap.angebot = function(params) {
           return params.angebot;
         case 'Sterbebegleitung':
           return params.versorgungsart;
+        case 'Tagespflege':
+          return params.angebot; // Löschen wenn es die Versorgungsart nicht mehr gibt.
         case 'Teilstationäre Pflege':
-          return params.versorgungsart;
+          return params.angebot;
         case 'Wohnen':
           return params.angebot;
         default:
+          console.log(params.versorgungsart);
           return 'Sonstige';
       }
     })()
@@ -72,13 +77,10 @@ PflegeMap.angebot = function(params) {
       html += '<div class="pm-care-service-content small-100 medium-80 large-45 columns">';
         html += '<a name="PflegeMap.careService_' + this.get('id') + '"></a><b>' + this.get('name') + '</b><br>';
         if (this.get('traeger') != '')
-          html += '<i>Träger:</i> ' + this.get('traeger');        
-        html += '<br><i>Versorgungsart:</i> ' + this.get('versorgungsart');
+          html += '<i>Träger:</i> ' + this.get('traeger');
         html += '<br><i>Kategorie:</i> ' + this.get('angebot');
       if (this.get('kapazitaet') != '' && this.get('kapazitaet') > 1)
         html += '<br><i>Kapazität:</i> ' + this.get('kapazitaet');
-      if (this.get('besonderheit') != '')
-        html += '<br>' + this.get('besonderheit');
       if ($.inArray(this.get('versorgungsart'), [
         'Stationäre Pflege',
         'Pflegeheim',
