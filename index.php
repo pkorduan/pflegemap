@@ -185,7 +185,7 @@
 
               <div id="PflegeMap.HelpBox" class="pflegemap-help-box">
                 <a id="PflegeMap.HelpBoxClose" class="pflegemap-help-box-close"></a>
-                <span id="PflegeMap.helpMessage"><?php if (file_exists('help.html')) { include('help.html'); else { ?>
+                <span id="PflegeMap.helpMessage"><?php if (file_exists('help.html')) { include('help.html'); } else { ?>
 <!-- Hier den Hilfetext ersetzen, wenn kein php vom Server unterstützt wird. //-->
                   
 <h1>Hilfe und Hinweise zur Nutzung dieser Seite</h1>
