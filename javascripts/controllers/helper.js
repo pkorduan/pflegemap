@@ -12,17 +12,15 @@ PflegeMap.helpController = {
     );
 
     $('#PflegeMap\\.HelpBoxClose').click(function() {
-      $('#PflegeMap\\.HelpBox').animate({'top':'-300px'},500,function(){
+      $('#PflegeMap\\.HelpBox').animate({'top':'-1000px'},500,function(){
         $('#PflegeMap\\.Overlay').fadeOut('fast');
       });
     });
   },
 
   showHelpPage: function() {
-    msg = '<h4>Hilfe und Hinweise zur Nutzung dieser Seite</h4><br>Die Angaben zu Ärzten und Apotheken müssen nicht aktuelle sein.<br><br><br><br><br><br>';
-    $('#PflegeMap\\.helpMessage')[0].innerHTML = msg;
     $('#PflegeMap\\.Overlay').fadeIn(200,function(){
-      $('#PflegeMap\\.HelpBox').animate({'top':'20px'},200);
+      $('#PflegeMap\\.HelpBox').animate({'top':'40px'},200);
     });
   }
 };
