@@ -140,6 +140,15 @@ a.pflegemap-help-box-close{
 .pflegemap-search-toolbox {
 
 }
+.pflegemap-routing-option-icon {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 4px;
+  background-color: gray;
+  margin: 0.1em;
+  padding: 5px;
+}
 .pflegemap-search-tool-icon {
   width: 28px;
   height: 28px;

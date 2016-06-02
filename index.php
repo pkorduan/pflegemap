@@ -49,7 +49,7 @@
     <link rel="stylesheet" href="3rdparty/OpenLayers/v3.8.2/css/ol.css" type="text/css">
     <link rel="stylesheet" href="styles/css/grid.css" type="text/css">
     <link rel="stylesheet" href="styles/css/map.css" type="text/css">
-    <link rel="stylesheet" href="3rdparty/font-awesome-4.0.3/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="3rdparty/font-awesome-4.6.3.2/css/font-awesome.min.css" type="text/css">
     <script src="3rdparty/jQuery/jquery-1.11.2.min.js"></script>
     <script src="3rdparty/OpenLayers/v3.8.2/build/ol-debug.js"></script>
     <script src="3rdparty/proj4js/proj4.js"></script>
@@ -471,12 +471,18 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       placeholder="Zieladresse eingeben ..."/><br>
                     <div id="PflegeMap.targetFieldAddressSearchResultBox" class="pflegemap-search-result-box small-input medium-input large-input" style="display:none;"></div><br>
                     <input id="PflegeMap.removeRouteButton" class="pflegemap-routing-button" type="button" value="Route löschen"/>
+                    <span
+                      class="pflegemap-routing-option-icon"
+                      toolname="car"
+                      title="Berechnung für KfZ"
+                      alt="Berechnung für KfZ">
+                        <i class="fa fa-inverse fa-car"></i>
+                    </span>
                     <span id="PflegeMap.routingDuration" class="pflegemap-routing-result"></span>
                     <span id="PflegeMap.routingDistance" class="pflegemap-routing-result"></span>
                   </div>
                 </div>
               </div>
-
               <!-- map //-->
               <a name="PflegeMap.top"></a>
               <div class="map small-map medium-map large-map">
