@@ -526,7 +526,12 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                   </div> <!-- end PflegeMap.popup //-->
                 </div> <!-- end PflegeMap.map //-->
               </div>
-
+              <div class="pflegemap-care-service-list small-map medium-map large-map">
+                <div class="pm-care-service pm-care-service-header" style="display: block;">
+                  Trefferliste im aktuellen Kartenausschnitt:
+                </div>
+              </div>
+              <div class="pflegemap-clear"></div>
               <!-- Liste //-->
               <div id="PflegeMap.careServicesList" class="pflegemap-care-service-list small-map medium-map large-map">
                 <div id="PflegeMap.noFeatureMessage" class="pm-care-service" feature_id="0" class="list small-map medium-map large-map">

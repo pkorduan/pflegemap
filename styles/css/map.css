@@ -235,6 +235,11 @@ a.pflegemap-help-box-close{
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
 }
+.pm-care-service-header {
+  color: #3498DB;
+  font-size: 120%;
+  font-weight: bold;
+}
 .pm-care-service-content {
   float: left;
   width: 85%;
