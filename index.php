@@ -269,7 +269,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                         title="Hilfe"
                         alt="Hilfe und Hinweise">
                           <i class="fa fa-inverse fa-question"></i>
-                      </button> Hilfe
+                      </button> Hinweise
                     </div> 
                 </aside>
 
