@@ -53,6 +53,7 @@ $('#PflegeMap').ready(function() {
         PflegeMap.mapper.selectedFeature.unselect();
     }
   });
+  $( "input[versart='Ambulante Pflege']" ).trigger('click').prop('checked', true);
 });
 
 /**
