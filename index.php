@@ -299,7 +299,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                     <div id="list" class="pflegemap-categories">
                       <label style="margin-left:0.5em;">
                         <input versart="all" class="cb-kat" type="checkbox">
-                        <span class="label-body">alle Versorgungsarten</span>
+                        <span class="label-body">alle Versorgungsarten <b>(bitte mindestens eine Versorgungsart auswählen)</b></span>
                       </label>
 
                       <label>
