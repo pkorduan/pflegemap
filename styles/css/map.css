@@ -220,7 +220,7 @@ a.pflegemap-help-box-close{
   bottom: 12px;
   left: -50px;
   min-width: 21em;
-  font-size: smaller;
+  font-size: 1em;
 }
 .pflegemap-care-service-list {
 }
