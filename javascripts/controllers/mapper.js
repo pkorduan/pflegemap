@@ -216,9 +216,12 @@ PflegeMap.mapperController = function(map) {
       });
 
       if (numVisible > 0) {
+        $('#PflegeMap\\.numFeatures').text('(' + numVisible + ' Treffer)');
         PflegeMap.mapper.noFeaturesMessage.hide();
-      } else
+      } else {
+        $('#PflegeMap\\.numFeatures').text('(' + numVisible + ' Treffer)');
         PflegeMap.mapper.noFeaturesMessage.show();
+      }
     },
 
     showCareService: function(careService) {
