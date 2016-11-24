@@ -231,7 +231,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                    <div id="PflegeMap.searchToolbox" class="pflegemap-search-toolbox">
                       <button
                         id="PflegeMap.categorySearchTool"
-                        class="pflegemap-search-tool-icon"
+                        class="pflegemap-search-tool-icon highlighted"
                         toolname="categorySearch"
                         title="Kategoriesuche"
                         alt="Kategoriesuche">

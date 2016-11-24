@@ -1,7 +1,7 @@
 PflegeMap.helpController = {
 
   initHelp: function() {
-    PflegeMap.searchTools.push('routingSearch');
+    PflegeMap.searchTools.push('help');
   },
 
   setEventHandler: function() {
