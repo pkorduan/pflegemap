@@ -128,21 +128,17 @@ PflegeMap.mapperController = function(map) {
 
       // Handler for changes of map extent
       PflegeMap.map.on('moveend', function(evt) {
-        var newExtent = evt.frameState.extent,
-          source = this.layer.getSource(),
-          features = source.getFeatures();
-        features.forEach(function(feature){
-          if (!feature.get('hidden')) {
-            feature.listElement.toggle(ol.extent.containsExtent(newExtent,feature.getGeometry().getExtent()));
-          }
-        });
+        var source = this.layer.getSource(),
+            features = source.getFeatures();
+
+        PflegeMap.mapper.filterFeatures(features);
       }, this);
 
     },
 
     wordSearch: function() {
-      PflegeMap.mapper.filterFeatures();
       PflegeMap.mapper.zoomToExtent();
+      PflegeMap.mapper.filterFeatures();
     },
 
     /*
@@ -183,14 +179,19 @@ PflegeMap.mapperController = function(map) {
     *     Wende den categorie und reach filter an
     *   Ist reachSearchArea visible
     *     Wende den reach und category filter an
+    *   und Wende immer den extendFilter an
     */
     filterFeatures: function(features) {
       var source = PflegeMap.mapper.layer.getSource(),
+          view = PflegeMap.mapper.map.getView(),
+          size = PflegeMap.mapper.map.getSize(),
           features = source.getFeatures(),
-          numVisible = 0;
+          numVisible = 0,
+          categoryCount = [];
 
       features.map(function(feature) {
         filterResult = false;
+        category = feature.get('kategorie');
 
         // Variante A
 
@@ -207,18 +208,35 @@ PflegeMap.mapperController = function(map) {
                          PflegeMap.mapper.categoryFilter(feature);
         }
 
+        filterResult = filterResult && ol.extent.containsExtent(
+          view.calculateExtent(size),
+          feature.getGeometry().getExtent()
+        );
+
         if (filterResult) {
           PflegeMap.mapper.showCareService(feature);
+          categoryCount[category] = (categoryCount[category] ? categoryCount[category] + 1 : 1);
           numVisible += 1;
         }
         else
           PflegeMap.mapper.hideCareService(feature);
       });
 
+      PflegeMap.mapper.updateCategoryCount(categoryCount);
+
       if (numVisible > 0) {
         PflegeMap.mapper.noFeaturesMessage.hide();
       } else
         PflegeMap.mapper.noFeaturesMessage.show();
+    },
+
+    updateCategoryCount: function(categoryCount) {
+      $.each($("[Kategorie]"), function(i, field) {
+        category = field.getAttribute('Kategorie');
+        numFeature = categoryCount[category];
+        html = (numFeature ? '(' + numFeature + ')' : '');
+        $('#PflegeMap\\.numFeature_' + category).html(html);
+      });
     },
 
     showCareService: function(careService) {
