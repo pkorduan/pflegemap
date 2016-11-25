@@ -87,6 +87,55 @@ PflegeMap.initMap = function(store) {
     target: document.getElementById('PflegeMap.coordinates'),
     undefinedHTML: '&nbsp;'
   });
+  
+  // create the ORKA-Map Layer
+  PflegeMap.tileLayer = new ol.layer.Tile({
+    source: new ol.source.TileImage({
+      projection: PflegeMap.viewProjection,
+      tileGrid: new ol.tilegrid.TileGrid({
+      origin: [-464849.38, 5057815.86858],
+      resolutions: [4891.96981025128, 3459.1450261886484, 2445.9849051256397,
+                              1729.5725130942737,1222.9924525628198, 864.7862565471368,
+                              611.4962262814098, 432.3931282735683, 305.7481131407049,
+                              216.19656413678416, 152.8740565703524, 108.09828206839207,
+                              76.43702828517618, 54.049141034196026, 38.21851414258809,
+                              27.024570517098006, 19.109257071294042, 13.512285258549001,
+                              9.55462853564702, 6.7561426292745, 4.77731426782351,
+                              3.3780713146372494, 2.3886571339117544, 1.6890356573186245,
+                              1.1943285669558772, 0.8445178286593122, 0.5971642834779384,
+                              0.422258914329656, 0.29858214173896913, 0.21112945716482798,
+                              0.14929107086948457, 0.10556472858241398, 0.07464553543474227,
+                              0.05278236429120697, 0.03732276771737113]
+      }),
+      tileUrlFunction: function(tileCoord) {
+        var z = tileCoord[0];
+        var x = tileCoord[1];
+        var y = tileCoord[2];
+
+        if (x < 0 || y < 0) {
+          return '';
+        }
+
+        var url = 'http://www.orka-mv.de/geodienste/orkamv/tms/1.0.0/orkamv/epsg_25833/'
+                  + z + '/' + x + '/' + y + '.png';
+
+        //console.log(url);
+        return url;
+      }
+    }),
+    // user data
+    layerExtent: [200000, 5889000, 335000, 5967000]
+  });
+  
+  function constrainMapToExtend(map,extent){
+    var mapView = map.getView(),
+      viewExtent = mapView.calculateExtent(map.getSize()),
+      halfWidth = ol.extent.getWidth(viewExtent) / 2.0,
+      halfHeight= ol.extent.getHeight(viewExtent) / 2.0,
+      newCenterConstraint = [extent[0] + halfWidth, extent[1] + halfHeight, extent[2] - halfWidth, extent[3] - halfHeight];
+    mapView.constraints_.center = ol.View.createCenterConstraint_({extent:newCenterConstraint});
+    mapView.setCenter(mapView.constrainCenter(mapView.getCenter()));
+  };
 
   var map = new ol.Map({
     target: 'PflegeMap.map',
@@ -94,47 +143,8 @@ PflegeMap.initMap = function(store) {
       new ol.control.ScaleLine(),
       mousePositionControl
     ]),
-    layers: [
-      new ol.layer.Tile({
-        source: new ol.source.TileImage({
-          projection: PflegeMap.viewProjection,
-          maxExtent: [100000, 5800000, 500000, 6075000],
-          tileGrid: new ol.tilegrid.TileGrid({
-origin: [-464849.38, 5057815.86858],
-resolutions: [4891.96981025128, 3459.1450261886484, 2445.9849051256397,
-                                  1729.5725130942737,1222.9924525628198, 864.7862565471368,
-                                  611.4962262814098, 432.3931282735683, 305.7481131407049,
-                                  216.19656413678416, 152.8740565703524, 108.09828206839207,
-                                  76.43702828517618, 54.049141034196026, 38.21851414258809,
-                                  27.024570517098006, 19.109257071294042, 13.512285258549001,
-                                  9.55462853564702, 6.7561426292745, 4.77731426782351,
-                                  3.3780713146372494, 2.3886571339117544, 1.6890356573186245,
-                                  1.1943285669558772, 0.8445178286593122, 0.5971642834779384,
-                                  0.422258914329656, 0.29858214173896913, 0.21112945716482798,
-                                  0.14929107086948457, 0.10556472858241398, 0.07464553543474227,
-                                  0.05278236429120697, 0.03732276771737113]
-          }),
-          tileUrlFunction: function(tileCoord) {
-            var z = tileCoord[0];
-            var x = tileCoord[1];
-            var y = tileCoord[2];
-
-            if (x < 0 || y < 0) {
-              return '';
-            }
-
-	    var url = 'http://www.orka-mv.de/geodienste/orkamv/tms/1.0.0/orkamv/epsg_25833/'
-                      + z + '/' + x + '/' + y + '.png';
-
-            //console.log(url);
-            return url;
-          }
-        })
-      })
-    ],
+    layers: [PflegeMap.tileLayer],
     view: new ol.View({
-      maxExtent: [250000, 5880000, 325000, 5968000],
-      extent: [206900, 5890660, 325260, 5966070],
       maxResolution: 152.8740565703524,
       minResolution: 0.14929107086948457,
       center: ol.proj.transform([11.55, 53.455], PflegeMap.baseProjection, PflegeMap.viewProjection),
@@ -144,6 +154,15 @@ resolutions: [4891.96981025128, 3459.1450261886484, 2445.9849051256397,
   
   // die map view im Pflegemap Namespace bereitstellen
   PflegeMap.view = map.getView();
+  
+  // den Center Constraint an die Zoom-Stufe anpassen ...
+  // ... initial ...
+  constrainMapToExtend(map, PflegeMap.tileLayer.get('layerExtent'));
+  // ... für jeden Zoom-Vorgang
+  PflegeMap.view.on('change:resolution', function(event){
+    constrainMapToExtend(map, PflegeMap.tileLayer.get('layerExtent'));
+  });
+  
   PflegeMap.maxExtent = PflegeMap.view.calculateExtent(map.getSize());
 
   // close the popup on map zoom and pan actions

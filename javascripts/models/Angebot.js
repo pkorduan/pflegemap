@@ -47,7 +47,6 @@ PflegeMap.angebot = function(params) {
         case 'Wohnen':
           return params.angebot;
         default:
-          console.log(params.versorgungsart);
           return 'Sonstige';
       }
     })()

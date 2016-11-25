@@ -154,6 +154,7 @@ a.pflegemap-help-box-close{
   height: 28px;
   border: 0;
   border-radius: 4px;
+  
   background-color: #4285F4;
   margin: 0.1em;
 }
@@ -164,6 +165,10 @@ a.pflegemap-help-box-close{
 .pflegemap-search-tool-icon:hover {
   opacity: 0.7;
 }
+.highlighted {
+  background-color: #0245B4 !important;
+}
+
 .pflegemap-search-field{
 #  display: block;
 #  margin-top: 2px;

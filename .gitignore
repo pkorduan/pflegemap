@@ -1,2 +1,5 @@
 config.ini
 javascripts/config.js
+.settings/
+.project
+data.json
