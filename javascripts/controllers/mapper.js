@@ -2,11 +2,64 @@ PflegeMap.mapperController = function(map) {
   return {
     scope: this,
     map: map,
+    styleCache: {},
 
   //  // dummy zum Testen bitte löschen
   //  proximityRadius: -1, // kein Umkreis gegeben, Umkreis in Meter
   //  proximityExtent: PflegeMap.maxExtent,
   //  proximityCenter: map.getView().getCenter(),
+
+    clusterLayer: new ol.layer.Vector({
+      opacity: 1,
+      name: 'clusterLayer',
+      source: new ol.source.Cluster({
+        distance: 30,
+        source: new ol.source.Vector({
+          projection: PflegeMap.viewProjection,
+          features: []
+        })
+      }),
+      style: function(feature, resolution) {
+        var features = feature.get('features'),
+            size = features.length,
+            style = PflegeMap.mapper.styleCache[size];
+
+        if (!style) {
+          if (size == 1) {
+            style = [ new ol.style.Style({
+              image: new ol.style.Icon({
+                anchor: [0.5, 0.5],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'fraction',
+                opacity: 0.95,
+                src: 'images/' + feature.get('features')[0].get('icon') +  '.png'
+              })
+            })];
+          }
+          else {
+            style = [new ol.style.Style({
+              image: new ol.style.Circle({
+                radius: 15,
+                stroke: new ol.style.Stroke({
+                  color: '#fff'
+                }),
+                fill: new ol.style.Fill({
+                  color: '#3399CC'
+                })
+              }),
+              text: new ol.style.Text({
+                text: size.toString(),
+                fill: new ol.style.Fill({
+                  color: '#fff'
+                })
+              })
+            })];
+          }
+          PflegeMap.mapper.styleCache[size] = style;
+        }
+        return style;
+      }
+    }),
 
     layer: new ol.layer.Vector({
       opacity: 1,
@@ -25,8 +78,15 @@ PflegeMap.mapperController = function(map) {
     },
 
     initLayer: function(store) {
-      var i,
-          source = this.layer.getSource();
+      var i, source;
+      
+      if (PflegeMap.config.cluster) {
+        this.layer = this.clusterLayer;
+        source = this.layer.getSource().getSource();
+      }
+      else {
+        source = this.layer.getSource();
+      }
 
       for (i = 0; i < store.length; i++) {
         source.addFeature(
@@ -49,7 +109,7 @@ PflegeMap.mapperController = function(map) {
     initList: function() {
       this.list.div = $('#PflegeMap\\.careServicesList');
 
-      var source = this.layer.getSource(),
+      var source = (PflegeMap.config.cluster ? this.layer.getSource().getSource() : this.layer.getSource()),
           features = source.getFeatures();
 
       features.sort(this.sortFeatures);
@@ -128,7 +188,7 @@ PflegeMap.mapperController = function(map) {
 
       // Handler for changes of map extent
       PflegeMap.map.on('moveend', function(evt) {
-        var source = this.layer.getSource(),
+        var source = (PflegeMap.config.cluster ? this.layer.getSource().getSource() : this.layer.getSource()),
             features = source.getFeatures();
 
         PflegeMap.mapper.filterFeatures(features);
@@ -182,7 +242,7 @@ PflegeMap.mapperController = function(map) {
     *   und Wende immer den extendFilter an
     */
     filterFeatures: function(features) {
-      var source = PflegeMap.mapper.layer.getSource(),
+      var source = (PflegeMap.config.cluster ? PflegeMap.mapper.layer.getSource().getSource() : PflegeMap.mapper.layer.getSource()),
           view = PflegeMap.mapper.map.getView(),
           size = PflegeMap.mapper.map.getSize(),
           features = source.getFeatures(),
@@ -367,7 +427,8 @@ PflegeMap.mapperController = function(map) {
     },
   
     toggleFeature: function(event) {
-      var features = PflegeMap.mapper.layer.getSource().getFeatures(),
+      var source = (PflegeMap.config.cluster ? PflegeMap.mapper.layer.getSource().getSource() : PflegeMap.mapper.layer.getSource()),
+          features = source.getFeatures(),
           target = $(event.target),
           selected_id = (target.length == 0) ? target.attr('feature_id') : target.parents(".pm-care-service").attr('feature_id'),
           i;
@@ -378,7 +439,8 @@ PflegeMap.mapperController = function(map) {
     },
 
     zoomToExtent: function() {
-      var featureCoordinates = PflegeMap.mapper.layer.getSource().getFeatures().filter(
+      var source = (PflegeMap.config.cluster ? PflegeMap.mapper.layer.getSource().getSource() : PflegeMap.mapper.layer.getSource()),
+          featureCoordinates = source.getFeatures().filter(
             function(feature) {
               return !feature.get('hidden');
             }
