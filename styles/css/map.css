@@ -368,6 +368,30 @@ a.pflegemap-help-box-close{
   padding-right: 1.2em;
 }
 
+.pflegemap-address-search-box,
+.pflegemap-proximity-search-field-reset-icon,
+.pflegemap-search-wrapper {
+  position: relative;
+  padding: 10px;
+}
+
+.pflegemap-search-wrapper {
+  margin-left: 0px;
+  margin-top: 0px;
+}
+
+.pflegemap-proximity-search-field-reset-icon {
+  background-color: #ffffff;
+  position: absolute;
+  width: 20px;
+  top: 6px;
+  height: 20px;
+  right: 5px;
+  bottom: 0;
+  cursor: pointer;
+  padding: 4px;
+}
+
 hr.pflegemap-hr {
   margin-top: 5px;
   margin-bottom: 0px;
