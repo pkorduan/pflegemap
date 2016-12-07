@@ -196,7 +196,7 @@ Die Tagespflege ist eine teilstationäre Einrichtung nach § 41 SGB XI, die von 
 <h2>Pflegeheim</h2>
 Nach § 43 SGB XI haben Pflegebedürftige Anspruch auf Pflege in vollstationären Einrichtungen, wenn teilstationäre oder häusliche Pflege nicht möglich ist oder wegen der Besonderheit des einzelnen Falles nicht in Betracht kommt.
 <h2>Kurzzeit- und Verhinderungspflege</h2>
-Kurzzeitpflege nach § 42 SGB XI wird als zeitlich befristete stationäre Pflege für bis zu acht Wochen finanziert. Sie ist ein Angebot für Pflegebedürftige, deren pflegende Angehörige wegen Krankheit, Urlaub oder aus anderen Gründen verhindert sind. Auch für die Nachsorge nach einem Krankenhausaufenthalt, wenn eine Rückkehr in den Privathaushalt noch nicht möglich ist, wird das Angebot der Kurzzeitpflege genutzt.
+Kurzzeitpflege nach § 42 SGB XI wird als zeitlich befristete stationäre Pflege für bis zu acht Wochen finanziert. Sie ist ein Angebot für Pflegebedürftige, deren pflegende Angehörige wegen Krankheit, Urlaub oder aus anderen Gründen verhindert sind. Auch für die Nachsorge nach einem Krankenhausaufenthalt, wenn eine Rückkehr in den Privathaushalt noch nicht möglich ist, wird das Angebot der Kurzzeitpflege genutzt.
 <h2>Betreutes Wohnen</h2>
 Im Betreuten Wohnen wird den älteren Menschen ermöglicht, die Eigenständigkeit ihres eigenen Haushaltes aufrecht zu erhalten und zugleich die Hilfestrukturen, die Kommunikationsmöglichkeiten und das Sicherheitsgefühl einer unterstützenden Wohnform in Anspruch nehmen zu können.
 <h2>Betreute Senioren- und Pflege-Wohngruppen</h2>
@@ -231,7 +231,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                    <div id="PflegeMap.searchToolbox" class="pflegemap-search-toolbox">
                       <button
                         id="PflegeMap.categorySearchTool"
-                        class="pflegemap-search-tool-icon"
+                        class="pflegemap-search-tool-icon highlighted"
                         toolname="categorySearch"
                         title="Kategoriesuche"
                         alt="Kategoriesuche">
@@ -276,11 +276,11 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                 <!-- searchAreas //-->
                 <div class="small-100 medium-80 large-90 columns">
                   <div id="PflegeMap.textSearchArea" class="pflegemap-search-area" style="display:none">
-                  <!--  Was suchen Sie?<br>
+                    Was suchen Sie?<br>
                     <input id="PflegeMap.textSearchField" class="pflegemap-search-field small-input medium-input large-input" list="PflegeMap.searchWords" type="text" placeholder="Pflegeeinrichtungen suchen ..."/><datalist id="PflegeMap.searchWords"></datalist>
-                    <div id="PflegeMap.textSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div><br> //-->
+                    <div id="PflegeMap.textSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div><br>
                     Wo suchen Sie?<br>
-                    <input id="PflegeMap.proximitySearchField" class="pflegemap-search-field small-input medium-input large-input" type="text" placeholder="Suche nach Adresse ..."/>
+                    <input id="PflegeMap.proximitySearchField" class="pflegemap-search-field small-input medium-input large-input" type="text" placeholder="Adresse suchen ..."/>
                     <div id="PflegeMap.proximitySearchFieldResultBox" class="pflegemap-search-result-box small-input medium-input large-input" style="display:none;"></div><br>
                     Im Umkeis von:<br>
                     <select id="PflegeMap.proximitySelect">
@@ -305,11 +305,11 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       <label>
                         <input versart="Ambulante Pflege" class="cb-kat" type="checkbox">
                         <!-- Die Versorgungsart lautet eigentlich Ambulante Pflege, angezeigt werden soll aber das Angebot also Pflegedienst //-->
-                        <span class="label-body">Ambulanter Pflegedienst<img src="./images/Ambulante Pflege.png"></img></span> <b><span id="num_ambulanter_pflegedienst"></span></b>
+                        <span class="label-body">Ambulanter Pflegedienst <span id="PflegeMap.numFeature_pd"></span><img src="./images/Ambulante Pflege.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="pd" class="cb-subkat" type="checkbox" disabled readonly>
-                            <span class="label-body">Ambulanter Pflegedienst</span>
+                            <span class="label-body">Ambulanter Pflegedienst <span id="PflegeMap.numFeature_pd"></span></span>
                           </label>
                         </div>
                       </label>
@@ -317,11 +317,11 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       <label>
                         <input versart="Teilstationäre Pflege" class="cb-kat" type="checkbox">
                         <!-- Die Versorgungsart lautet eigentlich Teilstationäre Pflege, angezeigt werden soll aber das Angebot also Tagespflege //-->
-                        <span class="label-body">Tagespflege<img src="./images/Teilstationäre Pflege.png"></img></span> <b><span id="num_tagespflege"></span></b>
+                        <span class="label-body">Tagespflege <span id="PflegeMap.numFeature_tp"></span><img src="./images/Teilstationäre Pflege.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="tp" class="cb-subkat" type="checkbox" disabled readonly>
-                            <span class="label-body">Tagespflege</span>
+                            <span class="label-body">Tagespflege <span id="PflegeMap.numFeature_tp"></span></span>
                           </label>
                         </div>
                       </label>
@@ -329,11 +329,11 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       <label>
                         <input versart="Stationäre Pflege" class="cb-kat" type="checkbox">
                         <!-- Die Versorgungsart lautet eigentlich Stationäre Pflege, angezeigt werden soll aber das Angebot also Pflegeheim //-->
-                        <span class="label-body">Pflegeheim<img src="./images/Pflegeheim.png"></img></span> <b><span id="num_pflegeheim"></span></b>
+                        <span class="label-body">Pflegeheim <span id="PflegeMap.numFeature_ph"></span><img src="./images/Pflegeheim.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="ph" class="cb-subkat" type="checkbox" disabled readonly>
-                            <span class="label-body">Pflegeheim</span>
+                            <span class="label-body">Pflegeheim <span id="PflegeMap.numFeature_ph"></span></span>
                           </label>
                         </div>
                       </label>
@@ -341,11 +341,11 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       <label>
                         <input versart="Stationäre Pflege" class="cb-kat" type="checkbox">
                         <!-- Die Versorgungsart lautet eigentlich Stationäre Pflege, angezeigt werden soll aber das Angebot also Kurzzeitpflege //-->
-                        <span class="label-body">Kurzzeitpflege<img src="./images/Kurzzeitpflege.png"></img></span> <b><span id="num_kurzzeitpflege"></span></b>
+                        <span class="label-body">Kurzzeitpflege <span id="PflegeMap.numFeature_kp"></span><img src="./images/Kurzzeitpflege.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="kp" class="cb-subkat" type="checkbox" disabled readonly>
-                            <span class="label-body">Kurzzeitpflege</span>
+                            <span class="label-body">Kurzzeitpflege <span id="PflegeMap.numFeature_kp"></span></span>
                           </label>
                         </div>
                       </label>
@@ -356,11 +356,11 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                         <div class="pflegemap-subcategories">
                           <label>
                             <input versart="Wohnen" kategorie="bw" class="cb-subkat" type="checkbox">
-                            <span class="label-body">Betreutes Wohnen<img src="./images/Betreutes Wohnen.png"></img></span> <b><span id="num_betreutets_wohnen"></span></b>
+                            <span class="label-body">Betreutes Wohnen <span id="PflegeMap.numFeature_bw"></span><img src="./images/Betreutes Wohnen.png"></img></span>
                           </label>
                           <label>
                             <input versart="Wohnen" kategorie="wg" class="cb-subkat" type="checkbox">
-                            <span class="label-body">Ambulant betreute Wohngemeinschaft<img src="./images/Ambulant betreute Wohngemeinschaft.png"></img></span> <b><span id="num_ambulant_betreute_wohngemeinschaft"></span></b>
+                            <span class="label-body">Ambulant betreute Wohngemeinschaft <span id="PflegeMap.numFeature_wg"></span><img src="./images/Ambulant betreute Wohngemeinschaft.png"></img></span>
                           </label>
                           <!--label>
                             <input kategorie="ba" class="cb-subkat" type="checkbox" disabled readonly>
@@ -379,14 +379,14 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                         <div class="pflegemap-subcategories">
                           <label style="display:none">
                             <input kategorie="az" class="cb-subkat" type="checkbox">
-                            <span class="label-body">Arzt</span>
+                            <span class="label-body">Arzt <span id="PflegeMap.numFeature_az"></span></span>
                           </label>
                           <label>
                             <a href="http://www.kvmv.info/patienten/40/" target="_blank"><i class="fa fa-external-link"></i> Arzt</a>
                           </label>
                           <label>
                             <input kategorie="ap" class="cb-subkat" type="checkbox">
-                            <span class="label-body">Apotheke</span> <b><span id="num_apotheke"></span></b>
+                            <span class="label-body">Apotheke <span id="PflegeMap.numFeature_ap"></span></span>
                           </label>
                           <!--label>
                             <input kategorie="kr" class="cb-subkat" type="checkbox" disabled readonly>
@@ -401,22 +401,22 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
 
                       <label>
                         <input versart="Sterbebegleitung" class="cb-kat" type="checkbox">
-                        <span class="label-body">Sterbebegleitung<img src="./images/Sterbebegleitung.png"></img></span> <b><span id="num_sterbebegleitung"></span></b>
+                        <span class="label-body">Sterbebegleitung <span id="PflegeMap.numFeature_hp"></span><img src="./images/Sterbebegleitung.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="hp" class="cb-subkat" type="checkbox" disabled readonly>
-                            <span class="label-body">Ambulanter Hospizdienst</span> <b><span id="num_ambulanter_hospizdienst"></span></b>
+                            <span class="label-body">Ambulanter Hospizdienst <span id="PflegeMap.numFeature_hp"></span></span>
                           </label>
                         </div>
                       </label>
 
                       <label>
                         <input versart="Beratung" class="cb-kat" type="checkbox">
-                        <span class="label-body">Beratung<img src="./images/Beratung.png"></img></span> <b><span id="num_beratung"></span></b>
+                        <span class="label-body">Beratung <span id="PflegeMap.numFeature_nb"></span><img src="./images/Beratung.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="nb" class="cb-subkat" type="checkbox" disabled readonly>
-                            <span class="label-body">Neutrale Pflege- und Sozialberatung</span>
+                            <span class="label-body">Neutrale Pflege- und Sozialberatung <span id="PflegeMap.numFeature_nb"></span></span>
                           </label>
                         </div>
                       </label>
@@ -534,7 +534,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
               </div>
               <div class="pflegemap-care-service-list small-map medium-map large-map">
                 <div class="pm-care-service pm-care-service-header" style="display: block;">
-                  Trefferliste im aktuellen Kartenausschnitt:  <b><span id="PflegeMap.numFeatures"></span></b>
+                  Trefferliste im aktuellen Kartenausschnitt:
                 </div>
               </div>
               <div class="pflegemap-clear"></div>
