@@ -275,7 +275,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
 
                 <!-- searchAreas //-->
                 <div class="small-100 medium-80 large-90 columns">
-                  <div id="PflegeMap.textSearchArea" class="pflegemap-search-area" style="display:none_">
+                  <div id="PflegeMap.textSearchArea" class="pflegemap-search-area" style="display:none">
                     Was suchen Sie?<br>
                     <input id="PflegeMap.textSearchField" class="pflegemap-search-field small-input medium-input large-input" list="PflegeMap.searchWords" type="text" placeholder="Pflegeeinrichtungen suchen ..."/><datalist id="PflegeMap.searchWords"></datalist>
                     <div id="PflegeMap.textSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div><br>
@@ -298,7 +298,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                   </div>
 
                   <!-- categorySearchArea //-->
-                  <div id="PflegeMap.categorySearchArea" style="display:none">
+                  <div id="PflegeMap.categorySearchArea" style="display:none_">
                     <div id="list" class="pflegemap-categories">
                       <label style="margin-left:0.5em;">
                         <input versart="all" class="cb-kat" type="checkbox">
