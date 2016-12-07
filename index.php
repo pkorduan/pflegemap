@@ -280,7 +280,10 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                     <input id="PflegeMap.textSearchField" class="pflegemap-search-field small-input medium-input large-input" list="PflegeMap.searchWords" type="text" placeholder="Pflegeeinrichtungen suchen ..."/><datalist id="PflegeMap.searchWords"></datalist>
                     <div id="PflegeMap.textSearchResultBox" class="pflegemap-search-result-box" style="display:none;"></div><br>
                     Wo suchen Sie?<br>
-                    <input id="PflegeMap.proximitySearchField" class="pflegemap-search-field small-input medium-input large-input" type="text" placeholder="Adresse suchen ..."/>
+                    <div class="pflegemap-search-wrapper">
+                      <input id="PflegeMap.proximitySearchField" class="pflegemap-search-field small-input medium-input large-input pflegemap-address-search-box" type="text" placeholder="Adresse suchen ..."/>
+                      <i id="PflegeMap.proximitySearchFieldResetIcon" class="fa fa-times-circle pflegemap-proximity-search-field-reset-icon" style="display: none"></i>
+                    </div>
                     <div id="PflegeMap.proximitySearchFieldResultBox" class="pflegemap-search-result-box small-input medium-input large-input" style="display:none;"></div><br>
                     Im Umkeis von:<br>
                     <select id="PflegeMap.proximitySelect">
@@ -295,7 +298,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                   </div>
 
                   <!-- categorySearchArea //-->
-                  <div id="PflegeMap.categorySearchArea">
+                  <div id="PflegeMap.categorySearchArea" style="display:none_">
                     <div id="list" class="pflegemap-categories">
                       <label style="margin-left:0.5em;">
                         <input versart="all" class="cb-kat" type="checkbox">

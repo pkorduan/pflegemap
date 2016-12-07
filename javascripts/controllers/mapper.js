@@ -302,12 +302,10 @@ PflegeMap.mapperController = function(map) {
   
     switchSearchTools: function(event) {
       $.each(PflegeMap.searchTools, function(index, searchTool) {
-        console.log(searchTool);
         $('#PflegeMap\\.' + searchTool + 'Area').hide();
         $('#PflegeMap\\.' + searchTool + 'Tool').attr("class", "pflegemap-search-tool-icon");
       });
       var searchType = event.target.getAttribute('toolname') || event.target.parentElement.getAttribute('toolname');
-      console.log(searchType);
       $('#PflegeMap\\.' + searchType + 'Tool').toggleClass("highlighted");
       $('#PflegeMap\\.' + searchType + 'Area').show();
     },
@@ -407,6 +405,14 @@ PflegeMap.mapperController = function(map) {
           extent,
           PflegeMap.map.getSize()
         );
+    },
+
+    zoomToMaxExtent: function() {
+      PflegeMap.map.getView().fit(
+        PflegeMap.maxExtent,
+        PflegeMap.map.getSize()
+      );
     }
+    
   };
 };
