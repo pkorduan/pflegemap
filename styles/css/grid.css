@@ -68,7 +68,7 @@ footer { background: #ffff00; }
 
 .small-map {width:480px;}
 
-.small-input {width:465px;}
+.small-input {width:380px;}
 
 }
 
@@ -76,9 +76,11 @@ footer { background: #ffff00; }
 
 /* Medium */
 
-.medium-20 {width:20%; max-width:140px; float: right;}
+.medium-20 {width:20%; max-width:140px;}
 
 .medium-30 {width:30%; max-width:280px;}
+
+.medium-50 {width:50%; max-width:350px;}
 
 .medium-70 {width:70%; max-width:490px;}
 
@@ -88,7 +90,7 @@ footer { background: #ffff00; }
 
 .medium-map {width:700px;}
 
-.medium-input {width: 545px;}
+.medium-input {width: 460px;}
 
 }
 
@@ -105,6 +107,8 @@ footer { background: #ffff00; }
 
 .large-45 {width:45%; max-width:405px;}
 
+.large-50 {width:50%; max-width:445px;}
+
 .large-60 {width:60%; max-width:560px;}
 
 .large-70 {width:70%; max-width:630px;}
@@ -113,7 +117,7 @@ footer { background: #ffff00; }
 
 .large-100 {width:100%; max-width:890px;}
 
-.large-map {width:890px;}
+.large-map {width:880px;}
 
-.large-input {width:720px;}
+.large-input {width:600px;}
 }

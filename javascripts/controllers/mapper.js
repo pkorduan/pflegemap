@@ -195,10 +195,11 @@ PflegeMap.mapperController = function(map) {
 
         // Variante A
 
-        if ($('#PflegeMap\\.textSearchArea').is(':visible')) {
+/*        if ($('#PflegeMap\\.textSearchArea').is(':visible')) {
           filterResult = PflegeMap.mapper.wordFilter(feature) &&
                          PflegeMap.proximiter.proximityFilter(feature)
         }
+*/
         if ($('#PflegeMap\\.categorySearchArea').is(':visible')) {
           filterResult = PflegeMap.mapper.categoryFilter(feature) &&
                          PflegeMap.reacher.reachAreaFilter(feature);
