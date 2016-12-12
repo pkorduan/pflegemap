@@ -95,6 +95,7 @@ a.pflegemap-message-box-close{
 }
 
 .pflegemap-help-box{
+  display: none;
   position:fixed;
   top:-1600px;
   left:20%;
