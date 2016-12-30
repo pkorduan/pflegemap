@@ -30,7 +30,7 @@ PflegeMap.angebot = function(params) {
         case 'Beratung':
           return params.versorgungsart;
         case 'Gesundheit':
-          return params.versorgungsart;
+          return params.angebot;
         case 'Kurzzeitpflege':
           return params.angebot;
         case 'Pflegeheim':

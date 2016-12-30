@@ -57,7 +57,6 @@ PflegeMap.geocoderController = {
   },
 
   lookupNominatim: function(e){
-
     var scope = PflegeMap.geocoder,
         queryStr = e.target.value,
         url  = 'http://nominatim.openstreetmap.org/search';

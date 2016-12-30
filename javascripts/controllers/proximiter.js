@@ -24,7 +24,19 @@ PflegeMap.proximiterController = function(map) {return {
       PflegeMap.geocoder.lookupNominatim
       // on click auf ein ausgewählte Adresse wird this.addSearchResultFeature aufgerufen
     );
-    
+
+    $('#PflegeMap\\.proximitySearchField').on(
+      'keyup',
+      this,
+      this.switchProximitySearchFieldContent
+    )
+
+    $('#PflegeMap\\.proximitySearchFieldResetIcon').on(
+      'click',
+      this,
+      this.resetProximitySearchField
+    );
+
     // Nach Änderung des Umkreises im Suchbereich
     $('#PflegeMap\\.proximitySelect').off();
     $('#PflegeMap\\.proximitySelect').on(
@@ -74,6 +86,22 @@ PflegeMap.proximiterController = function(map) {return {
         PflegeMap.mapper.zoomToExtent();
       }
     );
+  },
+
+  resetProximitySearchField: function() {
+    $('#PflegeMap\\.proximitySearchField').val('');
+    $('#PflegeMap\\.proximitySearchFieldResetIcon').hide();
+    PflegeMap.proximiter.removeSearchResult();
+    PflegeMap.mapper.zoomToMaxExtent();
+  },
+
+  switchProximitySearchFieldContent: function() {
+    if ($('#PflegeMap\\.proximitySearchField')[0].value == '') {
+      $('#PflegeMap\\.proximitySearchFieldResetIcon').hide();
+    }
+    else {
+      $('#PflegeMap\\.proximitySearchFieldResetIcon').show();
+    }
   },
 
   getSearchResultCallback: function(event, item) {
