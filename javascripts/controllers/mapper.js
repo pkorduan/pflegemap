@@ -255,10 +255,11 @@ PflegeMap.mapperController = function(map) {
 
         // Variante A
 
-        if ($('#PflegeMap\\.textSearchArea').is(':visible')) {
+/*        if ($('#PflegeMap\\.textSearchArea').is(':visible')) {
           filterResult = PflegeMap.mapper.wordFilter(feature) &&
                          PflegeMap.proximiter.proximityFilter(feature)
         }
+*/
         if ($('#PflegeMap\\.categorySearchArea').is(':visible')) {
           filterResult = PflegeMap.mapper.categoryFilter(feature) &&
                          PflegeMap.reacher.reachAreaFilter(feature);
@@ -285,9 +286,12 @@ PflegeMap.mapperController = function(map) {
       PflegeMap.mapper.updateCategoryCount(categoryCount);
 
       if (numVisible > 0) {
+        $('#PflegeMap\\.numFeatures').text('(' + numVisible + ' Treffer)');
         PflegeMap.mapper.noFeaturesMessage.hide();
-      } else
+      } else {
+        $('#PflegeMap\\.numFeatures').text('(' + numVisible + ' Treffer)');
         PflegeMap.mapper.noFeaturesMessage.show();
+      }
     },
 
     updateCategoryCount: function(categoryCount) {
@@ -359,12 +363,10 @@ PflegeMap.mapperController = function(map) {
   
     switchSearchTools: function(event) {
       $.each(PflegeMap.searchTools, function(index, searchTool) {
-        console.log(searchTool);
         $('#PflegeMap\\.' + searchTool + 'Area').hide();
         $('#PflegeMap\\.' + searchTool + 'Tool').attr("class", "pflegemap-search-tool-icon");
       });
       var searchType = event.target.getAttribute('toolname') || event.target.parentElement.getAttribute('toolname');
-      console.log(searchType);
       $('#PflegeMap\\.' + searchType + 'Tool').toggleClass("highlighted");
       $('#PflegeMap\\.' + searchType + 'Area').show();
     },
@@ -466,6 +468,14 @@ PflegeMap.mapperController = function(map) {
           extent,
           PflegeMap.map.getSize()
         );
+    },
+
+    zoomToMaxExtent: function() {
+      PflegeMap.map.getView().fit(
+        PflegeMap.maxExtent,
+        PflegeMap.map.getSize()
+      );
     }
+    
   };
 };
