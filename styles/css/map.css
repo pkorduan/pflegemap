@@ -349,14 +349,16 @@ a.pflegemap-help-box-close{
 }
 
 .pm-angebot .pm-popup-function-from,
-.pm-angebot .pm-popup-function-to {
+.pm-angebot .pm-popup-function-to,
+.pm-angebot .pm-popup-function-more {
   visibility: visible;
   display: block;
 }
 
 .pm-suchergebnis .pm-popup-function-from,
-.pm-suchergebnis .pm-popup-function-to ,
-.pm-suchergebnis .pm-popup-function-proximity ,
+.pm-suchergebnis .pm-popup-function-to,
+.pm-suchergebnis .pm-popup-function-more,
+.pm-suchergebnis .pm-popup-function-proximity,
 .pm-suchergebnis .pm-popup-function-reach ,
 .pm-suchergebnis .pm-popup-function-clear {
   visibility: visible;

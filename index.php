@@ -492,9 +492,16 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                     <div id="PflegeMap.popup-content">
                       <div id="PflegeMap.popup-title" class="pm-popup-title"></div>
                       <div id="PflegeMap.popup-data"></div>
-                      <div id="PflegeMap.popup-functions"class="pm-popup-functions">
+                      <div id="PflegeMap.popup-functions" class="pm-popup-functions">
                         <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-lg fa-fw"></i>&nbsp; Route von hier</div>
                         <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-lg fa-fw"></i>&nbsp; Route nach hier</div>
+                        <div class="pm-popup-function-more">
+                          <i class="fa fa-caret-square-o-down fa-lg fa-fw"></i>&nbsp; Weitere Angebote ...
+                          <div class="pm-popup-function-more-content">
+                            <img src="./images/Arzt.png"></img>&nbsp;<a>Arzt blabla da</a><br>
+                            <img src="./images/Wohnen.png"></img>&nbsp;<a>Wohnen hier</a>
+                          </div>
+                        </div>
                         <div class="pm-popup-function-proximity">
                           <div class="pm-popup-function-proximity-search">
                             <i class="fa fa-search fa-lg fa-fw"></i>
