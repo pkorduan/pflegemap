@@ -231,7 +231,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       <span class="label-body">alle Versorgungsarten <b>(bitte mindestens eine Versorgungsart auswählen)</b></span>
                     </label>
                   </div>
-                  <div class="small-100 medium-100 large-50 columns">
+                  <div class="small-100 medium-100 large-40 columns">
                     <div id="list" class="pflegemap-categories">
                       <label>
                         <input versart="Ambulante Pflege" class="cb-kat" type="checkbox">
@@ -283,7 +283,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                     </div>
                   </div>
 
-                  <div class="small-100 medium-100 large-50 columns">
+                  <div class="small-100 medium-100 large-60 columns">
                     <div id="list" class="pflegemap-categories">
                         <label>
                           <input versart="Wohnen" class="cb-kat" type="checkbox">
@@ -312,25 +312,14 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                           <input versart="Gesundheit" class="cb-kat" type="checkbox">
                           <span class="label-body">Gesundheit<img src="./images/Gesundheit.png"></img></span>
                           <div class="pflegemap-subcategories">
-                            <label style="display:none">
-                              <input kategorie="az" class="cb-subkat" type="checkbox">
-                              <span class="label-body">Arzt <span id="PflegeMap.numFeature_az"></span></span>
+                            <label>
+                              <input versart="Gesundheit" kategorie="az" class="cb-subkat" type="checkbox">
+                              <span class="label-body">Arzt <span id="PflegeMap.numFeature_az"></span><img src="./images/Arzt.png"></img></span>
                             </label>
                             <label>
-                              <a href="http://www.kvmv.info/patienten/40/" target="_blank"><i class="fa fa-external-link"></i> Arzt</a>
+                              <input versart="Gesundheit" kategorie="ap" class="cb-subkat" type="checkbox">
+                              <span class="label-body">Apotheke <span id="PflegeMap.numFeature_ap"></span><img src="./images/Apotheke.png"></img></span>
                             </label>
-                            <label>
-                              <input kategorie="ap" class="cb-subkat" type="checkbox">
-                              <span class="label-body">Apotheke <span id="PflegeMap.numFeature_ap"></span></span>
-                            </label>
-                            <!--label>
-                              <input kategorie="kr" class="cb-subkat" type="checkbox" disabled readonly>
-                              <span class="label-body">Klinik/Reha</span>
-                            </label>
-                            <label>
-                              <input kategorie="pt" class="cb-subkat" type="checkbox" disabled readonly>
-                              <span class="label-body">Psychiatrische Tagesklinik</span>
-                            </label //-->
                           </div>
                         </label>
 
