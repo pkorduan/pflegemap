@@ -172,6 +172,16 @@ PflegeMap.mapperController = function(map) {
         this.toggleFeature
       );
 
+      // Handler to show more care-service results at this position
+      $('#PflegeMap\\.popup .pm-popup-function-more-toggle').off();
+      $('#PflegeMap\\.popup .pm-popup-function-more-toggle').on(
+        'click',
+        {
+          popup: PflegeMap.popup
+        },
+        this.toggleMoreCareServices
+      );
+
       // Handler for Category-Checkboxes
       $(".cb-kat").on(
         'change',
@@ -412,6 +422,22 @@ PflegeMap.mapperController = function(map) {
     */
     addSearchResultFeature: function(display_name, lat, lon) {
       PflegeMap.geocoder.addSearchResultFeature('proximityAddress', display_name, lat, lon);
+    },
+
+    toggleMoreCareServices: function(event) {
+      $('#PflegeMap\\.popup-function-more-content').toggle();
+      $('#pm-popup-function-more-icon').toggleClass('fa-caret-square-o-right fa-caret-square-o-down');
+    },
+
+    switchToOtherFeature: function(selected_id) {
+      var features = (PflegeMap.config.cluster ? this.layer.getSource().getSource().getFeatures() : this.layer.getSource().getFeatures()),
+          resolution = PflegeMap.map.getView().getResolution();
+
+      // find selected feature by id
+      features.map(function(feature) {
+        if (feature.get('id') == selected_id)
+          feature.toggle();
+      });
     },
 
     zeigeEinrichtungen: function(store, layer) {
