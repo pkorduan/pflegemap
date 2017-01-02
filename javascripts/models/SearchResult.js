@@ -51,6 +51,7 @@ PflegeMap.searchResult = function(name, lat, lon) {
     $('#PflegeMap\\.popup').attr('lon', lon);
     $('#PflegeMap\\.popup').attr('name', name);
     $('.pm-popup-function-clear').attr('controller','geocoder');
+    $('.pm-popup-function-more').hide();
   };
 
   feature.unselect = function() {

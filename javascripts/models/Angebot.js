@@ -30,7 +30,7 @@ PflegeMap.angebot = function(params) {
         case 'Beratung':
           return params.versorgungsart;
         case 'Gesundheit':
-          return params.versorgungsart;
+          return params.angebot;
         case 'Kurzzeitpflege':
           return params.angebot;
         case 'Pflegeheim':
@@ -144,7 +144,10 @@ PflegeMap.angebot = function(params) {
     //return (this.get('plz') + ' ' + this.get('gemeinde') + ', ' + this.get('strasse') + ' ' + this.get('hnr')).trim();
   };
 
-    
+  feature.popupText = function() {
+    return ('<tr><td><img class="pm-eingerueckt" src="./images/' + this.get('icon') + '.png" style="margin-right: 10px"/></td><td><a onclick="PflegeMap.mapper.switchToOtherFeature(' + this.get('id') + ')">' + this.get('name') + '</a></td></tr>');
+  };
+
   feature.xy = function() {
     var xy = this.getGeometry().getCoordinates();
     return xy[0] + ', ' + xy[1];
@@ -155,13 +158,24 @@ PflegeMap.angebot = function(params) {
     return [lnglat[1], lnglat[0]];
   };
 
-  feature.preparePopup = function() {
+  feature.preparePopup = function(moreFeatures) {
+    console.log('prepare popup');
     PflegeMap.popup.feature = this;
     $('#PflegeMap\\.popup').attr('class','pm-popup pm-angebot');
     $('#PflegeMap\\.popup-title').html(this.title());
     $('#PflegeMap\\.popup-data').html(this.data());
+    if (moreFeatures.length > 0) {
+      html = $.map(moreFeatures, function(feature) {
+          return feature.popupText();
+      }).join('<br>');
+      $('.pm-popup-function-more').show();
+    } else {
+      html = '';
+      $('.pm-popup-function-more').hide();
+    }
+    $('#PflegeMap\\.popup-function-more-content').html(html);
   };
-  
+
   feature.show = function() {
     this.set('hidden', false);
     this.listElement.show();
@@ -189,23 +203,37 @@ PflegeMap.angebot = function(params) {
   };
 
   feature.select = function() {
-    if (!this.get('selected')) {
+    var features = (PflegeMap.config.cluster ? PflegeMap.mapper.layer.getSource().getSource().getFeatures() : PflegeMap.mapper.layer.getSource().getFeatures()),
+        selectedFeature = this,
+        resolution = PflegeMap.map.getView().getResolution();
+
+    if (!selectedFeature.get('selected')) {
       //console.log('Select angeobt feature: ' + this.get('id'));
 
+      // find more features in the near of selected
+      searchBuffer = ol.extent.buffer(selectedFeature.getGeometry().getExtent(), resolution * 10);
+      moreFeatures = $.grep(features, function(feature, index) {
+        return (
+          !feature.get('hidden') &&
+          feature.get('id') != selectedFeature.get('id') &&
+          ol.extent.containsCoordinate(searchBuffer, feature.getGeometry().getCoordinates())
+        );
+      });
+      
       // show popup
       //console.log('show popup');
-      this.preparePopup();
+      selectedFeature.preparePopup(moreFeatures);
       PflegeMap.popup.setPosition(
-        this.getGeometry().getCoordinates()
+        selectedFeature.getGeometry().getCoordinates()
       );
 
       // highlight the list Element
       //console.log('highlight list element');
-      this.listElement.toggleClass('pm-care-service-highlighted');
+      selectedFeature.listElement.toggleClass('pm-care-service-highlighted');
 
       // set this feature to selected
-      this.set('selected', true);
-      PflegeMap.mapper.selectedFeature = this;
+      selectedFeature.set('selected', true);
+      PflegeMap.mapper.selectedFeature = selectedFeature;
     }
   };
 

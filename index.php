@@ -231,7 +231,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       <span class="label-body">alle Versorgungsarten <b>(bitte mindestens eine Versorgungsart auswählen)</b></span>
                     </label>
                   </div>
-                  <div class="small-100 medium-100 large-50 columns">
+                  <div class="small-100 medium-100 large-40 columns">
                     <div id="list" class="pflegemap-categories">
                       <label>
                         <input versart="Ambulante Pflege" class="cb-kat" type="checkbox">
@@ -283,7 +283,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                     </div>
                   </div>
 
-                  <div class="small-100 medium-100 large-50 columns">
+                  <div class="small-100 medium-100 large-60 columns">
                     <div id="list" class="pflegemap-categories">
                         <label>
                           <input versart="Wohnen" class="cb-kat" type="checkbox">
@@ -312,25 +312,14 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                           <input versart="Gesundheit" class="cb-kat" type="checkbox">
                           <span class="label-body">Gesundheit<img src="./images/Gesundheit.png"></img></span>
                           <div class="pflegemap-subcategories">
-                            <label style="display:none">
-                              <input kategorie="az" class="cb-subkat" type="checkbox">
-                              <span class="label-body">Arzt <span id="PflegeMap.numFeature_az"></span></span>
+                            <label>
+                              <input versart="Gesundheit" kategorie="az" class="cb-subkat" type="checkbox">
+                              <span class="label-body">Arzt <span id="PflegeMap.numFeature_az"></span><img src="./images/Arzt.png"></img></span>
                             </label>
                             <label>
-                              <a href="http://www.kvmv.info/patienten/40/" target="_blank"><i class="fa fa-external-link"></i> Arzt</a>
+                              <input versart="Gesundheit" kategorie="ap" class="cb-subkat" type="checkbox">
+                              <span class="label-body">Apotheke <span id="PflegeMap.numFeature_ap"></span><img src="./images/Apotheke.png"></img></span>
                             </label>
-                            <label>
-                              <input kategorie="ap" class="cb-subkat" type="checkbox">
-                              <span class="label-body">Apotheke <span id="PflegeMap.numFeature_ap"></span></span>
-                            </label>
-                            <!--label>
-                              <input kategorie="kr" class="cb-subkat" type="checkbox" disabled readonly>
-                              <span class="label-body">Klinik/Reha</span>
-                            </label>
-                            <label>
-                              <input kategorie="pt" class="cb-subkat" type="checkbox" disabled readonly>
-                              <span class="label-body">Psychiatrische Tagesklinik</span>
-                            </label //-->
                           </div>
                         </label>
 
@@ -364,7 +353,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                     <div class="pflegemap-search-area">
                       <div class"" style="float: left;">
                         <div class="pflegemap-search-wrapper">
-                          <input id="PflegeMap.proximitySearchField" class="pflegemap-search-field small-input medium-input large-input pflegemap-address-search-box" type="text" placeholder="Adresse suchen ..."/>
+                          <input id="PflegeMap.proximitySearchField" class="pflegemap-search-field small-input medium-input large-input pflegemap-address-search-box" type="text" placeholder="Suche nach Adresse ..."/>
                           <i id="PflegeMap.proximitySearchFieldResetIcon" class="fa fa-times-circle pflegemap-proximity-search-field-reset-icon" style="display: none"></i>
                         </div>
                       </div>
@@ -507,9 +496,13 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                     <div id="PflegeMap.popup-content">
                       <div id="PflegeMap.popup-title" class="pm-popup-title"></div>
                       <div id="PflegeMap.popup-data"></div>
-                      <div id="PflegeMap.popup-functions"class="pm-popup-functions">
+                      <div id="PflegeMap.popup-functions" class="pm-popup-functions">
                         <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-lg fa-fw"></i>&nbsp; Route von hier</div>
                         <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-lg fa-fw"></i>&nbsp; Route nach hier</div>
+                        <div class="pm-popup-function-more">
+                          <div class="pm-popup-function-more-toggle"><i id="pm-popup-function-more-icon" class="fa fa-caret-square-o-right fa-lg fa-fw"></i>&nbsp; Weitere Angebote hier</div>
+                          <div id="PflegeMap.popup-function-more-content" class="pm-popup-function-more-content"></div>
+                        </div>
                         <div class="pm-popup-function-proximity">
                           <div class="pm-popup-function-proximity-search">
                             <i class="fa fa-search fa-lg fa-fw"></i>
