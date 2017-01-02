@@ -1,3 +1,23 @@
+.pma1 {
+	background-color: #f00;
+}
+
+.pma2 {
+	background-color: #ff0;
+}
+
+.pma3 {
+	background-color: #f0f;
+}
+
+.pma4 {
+	background-color: #0ff;
+}
+
+.pma5 {
+	background-color: #00f;
+}
+
 .pflegemap {
 
 }
@@ -75,6 +95,7 @@ a.pflegemap-message-box-close{
 }
 
 .pflegemap-help-box{
+  display: none;
   position:fixed;
   top:-1600px;
   left:20%;
@@ -345,39 +366,22 @@ a.pflegemap-help-box-close{
 .pm-popup-functions>* {
   visibility: hidden;
   display: none;
-}
-
-.pm-angebot .pm-popup-function-from,
-.pm-angebot .pm-popup-function-to,
-.pm-angebot .pm-popup-function-more {
-  visibility: visible;
-  display: block;
   cursor: pointer;
 }
 
-.pm-popup-function-more-content {
-	display: none;
-	background-color: #eee;
-  border-radius: 5px;
-	padding-top: 3px;
-	max-height: 150px;
-	overflow: scroll;
-	cursor: default;
+.pm-angebot .pm-popup-function-from,
+.pm-angebot .pm-popup-function-to {
+  visibility: visible;
+  display: block;
 }
 
 .pm-suchergebnis .pm-popup-function-from,
-.pm-suchergebnis .pm-popup-function-to,
-.pm-suchergebnis .pm-popup-function-proximity,
+.pm-suchergebnis .pm-popup-function-to ,
+.pm-suchergebnis .pm-popup-function-proximity ,
 .pm-suchergebnis .pm-popup-function-reach ,
 .pm-suchergebnis .pm-popup-function-clear {
   visibility: visible;
   display: block;
-}
-
-.pm-popup-function-more {
-  visibility: visible;
-	display: block;
-  border-top: 1px solid #cccccc;
 }
 
 .pm-popup-function-proximity-search {
@@ -385,9 +389,28 @@ a.pflegemap-help-box-close{
   padding-right: 1.2em;
 }
 
-.pm-eingerueckt {
-	width: 15px;
-	margin-left: 4px;
+.pflegemap-address-search-box,
+.pflegemap-proximity-search-field-reset-icon,
+.pflegemap-search-wrapper {
+  position: relative;
+  padding: 10px;
+}
+
+.pflegemap-search-wrapper {
+  margin-left: 0px;
+  margin-top: 0px;
+}
+
+.pflegemap-proximity-search-field-reset-icon {
+  background-color: #ffffff;
+  position: absolute;
+  width: 20px;
+  top: 6px;
+  height: 20px;
+  right: 5px;
+  bottom: 0;
+  cursor: pointer;
+  padding: 4px;
 }
 
 hr.pflegemap-hr {

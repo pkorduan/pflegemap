@@ -41,7 +41,6 @@ $('#PflegeMap').ready(function() {
             layer: layer
           };
         });
-
     if (target) {
       if (PflegeMap.mapper.selectedFeature)
         PflegeMap.mapper.selectedFeature.unselect();

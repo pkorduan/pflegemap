@@ -5,5 +5,4 @@ PflegeMap.config = {
   reachUrl: '../reach/reach.php',
   viewProjection: 'EPSG:25833',
   baseProjection: 'EPSG:4326',
-  cluster: false
 }
