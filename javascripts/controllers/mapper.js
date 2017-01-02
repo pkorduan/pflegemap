@@ -141,7 +141,7 @@ PflegeMap.mapperController = function(map) {
         var source = this.layer.getSource(),
             features = source.getFeatures();
 
-        PflegeMap.mapper.filterFeatures(features);
+        PflegeMap.mapper.redrawFeatures();
       }, this);
 
     },
@@ -173,7 +173,9 @@ PflegeMap.mapperController = function(map) {
     * in der Kategoriesuche (Themen) ausgewählt ist.
     */
     categoryFilter: function(feature) {
-      return $($("[kategorie='" + feature.get('kategorie') + "']")[0]).is(':checked')
+      result = $($("[kategorie='" + feature.get('kategorie') + "']")[0]).is(':checked')
+      //console.log('categoryFilter: ' + result);
+      return result;
     },
 
     /*
@@ -192,6 +194,7 @@ PflegeMap.mapperController = function(map) {
     *   und Wende immer den extendFilter an
     */
     filterFeatures: function(features) {
+      //console.log('filterFeatures');
       var source = PflegeMap.mapper.layer.getSource(),
           view = PflegeMap.mapper.map.getView(),
           size = PflegeMap.mapper.map.getSize(),
@@ -200,6 +203,7 @@ PflegeMap.mapperController = function(map) {
           categoryCount = [];
 
       features.map(function(feature) {
+        //console.log('feature: ' + feature.get('name'));
         filterResult = false;
         category = feature.get('kategorie');
 
@@ -212,6 +216,7 @@ PflegeMap.mapperController = function(map) {
 */
         if ($('#PflegeMap\\.categorySearchArea').is(':visible')) {
           filterResult = PflegeMap.mapper.categoryFilter(feature) &&
+                         PflegeMap.proximiter.proximityFilter(feature) &&
                          PflegeMap.reacher.reachAreaFilter(feature);
         }
         if ($('#PflegeMap\\.reachSearchArea').is(':visible')) {
@@ -219,12 +224,34 @@ PflegeMap.mapperController = function(map) {
                          PflegeMap.mapper.categoryFilter(feature);
         }
 
-        filterResult = filterResult && ol.extent.containsExtent(
-          view.calculateExtent(size),
-          feature.getGeometry().getExtent()
-        );
+        //console.log('feature ' + feature.get('name') + ' is:' + (filterResult ? ' activ' : ' not active'));
+        feature.set('active', filterResult);
+      });
+    },
 
-        if (filterResult) {
+    /**
+    * This function show aktive features inside the current map view
+    * and feature list. It will be regularly used after zoom and pan.
+    * Aktive features are thus meets the filter criteria.
+    */
+    redrawFeatures: function() {
+      //console.log('redrawFeatures');
+      var source = PflegeMap.mapper.layer.getSource(),
+          view = PflegeMap.mapper.map.getView(),
+          size = PflegeMap.mapper.map.getSize(),
+          currentExtent = view.calculateExtent(size),
+          features = source.getFeatures(),
+          numVisible = 0,
+          categoryCount = [];
+
+      features.map(function(feature) {
+        if (
+          feature.get('active') &&
+          ol.extent.containsCoordinate(
+            currentExtent,
+            feature.getGeometry().getCoordinates()
+          )
+        ) {
           PflegeMap.mapper.showCareService(feature);
           categoryCount[category] = (categoryCount[category] ? categoryCount[category] + 1 : 1);
           numVisible += 1;
@@ -283,11 +310,15 @@ PflegeMap.mapperController = function(map) {
       if ($(event.target).parent().siblings().length == 0)
         $(event.target).parent().hide();
 
-      if (typeof applyFilter === "undefined")
+      if (typeof applyFilter === "undefined") {
         PflegeMap.mapper.filterFeatures();
+        PflegeMap.mapper.zoomToExtent();
+        PflegeMap.mapper.redrawFeatures();
+      }
     },
   
     onChangeCategoryCheckBox: function(event, applyFilter) {
+      //console.log('onChangeCategoryCheckBox');
       var scope = event.data,
           versart = event.target.getAttribute('versart'),
           isChecked = event.target.checked;
@@ -297,6 +328,7 @@ PflegeMap.mapperController = function(map) {
         // filterFeatures()
       }
       else {
+        //console.log('change categroy check box: ' + versart);
         // uncheck 'all'-box if any of the catgrs is unchecked and vice versa
         var allChecked = ($(".cb-kat[versart!='all']:checked").length == $(".cb-kat[versart!='all']").length);
         $(".cb-kat[versart='all']").prop('checked', allChecked);
@@ -307,8 +339,11 @@ PflegeMap.mapperController = function(map) {
 
       $('.cb-subkat', $(subcatDiv)).prop('checked',isChecked).trigger('change', 'do not apply filter');
 
-      if (typeof applyFilter === "undefined")
+      if (typeof applyFilter === "undefined") {
         PflegeMap.mapper.filterFeatures();
+        PflegeMap.mapper.zoomToExtent();
+        PflegeMap.mapper.redrawFeatures();
+      }
     },
   
     switchSearchTools: function(event) {
@@ -406,9 +441,12 @@ PflegeMap.mapperController = function(map) {
     },
 
     zoomToExtent: function() {
+      //console.log('zoomToExtent');
       var featureCoordinates = PflegeMap.mapper.layer.getSource().getFeatures().filter(
             function(feature) {
-              return !feature.get('hidden');
+              if (feature.get('active'))
+                //console.log('feature active')
+              return feature.get('active');
             }
           ).map(
             function(feature) {

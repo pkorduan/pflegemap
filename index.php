@@ -503,7 +503,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                           <div class="pm-popup-function-more-toggle"><i id="pm-popup-function-more-icon" class="fa fa-caret-square-o-right fa-lg fa-fw"></i>&nbsp; Weitere Angebote hier</div>
                           <div id="PflegeMap.popup-function-more-content" class="pm-popup-function-more-content"></div>
                         </div>
-                        <div class="pm-popup-function-proximity">
+                        <!-- div class="pm-popup-function-proximity">
                           <div class="pm-popup-function-proximity-search">
                             <i class="fa fa-search fa-lg fa-fw"></i>
                             &nbsp;Umkreis
@@ -531,7 +531,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                             <option value="45">45min</option>
                             <option value="60">1h</option>
                           </select>
-                        </div>
+                        </div//-->
                         <div class="pm-popup-function-clear">
                           <i class="fa fa-times fa-lg fa-fw"></i>&nbsp; Markierung l&ouml;schen
                         </div>

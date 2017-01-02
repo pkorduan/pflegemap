@@ -20,6 +20,7 @@ PflegeMap.angebot = function(params) {
     kapazitaet: params.kapazitaet,
     besonderheit: params.besonderheit,
     hidden: true,
+    active: true,
     selected: false,
     icon: (function(){
       switch (params.versorgungsart){
@@ -96,7 +97,7 @@ PflegeMap.angebot = function(params) {
       html += '<div class="pm-list-functions small-100 medium-20 large-15 columns push">';
         html += '<div class="pm-list-function-from"><i class="fa fa-flag-o fa-fw "></i> Route von hier</div>';
         html += '<div class="pm-list-function-to"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</div>';
-        html += '<a href="#PflegeMap.top"><i class="fa fa-map-marker fa-fw"></i> zur Karte</a>';
+        html += "<a href=\"#PflegeMap.top\"><i class=\"fa fa-map-marker fa-fw\"></i> zur Karte</a>";
       html += '</div>';
     html += '</div>';
     html += '<div class="pflegemap-clear"></div>';
@@ -159,7 +160,6 @@ PflegeMap.angebot = function(params) {
   };
 
   feature.preparePopup = function(moreFeatures) {
-    console.log('prepare popup');
     PflegeMap.popup.feature = this;
     $('#PflegeMap\\.popup').attr('class','pm-popup pm-angebot');
     $('#PflegeMap\\.popup-title').html(this.title());
@@ -173,6 +173,7 @@ PflegeMap.angebot = function(params) {
       html = '';
       $('.pm-popup-function-more').hide();
     }
+    $('.pm-popup-function-clear').hide();
     $('#PflegeMap\\.popup-function-more-content').html(html);
   };
 

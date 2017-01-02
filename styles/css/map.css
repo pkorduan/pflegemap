@@ -345,8 +345,6 @@ a.pflegemap-help-box-close{
 }
 
 .pm-popup-functions>* {
-  visibility: hidden;
-  display: none;
   cursor: pointer;
 }
 
@@ -359,9 +357,8 @@ a.pflegemap-help-box-close{
 
 .pm-suchergebnis .pm-popup-function-from,
 .pm-suchergebnis .pm-popup-function-to ,
-.pm-suchergebnis .pm-popup-function-proximity ,
-.pm-suchergebnis .pm-popup-function-reach ,
-.pm-suchergebnis .pm-popup-function-clear {
+.pm-suchergebnis .pm-popup-function-proximity,
+.pm-suchergebnis .pm-popup-function-reach {
   visibility: visible;
   display: block;
 }
@@ -384,6 +381,11 @@ a.pflegemap-help-box-close{
 .pm-popup-function-proximity-search {
   display: inline-block;
   padding-right: 1.2em;
+}
+
+.pm-popup-function-clear {
+  border-top: 1px solid #cccccc;
+  display: none;
 }
 
 .pm-eingerueckt {

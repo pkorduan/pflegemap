@@ -46,10 +46,12 @@ PflegeMap.proximiterController = function(map) {return {
             radius = Number(event.target.value);
 
         // synchronize with proximity select in popup
-        $('#pm-popup-proximity-select').val(radius);
+        //$('#pm-popup-proximity-select').val(radius);
+
         if (typeof coords !== typeof undefined && coords !== false) {
           PflegeMap.mapper.filterFeatures();
           PflegeMap.mapper.zoomToExtent();
+          PflegeMap.mapper.redrawFeatures();
         }
       }
     );
@@ -92,6 +94,7 @@ PflegeMap.proximiterController = function(map) {return {
     $('#PflegeMap\\.proximitySearchField').val('');
     $('#PflegeMap\\.proximitySearchFieldResetIcon').hide();
     PflegeMap.proximiter.removeSearchResult();
+    PflegeMap.mapper.filterFeatures();
     PflegeMap.mapper.zoomToMaxExtent();
   },
 
@@ -197,28 +200,32 @@ PflegeMap.proximiterController = function(map) {return {
   */
   proximityFilter: function(feature) {
     var coords = $('#PflegeMap\\.proximitySearchField').attr('coordinates'),
-        radius = $('#PflegeMap\\.proximitySelect').val();
+        radius = $('#PflegeMap\\.proximitySelect').val(),
+        result = true;
 
-    if (radius == -1)  // Wenn kein Radius gesetzt ist liefer true
-      return true
+    if (radius > 0) {
+      if (!(typeof coords !== typeof undefined && coords !== false)) {
+        result = feature.get('hidden');
+      }
+      else {
+        coords = coords.split(', ');
+        var center = new ol.Feature({
+          geometry: new ol.geom.Point(
+            ol.proj.fromLonLat([coords[1], coords[0]], PflegeMap.viewProjection)
+          )
+        }),
+        wgs84Sphere = new ol.Sphere(6378137);
 
-    if (!(typeof coords !== typeof undefined && coords !== false))
-      return feature.get('hidden');
-
-    coords = coords.split(', ');
-    var center = new ol.Feature({
-      geometry: new ol.geom.Point(
-        ol.proj.fromLonLat([coords[1], coords[0]], PflegeMap.viewProjection)
-      )
-    }),
-    wgs84Sphere = new ol.Sphere(6378137);
-
-    return (
-      wgs84Sphere.haversineDistance(
-        ol.proj.transform(center.getGeometry().getCoordinates(), PflegeMap.viewProjection, 'EPSG:4326'),
-        ol.proj.transform(feature.getGeometry().getCoordinates(), PflegeMap.viewProjection, 'EPSG:4326')
-      ) < radius
-    );
+        result = (
+          wgs84Sphere.haversineDistance(
+            ol.proj.transform(center.getGeometry().getCoordinates(), PflegeMap.viewProjection, 'EPSG:4326'),
+            ol.proj.transform(feature.getGeometry().getCoordinates(), PflegeMap.viewProjection, 'EPSG:4326')
+          ) < radius
+        );
+      }
+    }
+    // console.log('proximityFilter: ' + result);
+    return result
   },
 
   featureWithinProximity: function(feature){
