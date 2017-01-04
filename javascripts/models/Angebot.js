@@ -12,6 +12,7 @@ PflegeMap.angebot = function(params) {
     hnr: params.hnr,
     plz: params.plz,
     gemeinde: params.gemeinde,
+    ortsteil: params.ortsteil,
     traeger: params.traeger,
     ansprechpartner: params.ansprechpartner,
     telefon: params.telefon,
@@ -122,8 +123,20 @@ PflegeMap.angebot = function(params) {
   };
   
   feature.address = function() {
-    return (this.get('strasse') + ' ' + this.get('hnr') + '<br>' + this.get('plz') + ' ' + this.get('gemeinde')).trim();
-    //return (this.get('plz') + ' ' + this.get('gemeinde') + ', ' + this.get('strasse') + ' ' + this.get('hnr')).trim();
+    var address = [];
+    if (this.get('strasse'))
+      address.push(this.get('strasse'));
+    if (this.get('hnr'))
+      address.push(this.get('hnr'));
+    if (address.length > 0)
+      address.push('<br>'); 
+    if (this.get('plz'))
+      address.push(this.get('plz'));
+    if (this.get('gemeinde'))
+      address.push(this.get('gemeinde'));
+    if (this.get('ortsteil'))
+      address.push('(' + this.get('ortsteil') + ')');
+    return address.join(' ');
   };
 
   feature.contact = function() {
