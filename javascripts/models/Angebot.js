@@ -80,7 +80,7 @@ PflegeMap.angebot = function(params) {
         if (this.get('traeger') != '')
           html += '<i>Träger:</i> ' + this.get('traeger');
         html += '<br><i>Kategorie:</i> ' + this.get('angebot');
-      if (this.get('kapazitaet') != '' && this.get('kapazitaet') > 1)
+      if (this.get('kapazitaet') != '' && this.get('kapazitaet') > 0)
         html += '<br><i>Kapazität:</i> ' + this.get('kapazitaet');
       if ($.inArray(this.get('versorgungsart'), [
         'Stationäre Pflege',
@@ -225,7 +225,7 @@ PflegeMap.angebot = function(params) {
       //console.log('Select angeobt feature: ' + this.get('id'));
 
       // find more features in the near of selected
-      searchBuffer = ol.extent.buffer(selectedFeature.getGeometry().getExtent(), resolution * 10);
+      searchBuffer = ol.extent.buffer(selectedFeature.getGeometry().getExtent(), resolution * 20);
       moreFeatures = $.grep(features, function(feature, index) {
         return (
           !feature.get('hidden') &&
