@@ -112,6 +112,16 @@ PflegeMap.mapperController = function(map) {
         this.toggleFeature
       );
 
+      // Handler to show more care-service results at this position
+      $('#PflegeMap\\.popup .pm-popup-function-more-toggle').off();
+      $('#PflegeMap\\.popup .pm-popup-function-more-toggle').on(
+        'click',
+        {
+          popup: PflegeMap.popup
+        },
+        this.toggleMoreCareServices
+      );
+
       // Handler for Category-Checkboxes
       $(".cb-kat").on(
         'change',
@@ -128,21 +138,17 @@ PflegeMap.mapperController = function(map) {
 
       // Handler for changes of map extent
       PflegeMap.map.on('moveend', function(evt) {
-        var newExtent = evt.frameState.extent,
-          source = this.layer.getSource(),
-          features = source.getFeatures();
-        features.forEach(function(feature){
-          if (!feature.get('hidden')) {
-            feature.listElement.toggle(ol.extent.containsExtent(newExtent,feature.getGeometry().getExtent()));
-          }
-        });
+        var source = this.layer.getSource(),
+            features = source.getFeatures();
+
+        PflegeMap.mapper.redrawFeatures();
       }, this);
 
     },
 
     wordSearch: function() {
-      PflegeMap.mapper.filterFeatures();
       PflegeMap.mapper.zoomToExtent();
+      PflegeMap.mapper.filterFeatures();
     },
 
     /*
@@ -167,7 +173,9 @@ PflegeMap.mapperController = function(map) {
     * in der Kategoriesuche (Themen) ausgewählt ist.
     */
     categoryFilter: function(feature) {
-      return $($("[kategorie='" + feature.get('kategorie') + "']")[0]).is(':checked')
+      result = $($("[kategorie='" + feature.get('kategorie') + "']")[0]).is(':checked')
+      //console.log('categoryFilter: ' + result);
+      return result;
     },
 
     /*
@@ -183,23 +191,32 @@ PflegeMap.mapperController = function(map) {
     *     Wende den categorie und reach filter an
     *   Ist reachSearchArea visible
     *     Wende den reach und category filter an
+    *   und Wende immer den extendFilter an
     */
     filterFeatures: function(features) {
+      //console.log('filterFeatures');
       var source = PflegeMap.mapper.layer.getSource(),
+          view = PflegeMap.mapper.map.getView(),
+          size = PflegeMap.mapper.map.getSize(),
           features = source.getFeatures(),
-          numVisible = 0;
+          numVisible = 0,
+          categoryCount = [];
 
       features.map(function(feature) {
+        //console.log('feature: ' + feature.get('name'));
         filterResult = false;
+        category = feature.get('kategorie');
 
         // Variante A
 
-        if ($('#PflegeMap\\.textSearchArea').is(':visible')) {
+/*        if ($('#PflegeMap\\.textSearchArea').is(':visible')) {
           filterResult = PflegeMap.mapper.wordFilter(feature) &&
                          PflegeMap.proximiter.proximityFilter(feature)
         }
+*/
         if ($('#PflegeMap\\.categorySearchArea').is(':visible')) {
           filterResult = PflegeMap.mapper.categoryFilter(feature) &&
+                         PflegeMap.proximiter.proximityFilter(feature) &&
                          PflegeMap.reacher.reachAreaFilter(feature);
         }
         if ($('#PflegeMap\\.reachSearchArea').is(':visible')) {
@@ -207,18 +224,60 @@ PflegeMap.mapperController = function(map) {
                          PflegeMap.mapper.categoryFilter(feature);
         }
 
-        if (filterResult) {
+        //console.log('feature ' + feature.get('name') + ' is:' + (filterResult ? ' activ' : ' not active'));
+        feature.set('active', filterResult);
+      });
+    },
+
+    /**
+    * This function show aktive features inside the current map view
+    * and feature list. It will be regularly used after zoom and pan.
+    * Aktive features are thus meets the filter criteria.
+    */
+    redrawFeatures: function() {
+      //console.log('redrawFeatures');
+      var source = PflegeMap.mapper.layer.getSource(),
+          view = PflegeMap.mapper.map.getView(),
+          size = PflegeMap.mapper.map.getSize(),
+          currentExtent = view.calculateExtent(size),
+          features = source.getFeatures(),
+          numVisible = 0,
+          categoryCount = [];
+
+      features.map(function(feature) {
+        if (
+          feature.get('active') &&
+          ol.extent.containsCoordinate(
+            currentExtent,
+            feature.getGeometry().getCoordinates()
+          )
+        ) {
           PflegeMap.mapper.showCareService(feature);
+          categoryCount[category] = (categoryCount[category] ? categoryCount[category] + 1 : 1);
           numVisible += 1;
         }
         else
           PflegeMap.mapper.hideCareService(feature);
       });
 
+      PflegeMap.mapper.updateCategoryCount(categoryCount);
+
       if (numVisible > 0) {
+        $('#PflegeMap\\.numFeatures').text('(' + numVisible + ' Treffer)');
         PflegeMap.mapper.noFeaturesMessage.hide();
-      } else
+      } else {
+        $('#PflegeMap\\.numFeatures').text('(' + numVisible + ' Treffer)');
         PflegeMap.mapper.noFeaturesMessage.show();
+      }
+    },
+
+    updateCategoryCount: function(categoryCount) {
+      $.each($("[Kategorie]"), function(i, field) {
+        category = field.getAttribute('Kategorie');
+        numFeature = categoryCount[category];
+        html = (numFeature ? '(' + numFeature + ')' : '');
+        $('#PflegeMap\\.numFeature_' + category).html(html);
+      });
     },
 
     showCareService: function(careService) {
@@ -251,11 +310,15 @@ PflegeMap.mapperController = function(map) {
       if ($(event.target).parent().siblings().length == 0)
         $(event.target).parent().hide();
 
-      if (typeof applyFilter === "undefined")
+      if (typeof applyFilter === "undefined") {
         PflegeMap.mapper.filterFeatures();
+        PflegeMap.mapper.zoomToExtent();
+        PflegeMap.mapper.redrawFeatures();
+      }
     },
   
     onChangeCategoryCheckBox: function(event, applyFilter) {
+      //console.log('onChangeCategoryCheckBox');
       var scope = event.data,
           versart = event.target.getAttribute('versart'),
           isChecked = event.target.checked;
@@ -265,6 +328,7 @@ PflegeMap.mapperController = function(map) {
         // filterFeatures()
       }
       else {
+        //console.log('change categroy check box: ' + versart);
         // uncheck 'all'-box if any of the catgrs is unchecked and vice versa
         var allChecked = ($(".cb-kat[versart!='all']:checked").length == $(".cb-kat[versart!='all']").length);
         $(".cb-kat[versart='all']").prop('checked', allChecked);
@@ -275,15 +339,20 @@ PflegeMap.mapperController = function(map) {
 
       $('.cb-subkat', $(subcatDiv)).prop('checked',isChecked).trigger('change', 'do not apply filter');
 
-      if (typeof applyFilter === "undefined")
+      if (typeof applyFilter === "undefined") {
         PflegeMap.mapper.filterFeatures();
+        PflegeMap.mapper.zoomToExtent();
+        PflegeMap.mapper.redrawFeatures();
+      }
     },
   
     switchSearchTools: function(event) {
       $.each(PflegeMap.searchTools, function(index, searchTool) {
         $('#PflegeMap\\.' + searchTool + 'Area').hide();
+        $('#PflegeMap\\.' + searchTool + 'Tool').attr("class", "pflegemap-search-tool-icon");
       });
       var searchType = event.target.getAttribute('toolname') || event.target.parentElement.getAttribute('toolname');
+      $('#PflegeMap\\.' + searchType + 'Tool').toggleClass("highlighted");
       $('#PflegeMap\\.' + searchType + 'Area').show();
     },
 
@@ -330,6 +399,22 @@ PflegeMap.mapperController = function(map) {
       PflegeMap.geocoder.addSearchResultFeature('proximityAddress', display_name, lat, lon);
     },
 
+    toggleMoreCareServices: function(event) {
+      $('#PflegeMap\\.popup-function-more-content').toggle();
+      $('#pm-popup-function-more-icon').toggleClass('fa-caret-square-o-right fa-caret-square-o-down');
+    },
+
+    switchToOtherFeature: function(selected_id) {
+      var features = (PflegeMap.config.cluster ? this.layer.getSource().getSource().getFeatures() : this.layer.getSource().getFeatures()),
+          resolution = PflegeMap.map.getView().getResolution();
+
+      // find selected feature by id
+      features.map(function(feature) {
+        if (feature.get('id') == selected_id)
+          feature.toggle();
+      });
+    },
+
     zeigeEinrichtungen: function(store, layer) {
       var features = [];
       for (var i = 0; i < store.length; i++){
@@ -356,9 +441,12 @@ PflegeMap.mapperController = function(map) {
     },
 
     zoomToExtent: function() {
+      //console.log('zoomToExtent');
       var featureCoordinates = PflegeMap.mapper.layer.getSource().getFeatures().filter(
             function(feature) {
-              return !feature.get('hidden');
+              if (feature.get('active'))
+                //console.log('feature active')
+              return feature.get('active');
             }
           ).map(
             function(feature) {
@@ -382,6 +470,14 @@ PflegeMap.mapperController = function(map) {
           extent,
           PflegeMap.map.getSize()
         );
+    },
+
+    zoomToMaxExtent: function() {
+      PflegeMap.map.getView().fit(
+        PflegeMap.maxExtent,
+        PflegeMap.map.getSize()
+      );
     }
+    
   };
 };

@@ -1,7 +1,7 @@
 PflegeMap.helpController = {
 
   initHelp: function() {
-    PflegeMap.searchTools.push('routingSearch');
+    PflegeMap.searchTools.push('help');
   },
 
   setEventHandler: function() {
@@ -12,6 +12,7 @@ PflegeMap.helpController = {
     );
 
     $('#PflegeMap\\.HelpBoxClose').click(function() {
+        $('#PflegeMap\\.HelpBox').hide();
       $('#PflegeMap\\.HelpBox').animate({'top':'-1000px'},500,function(){
         $('#PflegeMap\\.Overlay').fadeOut('fast');
       });
@@ -19,6 +20,7 @@ PflegeMap.helpController = {
   },
 
   showHelpPage: function() {
+    $('#PflegeMap\\.HelpBox').show();
     $('#PflegeMap\\.Overlay').fadeIn(200,function(){
       $('#PflegeMap\\.HelpBox').animate({'top':'40px'},200);
     });
