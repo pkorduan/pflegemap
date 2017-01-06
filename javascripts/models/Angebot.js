@@ -225,7 +225,7 @@ PflegeMap.angebot = function(params) {
       //console.log('Select angeobt feature: ' + this.get('id'));
 
       // find more features in the near of selected
-      searchBuffer = ol.extent.buffer(selectedFeature.getGeometry().getExtent(), resolution * 20);
+      searchBuffer = ol.extent.buffer(selectedFeature.getGeometry().getExtent(), resolution * 40);
       moreFeatures = $.grep(features, function(feature, index) {
         return (
           !feature.get('hidden') &&
