@@ -76,7 +76,7 @@ PflegeMap.angebot = function(params) {
     html  = '<div id="PflegeMap.careService_' + this.get('id') + '" class="pm-care-service" feature_id="' + this.get('id') + '" class="row list small-map medium-map large-map">';
 
       html += '<div class="pm-care-service-content small-100 medium-80 large-45 columns">';
-        html += '<a name="PflegeMap.careService_' + this.get('id') + '"></a><b>' + this.get('name') + '</b><br>';
+        html += '<a name="PflegeMap.careService_' + this.get('id') + '"></a><b>' + this.anrede() + '</b><br>';
         if (this.get('traeger') != '')
           html += '<i>Träger:</i> ' + this.get('traeger');
         html += '<br><i>Kategorie:</i> ' + this.get('angebot');
@@ -109,10 +109,6 @@ PflegeMap.angebot = function(params) {
     return this.listElement;
   };
 
-  feature.title = function() {
-    return this.get('name');
-  };
-
   feature.data = function() {
     var html = '';
     html += this.get('angebot') + '<br>';
@@ -124,7 +120,15 @@ PflegeMap.angebot = function(params) {
     html += '<a href="#PflegeMap.careService_' + this.get('id') + '" style="float: right">Details</a>';
     return html;
   };
-  
+
+  feature.anrede = function() {
+    var anrede = '';
+    if (this.get('kategorie') == 'az' && this.get('titel'))
+      anrede = this.get('titel') + ' ';
+    anrede += this.get('name');
+    return anrede
+  }
+
   feature.address = function() {
     var address = [];
     if (this.get('strasse'))
@@ -162,7 +166,7 @@ PflegeMap.angebot = function(params) {
   };
 
   feature.popupText = function() {
-    return ('<tr><td><img class="pm-eingerueckt" src="./images/' + this.get('icon') + '.png" style="margin-right: 10px"/></td><td><a onclick="PflegeMap.mapper.switchToOtherFeature(' + this.get('id') + ')">' + this.get('name') + '</a></td></tr>');
+    return ('<tr><td><img class="pm-eingerueckt" src="./images/' + this.get('icon') + '.png" style="margin-right: 10px"/></td><td><a onclick="PflegeMap.mapper.switchToOtherFeature(' + this.get('id') + ')">' + this.anrede + '</a></td></tr>');
   };
 
   feature.xy = function() {
@@ -178,7 +182,7 @@ PflegeMap.angebot = function(params) {
   feature.preparePopup = function(moreFeatures) {
     PflegeMap.popup.feature = this;
     $('#PflegeMap\\.popup').attr('class','pm-popup pm-angebot');
-    $('#PflegeMap\\.popup-title').html(this.title());
+    $('#PflegeMap\\.popup-title').html(this.anrede());
     $('#PflegeMap\\.popup-data').html(this.data());
     if (moreFeatures.length > 0) {
       html = $.map(moreFeatures, function(feature) {
