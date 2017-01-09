@@ -90,6 +90,8 @@ a.pflegemap-message-box-close{
   -moz-box-shadow: 0 1px 5px #333;
   -webkit-box-shadow: 0 1px 5px #333;
   z-index:101;
+  max-height: 800px;
+  overflow: scroll;
 }
 .pflegemap-help-box h1 {
   font-size: 1.2em;
@@ -110,10 +112,10 @@ a.pflegemap-message-box-close{
   color: #235CBB;
   margin: 0px 0px 0px 0px;
 }
-a.pflegemap-help-box-close{
+a.pflegemap-help-box-close {
     float:right;
-    margin-top:-30px;
-    margin-right:-30px;
+    margin-top: -3px;
+#    margin-right:-30px;
     cursor:pointer;
     color: #fff;
     border: 1px solid #AEAEAE;
@@ -124,6 +126,7 @@ a.pflegemap-help-box-close{
     display: inline-block;
     line-height: 0px;
     padding: 11px 3px;
+
 }
 .pflegemap-help-box-close:before {
   content: "×";
