@@ -166,7 +166,7 @@ PflegeMap.angebot = function(params) {
   };
 
   feature.popupText = function() {
-    return ('<tr><td><img class="pm-eingerueckt" src="./images/' + this.get('icon') + '.png" style="margin-right: 10px"/></td><td><a onclick="PflegeMap.mapper.switchToOtherFeature(' + this.get('id') + ')">' + this.anrede + '</a></td></tr>');
+    return ('<tr><td><img class="pm-eingerueckt" src="./images/' + this.get('icon') + '.png" style="margin-right: 10px"/></td><td><a onclick="PflegeMap.mapper.switchToOtherFeature(' + this.get('id') + ')">' + this.anrede() + '</a></td></tr>');
   };
 
   feature.xy = function() {
