@@ -235,7 +235,6 @@ PflegeMap.mapperController = function(map) {
     * Aktive features are thus meets the filter criteria.
     */
     redrawFeatures: function() {
-      //console.log('redrawFeatures');
       var source = PflegeMap.mapper.layer.getSource(),
           view = PflegeMap.mapper.map.getView(),
           size = PflegeMap.mapper.map.getSize(),
@@ -252,6 +251,7 @@ PflegeMap.mapperController = function(map) {
             feature.getGeometry().getCoordinates()
           )
         ) {
+          category = feature.get('kategorie');
           PflegeMap.mapper.showCareService(feature);
           categoryCount[category] = (categoryCount[category] ? categoryCount[category] + 1 : 1);
           numVisible += 1;
@@ -261,7 +261,6 @@ PflegeMap.mapperController = function(map) {
       });
 
       PflegeMap.mapper.updateCategoryCount(categoryCount);
-
       if (numVisible > 0) {
         $('#PflegeMap\\.numFeatures').text('(' + numVisible + ' Treffer)');
         PflegeMap.mapper.noFeaturesMessage.hide();

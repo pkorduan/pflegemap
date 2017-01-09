@@ -236,11 +236,11 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       <label>
                         <input versart="Ambulante Pflege" class="cb-kat" type="checkbox">
                         <!-- Die Versorgungsart lautet eigentlich Ambulante Pflege, angezeigt werden soll aber das Angebot also Pflegedienst //-->
-                        <span class="label-body">Ambulanter Pflegedienst <span id="PflegeMap.numFeature_pd"></span><img src="./images/Ambulante Pflege.png"></img></span>
+                        <span class="label-body">Ambulanter Pflegedienst</span> <span id="PflegeMap.numFeature_pd">34</span><img src="./images/Ambulante Pflege.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="pd" class="cb-subkat" type="checkbox" disabled readonly>
-                            <span class="label-body">Ambulanter Pflegedienst <span id="PflegeMap.numFeature_pd"></span></span>
+                            <span class="label-body">Ambulanter Pflegedienst</span>
                           </label>
                         </div>
                       </label>
@@ -549,7 +549,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
               </div>
               <div class="pflegemap-care-service-list small-map medium-map large-map">
                 <div class="pm-care-service pm-care-service-header" style="display: block;">
-                  Trefferliste im aktuellen Kartenausschnitt:
+                  Trefferliste im aktuellen Kartenausschnitt: <span id="PflegeMap.numFeatures"></span>
                 </div>
               </div>
               <div class="pflegemap-clear"></div>
