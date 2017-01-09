@@ -404,6 +404,13 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       <option value="60">1 Stunde</option>
                     </select><br>
                     <input id="PflegeMap.removeReachButton" class="pflegemap-reach-button" type="button" value="Gebiet löschen"/>
+                    <span
+                      class="pflegemap-reach-option-icon"
+                      toolname="car"
+                      title="Berechnung für KfZ"
+                      alt="Berechnung für KfZ">
+                        <i class="fa fa-inverse fa-car"></i>
+                    </span>
                   </div>
 
                   <!-- routing search aarea //-->
