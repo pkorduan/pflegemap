@@ -89,6 +89,9 @@ PflegeMap.angebot = function(params) {
       ]) > -1 ) {
         html += '<br><a href="http://kreis-lup.de/leben-im-landkreis/verkehr-ordnung-sicherheit/heimaufsicht/" target="_blank"><i class="fa fa-external-link"></i> Prüfbericht der Heimaufsicht</a>';
       }
+      if (this.get('kategorie') == 'az') {
+        html += '<br><a href="http://www.kvmv.info/patienten/40/" target="_blank"><i class="fa fa-external-link"></i> Arztsuche Mecklenburg-Vorpommern</a>'
+      }
       html += '</div>';
 
       html += '<div class="small-100 medium-80 large-40 columns">';
