@@ -409,8 +409,9 @@ PflegeMap.mapperController = function(map) {
 
       // find selected feature by id
       features.map(function(feature) {
-        if (feature.get('id') == selected_id)
-          feature.toggle();
+        if (feature.get('id') == selected_id) {
+          feature.setInfo();
+        }
       });
     },
 

@@ -187,6 +187,7 @@ PflegeMap.angebot = function(params) {
     $('#PflegeMap\\.popup').attr('class','pm-popup pm-angebot');
     $('#PflegeMap\\.popup-title').html(this.anrede());
     $('#PflegeMap\\.popup-data').html(this.data());
+
     if (moreFeatures.length > 0) {
       html = $.map(moreFeatures, function(feature) {
           return feature.popupText();
@@ -198,6 +199,13 @@ PflegeMap.angebot = function(params) {
     }
     $('.pm-popup-function-clear').hide();
     $('#PflegeMap\\.popup-function-more-content').html(html);
+  };
+
+  feature.setInfo = function() {
+    PflegeMap.popup.infoFeature = this;
+    $('#PflegeMap\\.popup').attr('class','pm-popup pm-angebot');
+    $('#PflegeMap\\.popup-title').html(this.anrede());
+    $('#PflegeMap\\.popup-data').html(this.data());
   };
 
   feature.show = function() {

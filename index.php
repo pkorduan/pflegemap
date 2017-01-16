@@ -350,7 +350,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                   <div class="small-100 medium-100 large-100 columns">
 
                     <!-- address search area //-->
-                    <div class="pflegemap-search-area">
+                    <div>
                       <div class"" style="float: left;">
                         <div class="pflegemap-search-wrapper">
                           <input id="PflegeMap.proximitySearchField" class="pflegemap-search-field small-input medium-input large-input pflegemap-address-search-box" type="text" placeholder="Suche nach Adresse ..."/>
@@ -358,7 +358,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                         </div>
                       </div>
                       <div class="" style="margin-top: 5px; float: left;">
-                        <select id="PflegeMap.proximitySelect">
+                        <select id="PflegeMap.proximitySelect" style="height: 26px; margin-top: -1px;">
                           <option value="-1" selected="selected">Umkreis</option>
                           <option value="1000">1km</option>
                           <option value="2000">2km</option>
@@ -394,7 +394,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       style="display:none;">
                     </div><br>
                     Maximale Entfernung:<br>
-                    <select id="PflegeMap.reachMinutes">
+                    <select id="PflegeMap.reachMinutes" style="height: 26px;">
                       <option value="5" selected="selected">5 Minuten</option>
                       <option value="10">10 Minuten</option>
                       <option value="15">15 Minuten</option>
@@ -414,7 +414,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                   </div>
 
                   <!-- routing search aarea //-->
-                  <div id="PflegeMap.routingSearchArea" class="pflegemap-search-area" style="display:none">
+                  <div id="PflegeMap.routingSearchArea" style="display:none">
                     Startadresse:<br>
                     <input
                       id="PflegeMap.sourceField"
@@ -439,10 +439,11 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       toolname="car"
                       title="Berechnung für KfZ"
                       alt="Berechnung für KfZ">
-                        <i class="fa fa-inverse fa-car"></i>
+                      <i class="fa fa-inverse fa-car"></i>
                     </span>
-                    <span id="PflegeMap.routingDuration" class="pflegemap-routing-result"></span>
-                    <span id="PflegeMap.routingDistance" class="pflegemap-routing-result"></span>
+                    <span id="PflegeMap.routingInfo" class="pflegemap-routing-result"></span>
+                    <!--span id="PflegeMap.routingDuration" class="pflegemap-routing-result"></span>
+                    <span id="PflegeMap.routingDistance" class="pflegemap-routing-result"></span//-->
                   </div>
 
                 </div>

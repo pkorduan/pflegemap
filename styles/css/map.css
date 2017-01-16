@@ -135,24 +135,15 @@ a.pflegemap-help-box-close {
 .pflegemap-header {
   
 }
-.pflegemap-search-area {
 
-}
 .pflegemap-routing-result {
-  float:right;
+  margin-left: 10px;
 }
+
 .pflegemap-search-toolbox {
 
 }
-.pflegemap-routing-option-icon {
-  width: 28px;
-  height: 28px;
-  border: 0;
-  border-radius: 4px;
-  background-color: gray;
-  margin: 0.1em;
-  padding: 5px;
-}
+
 .pflegemap-search-tool-icon {
   width: 28px;
   height: 28px;
@@ -184,12 +175,18 @@ a.pflegemap-help-box-close {
   border: 1px solid #ddd;
 }
 .pflegemap-routing-button {
-  width: 9em;
+  height: 26px;
+  border-radius: 5px;
+  background-color: #ececec;
 }
 
 .pflegemap-reach-button {
-  margin-top: 1em;
+  margin-top: 10px;
+  height: 26px;
+  border-radius: 5px;
+  background-color: #ececec;
 }
+
 .pflegemap-search-result-box{
   padding: 4px;
   margin-top: 32px;
@@ -203,15 +200,27 @@ a.pflegemap-help-box-close {
   border: 1px solid #ddd;
   background-color: #fff;
 }
+
 .pflegemap-reach-option-icon {
   width: 28px;
   height: 28px;
   border: 0;
   border-radius: 4px;
   background-color: gray;
-  margin: 0.1em;
+  margin-left: 10px;
   padding: 5px;
 }
+
+.pflegemap-routing-option-icon {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 4px;
+  background-color: gray;
+  margin-left: 10px;
+  padding: 5px 3px 5px 7px;
+}
+
 .pflegemap-subcategories {
   display: none;
 }
@@ -229,8 +238,9 @@ a.pflegemap-help-box-close {
 .pflegemap-clear{
   clear: both;
 }
+
 .pflegemap-map {
-  margin-top: 2px;
+  margin-top: 5px;
   border-radius: 5px;
   border: 1px solid #ccc;
 #  bottom: 12px;
