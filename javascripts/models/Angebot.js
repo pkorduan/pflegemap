@@ -3,6 +3,7 @@ PflegeMap.angebot = function(params) {
     id: params.id,
     type: 'Angebot',
     angebot: params.angebot,
+    titel: params.titel,
     name: params.name,
     kategorie: params.kategorie,
     versorgungsart: params.versorgungsart,
@@ -23,7 +24,7 @@ PflegeMap.angebot = function(params) {
     hidden: true,
     active: true,
     selected: false,
-    icon: (function(){
+    icon: (function() {
       switch (params.versorgungsart){
         case 'Ambulante Pflege':
           return params.angebot;
@@ -32,7 +33,7 @@ PflegeMap.angebot = function(params) {
         case 'Beratung':
           return params.versorgungsart;
         case 'Gesundheit':
-          return params.angebot;
+          return (params.kategorie == 'az' ? 'Arzt' : params.angebot);
         case 'Kurzzeitpflege':
           return params.angebot;
         case 'Pflegeheim':
@@ -75,34 +76,36 @@ PflegeMap.angebot = function(params) {
   feature.getListElement = function() {
     html  = '<div id="PflegeMap.careService_' + this.get('id') + '" class="pm-care-service" feature_id="' + this.get('id') + '" class="row list small-map medium-map large-map">';
 
-      html += '<div class="pm-care-service-content small-100 medium-80 large-45 columns">';
-        html += '<a name="PflegeMap.careService_' + this.get('id') + '"></a><b>' + this.anrede() + '</b><br>';
-        if (this.get('traeger') != '')
-          html += '<i>Träger:</i> ' + this.get('traeger');
-        html += '<br><i>Kategorie:</i> ' + this.get('angebot');
-      if (this.get('kapazitaet') != '' && this.get('kapazitaet') > 0)
-        html += '<br><i>Kapazität:</i> ' + this.get('kapazitaet');
-      if ($.inArray(this.get('versorgungsart'), [
-        'Stationäre Pflege',
-        'Pflegeheim',
-        'Kurzzeitpflege'
-      ]) > -1 ) {
-        html += '<br><a href="http://kreis-lup.de/leben-im-landkreis/verkehr-ordnung-sicherheit/heimaufsicht/" target="_blank"><i class="fa fa-external-link"></i> Prüfbericht der Heimaufsicht</a>';
-      }
-      if (this.get('kategorie') == 'az') {
-        html += '<br><a href="http://www.kvmv.info/patienten/40/" target="_blank"><i class="fa fa-external-link"></i> Arztsuche Mecklenburg-Vorpommern</a>'
-      }
-      html += '</div>';
+    html += '<div class="pm-care-service-content small-100 medium-80 large-45 columns">';
+    html += '<a name="PflegeMap.careService_' + this.get('id') + '"></a><b>' + this.anrede() + '</b><br>';
+    if (this.get('traeger') != '')
+      html += '<i>Träger:</i> ' + this.get('traeger') + '<br>';
 
-      html += '<div class="small-100 medium-80 large-40 columns">';
-        html += this.contact();
-      html += '</div>';
+    html += '<i>' + (this.get('kategorie') == 'az' ? 'Fachrichtung' : 'Kategorie') + ':</i> ' + this.get('angebot');
 
-      html += '<div class="pm-list-functions small-100 medium-20 large-15 columns push">';
-        html += '<div class="pm-list-function-from"><i class="fa fa-flag-o fa-fw "></i> Route von hier</div>';
-        html += '<div class="pm-list-function-to"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</div>';
-        html += "<a href=\"#PflegeMap.top\"><i class=\"fa fa-map-marker fa-fw\"></i> zur Karte</a>";
-      html += '</div>';
+    if (this.get('kapazitaet') != '' && this.get('kapazitaet') > 0)
+      html += '<br><i>Kapazität:</i> ' + this.get('kapazitaet');
+    if ($.inArray(this.get('versorgungsart'), [
+      'Stationäre Pflege',
+      'Pflegeheim',
+      'Kurzzeitpflege'
+    ]) > -1 ) {
+      html += '<br><a href="http://kreis-lup.de/leben-im-landkreis/verkehr-ordnung-sicherheit/heimaufsicht/" target="_blank"><i class="fa fa-external-link"></i> Prüfbericht der Heimaufsicht</a>';
+    }
+    if (this.get('kategorie') == 'az') {
+      html += '<br><a href="http://www.kvmv.info/patienten/40/" target="_blank"><i class="fa fa-external-link"></i> Arztsuche Mecklenburg-Vorpommern</a>'
+    }
+    html += '</div>';
+
+    html += '<div class="small-100 medium-80 large-40 columns">';
+    html += this.contact();
+    html += '</div>';
+
+    html += '<div class="pm-list-functions small-100 medium-20 large-15 columns push">';
+    html += '<div class="pm-list-function-from"><i class="fa fa-flag-o fa-fw "></i> Route von hier</div>';
+    html += '<div class="pm-list-function-to"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</div>';
+    html += "<a href=\"#PflegeMap.top\"><i class=\"fa fa-map-marker fa-fw\"></i> zur Karte</a>";
+    html += '</div>';
     html += '</div>';
     html += '<div class="pflegemap-clear"></div>';
     this.listElement = $(html);

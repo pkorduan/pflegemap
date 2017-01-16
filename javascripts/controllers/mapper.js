@@ -311,7 +311,7 @@ PflegeMap.mapperController = function(map) {
 
       if (typeof applyFilter === "undefined") {
         PflegeMap.mapper.filterFeatures();
-        PflegeMap.mapper.zoomToExtent();
+        //PflegeMap.mapper.zoomToExtent();
         PflegeMap.mapper.redrawFeatures();
       }
     },
@@ -340,7 +340,7 @@ PflegeMap.mapperController = function(map) {
 
       if (typeof applyFilter === "undefined") {
         PflegeMap.mapper.filterFeatures();
-        PflegeMap.mapper.zoomToExtent();
+       // PflegeMap.mapper.zoomToExtent();
         PflegeMap.mapper.redrawFeatures();
       }
     },
