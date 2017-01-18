@@ -6,6 +6,7 @@ PflegeMap.angebot = function(params) {
     titel: params.titel,
     name: params.name,
     kategorie: params.kategorie,
+    fachrichtung: params.fachrichtung,
     versorgungsart: params.versorgungsart,
     geometry: new ol.geom.Point([Number(params.x), Number(params.y)]),
     einrichtung: params.einrichtung,
@@ -33,7 +34,7 @@ PflegeMap.angebot = function(params) {
         case 'Beratung':
           return params.versorgungsart;
         case 'Gesundheit':
-          return (params.kategorie == 'az' ? 'Arzt' : params.angebot);
+          return params.angebot;
         case 'Kurzzeitpflege':
           return params.angebot;
         case 'Pflegeheim':
@@ -81,7 +82,12 @@ PflegeMap.angebot = function(params) {
     if (this.get('traeger') != '')
       html += '<i>Träger:</i> ' + this.get('traeger') + '<br>';
 
-    html += '<i>' + (this.get('kategorie') == 'az' ? 'Fachrichtung' : 'Kategorie') + ':</i> ' + this.get('angebot');
+    if (this.get('kategorie') == 'az') {
+      html += '<i>Fachrichtung:</i> ' + this.get('fachrichtung');
+    }
+    else (
+      html += '<i>Kategorie:</i> ' + this.get('angebot');
+    }
 
     if (this.get('kapazitaet') != '' && this.get('kapazitaet') > 0)
       html += '<br><i>Kapazität:</i> ' + this.get('kapazitaet');
@@ -114,12 +120,10 @@ PflegeMap.angebot = function(params) {
 
   feature.data = function() {
     var html = '';
-    html += this.get('angebot') + '<br>';
-    if (this.get('ansprechpartner') != '')
-      html += this.get('ansprechpartner') + '<br>';
+    html += (this.get('kategorie') == 'az' ? this.get('fachrichtung') : this.get('angebot')) + '<br>';
+    html += (this.get('ansprechpartner') != '' ? this.get('ansprechpartner') : '') + '<br>';
     html += this.address();
-    if (this.get('telefon') != '')
-      html += '<br>Tel: ' + this.get('telefon');
+    html += (this.get('telefon') != '' ? '<br>Tel: ' + this.get('telefon') : '');
     html += '<a href="#PflegeMap.careService_' + this.get('id') + '" style="float: right">Details</a>';
     return html;
   };
