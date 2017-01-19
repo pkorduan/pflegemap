@@ -204,12 +204,17 @@ PflegeMap.routerController = {
       PflegeMap.map.getSize()
     );
 
-    $('#PflegeMap\\.routingDuration').html(
+    $('#PflegeMap\\.routingInfo').html(
+      'Auto: ' + scope.distanceFormatter(route.distance) + ', ' + scope.durationFormatter(route.duration)
+    ).show();
+
+/*    $('#PflegeMap\\.routingDuration').html(
       ', ' + scope.durationFormatter(route.duration)
     ).show();
     $('#PflegeMap\\.routingDistance').html(
       'Auto: ' + scope.distanceFormatter(route.distance)
     ).show();
+*/
   },
 
   removeRoute: function(scope) {
@@ -223,8 +228,9 @@ PflegeMap.routerController = {
     $('#PflegeMap\\.targetField').val('');
     $('#PflegeMap\\.targetField').prop('readonly', false);
 
-    $('#PflegeMap\\.routingDuration').html();
-    $('#PflegeMap\\.routingDistance').html();
+    $('#PflegeMap\\.routingInfo').html();
+//    $('#PflegeMap\\.routingDuration').html();
+//    $('#PflegeMap\\.routingDistance').html();
 
     if (features != null && features.length > 0) {
       for (x in features) {
@@ -235,7 +241,8 @@ PflegeMap.routerController = {
   },
 
   openRouteSearch: function(event) {
-    var currFeature = event.data.popup.target.feature;
+    debug_e = event;
+    var currFeature = event.data.popup.infoFeature || event.data.popup.feature || event.data.popup.target.feature;
     var routeField = event.data.routeField;
     
     routeField.attr('coordinates', currFeature.latlng().join(', '));

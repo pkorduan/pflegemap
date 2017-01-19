@@ -16,6 +16,22 @@ PflegeMap.mapperController = function(map) {
       })
     }),
 
+    searchCircleLayer: new ol.layer.Vector({
+      source: new ol.source.Vector({
+        projection: 'EPSG:4326',
+        features: []
+      }),
+      visible: false
+    }),
+
+    selectedFeatureLayer: new ol.layer.Vector({
+      source: new ol.source.Vector({
+        projection: 'EPSG:4326',
+        features: []
+      }),
+      visible: false
+    }),
+
     list: {
       add: function(feature) {
         var element = feature.getListElement();
@@ -26,7 +42,25 @@ PflegeMap.mapperController = function(map) {
 
     initLayer: function(store) {
       var i,
-          source = this.layer.getSource();
+          source = this.layer.getSource(),
+          searchCircleStyle = new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: 'blue',
+              width: 3
+            }),
+            fill: new ol.style.Fill({
+              color: 'rgba(0, 0, 255, 0.1)'
+            })
+          }),
+          selectedFeatureStyle = new ol.style.Style({
+            image: new ol.style.Icon({
+              anchor: [0.5, 0.5],
+              anchorXUnits: 'fraction',
+              anchorYUnits: 'fraction',
+              opacity: 0.95,
+              src: 'images/Sonstige.png'
+            })
+          });
 
       for (i = 0; i < store.length; i++) {
         source.addFeature(
@@ -35,9 +69,27 @@ PflegeMap.mapperController = function(map) {
           )
         );
       }
-
       this.layer.setMap(this.map);
       this.errMsgElement = $('#PflegeMap\\.errorMessage')[0];
+
+      searchCircle = new ol.Feature({
+        geometry: new ol.geom.Circle(
+          ol.proj.transform([11.55, 53.455], PflegeMap.baseProjection, PflegeMap.viewProjection),
+          10000
+        )
+      });
+      searchCircle.setStyle(searchCircleStyle);
+      this.searchCircleLayer.getSource().addFeature(searchCircle);
+      this.searchCircleLayer.setMap(this.map);
+
+      selectedFeature = new ol.Feature({
+        geometry: new ol.geom.Point(
+          ol.proj.transform([11.55, 53.455], PflegeMap.baseProjection, PflegeMap.viewProjection)
+        )
+      });
+      selectedFeature.setStyle(selectedFeatureStyle);
+      this.selectedFeatureLayer.getSource().addFeature(selectedFeature);
+      this.selectedFeatureLayer.setMap(this.map);
     },
 
     initSearchTools: function() {
@@ -112,6 +164,16 @@ PflegeMap.mapperController = function(map) {
         this.toggleFeature
       );
 
+      // Handler to show more care-service results at this position
+      $('#PflegeMap\\.popup .pm-popup-function-more-toggle').off();
+      $('#PflegeMap\\.popup .pm-popup-function-more-toggle').on(
+        'click',
+        {
+          popup: PflegeMap.popup
+        },
+        this.toggleMoreCareServices
+      );
+
       // Handler for Category-Checkboxes
       $(".cb-kat").on(
         'change',
@@ -131,7 +193,7 @@ PflegeMap.mapperController = function(map) {
         var source = this.layer.getSource(),
             features = source.getFeatures();
 
-        PflegeMap.mapper.filterFeatures(features);
+        PflegeMap.mapper.redrawFeatures();
       }, this);
 
     },
@@ -163,7 +225,8 @@ PflegeMap.mapperController = function(map) {
     * in der Kategoriesuche (Themen) ausgewählt ist.
     */
     categoryFilter: function(feature) {
-      return $($("[kategorie='" + feature.get('kategorie') + "']")[0]).is(':checked')
+      result = $($("[kategorie='" + feature.get('kategorie') + "']")[0]).is(':checked')
+      return result;
     },
 
     /*
@@ -182,6 +245,7 @@ PflegeMap.mapperController = function(map) {
     *   und Wende immer den extendFilter an
     */
     filterFeatures: function(features) {
+      //console.log('filterFeatures');
       var source = PflegeMap.mapper.layer.getSource(),
           view = PflegeMap.mapper.map.getView(),
           size = PflegeMap.mapper.map.getSize(),
@@ -190,17 +254,20 @@ PflegeMap.mapperController = function(map) {
           categoryCount = [];
 
       features.map(function(feature) {
+        //console.log('feature: ' + feature.get('name'));
         filterResult = false;
         category = feature.get('kategorie');
 
         // Variante A
 
-        if ($('#PflegeMap\\.textSearchArea').is(':visible')) {
+/*        if ($('#PflegeMap\\.textSearchArea').is(':visible')) {
           filterResult = PflegeMap.mapper.wordFilter(feature) &&
                          PflegeMap.proximiter.proximityFilter(feature)
         }
+*/
         if ($('#PflegeMap\\.categorySearchArea').is(':visible')) {
           filterResult = PflegeMap.mapper.categoryFilter(feature) &&
+                         PflegeMap.proximiter.proximityFilter(feature) &&
                          PflegeMap.reacher.reachAreaFilter(feature);
         }
         if ($('#PflegeMap\\.reachSearchArea').is(':visible')) {
@@ -208,12 +275,34 @@ PflegeMap.mapperController = function(map) {
                          PflegeMap.mapper.categoryFilter(feature);
         }
 
-        filterResult = filterResult && ol.extent.containsExtent(
-          view.calculateExtent(size),
-          feature.getGeometry().getExtent()
-        );
+        //console.log('feature ' + feature.get('name') + ' is:' + (filterResult ? ' activ' : ' not active'));
+        feature.set('active', filterResult);
+      });
+    },
 
-        if (filterResult) {
+    /**
+    * This function show aktive features inside the current map view
+    * and feature list. It will be regularly used after zoom and pan.
+    * Aktive features are thus meets the filter criteria.
+    */
+    redrawFeatures: function() {
+      var source = PflegeMap.mapper.layer.getSource(),
+          view = PflegeMap.mapper.map.getView(),
+          size = PflegeMap.mapper.map.getSize(),
+          currentExtent = view.calculateExtent(size),
+          features = source.getFeatures(),
+          numVisible = 0,
+          categoryCount = [];
+
+      features.map(function(feature) {
+        if (
+          feature.get('active') &&
+          ol.extent.containsCoordinate(
+            currentExtent,
+            feature.getGeometry().getCoordinates()
+          )
+        ) {
+          category = feature.get('kategorie');
           PflegeMap.mapper.showCareService(feature);
           categoryCount[category] = (categoryCount[category] ? categoryCount[category] + 1 : 1);
           numVisible += 1;
@@ -223,11 +312,13 @@ PflegeMap.mapperController = function(map) {
       });
 
       PflegeMap.mapper.updateCategoryCount(categoryCount);
-
       if (numVisible > 0) {
+        $('#PflegeMap\\.numFeatures').text('(' + numVisible + ' Treffer)');
         PflegeMap.mapper.noFeaturesMessage.hide();
-      } else
+      } else {
+        $('#PflegeMap\\.numFeatures').text('(' + numVisible + ' Treffer)');
         PflegeMap.mapper.noFeaturesMessage.show();
+      }
     },
 
     updateCategoryCount: function(categoryCount) {
@@ -269,11 +360,15 @@ PflegeMap.mapperController = function(map) {
       if ($(event.target).parent().siblings().length == 0)
         $(event.target).parent().hide();
 
-      if (typeof applyFilter === "undefined")
+      if (typeof applyFilter === "undefined") {
         PflegeMap.mapper.filterFeatures();
+        //PflegeMap.mapper.zoomToExtent();
+        PflegeMap.mapper.redrawFeatures();
+      }
     },
   
     onChangeCategoryCheckBox: function(event, applyFilter) {
+      //console.log('onChangeCategoryCheckBox');
       var scope = event.data,
           versart = event.target.getAttribute('versart'),
           isChecked = event.target.checked;
@@ -283,6 +378,7 @@ PflegeMap.mapperController = function(map) {
         // filterFeatures()
       }
       else {
+        //console.log('change categroy check box: ' + versart);
         // uncheck 'all'-box if any of the catgrs is unchecked and vice versa
         var allChecked = ($(".cb-kat[versart!='all']:checked").length == $(".cb-kat[versart!='all']").length);
         $(".cb-kat[versart='all']").prop('checked', allChecked);
@@ -293,18 +389,19 @@ PflegeMap.mapperController = function(map) {
 
       $('.cb-subkat', $(subcatDiv)).prop('checked',isChecked).trigger('change', 'do not apply filter');
 
-      if (typeof applyFilter === "undefined")
+      if (typeof applyFilter === "undefined") {
         PflegeMap.mapper.filterFeatures();
+       // PflegeMap.mapper.zoomToExtent();
+        PflegeMap.mapper.redrawFeatures();
+      }
     },
   
     switchSearchTools: function(event) {
       $.each(PflegeMap.searchTools, function(index, searchTool) {
-        console.log(searchTool);
         $('#PflegeMap\\.' + searchTool + 'Area').hide();
         $('#PflegeMap\\.' + searchTool + 'Tool').attr("class", "pflegemap-search-tool-icon");
       });
       var searchType = event.target.getAttribute('toolname') || event.target.parentElement.getAttribute('toolname');
-      console.log(searchType);
       $('#PflegeMap\\.' + searchType + 'Tool').toggleClass("highlighted");
       $('#PflegeMap\\.' + searchType + 'Area').show();
     },
@@ -352,6 +449,24 @@ PflegeMap.mapperController = function(map) {
       PflegeMap.geocoder.addSearchResultFeature('proximityAddress', display_name, lat, lon);
     },
 
+    toggleMoreCareServices: function(event) {
+      $('#PflegeMap\\.popup-function-more-content').toggle();
+      $('#pm-popup-function-more-icon').toggleClass('fa-caret-square-o-right fa-caret-square-o-down');
+    },
+
+    switchToOtherFeature: function(selected_id) {
+      var features = (PflegeMap.config.cluster ? this.layer.getSource().getSource().getFeatures() : this.layer.getSource().getFeatures()),
+          resolution = PflegeMap.map.getView().getResolution();
+
+      // find selected feature by id
+      features.map(function(feature) {
+        if (feature.get('id') == selected_id) {
+          feature.setInfo();
+          feature.showInFront();
+        }
+      });
+    },
+
     zeigeEinrichtungen: function(store, layer) {
       var features = [];
       for (var i = 0; i < store.length; i++){
@@ -378,9 +493,12 @@ PflegeMap.mapperController = function(map) {
     },
 
     zoomToExtent: function() {
+      //console.log('zoomToExtent');
       var featureCoordinates = PflegeMap.mapper.layer.getSource().getFeatures().filter(
             function(feature) {
-              return !feature.get('hidden');
+              if (feature.get('active'))
+                //console.log('feature active')
+              return feature.get('active');
             }
           ).map(
             function(feature) {
@@ -404,6 +522,14 @@ PflegeMap.mapperController = function(map) {
           extent,
           PflegeMap.map.getSize()
         );
+    },
+
+    zoomToMaxExtent: function() {
+      PflegeMap.map.getView().fit(
+        PflegeMap.maxExtent,
+        PflegeMap.map.getSize()
+      );
     }
+    
   };
 };

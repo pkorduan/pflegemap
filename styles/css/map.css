@@ -75,6 +75,7 @@ a.pflegemap-message-box-close{
 }
 
 .pflegemap-help-box{
+  display: none;
   position:fixed;
   top:-1600px;
   left:20%;
@@ -89,6 +90,8 @@ a.pflegemap-message-box-close{
   -moz-box-shadow: 0 1px 5px #333;
   -webkit-box-shadow: 0 1px 5px #333;
   z-index:101;
+  max-height: 800px;
+  overflow: scroll;
 }
 .pflegemap-help-box h1 {
   font-size: 1.2em;
@@ -109,10 +112,10 @@ a.pflegemap-message-box-close{
   color: #235CBB;
   margin: 0px 0px 0px 0px;
 }
-a.pflegemap-help-box-close{
+a.pflegemap-help-box-close {
     float:right;
-    margin-top:-30px;
-    margin-right:-30px;
+    margin-top: -3px;
+#    margin-right:-30px;
     cursor:pointer;
     color: #fff;
     border: 1px solid #AEAEAE;
@@ -123,6 +126,7 @@ a.pflegemap-help-box-close{
     display: inline-block;
     line-height: 0px;
     padding: 11px 3px;
+
 }
 .pflegemap-help-box-close:before {
   content: "×";
@@ -131,24 +135,15 @@ a.pflegemap-help-box-close{
 .pflegemap-header {
   
 }
-.pflegemap-search-area {
 
-}
 .pflegemap-routing-result {
-  float:right;
+  margin-left: 10px;
 }
+
 .pflegemap-search-toolbox {
 
 }
-.pflegemap-routing-option-icon {
-  width: 28px;
-  height: 28px;
-  border: 0;
-  border-radius: 4px;
-  background-color: gray;
-  margin: 0.1em;
-  padding: 5px;
-}
+
 .pflegemap-search-tool-icon {
   width: 28px;
   height: 28px;
@@ -180,14 +175,21 @@ a.pflegemap-help-box-close{
   border: 1px solid #ddd;
 }
 .pflegemap-routing-button {
-  width: 9em;
+  height: 26px;
+  border-radius: 5px;
+  background-color: #ececec;
 }
 
 .pflegemap-reach-button {
-  margin-top: 1em;
+  margin-top: 10px;
+  height: 26px;
+  border-radius: 5px;
+  background-color: #ececec;
 }
+
 .pflegemap-search-result-box{
   padding: 4px;
+  margin-top: 32px;
   border-radius: 5px;
   border: 1px solid #ddd;
   background-color: #fff;
@@ -198,6 +200,27 @@ a.pflegemap-help-box-close{
   border: 1px solid #ddd;
   background-color: #fff;
 }
+
+.pflegemap-reach-option-icon {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 4px;
+  background-color: gray;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+.pflegemap-routing-option-icon {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 4px;
+  background-color: gray;
+  margin-left: 10px;
+  padding: 5px 3px 5px 7px;
+}
+
 .pflegemap-subcategories {
   display: none;
 }
@@ -215,8 +238,9 @@ a.pflegemap-help-box-close{
 .pflegemap-clear{
   clear: both;
 }
+
 .pflegemap-map {
-  margin-top: 2px;
+  margin-top: 5px;
   border-radius: 5px;
   border: 1px solid #ccc;
 #  bottom: 12px;
@@ -343,29 +367,76 @@ a.pflegemap-help-box-close{
 }
 
 .pm-popup-functions>* {
-  visibility: hidden;
-  display: none;
   cursor: pointer;
 }
 
 .pm-angebot .pm-popup-function-from,
 .pm-angebot .pm-popup-function-to {
-  visibility: visible;
-  display: block;
+    visibility: visible;
+    display: block;
+  }
 }
 
 .pm-suchergebnis .pm-popup-function-from,
 .pm-suchergebnis .pm-popup-function-to ,
-.pm-suchergebnis .pm-popup-function-proximity ,
-.pm-suchergebnis .pm-popup-function-reach ,
-.pm-suchergebnis .pm-popup-function-clear {
+.pm-suchergebnis .pm-popup-function-proximity,
+.pm-suchergebnis .pm-popup-function-reach {
   visibility: visible;
   display: block;
+}
+
+.pm-popup-function-more {
+  visibility: visible;
+	display: block;
+  border-top: 1px solid #cccccc;
+}
+
+.pm-popup-function-more-content {
+	display: none;
+	background-color: #eee;
+  border-radius: 5px;
+	padding-top: 3px;
+	max-height: 150px;
+	overflow: scroll;
 }
 
 .pm-popup-function-proximity-search {
   display: inline-block;
   padding-right: 1.2em;
+}
+
+.pm-popup-function-clear {
+  border-top: 1px solid #cccccc;
+  display: none;
+}
+
+.pm-eingerueckt {
+	width: 15px;
+	margin-left: 4px;
+}
+
+.pflegemap-address-search-box,
+.pflegemap-proximity-search-field-reset-icon,
+.pflegemap-search-wrapper {
+  position: relative;
+  padding: 4px;
+}
+
+.pflegemap-search-wrapper {
+  margin-left: 0px;
+  margin-top: 0px;
+}
+
+.pflegemap-proximity-search-field-reset-icon {
+  background-color: #ffffff;
+  position: absolute;
+  width: 20px;
+  top: 6px;
+  height: 20px;
+  right: 5px;
+  bottom: 0;
+  cursor: pointer;
+  padding: 4px;
 }
 
 hr.pflegemap-hr {
