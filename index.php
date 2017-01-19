@@ -508,7 +508,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                         <div class="pm-popup-function-from"><i class="fa fa-flag-o fa-lg fa-fw"></i>&nbsp; Route von hier</div>
                         <div class="pm-popup-function-to"><i class="fa fa-flag-checkered fa-lg fa-fw"></i>&nbsp; Route nach hier</div>
                         <div class="pm-popup-function-more">
-                          <div class="pm-popup-function-more-toggle"><i id="pm-popup-function-more-icon" class="fa fa-caret-square-o-right fa-lg fa-fw"></i>&nbsp; Weitere Angebote hier</div>
+                          <div class="pm-popup-function-more-toggle"><i id="pm-popup-function-more-icon" class="fa fa-caret-square-o-right fa-lg fa-fw"></i>&nbsp; Alle Angebote an dieser Stelle</div>
                           <div id="PflegeMap.popup-function-more-content" class="pm-popup-function-more-content"></div>
                         </div>
                         <!-- div class="pm-popup-function-proximity">

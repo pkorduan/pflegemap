@@ -192,7 +192,7 @@ PflegeMap.angebot = function(params) {
     $('#PflegeMap\\.popup-title').html(this.anrede());
     $('#PflegeMap\\.popup-data').html(this.data());
 
-    if (moreFeatures.length > 0) {
+    if (moreFeatures.length > 1) {
       html = $.map(moreFeatures, function(feature) {
           return feature.popupText();
       }).join('<br>');
@@ -235,6 +235,9 @@ PflegeMap.angebot = function(params) {
       this.listElement.toggleClass('pm-care-service-highlighted');
       // set this feature to unselected
       this.set('selected', false);
+      // hide Layer with search radius drawings
+      PflegeMap.mapper.searchCircleLayer.setVisible(false);
+      PflegeMap.mapper.selectedFeatureLayer.setVisible(false);
     }
   };
 
@@ -247,21 +250,26 @@ PflegeMap.angebot = function(params) {
       //console.log('Select angeobt feature: ' + this.get('id'));
 
       // find more features in the near of selected
-      searchBuffer = ol.extent.buffer(selectedFeature.getGeometry().getExtent(), resolution * 40);
+      searchBuffer = ol.extent.buffer(selectedFeature.getGeometry().getExtent(), resolution * PflegeMap.config.searchRadiusFactor);
       moreFeatures = $.grep(features, function(feature, index) {
         return (
           !feature.get('hidden') &&
-          feature.get('id') != selectedFeature.get('id') &&
           ol.extent.containsCoordinate(searchBuffer, feature.getGeometry().getCoordinates())
         );
       });
-      
+
       // show popup
-      //console.log('show popup');
       selectedFeature.preparePopup(moreFeatures);
       PflegeMap.popup.setPosition(
         selectedFeature.getGeometry().getCoordinates()
       );
+      if (moreFeatures.length > 1) {
+        selectedFeature.drawMoreFeatureRadius(moreFeatures);
+        selectedFeature.showInFront();
+      } else {
+        // hide moreFeatureRadius;
+        //PflegeMap.searchCircleLayer.setVisible(false);
+      }
 
       // highlight the list Element
       //console.log('highlight list element');
@@ -287,6 +295,40 @@ PflegeMap.angebot = function(params) {
       }
       this.select();
     }
+  };
+
+  feature.drawMoreFeatureRadius = function(moreFeatures) {
+    var layer = PflegeMap.mapper.searchCircleLayer,
+        circle = layer.getSource().getFeatures()[0].getGeometry(),
+        resolution = PflegeMap.map.getView().getResolution();
+
+    circle.setCenter(this.getGeometry().getCoordinates());
+
+    circle.setRadius(resolution * PflegeMap.config.searchRadiusFactor);
+
+    layer.setVisible(true);
+  };
+
+  feature.showInFront = function() {
+    var layer = PflegeMap.mapper.selectedFeatureLayer,
+        feature = layer.getSource().getFeatures()[0],
+        geometry = feature.getGeometry();
+
+    feature.setStyle(
+      new ol.style.Style({
+        image: new ol.style.Icon({
+          anchor: [0.5, 0.5],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'fraction',
+          opacity: 0.95,
+          src: 'images/' + this.get('icon') +  '.png'
+        })
+      })
+    );
+
+    geometry.setCoordinates(this.getGeometry().getCoordinates());
+
+    layer.setVisible(true);
   };
 
   return feature;

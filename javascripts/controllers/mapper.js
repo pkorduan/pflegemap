@@ -16,6 +16,22 @@ PflegeMap.mapperController = function(map) {
       })
     }),
 
+    searchCircleLayer: new ol.layer.Vector({
+      source: new ol.source.Vector({
+        projection: 'EPSG:4326',
+        features: []
+      }),
+      visible: false
+    }),
+
+    selectedFeatureLayer: new ol.layer.Vector({
+      source: new ol.source.Vector({
+        projection: 'EPSG:4326',
+        features: []
+      }),
+      visible: false
+    }),
+
     list: {
       add: function(feature) {
         var element = feature.getListElement();
@@ -26,7 +42,25 @@ PflegeMap.mapperController = function(map) {
 
     initLayer: function(store) {
       var i,
-          source = this.layer.getSource();
+          source = this.layer.getSource(),
+          searchCircleStyle = new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: 'blue',
+              width: 3
+            }),
+            fill: new ol.style.Fill({
+              color: 'rgba(0, 0, 255, 0.1)'
+            })
+          }),
+          selectedFeatureStyle = new ol.style.Style({
+            image: new ol.style.Icon({
+              anchor: [0.5, 0.5],
+              anchorXUnits: 'fraction',
+              anchorYUnits: 'fraction',
+              opacity: 0.95,
+              src: 'images/Sonstige.png'
+            })
+          });
 
       for (i = 0; i < store.length; i++) {
         source.addFeature(
@@ -35,9 +69,27 @@ PflegeMap.mapperController = function(map) {
           )
         );
       }
-
       this.layer.setMap(this.map);
       this.errMsgElement = $('#PflegeMap\\.errorMessage')[0];
+
+      searchCircle = new ol.Feature({
+        geometry: new ol.geom.Circle(
+          ol.proj.transform([11.55, 53.455], PflegeMap.baseProjection, PflegeMap.viewProjection),
+          10000
+        )
+      });
+      searchCircle.setStyle(searchCircleStyle);
+      this.searchCircleLayer.getSource().addFeature(searchCircle);
+      this.searchCircleLayer.setMap(this.map);
+
+      selectedFeature = new ol.Feature({
+        geometry: new ol.geom.Point(
+          ol.proj.transform([11.55, 53.455], PflegeMap.baseProjection, PflegeMap.viewProjection)
+        )
+      });
+      selectedFeature.setStyle(selectedFeatureStyle);
+      this.selectedFeatureLayer.getSource().addFeature(selectedFeature);
+      this.selectedFeatureLayer.setMap(this.map);
     },
 
     initSearchTools: function() {
@@ -410,6 +462,7 @@ PflegeMap.mapperController = function(map) {
       features.map(function(feature) {
         if (feature.get('id') == selected_id) {
           feature.setInfo();
+          feature.showInFront();
         }
       });
     },
