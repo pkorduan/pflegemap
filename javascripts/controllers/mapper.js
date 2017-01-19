@@ -174,7 +174,6 @@ PflegeMap.mapperController = function(map) {
     */
     categoryFilter: function(feature) {
       result = $($("[kategorie='" + feature.get('kategorie') + "']")[0]).is(':checked')
-      //console.log('categoryFilter: ' + result);
       return result;
     },
 

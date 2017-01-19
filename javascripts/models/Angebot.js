@@ -85,7 +85,7 @@ PflegeMap.angebot = function(params) {
     if (this.get('kategorie') == 'az') {
       html += '<i>Fachrichtung:</i> ' + this.get('fachrichtung');
     }
-    else (
+    else {
       html += '<i>Kategorie:</i> ' + this.get('angebot');
     }
 
@@ -121,7 +121,7 @@ PflegeMap.angebot = function(params) {
   feature.data = function() {
     var html = '';
     html += (this.get('kategorie') == 'az' ? this.get('fachrichtung') : this.get('angebot')) + '<br>';
-    html += (this.get('ansprechpartner') != '' ? this.get('ansprechpartner') : '') + '<br>';
+    html += (this.get('ansprechpartner') != '' ? this.get('ansprechpartner') + '<br>' : '');
     html += this.address();
     html += (this.get('telefon') != '' ? '<br>Tel: ' + this.get('telefon') : '');
     html += '<a href="#PflegeMap.careService_' + this.get('id') + '" style="float: right">Details</a>';
