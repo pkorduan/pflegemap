@@ -91,6 +91,7 @@ PflegeMap.initMap = function(store) {
   // create the ORKA-Map Layer
   PflegeMap.tileLayer = new ol.layer.Tile({
     source: new ol.source.TileImage({
+      attributions: [],
       projection: PflegeMap.viewProjection,
       tileGrid: new ol.tilegrid.TileGrid({
       origin: [-464849.38, 5057815.86858],
@@ -126,7 +127,22 @@ PflegeMap.initMap = function(store) {
     // user data
     layerExtent: [200000, 5889000, 335000, 5967000]
   });
-  
+
+/*
+  PflegeMap.selectClick = new ol.interaction.Select({
+    condition: ol.events.condition.click,
+    style: new ol.style.Style({
+        image: new ol.style.Icon({
+          anchor: [0.5, 0.5],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'fraction',
+          opacity: 0.95,
+          src: 'images/sonstiges.png'
+        })
+      })
+  });
+*/
+
   function constrainMapToExtend(map,extent){
     var mapView = map.getView(),
       viewExtent = mapView.calculateExtent(map.getSize()),
@@ -143,7 +159,9 @@ PflegeMap.initMap = function(store) {
       new ol.control.ScaleLine(),
       mousePositionControl
     ]),
-    layers: [PflegeMap.tileLayer],
+    layers: [
+      PflegeMap.tileLayer
+    ],
     view: new ol.View({
       maxResolution: 152.8740565703524,
       minResolution: 0.14929107086948457,
@@ -151,7 +169,14 @@ PflegeMap.initMap = function(store) {
       zoom: 0
     })
   });
-  
+
+/*
+  map.addInteraction(PflegeMap.selectClick);
+  PflegeMap.selectClick.on('select', function(e) {
+    console.log('geclicked on %o', e.target.getFeatures());
+  })
+*/
+
   // die map view im Pflegemap Namespace bereitstellen
   PflegeMap.view = map.getView();
   
@@ -215,7 +240,7 @@ PflegeMap.initPopup = function(){
 
   var popup = new ol.Overlay({
     element: popupElem,
-    offset: [0,-8],
+    offset: [0,-18],
     stopEvent: true,
     autoPan: true,
     autoPanAnimation: {
