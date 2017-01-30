@@ -80,6 +80,9 @@ PflegeMap.mapperController = function(map) {
       });
       searchCircle.setStyle(searchCircleStyle);
       this.searchCircleLayer.getSource().addFeature(searchCircle);
+      this.searchCircleLayer.hide = function () {
+        this.getSource().getFeatures()[0].getGeometry().setCenter([0, 0]);
+      };
       this.searchCircleLayer.setMap(this.map);
 
       selectedFeature = new ol.Feature({
@@ -89,6 +92,9 @@ PflegeMap.mapperController = function(map) {
       });
       selectedFeature.setStyle(selectedFeatureStyle);
       this.selectedFeatureLayer.getSource().addFeature(selectedFeature);
+      this.selectedFeatureLayer.hide = function () {
+        this.getSource().getFeatures()[0].getGeometry().setCoordinates([0,0]);
+      };
       this.selectedFeatureLayer.setMap(this.map);
     },
 
@@ -373,6 +379,10 @@ PflegeMap.mapperController = function(map) {
           versart = event.target.getAttribute('versart'),
           isChecked = event.target.checked;
 
+      // unselect selected Feature
+      if (PflegeMap.mapper.selectedFeature)
+        PflegeMap.mapper.selectedFeature.unselect();
+
       if (versart == 'all') {
         $(".cb-kat[versart!='all']").prop('checked', isChecked).trigger('change', 'do not apply filter');
         // filterFeatures()
@@ -462,6 +472,9 @@ PflegeMap.mapperController = function(map) {
       features.map(function(feature) {
         if (feature.get('id') == selected_id) {
           feature.setInfo();
+          PflegeMap.popup.setPosition(
+            feature.getGeometry().getCoordinates()
+          );
           feature.showInFront();
         }
       });
