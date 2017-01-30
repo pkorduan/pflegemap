@@ -91,6 +91,7 @@ PflegeMap.initMap = function(store) {
   // create the ORKA-Map Layer
   PflegeMap.tileLayer = new ol.layer.Tile({
     source: new ol.source.TileImage({
+      attributions: [],
       projection: PflegeMap.viewProjection,
       tileGrid: new ol.tilegrid.TileGrid({
       origin: [-464849.38, 5057815.86858],
