@@ -285,6 +285,7 @@ PflegeMap.angebot = function(params) {
       } else {
         // hide moreFeatureRadius;
         //PflegeMap.searchCircleLayer.setVisible(false);
+        PflegeMap.popup.infoFeature = false;
       }
 
       // highlight the list Element

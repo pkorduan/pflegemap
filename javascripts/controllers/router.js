@@ -241,10 +241,9 @@ PflegeMap.routerController = {
   },
 
   openRouteSearch: function(event) {
-    debug_e = event;
     var currFeature = event.data.popup.infoFeature || event.data.popup.feature || event.data.popup.target.feature;
     var routeField = event.data.routeField;
-    
+
     routeField.attr('coordinates', currFeature.latlng().join(', '));
     routeField.val(currFeature.addressText());
     //routeField.prop('readonly', true);
