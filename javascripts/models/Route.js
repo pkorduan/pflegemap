@@ -69,7 +69,6 @@ PflegeMap.route = function(params) {
   };
 
   line.preparePopup = function() {
-    debug_l = this;
     PflegeMap.popup.feature = this;
     $('#PflegeMap\\.popup').attr('class','pm-popup');
     $('#PflegeMap\\.popup-title').html('Routenberechnung');
@@ -77,6 +76,7 @@ PflegeMap.route = function(params) {
   };
 
   line.select = function() {
+/*
     if (!this.get('selected')) {
       //console.log('Select feature: ' + this.get('name'));
 
@@ -91,9 +91,11 @@ PflegeMap.route = function(params) {
       this.set('selected', true);
 
     }
+*/
   };
 
   line.unselect = function() {
+/*
     if (this.get('selected')) {
 
       // close Popup
@@ -102,6 +104,7 @@ PflegeMap.route = function(params) {
       // set this feature to unselected
       this.set('selected', false);
     }
+*/
   };
 
   var paramsToCoordinates = function(pointString) {

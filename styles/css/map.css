@@ -1,3 +1,6 @@
+.ol-attribution {
+  display: none;
+}
 .pflegemap {
 
 }
@@ -392,7 +395,7 @@ a.pflegemap-help-box-close {
 }
 
 .pm-popup-function-more-content {
-	display: none;
+	display: block;
 	background-color: #eee;
   border-radius: 5px;
 	padding-top: 3px;

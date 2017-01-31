@@ -41,7 +41,8 @@ $('#PflegeMap').ready(function() {
             layer: layer
           };
         });
-    if (target) {
+
+    if (target && target.feature.get('type')) {
       if (PflegeMap.mapper.selectedFeature)
         PflegeMap.mapper.selectedFeature.unselect();
       PflegeMap.popup.target = target;
@@ -91,6 +92,7 @@ PflegeMap.initMap = function(store) {
   // create the ORKA-Map Layer
   PflegeMap.tileLayer = new ol.layer.Tile({
     source: new ol.source.TileImage({
+      attributions: [],
       projection: PflegeMap.viewProjection,
       tileGrid: new ol.tilegrid.TileGrid({
       origin: [-464849.38, 5057815.86858],

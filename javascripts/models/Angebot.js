@@ -189,15 +189,22 @@ PflegeMap.angebot = function(params) {
   feature.preparePopup = function(moreFeatures) {
     PflegeMap.popup.feature = this;
     $('#PflegeMap\\.popup').attr('class','pm-popup pm-angebot');
-    $('#PflegeMap\\.popup-title').html(this.anrede());
-    $('#PflegeMap\\.popup-data').html(this.data());
 
     if (moreFeatures.length > 1) {
       html = $.map(moreFeatures, function(feature) {
           return feature.popupText();
       }).join('<br>');
+      $('#PflegeMap\\.popup-title').hide();
+      $('#PflegeMap\\.popup-data').hide();
+      $('.pm-popup-function-from').hide();
+      $('.pm-popup-function-to').hide();
       $('.pm-popup-function-more').show();
-    } else {
+    }
+    else {
+      $('#PflegeMap\\.popup-title').html(this.anrede()).show();
+      $('#PflegeMap\\.popup-data').html(this.data()).show();
+      $('.pm-popup-function-from').show();
+      $('.pm-popup-function-to').show();
       html = '';
       $('.pm-popup-function-more').hide();
     }
@@ -208,8 +215,10 @@ PflegeMap.angebot = function(params) {
   feature.setInfo = function() {
     PflegeMap.popup.infoFeature = this;
     $('#PflegeMap\\.popup').attr('class','pm-popup pm-angebot');
-    $('#PflegeMap\\.popup-title').html(this.anrede());
-    $('#PflegeMap\\.popup-data').html(this.data());
+    $('#PflegeMap\\.popup-title').html(this.anrede()).show();
+    $('#PflegeMap\\.popup-data').html(this.data()).show();
+    $('.pm-popup-function-from').show();
+    $('.pm-popup-function-to').show();
   };
 
   feature.show = function() {
@@ -236,12 +245,13 @@ PflegeMap.angebot = function(params) {
       // set this feature to unselected
       this.set('selected', false);
       // hide Layer with search radius drawings
-      PflegeMap.mapper.searchCircleLayer.setVisible(false);
-      PflegeMap.mapper.selectedFeatureLayer.setVisible(false);
+//      PflegeMap.mapper.searchCircleLayer.setVisible(false);
+      PflegeMap.mapper.searchCircleLayer.hide();
+      PflegeMap.mapper.selectedFeatureLayer.hide();
     }
   };
 
-  feature.select = function() {
+  feature.select = function(single = false) {
     var features = (PflegeMap.config.cluster ? PflegeMap.mapper.layer.getSource().getSource().getFeatures() : PflegeMap.mapper.layer.getSource().getFeatures()),
         selectedFeature = this,
         resolution = PflegeMap.map.getView().getResolution();
@@ -249,14 +259,20 @@ PflegeMap.angebot = function(params) {
     if (!selectedFeature.get('selected')) {
       //console.log('Select angeobt feature: ' + this.get('id'));
 
-      // find more features in the near of selected
-      searchBuffer = ol.extent.buffer(selectedFeature.getGeometry().getExtent(), resolution * PflegeMap.config.searchRadiusFactor);
-      moreFeatures = $.grep(features, function(feature, index) {
-        return (
-          !feature.get('hidden') &&
-          ol.extent.containsCoordinate(searchBuffer, feature.getGeometry().getCoordinates())
-        );
-      });
+      if (single) {
+        moreFeatures = [];
+        selectedFeature.showInFront();
+      }
+      else {
+        // find more features in the near of selected
+        searchBuffer = ol.extent.buffer(selectedFeature.getGeometry().getExtent(), resolution * PflegeMap.config.searchRadiusFactor);
+        moreFeatures = $.grep(features, function(feature, index) {
+          return (
+            !feature.get('hidden') &&
+            ol.extent.containsCoordinate(searchBuffer, feature.getGeometry().getCoordinates())
+          );
+        });
+      }
 
       // show popup
       selectedFeature.preparePopup(moreFeatures);
@@ -269,6 +285,7 @@ PflegeMap.angebot = function(params) {
       } else {
         // hide moreFeatureRadius;
         //PflegeMap.searchCircleLayer.setVisible(false);
+        PflegeMap.popup.infoFeature = false;
       }
 
       // highlight the list Element
@@ -293,7 +310,7 @@ PflegeMap.angebot = function(params) {
         //console.log('selected feature id: ' + PflegeMap.mapper.selectedFeature.get('id') + ' exists unselect it.');
         PflegeMap.mapper.selectedFeature.unselect();
       }
-      this.select();
+      this.select('single');
     }
   };
 
