@@ -92,7 +92,11 @@ PflegeMap.initMap = function(store) {
   // create the ORKA-Map Layer
   PflegeMap.tileLayer = new ol.layer.Tile({
     source: new ol.source.TileImage({
-      attributions: [],
+			attributions: [
+				new ol.Attribution({
+					html: 'Kartenbild &copy; Hansestadt Rostock (CC BY 4.0) | Kartendaten &copy; OpenStreetMap (ODbL) und LkKfS-MV'
+				})
+			],
       projection: PflegeMap.viewProjection,
       tileGrid: new ol.tilegrid.TileGrid({
       origin: [-464849.38, 5057815.86858],
@@ -168,7 +172,8 @@ PflegeMap.initMap = function(store) {
       minResolution: 0.14929107086948457,
       center: ol.proj.transform([11.55, 53.455], PflegeMap.baseProjection, PflegeMap.viewProjection),
       zoom: 0
-    })
+    }),
+    logo: false
   });
 
 /*
