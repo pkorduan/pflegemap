@@ -94,8 +94,20 @@ PflegeMap.initMap = function(store) {
     source: new ol.source.TileImage({
 			attributions: [
 				new ol.Attribution({
-					html: 'Kartenbild &copy; Hansestadt Rostock (CC BY 4.0) | Kartendaten &copy; OpenStreetMap (ODbL) und LkKfS-MV'
-				})
+					html: 'Kartenbild &copy; <a href="https://www.orka-mv.de/datenschutz.html" target="_blank">Hansestadt Rostock</a> (CC BY 4.0) | Kartendaten &copy; <a href="http://www.openstreetmap.org/about" target="_blank">OpenStreetMap</a> (ODbL) und LkKfS-MV'
+				}),
+				new ol.Attribution({
+					html: '<br><a href="https://nordost.aok.de/" target="_blank">AOK Nordost - Die Gesundheitskasse</a>'
+				}),
+				new ol.Attribution({
+					html: '<br><a href="http://www.kvmv.info/patienten/40/index.html" target="_blank">Kassenärztliche Vereinigung Mecklenburg-Vorpommern</a>'
+				}),
+				new ol.Attribution({
+					html: '<br><a href="http://www.lagus.mv-regierung.de/" target="_blank">Landesamt für Gesundheit und Soziales Mecklenburg-Vorpommern</a>'
+				}),
+				new ol.Attribution({
+					html: '<br>Sonstige Daten <a href="http://www.kreis-lup.de/Landkreis" target="_blank">Landkreis Ludwigslust-Parchim</a>'
+				}),
 			],
       projection: PflegeMap.viewProjection,
       tileGrid: new ol.tilegrid.TileGrid({

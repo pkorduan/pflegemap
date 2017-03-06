@@ -550,7 +550,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
               </div>
               <div class="pflegemap-care-service-list small-map medium-map large-map">
                 <div class="pm-care-service pm-care-service-header" style="display: block;">
-                  Trefferliste im aktuellen Kartenausschnitt: <span id="PflegeMap.numFeatures"></span>
+                  Trefferliste im aktuellen Kartenausschnitt: <span id="PflegeMap.numFeatures"></span><span title="Erstellung der Kartenanwendung durch GDI-Service Rostock" class="pm-gdi-logo"><a href="http://gdi-service.de" target="_blank">GDI Service</a></span>
                 </div>
               </div>
               <div class="pflegemap-clear"></div>
