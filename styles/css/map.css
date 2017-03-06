@@ -1,6 +1,8 @@
-.ol-attribution {
-  display: none;
+.ol-attribution li a{
+  display: inline;
+  font-size: 12px;
 }
+
 .pflegemap {
 
 }
@@ -93,7 +95,7 @@ a.pflegemap-message-box-close{
   -moz-box-shadow: 0 1px 5px #333;
   -webkit-box-shadow: 0 1px 5px #333;
   z-index:101;
-  max-height: 800px;
+  max-height: 600px;
   overflow: scroll;
 }
 .pflegemap-help-box h1 {
@@ -562,4 +564,11 @@ hr.pflegemap-hr {
 }
 .container-4:hover button.icon:hover{
   background: #7b98bc;;
+}
+
+.pm-gdi-logo a{
+  float: right;
+  font-size: 10px;
+  color: #aaa;
+  font-weight: 100;
 }

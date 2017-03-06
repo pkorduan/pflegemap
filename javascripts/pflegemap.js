@@ -92,7 +92,23 @@ PflegeMap.initMap = function(store) {
   // create the ORKA-Map Layer
   PflegeMap.tileLayer = new ol.layer.Tile({
     source: new ol.source.TileImage({
-      attributions: [],
+			attributions: [
+				new ol.Attribution({
+					html: 'Kartenbild &copy; <a href="https://www.orka-mv.de/datenschutz.html" target="_blank">Hansestadt Rostock</a> (CC BY 4.0) | Kartendaten &copy; <a href="http://www.openstreetmap.org/about" target="_blank">OpenStreetMap</a> (ODbL) und LkKfS-MV'
+				}),
+				new ol.Attribution({
+					html: '<br><a href="https://nordost.aok.de/" target="_blank">AOK Nordost - Die Gesundheitskasse</a>'
+				}),
+				new ol.Attribution({
+					html: '<br><a href="http://www.kvmv.info/patienten/40/index.html" target="_blank">Kassenärztliche Vereinigung Mecklenburg-Vorpommern</a>'
+				}),
+				new ol.Attribution({
+					html: '<br><a href="http://www.lagus.mv-regierung.de/" target="_blank">Landesamt für Gesundheit und Soziales Mecklenburg-Vorpommern</a>'
+				}),
+				new ol.Attribution({
+					html: '<br>Sonstige Daten <a href="http://www.kreis-lup.de/Landkreis" target="_blank">Landkreis Ludwigslust-Parchim</a>'
+				}),
+			],
       projection: PflegeMap.viewProjection,
       tileGrid: new ol.tilegrid.TileGrid({
       origin: [-464849.38, 5057815.86858],
@@ -168,7 +184,8 @@ PflegeMap.initMap = function(store) {
       minResolution: 0.14929107086948457,
       center: ol.proj.transform([11.55, 53.455], PflegeMap.baseProjection, PflegeMap.viewProjection),
       zoom: 0
-    })
+    }),
+    logo: false
   });
 
 /*
