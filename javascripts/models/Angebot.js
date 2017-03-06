@@ -251,7 +251,11 @@ PflegeMap.angebot = function(params) {
     }
   };
 
-  feature.select = function(single = false) {
+  feature.select = function(single) {
+    if (typeof(single) == 'undefined') {
+      single = false;
+    }
+
     var features = (PflegeMap.config.cluster ? PflegeMap.mapper.layer.getSource().getSource().getFeatures() : PflegeMap.mapper.layer.getSource().getFeatures()),
         selectedFeature = this,
         resolution = PflegeMap.map.getView().getResolution();
