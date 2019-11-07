@@ -12,7 +12,7 @@
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="index, follow" name="robots">
-    <link rel="shortcut icon" href="http://kreis-lup.de/export/system/modules/de.sis.lup/resources/images/favicon.png">
+    <link rel="shortcut icon" href="https://kreis-lup.de/export/system/modules/de.sis.lup/resources/images/favicon.png">
     <link rel="stylesheet" href="./styles/lup/style.css">
     <link rel="stylesheet" href="./styles/lup/LUP.css">
     <link rel="stylesheet" href="./styles/lup/jquery.fancybox.css">
@@ -78,16 +78,16 @@
     <script src="javascripts/controllers/reacher.js"></script>
     <script src="javascripts/controllers/helper.js"></script>
   </head>
-  <body class="purple" style="background: url(http://kreis-lup.de/export/sites/LUP/.galleries/LUP-Allgemein-Aktuelles-und-Presse/Service-Verwaltung/DSC_0474.JPG_1979318820.jpg) no-repeat center center fixed; -webkit-background-size: cover; background-size: cover;">
+  <body class="purple" style="background: url(https://kreis-lup.de/export/sites/LUP/.galleries/LUP-Allgemein-Aktuelles-und-Presse/Service-Verwaltung/DSC_0474.JPG_1979318820.jpg) no-repeat center center fixed; -webkit-background-size: cover; background-size: cover;">
     <ul id="skiplinks">
-      <li><a href="http://kreis-lup.de/buergerservice-verwaltung/zustaendigkeiten/#hauptnavigation">Zur Hauptnavigation</a></li>
-      <li><a href="http://kreis-lup.de/buergerservice-verwaltung/zustaendigkeiten/#navi-meta">Zur Metanavigation</a></li>
-      <li><a href="http://kreis-lup.de/buergerservice-verwaltung/zustaendigkeiten/#content-main">Zum Hauptinhalt der Seite</a></li>
-      <li><a href="http://kreis-lup.de/buergerservice-verwaltung/zustaendigkeiten/#content-sub">Zum Inhalt der Randspalte</a></li>
+      <li><a href="https://kreis-lup.de/buergerservice-verwaltung/zustaendigkeiten/#hauptnavigation">Zur Hauptnavigation</a></li>
+      <li><a href="https://kreis-lup.de/buergerservice-verwaltung/zustaendigkeiten/#navi-meta">Zur Metanavigation</a></li>
+      <li><a href="https://kreis-lup.de/buergerservice-verwaltung/zustaendigkeiten/#content-main">Zum Hauptinhalt der Seite</a></li>
+      <li><a href="https://kreis-lup.de/buergerservice-verwaltung/zustaendigkeiten/#content-sub">Zum Inhalt der Randspalte</a></li>
     </ul>
     <section class="container">
       <header class="" style="bottom: auto; top: auto;">
-        <a href="http://kreis-lup.de/" title="Zur Startseite">
+        <a href="https://kreis-lup.de/" title="Zur Startseite">
           <div id="logo"></div>
         </a>
       </header>
@@ -97,22 +97,22 @@
         <nav class="main">
           <ul>
             <li class="blue">
-              <a name="hauptnavigation" href="http://kreis-lup.de/">Startseite</a>
+              <a name="hauptnavigation" href="https://kreis-lup.de/">Startseite</a>
             </li>
             <li class="sub green">
-              <a href="http://kreis-lup.de/leben-im-landkreis/">Leben im Landkreis</a>
+              <a href="https://kreis-lup.de/leben-im-landkreis/">Leben im Landkreis</a>
             </li>
             <li class="sub purple active">
-              <a href="http://kreis-lup.de/buergerservice-verwaltung/">Service &amp; Verwaltung</a>
+              <a href="https://kreis-lup.de/buergerservice-verwaltung/">Service &amp; Verwaltung</a>
             </li>
             <li class="sub blue">
-              <a href="http://kreis-lup.de/kreistag/">Kreistag</a>
+              <a href="https://kreis-lup.de/kreistag/">Kreistag</a>
             </li>
             <li class="red">
-              <a href="http://kreis-lup.de/wirtschaft/">Wirtschaft</a>
+              <a href="https://kreis-lup.de/wirtschaft/">Wirtschaft</a>
             </li>
             <li class="orange">
-              <a href="http://kreis-lup.de/tourismus/">Tourismus</a>
+              <a href="https://kreis-lup.de/tourismus/">Tourismus</a>
             </li>
           </ul>
         </nav>
@@ -120,27 +120,27 @@
           <h4 class="headline"></h4>
           <p></p>
           <ul class="linklist">
-            <li><a class="" href="http://kreis-lup.de/kreistag/kreisrecht/">Kreisrecht</a></li>
+            <li><a class="" href="https://kreis-lup.de/kreistag/kreisrecht/">Kreisrecht</a></li>
           </ul>
         </div>
         <div class="locationbox">
           <h4 class="headline">Landkreis Ludwigslust-Parchim</h4>
           <p></p><p><span style="text-decoration: underline;">Postanschrift</span>:<br>Postfach 12 63<br>19362 Parchim</p>
-          <p>Tel.: 03871 722-0 <br>Fax: 03871 722-77-7777<br><a href="http://kreis-lup.de/buergerservice-verwaltung/service-am-telefon/">Behördennummer 115</a></p>
+          <p>Tel.: 03871 722-0 <br>Fax: 03871 722-77-7777<br><a href="https://kreis-lup.de/buergerservice-verwaltung/service-am-telefon/">Behördennummer 115</a></p>
           <p>E-Mail:<br><a href="mailto:info@kreis-lup.de">info@kreis-lup.de</a></p><p></p>
         </div>
         <div class="locationbox">
           <h4 class="headline">Verwaltungssitz Parchim</h4>
           <img src="./styles/lup/DSC_0474.JPG_1979318820.jpg" width="260" height="172" title=" © " alt=""><p></p><p>Putlitzer Str. 25<br>19370 Parchim</p><p></p>
           <ul class="linklist">
-            <li><a target="_blank" class="download" href="http://kreis-lup.de/leben-im-landkreis/bauen-wohnen/vermessung-geoinformation/Anfahrt-PCH/index.html#">Anfahrt</a></li>
+            <li><a target="_blank" class="download" href="https://kreis-lup.de/leben-im-landkreis/bauen-wohnen/vermessung-geoinformation/Anfahrt-PCH/index.html#">Anfahrt</a></li>
           </ul>
         </div>
         <div class="locationbox">
           <h4 class="headline">Standort Ludwigslust</h4>
           <img src="./styles/lup/DSC_0359.JPG_63075828.jpg" width="260" height="150" title=" © " alt=""><p></p><p>Garnisonsstr. 1<br>19288 Ludwigslust</p><p></p>
           <ul class="linklist">
-            <li><a target="_blank" class="download" href="http://kreis-lup.de/leben-im-landkreis/bauen-wohnen/vermessung-geoinformation/Anfahrt-LWL/index.html#">Anfahrt</a></li>
+            <li><a target="_blank" class="download" href="https://kreis-lup.de/leben-im-landkreis/bauen-wohnen/vermessung-geoinformation/Anfahrt-LWL/index.html#">Anfahrt</a></li>
           </ul>
         </div>
         <div class="locationbox">
@@ -219,24 +219,24 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
               <!-- header //-->
               <div class="small-100 medium-100 large-100 columns">
                 <div>
-                  <strong>Pflegeportal</strong>
+                  HÄUFIGE FILTER
                 </div>
               </div>
 
               <div class="small-100 medium-80 large-80 columns">
                 <div id="PflegeMap.categorySearchArea">
-                  <div class="small-100 medium-100 large-100 columns">
+                  <!--div class="small-100 medium-100 large-100 columns">
                     <label style="margin-left:0.5em;">
                       <input versart="all" class="cb-kat" type="checkbox">
                       <span class="label-body">alle Versorgungsarten <b>(bitte mindestens eine Versorgungsart auswählen)</b></span>
                     </label>
-                  </div>
+                  </div//-->
                   <div class="small-100 medium-100 large-40 columns">
                     <div id="list" class="pflegemap-categories">
                       <label>
                         <input versart="Ambulante Pflege" class="cb-kat" type="checkbox">
                         <!-- Die Versorgungsart lautet eigentlich Ambulante Pflege, angezeigt werden soll aber das Angebot also Pflegedienst //-->
-                        <span class="label-body">Ambulanter Pflegedienst</span> <span id="PflegeMap.numFeature_pd">34</span><img src="./images/Ambulante Pflege.png"></img></span>
+                        <span class="label-body">Pflege</span> <span id="PflegeMap.numFeature_pd">34</span><img src="./images/Ambulante Pflege.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="pd" class="cb-subkat" type="checkbox" disabled readonly>
@@ -248,7 +248,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       <label>
                         <input versart="Teilstationäre Pflege" class="cb-kat" type="checkbox">
                         <!-- Die Versorgungsart lautet eigentlich Teilstationäre Pflege, angezeigt werden soll aber das Angebot also Tagespflege //-->
-                        <span class="label-body">Tagespflege <span id="PflegeMap.numFeature_tp"></span><img src="./images/Teilstationäre Pflege.png"></img></span>
+                        <span class="label-body">Begegnung <span id="PflegeMap.numFeature_tp"></span><img src="./images/Teilstationäre Pflege.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="tp" class="cb-subkat" type="checkbox" disabled readonly>
@@ -260,7 +260,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       <label>
                         <input versart="Stationäre Pflege" class="cb-kat" type="checkbox">
                         <!-- Die Versorgungsart lautet eigentlich Stationäre Pflege, angezeigt werden soll aber das Angebot also Pflegeheim //-->
-                        <span class="label-body">Pflegeheim <span id="PflegeMap.numFeature_ph"></span><img src="./images/Pflegeheim.png"></img></span>
+                        <span class="label-body">Beratung <span id="PflegeMap.numFeature_ph"></span><img src="./images/Beratung.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
                             <input kategorie="ph" class="cb-subkat" type="checkbox" disabled readonly>
@@ -270,21 +270,33 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                       </label>
 
                       <label>
-                        <input versart="Stationäre Pflege" class="cb-kat" type="checkbox">
-                        <!-- Die Versorgungsart lautet eigentlich Stationäre Pflege, angezeigt werden soll aber das Angebot also Kurzzeitpflege //-->
-                        <span class="label-body">Kurzzeitpflege <span id="PflegeMap.numFeature_kp"></span><img src="./images/Kurzzeitpflege.png"></img></span>
+                        <input versart="Gesundheit" class="cb-kat" type="checkbox">
+                        <span class="label-body">Gesundheit<img src="./images/Gesundheit.png"></img></span>
                         <div class="pflegemap-subcategories">
                           <label>
-                            <input kategorie="kp" class="cb-subkat" type="checkbox" disabled readonly>
-                            <span class="label-body">Kurzzeitpflege <span id="PflegeMap.numFeature_kp"></span></span>
+                            <input versart="Gesundheit" kategorie="az" class="cb-subkat" type="checkbox">
+                            <span class="label-body">Arzt <span id="PflegeMap.numFeature_az"></span><img src="./images/Arzt.png"></img></span>
+                          </label>
+                          <label>
+                            <input versart="Gesundheit" kategorie="ap" class="cb-subkat" type="checkbox">
+                            <span class="label-body">Apotheke <span id="PflegeMap.numFeature_ap"></span><img src="./images/Apotheke.png"></img></span>
                           </label>
                         </div>
                       </label>
-                    </div>
-                  </div>
 
-                  <div class="small-100 medium-100 large-60 columns">
-                    <div id="list" class="pflegemap-categories">
+                      <div class="pm-more-categories">
+                        <label>
+                          <input versart="Stationäre Pflege" class="cb-kat" type="checkbox">
+                          <!-- Die Versorgungsart lautet eigentlich Stationäre Pflege, angezeigt werden soll aber das Angebot also Kurzzeitpflege //-->
+                          <span class="label-body">Haushaltsnahe Dienstleistungen <span id="PflegeMap.numFeature_kp"></span><img src="./images/Kurzzeitpflege.png"></img></span>
+                          <div class="pflegemap-subcategories">
+                            <label>
+                              <input kategorie="kp" class="cb-subkat" type="checkbox" disabled readonly>
+                              <span class="label-body">Kurzzeitpflege <span id="PflegeMap.numFeature_kp"></span></span>
+                            </label>
+                          </div>
+                        </label>
+
                         <label>
                           <input versart="Wohnen" class="cb-kat" type="checkbox">
                           <span class="label-body">Wohnen<img src="./images/Wohnen.png"></img></span>
@@ -307,25 +319,47 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                             </label//-->
                           </div>
                         </label>
+                      </div>
 
+                    </div>
+                  </div>
+
+                  <div class="small-100 medium-100 large-60 columns">
+
+                    <div id="list" class="pflegemap-categories">
                         <label>
-                          <input versart="Gesundheit" class="cb-kat" type="checkbox">
-                          <span class="label-body">Gesundheit<img src="./images/Gesundheit.png"></img></span>
+                          <input versart="WohnenMitBehinderung" class="cb-kat" type="checkbox">
+                          <span class="label-body">Wohnen für Menschen mit Behinderungen<img src="./images/WohnenMitBehinderung.png"></img></span>
                           <div class="pflegemap-subcategories">
                             <label>
-                              <input versart="Gesundheit" kategorie="az" class="cb-subkat" type="checkbox">
-                              <span class="label-body">Arzt <span id="PflegeMap.numFeature_az"></span><img src="./images/Arzt.png"></img></span>
+                              <input versart="Wohnen" kategorie="bw" class="cb-subkat" type="checkbox">
+                              <span class="label-body">Betreutes Wohnen <span id="PflegeMap.numFeature_bw"></span><img src="./images/Betreutes Wohnen.png"></img></span>
                             </label>
                             <label>
-                              <input versart="Gesundheit" kategorie="ap" class="cb-subkat" type="checkbox">
-                              <span class="label-body">Apotheke <span id="PflegeMap.numFeature_ap"></span><img src="./images/Apotheke.png"></img></span>
+                              <input versart="Wohnen" kategorie="wg" class="cb-subkat" type="checkbox">
+                              <span class="label-body">Ambulant betreute Wohngemeinschaft <span id="PflegeMap.numFeature_wg"></span><img src="./images/Ambulant betreute Wohngemeinschaft.png"></img></span>
+                            </label>
+                          </div>
+                        </label>
+
+                        <label>
+                          <input versart="WohnenMitBehinderung" class="cb-kat" type="checkbox">
+                          <span class="label-body">Öffentliche Gebäude<img src="./images/Gesundheit.png"></img></span>
+                          <div class="pflegemap-subcategories">
+                            <label>
+                              <input versart="Wohnen" kategorie="bw" class="cb-subkat" type="checkbox">
+                              <span class="label-body">Betreutes Wohnen <span id="PflegeMap.numFeature_bw"></span><img src="./images/Betreutes Wohnen.png"></img></span>
+                            </label>
+                            <label>
+                              <input versart="Wohnen" kategorie="wg" class="cb-subkat" type="checkbox">
+                              <span class="label-body">Ambulant betreute Wohngemeinschaft <span id="PflegeMap.numFeature_wg"></span><img src="./images/Ambulant betreute Wohngemeinschaft.png"></img></span>
                             </label>
                           </div>
                         </label>
 
                         <label>
                           <input versart="Sterbebegleitung" class="cb-kat" type="checkbox">
-                          <span class="label-body">Sterbebegleitung <span id="PflegeMap.numFeature_hp"></span><img src="./images/Sterbebegleitung.png"></img></span>
+                          <span class="label-body">Bildung <span id="PflegeMap.numFeature_hp"></span><img src="./images/Sterbebegleitung.png"></img></span>
                           <div class="pflegemap-subcategories">
                             <label>
                               <input kategorie="hp" class="cb-subkat" type="checkbox" disabled readonly>
@@ -336,7 +370,7 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
 
                         <label>
                           <input versart="Beratung" class="cb-kat" type="checkbox">
-                          <span class="label-body">Beratung <span id="PflegeMap.numFeature_nb"></span><img src="./images/Beratung.png"></img></span>
+                          <span class="label-body">Kultur <span id="PflegeMap.numFeature_nb"></span><img src="./images/Kultur.png"></img></span>
                           <div class="pflegemap-subcategories">
                             <label>
                               <input kategorie="nb" class="cb-subkat" type="checkbox" disabled readonly>
@@ -344,36 +378,99 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                             </label>
                           </div>
                         </label>
-                      </div>
-                  </div>
 
-                  <div class="small-100 medium-100 large-100 columns">
+                        <div class="pm-more-categories">
+                          <label id="pm_erhiehung">
+                            <input versart="Beratung" class="cb-kat" type="checkbox">
+                            <span class="label-body">Erziehung <span id="PflegeMap.numFeature_nb"></span><img src="./images/Beratung.png"></img></span>
+                            <div class="pflegemap-subcategories">
+                              <label>
+                                <input kategorie="nb" class="cb-subkat" type="checkbox" disabled readonly>
+                                <span class="label-body">Neutrale Pflege- und Sozialberatung <span id="PflegeMap.numFeature_nb"></span></span>
+                              </label>
+                            </div>
+                          </label>
 
-                    <!-- address search area //-->
-                    <div>
-                      <div class"" style="float: left;">
-                        <div class="pflegemap-search-wrapper">
-                          <input id="PflegeMap.proximitySearchField" class="pflegemap-search-field small-input medium-input large-input pflegemap-address-search-box" type="text" placeholder="Suche nach Adresse ..."/>
-                          <i id="PflegeMap.proximitySearchFieldResetIcon" class="fa fa-times-circle pflegemap-proximity-search-field-reset-icon" style="display: none"></i>
+                          <label id="pm_arbeit">
+                            <input versart="Beratung" class="cb-kat" type="checkbox">
+                            <span class="label-body">Arbeit <span id="PflegeMap.numFeature_nb"></span><img src="./images/Arbeit.png"></img></span>
+                            <div class="pflegemap-subcategories">
+                              <label>
+                                <input kategorie="nb" class="cb-subkat" type="checkbox" disabled readonly>
+                                <span class="label-body">Neutrale Pflege- und Sozialberatung <span id="PflegeMap.numFeature_nb"></span></span>
+                              </label>
+                            </div>
+                          </label>
                         </div>
                       </div>
-                      <div class="" style="margin-top: 5px; float: left;">
-                        <select id="PflegeMap.proximitySelect" style="height: 26px; margin-top: -1px;">
-                          <option value="-1" selected="selected">Umkreis</option>
-                          <option value="1000">1km</option>
-                          <option value="2000">2km</option>
-                          <option value="5000">5km</option>
-                          <option value="10000">10km</option>
-                          <option value="20000">20km</option>
-                          <option value="40000">40km</option>
-                        </select>
-                      </div>
-                      <div
-                        id="PflegeMap.proximitySearchFieldResultBox"
-                        class="pflegemap-search-result-box small-input medium-input large-input"
-                        style="display:none;">
-                      </div>
                     </div>
+
+                    <div class="small-100 medium-100 large-100 columns">
+                      <label>
+                        <hr><span style="float:right" onclick="$('.pm-more-categories').toggle()">ALLE FILTER</span>
+                      </label>
+                    </div>
+
+                    <div class="small-100 medium-100 large-100 columns">
+
+                      <!-- address search area //-->
+                      <div>
+                        <div style="float:left; width:342px">
+
+                          <div class="small-100 medium-100 large-60 columns">
+                            <div id="list" class="pflegemap-categories">
+                              <label>
+                                <input versart="rollstuhlgerecht" class="cb-kat" type="checkbox">
+                                <span class="label-body">rollstuhlgerecht</span> <span id="PflegeMap.numFeature_rsgr"></span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="small-100 medium-100 large-40 columns">
+                            <div id="list" class="pflegemap-categories">
+                              <label>
+                                <input versart="blindengerecht" class="cb-kat" type="checkbox">
+                                <span class="label-body">blindengerecht</span> <span id="PflegeMap.numFeature_blgr"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="pflegemap-clear"></div>
+
+                        <div class"" style="float: left;">
+                          <span id="header_umkreissuche">UMKREISSUCHE</span>
+                        </div>
+
+                        <div class="pflegemap-clear"></div>
+
+                        <div class"" style="float: left;">
+                          <i>Erläuterungstext zur Umkreissuche. Hier derzeit nur Beispieltext.</i>
+                        </div>
+
+                        <div class="pflegemap-clear"></div>
+
+                        <div class"" style="float: left;">
+                          <div class="pflegemap-search-wrapper">
+                            <input id="PflegeMap.proximitySearchField" class="pflegemap-search-field small-input medium-input large-input pflegemap-address-search-box" type="text" placeholder="Suche nach Adresse ..."/>
+                            <i id="PflegeMap.proximitySearchFieldResetIcon" class="fa fa-times-circle pflegemap-proximity-search-field-reset-icon" style="display: none"></i>
+                          </div>
+                        </div>
+                        <div class="" style="margin-top: 5px; float: left;">
+                          <select id="PflegeMap.proximitySelect" style="height: 26px; margin-top: -1px;">
+                            <option value="1000" selected>1km</option>
+                            <option value="2000">2km</option>
+                            <option value="5000">5km</option>
+                            <option value="10000">10km</option>
+                            <option value="20000">20km</option>
+                            <option value="40000">40km</option>
+                          </select>
+                        </div>
+                        <div
+                          id="PflegeMap.proximitySearchFieldResultBox"
+                          class="pflegemap-search-result-box small-input medium-input large-input"
+                          style="display:none;">
+                        </div>
+                      </div>
 
                   </div>
                 </div>
@@ -494,7 +591,6 @@ Sie können die Webseite mit der Karte verkleinern oder vergrößern. Halten Sie
                 </div>
               </div>
               <div class="pflegemap-clear"></div>
-
               <!-- map //-->
               <a name="PflegeMap.top"></a>
               <div class="map small-map medium-map large-map">

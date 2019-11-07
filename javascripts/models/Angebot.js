@@ -75,10 +75,19 @@ PflegeMap.angebot = function(params) {
   feature.setStyle(style);
 
   feature.getListElement = function() {
-    html  = '<div id="PflegeMap.careService_' + this.get('id') + '" class="pm-care-service" feature_id="' + this.get('id') + '" class="row list small-map medium-map large-map">';
+    html  = '<div id="PflegeMap.careService_' + this.get('id') + '" class="pm-care-service">';
+    html += '<div id="PflegeMap.careServiceTitle_' + this.get('id') + '">';
+    html += '<a name="PflegeMap.careService_' + this.get('id') + '"></a>';
+    html += '<i class="fa fa-angle-right"\
+              onclick="$(this).parent().next().toggle(); $(this).toggleClass(\'fa-angle-down fa-angle-right\');"\
+              onMouseOver="this.style.cursor=\'pointer\'"\
+              onMouseOut="this.style.cursor=\'default\'"\
+            ></i>';
+    html += ' <b>' + this.anrede() + '</b>';
+    html += '</div>';
+    html += '<div id="PflegeMap.careServiceContent_' + this.get('id') + '" feature_id="' + this.get('id') + '" class="row small-map medium-map large-map" style="display:none">';
 
     html += '<div class="pm-care-service-content small-100 medium-80 large-45 columns">';
-    html += '<a name="PflegeMap.careService_' + this.get('id') + '"></a><b>' + this.anrede() + '</b><br>';
     if (this.get('traeger') != '')
       html += '<i>Träger:</i> ' + this.get('traeger') + '<br>';
 
@@ -111,6 +120,7 @@ PflegeMap.angebot = function(params) {
     html += '<div class="pm-list-function-from"><i class="fa fa-flag-o fa-fw "></i> Route von hier</div>';
     html += '<div class="pm-list-function-to"><i class="fa fa-flag-checkered fa-fw"></i> Route nach hier</div>';
     html += "<a href=\"#PflegeMap.top\"><i class=\"fa fa-map-marker fa-fw\"></i> zur Karte</a>";
+    html += '</div>';
     html += '</div>';
     html += '</div>';
     html += '<div class="pflegemap-clear"></div>';

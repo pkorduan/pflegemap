@@ -237,7 +237,7 @@ a.pflegemap-help-box-close {
 }
 .pflegemap-categories label{
   display: block;
-  margin-left: 2.5em;
+/*  margin-left: 2.5em;*/
   padding-bottom: 0.5ex;
 }
 .pflegemap-clear{
@@ -571,4 +571,8 @@ hr.pflegemap-hr {
   font-size: 10px;
   color: #aaa;
   font-weight: 100;
+}
+
+.pm-more-categories {
+  display: none;
 }

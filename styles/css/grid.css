@@ -16,7 +16,7 @@ footer { background: #ffff00; }
 .list {
   margin-bottom: 0.2em;
   background-color: #eee;
-  border:2px solid #ddd;
+/*  border:2px solid #ddd; */
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   -khtml-border-radius: 5px;

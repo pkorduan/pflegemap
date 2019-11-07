@@ -171,7 +171,7 @@ hr {
     background: none;
     outline: 0;
     background-color: #ddd;
-    margin: 2em 0;
+/*    margin: 2em 0;*/
     *margin: 1em 0;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
@@ -3587,7 +3587,7 @@ table.cform textarea {
 
 section.content .row {
     border-bottom: 4px solid #edeae5;
-    margin: 0 0 1.6em;
+/*    margin: 0 0 1.6em; */
     padding-bottom: 1.6em;
     display: block;
 }
